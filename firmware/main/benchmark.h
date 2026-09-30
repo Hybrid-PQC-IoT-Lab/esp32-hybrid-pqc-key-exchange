@@ -56,6 +56,10 @@ int benchmark_run_single(handshake_mode_t mode, benchmark_result_t *result,
 int benchmark_run_suite(int iterations, const char *server_host, int server_port,
                         benchmark_stats_t stats[3]);
 
+/* Run single-mode benchmark campaign (e.g. n=100 Hybrid) */
+int benchmark_run_campaign(handshake_mode_t mode, int iterations, const char *server_host, int server_port,
+                           benchmark_stats_t *stats);
+
 /* Print benchmark results to serial */
 void benchmark_print_result(const benchmark_result_t *result);
 void benchmark_print_stats(const benchmark_stats_t *stats);

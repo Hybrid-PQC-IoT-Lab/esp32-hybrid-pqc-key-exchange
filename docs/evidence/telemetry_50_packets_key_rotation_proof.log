@@ -1,0 +1,946 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+I (29) boot: ESP-IDF v5.5 2nd stage bootloader
+I (29) boot: compile time Sep 30 2026 03:01:03
+I (29) boot: Multicore bootloader
+I (30) boot: chip revision: v3.1
+I (33) boot.esp32: SPI Speed      : 40MHz
+I (37) boot.esp32: SPI Mode       : DIO
+I (40) boot.esp32: SPI Flash Size : 4MB
+I (44) boot: Enabling RNG early entropy source...
+I (49) boot: Partition Table:
+I (51) boot: ## Label            Usage          Type ST Offset   Length
+I (57) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+I (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+I (71) boot:  2 factory          factory app      00 00 00010000 00100000
+I (77) boot: End of partition table
+I (80) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=1e058h (122968) map
+I (130) esp_image: segment 1: paddr=0002e080 vaddr=3ff80000 size=00020h (    32) load
+I (130) esp_image: segment 2: paddr=0002e0a8 vaddr=3ffb0000 size=01f70h (  8048) load
+I (137) esp_image: segment 3: paddr=00030020 vaddr=400d0020 size=ab064h (700516) map
+I (381) esp_image: segment 4: paddr=000db08c vaddr=3ffb1f70 size=01e70h (  7792) load
+I (384) esp_image: segment 5: paddr=000dcf04 vaddr=40080000 size=17220h ( 94752) load
+I (433) boot: Loaded app from partition at offset 0x10000
+I (433) boot: Disabling RNG early entropy source...
+I (443) cpu_start: Multicore app
+I (451) cpu_start: Pro cpu start user code
+I (451) cpu_start: cpu freq: 160000000 Hz
+I (451) app_init: Application information:
+I (451) app_init: Project name:     esp32_hybrid_pqc
+I (456) app_init: App version:      v2.0-mlkem768-final-6-g45d5f57-
+I (462) app_init: Compile time:     Sep 30 2026 03:00:05
+I (467) app_init: ELF file SHA256:  226ee06c2...
+I (472) app_init: ESP-IDF:          v5.5
+I (475) efuse_init: Min chip rev:     v0.0
+I (479) efuse_init: Max chip rev:     v3.99 
+I (483) efuse_init: Chip rev:         v3.1
+I (487) heap_init: Initializing. RAM available for dynamic allocation:
+I (493) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM
+I (498) heap_init: At 3FFB8760 len 000278A0 (158 KiB): DRAM
+I (503) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+I (509) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+I (514) heap_init: At 40097220 len 00008DE0 (35 KiB): IRAM
+I (521) spi_flash: detected chip: generic
+I (523) spi_flash: flash io: dio
+I (527) main_task: Started on CPU0
+I (530) main_task: Calling app_main()
+I (552) PQC_MAIN: 
+I (553) PQC_MAIN: ╔══════════════════════════════════════════════════════════╗
+I (561) PQC_MAIN: ║    HYBRID POST-QUANTUM CRYPTOGRAPHY — ESP32 EDGE       ║
+I (568) PQC_MAIN: ║    X25519 + ML-KEM-768 (FIPS 203) + HKDF-SHA256        ║
+I (575) PQC_MAIN: ╠══════════════════════════════════════════════════════════╣
+I (593) PQC_MAIN: ║  Chip:    ESP32 rev 301, 2 cores @ 160 MHz             ║
+I (600) PQC_MAIN: ║  SRAM:    520 KB                                        ║
+I (607) PQC_MAIN: ║  Flash:   4 MB                                          ║
+I (614) PQC_MAIN: ║  Free heap: 270760 bytes                                   ║
+I (622) PQC_MAIN: ╚══════════════════════════════════════════════════════════╝
+I (639) PQC_MAIN: 
+I (645) wifi:wifi driver task: 3ffc20bc, prio:23, stack:6656, core=0
+I (660) wifi:wifi firmware version: f3dbad7
+I (661) wifi:wifi certification version: v7.0
+I (661) wifi:config NVS flash: enabled
+I (661) wifi:config nano formatting: disabled
+I (666) wifi:Init data frame dynamic rx buffer num: 32
+I (670) wifi:Init static rx mgmt buffer num: 5
+I (674) wifi:Init management short buffer num: 32
+I (679) wifi:Init dynamic tx buffer num: 32
+I (683) wifi:Init static rx buffer size: 1600
+I (687) wifi:Init static rx buffer num: 10
+I (690) wifi:Init dynamic rx buffer num: 32
+I (696) wifi_init: rx ba win: 6
+I (697) wifi_init: accept mbox: 6
+I (700) wifi_init: tcpip mbox: 32
+I (703) wifi_init: udp mbox: 6
+I (706) wifi_init: tcp mbox: 6
+I (709) wifi_init: tcp tx win: 5760
+I (712) wifi_init: tcp rx win: 5760
+I (715) wifi_init: tcp mss: 1440
+I (718) wifi_init: WiFi IRAM OP enabled
+I (722) wifi_init: WiFi RX IRAM OP enabled
+I (727) phy_init: phy_version 4860,6b7a6e5,Feb  6 2025,14:47:07
+I (815) wifi:mode : sta (5c:01:3b:be:bc:58)
+I (816) wifi:enable tsf
+I (818) PQC_MAIN: Connecting to Wi-Fi SSID: PTCL-BB
+I (829) wifi:new:<1,1>, old:<1,0>, ap:<255,255>, sta:<1,1>, prof:1, snd_ch_cfg:0x0
+I (831) wifi:state: init -> auth (0xb0)
+I (837) wifi:state: auth -> assoc (0x0)
+I (854) wifi:state: assoc -> run (0x10)
+I (884) wifi:<ba-add>idx:0 (ifx:0, b0:ac:d2:2f:3e:5f), tid:0, ssn:0, winSize:64
+I (904) wifi:connected with PTCL-BB, aid = 8, channel 1, 40U, bssid = b0:ac:d2:2f:3e:5f
+I (905) wifi:security: WPA2-PSK, phy: bgn, rssi: -57
+I (909) wifi:pm start, type: 1
+
+I (909) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us
+I (951) wifi:AP's beacon interval = 102400 us, DTIM period = 1
+I (4017) esp_netif_handlers: sta ip: 192.168.10.22, mask: 255.255.255.0, gw: 192.168.10.1
+I (4019) PQC_MAIN: Connected! IP: 192.168.10.22
+I (4020) PQC_MAIN: Wi-Fi connected successfully
+I (4024) main_task: Returned from app_main()
+I (4024) PQC_MAIN: Starting Hybrid PQC task...
+I (4032) PQC_MAIN: 
+I (4034) PQC_MAIN: === Starting continuous hybrid telemetry (15s interval) ===
+E (4041) task_wdt: esp_task_wdt_reset(707): task not found
+I (4380) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 333163 us, 53305423 cycles
+I (4380) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (4396) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 14372 us, 2299338 cycles
+I (4396) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (4400) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (4410) PQC_MAIN: Sending handshake to http://192.168.10.23:8443/handshake (1249 bytes)...
+I (4486) PQC_MAIN: Handshake successful! Session ID: 89dfde28933db27f...
+I (4488) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (4661) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 171643 us, 27462674 cycles
+I (4661) CRYPTO_HYBRID: X25519 shared secret derived
+I (4662) CRYPTO_HYBRID: [DEBUG] PK sent: e66698f5d08c9605...d59f607e8b445a53
+I (4669) CRYPTO_HYBRID: [DEBUG] CT recv: 8b3f34fda5ee3b8c...7be8d6f67e776ac9
+I (4694) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18508 us, 2959772 cycles
+I (4695) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (4697) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (4705) PQC_MAIN: handshake_us=287188 heap after 197056
+I (9710) PQC_MAIN: Preparing telemetry #0: temp=23.0 C, humidity=63.2%, ts=9
+I (9712) CRYPTO_HYBRID: Telemetry encrypted: 90 bytes -> 118 bytes (AES-256-GCM)
+I (9714) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (134 bytes)...
+
+--- [Serial Monitor Attached] ---
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+I (29) boot: ESP-IDF v5.5 2nd stage bootloader
+I (29) boot: compile time Sep 30 2026 03:01:03
+I (29) boot: Multicore bootloader
+I (30) boot: chip revision: v3.1
+I (33) boot.esp32: SPI Speed      : 40MHz
+I (37) boot.esp32: SPI Mode       : DIO
+I (40) boot.esp32: SPI Flash Size : 4MB
+I (44) boot: Enabling RNG early entropy source...
+I (49) boot: Partition Table:
+I (51) boot: ## Label            Usage          Type ST Offset   Length
+I (57) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+I (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+I (71) boot:  2 factory          factory app      00 00 00010000 00100000
+I (77) boot: End of partition table
+I (80) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=1e058h (122968) map
+I (130) esp_image: segment 1: paddr=0002e080 vaddr=3ff80000 size=00020h (    32) load
+I (130) esp_image: segment 2: paddr=0002e0a8 vaddr=3ffb0000 size=01f70h (  8048) load
+I (137) esp_image: segment 3: paddr=00030020 vaddr=400d0020 size=ab064h (700516) map
+I (381) esp_image: segment 4: paddr=000db08c vaddr=3ffb1f70 size=01e70h (  7792) load
+I (384) esp_image: segment 5: paddr=000dcf04 vaddr=40080000 size=17220h ( 94752) load
+I (433) boot: Loaded app from partition at offset 0x10000
+I (433) boot: Disabling RNG early entropy source...
+I (443) cpu_start: Multicore app
+I (451) cpu_start: Pro cpu start user code
+I (451) cpu_start: cpu freq: 160000000 Hz
+I (451) app_init: Application information:
+I (451) app_init: Project name:     esp32_hybrid_pqc
+I (456) app_init: App version:      v2.0-mlkem768-final-6-g45d5f57-
+I (462) app_init: Compile time:     Sep 30 2026 03:00:05
+I (467) app_init: ELF file SHA256:  226ee06c2...
+I (472) app_init: ESP-IDF:          v5.5
+I (475) efuse_init: Min chip rev:     v0.0
+I (479) efuse_init: Max chip rev:     v3.99 
+I (483) efuse_init: Chip rev:         v3.1
+I (487) heap_init: Initializing. RAM available for dynamic allocation:
+I (493) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM
+I (498) heap_init: At 3FFB8760 len 000278A0 (158 KiB): DRAM
+I (503) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+I (509) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+I (514) heap_init: At 40097220 len 00008DE0 (35 KiB): IRAM
+I (521) spi_flash: detected chip: generic
+I (523) spi_flash: flash io: dio
+I (527) main_task: Started on CPU0
+I (530) main_task: Calling app_main()
+I (552) PQC_MAIN: 
+I (553) PQC_MAIN: ╔══════════════════════════════════════════════════════════╗
+I (561) PQC_MAIN: ║    HYBRID POST-QUANTUM CRYPTOGRAPHY — ESP32 EDGE       ║
+I (568) PQC_MAIN: ║    X25519 + ML-KEM-768 (FIPS 203) + HKDF-SHA256        ║
+I (575) PQC_MAIN: ╠══════════════════════════════════════════════════════════╣
+I (593) PQC_MAIN: ║  Chip:    ESP32 rev 301, 2 cores @ 160 MHz             ║
+I (600) PQC_MAIN: ║  SRAM:    520 KB                                        ║
+I (607) PQC_MAIN: ║  Flash:   4 MB                                          ║
+I (614) PQC_MAIN: ║  Free heap: 270760 bytes                                   ║
+I (622) PQC_MAIN: ╚══════════════════════════════════════════════════════════╝
+I (639) PQC_MAIN: 
+I (645) wifi:wifi driver task: 3ffc20bc, prio:23, stack:6656, core=0
+I (660) wifi:wifi firmware version: f3dbad7
+I (661) wifi:wifi certification version: v7.0
+I (661) wifi:config NVS flash: enabled
+I (661) wifi:config nano formatting: disabled
+I (666) wifi:Init data frame dynamic rx buffer num: 32
+I (670) wifi:Init static rx mgmt buffer num: 5
+I (674) wifi:Init management short buffer num: 32
+I (679) wifi:Init dynamic tx buffer num: 32
+I (683) wifi:Init static rx buffer size: 1600
+I (687) wifi:Init static rx buffer num: 10
+I (691) wifi:Init dynamic rx buffer num: 32
+I (696) wifi_init: rx ba win: 6
+I (697) wifi_init: accept mbox: 6
+I (700) wifi_init: tcpip mbox: 32
+I (703) wifi_init: udp mbox: 6
+I (706) wifi_init: tcp mbox: 6
+I (709) wifi_init: tcp tx win: 5760
+I (712) wifi_init: tcp rx win: 5760
+I (715) wifi_init: tcp mss: 1440
+I (718) wifi_init: WiFi IRAM OP enabled
+I (722) wifi_init: WiFi RX IRAM OP enabled
+I (727) phy_init: phy_version 4860,6b7a6e5,Feb  6 2025,14:47:07
+I (814) wifi:mode : sta (5c:01:3b:be:bc:58)
+I (816) wifi:enable tsf
+I (818) PQC_MAIN: Connecting to Wi-Fi SSID: PTCL-BB
+I (829) wifi:new:<1,1>, old:<1,0>, ap:<255,255>, sta:<1,1>, prof:1, snd_ch_cfg:0x0
+I (831) wifi:state: init -> auth (0xb0)
+I (921) wifi:state: auth -> assoc (0x0)
+I (931) wifi:state: assoc -> run (0x10)
+I (1022) wifi:<ba-add>idx:0 (ifx:0, b0:ac:d2:2f:3e:5f), tid:0, ssn:0, winSize:64
+I (1231) wifi:connected with PTCL-BB, aid = 8, channel 1, 40U, bssid = b0:ac:d2:2f:3e:5f
+I (1232) wifi:security: WPA2-PSK, phy: bgn, rssi: -58
+I (1236) wifi:pm start, type: 1
+
+I (1236) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us
+I (1326) wifi:AP's beacon interval = 102400 us, DTIM period = 1
+I (4903) esp_netif_handlers: sta ip: 192.168.10.22, mask: 255.255.255.0, gw: 192.168.10.1
+I (4905) PQC_MAIN: Connected! IP: 192.168.10.22
+I (4906) PQC_MAIN: Wi-Fi connected successfully
+I (4911) main_task: Returned from app_main()
+I (4911) PQC_MAIN: Starting Hybrid PQC task...
+I (4919) PQC_MAIN: 
+I (4920) PQC_MAIN: === Starting continuous hybrid telemetry (15s interval) ===
+E (4927) task_wdt: esp_task_wdt_reset(707): task not found
+I (5264) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 331247 us, 52998765 cycles
+I (5265) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (5280) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 14373 us, 2299448 cycles
+I (5281) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (5285) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (5295) PQC_MAIN: Sending handshake to http://192.168.10.23:8443/handshake (1249 bytes)...
+I (7903) PQC_MAIN: Handshake successful! Session ID: fb492544115b0997...
+I (7905) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (8078) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 172289 us, 27566191 cycles
+I (8078) CRYPTO_HYBRID: X25519 shared secret derived
+I (8079) CRYPTO_HYBRID: [DEBUG] PK sent: 3879ad24b9817951...0a27bb72b488c37c
+I (8086) CRYPTO_HYBRID: [DEBUG] CT recv: 61b3496e3d510e95...9eb9fe373202c716
+I (8112) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18519 us, 2961718 cycles
+I (8112) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (8114) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (8122) PQC_MAIN: handshake_us=2820048 heap after 197032
+I (13128) PQC_MAIN: Preparing telemetry #0: temp=31.9 C, humidity=62.2%, ts=12
+I (13130) CRYPTO_HYBRID: Telemetry encrypted: 91 bytes -> 119 bytes (AES-256-GCM)
+I (13132) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (135 bytes)...
+I (15073) CRYPTO_HYBRID: Telemetry response decrypted successfully: 143 bytes -> 115 bytes
+I (15074) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:14:14.000983", "received_seq": 0}
+I (20086) PQC_MAIN: Preparing telemetry #1: temp=22.5 C, humidity=54.2%, ts=19
+I (20088) CRYPTO_HYBRID: Telemetry encrypted: 91 bytes -> 119 bytes (AES-256-GCM)
+I (20090) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (135 bytes)...
+I (20157) CRYPTO_HYBRID: Telemetry response decrypted successfully: 143 bytes -> 115 bytes
+I (20158) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:14:19.129156", "received_seq": 1}
+I (25170) PQC_MAIN: Preparing telemetry #2: temp=31.2 C, humidity=51.7%, ts=24
+I (25172) CRYPTO_HYBRID: Telemetry encrypted: 91 bytes -> 119 bytes (AES-256-GCM)
+I (25174) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (135 bytes)...
+I (25415) CRYPTO_HYBRID: Telemetry response decrypted successfully: 143 bytes -> 115 bytes
+I (25416) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:14:24.396615", "received_seq": 2}
+I (30428) PQC_MAIN: Preparing telemetry #3: temp=28.4 C, humidity=45.0%, ts=29
+I (30430) CRYPTO_HYBRID: Telemetry encrypted: 91 bytes -> 119 bytes (AES-256-GCM)
+I (30432) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (135 bytes)...
+I (30466) CRYPTO_HYBRID: Telemetry response decrypted successfully: 143 bytes -> 115 bytes
+I (30467) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:14:29.448674", "received_seq": 3}
+I (35479) PQC_MAIN: Preparing telemetry #4: temp=24.8 C, humidity=64.7%, ts=34
+I (35481) CRYPTO_HYBRID: Telemetry encrypted: 91 bytes -> 119 bytes (AES-256-GCM)
+I (35483) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (135 bytes)...
+I (35524) CRYPTO_HYBRID: Telemetry response decrypted successfully: 143 bytes -> 115 bytes
+I (35525) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:14:34.506263", "received_seq": 4}
+I (40537) PQC_MAIN: Preparing telemetry #5: temp=28.3 C, humidity=47.5%, ts=40
+I (40539) CRYPTO_HYBRID: Telemetry encrypted: 91 bytes -> 119 bytes (AES-256-GCM)
+I (40541) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (135 bytes)...
+I (40579) CRYPTO_HYBRID: Telemetry response decrypted successfully: 143 bytes -> 115 bytes
+I (40579) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:14:39.562947", "received_seq": 5}
+I (45592) PQC_MAIN: Preparing telemetry #6: temp=25.2 C, humidity=62.6%, ts=45
+I (45594) CRYPTO_HYBRID: Telemetry encrypted: 91 bytes -> 119 bytes (AES-256-GCM)
+I (45596) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (135 bytes)...
+I (45631) CRYPTO_HYBRID: Telemetry response decrypted successfully: 143 bytes -> 115 bytes
+I (45632) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:14:44.630683", "received_seq": 6}
+I (50645) PQC_MAIN: Preparing telemetry #7: temp=22.7 C, humidity=48.9%, ts=50
+I (50647) CRYPTO_HYBRID: Telemetry encrypted: 91 bytes -> 119 bytes (AES-256-GCM)
+I (50649) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (135 bytes)...
+I (50695) CRYPTO_HYBRID: Telemetry response decrypted successfully: 143 bytes -> 115 bytes
+I (50696) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:14:49.781181", "received_seq": 7}
+I (55708) PQC_MAIN: Preparing telemetry #8: temp=31.9 C, humidity=56.4%, ts=55
+I (55710) CRYPTO_HYBRID: Telemetry encrypted: 91 bytes -> 119 bytes (AES-256-GCM)
+I (55712) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (135 bytes)...
+I (55749) CRYPTO_HYBRID: Telemetry response decrypted successfully: 143 bytes -> 115 bytes
+I (55750) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:14:54.890101", "received_seq": 8}
+I (60762) PQC_MAIN: Preparing telemetry #9: temp=23.7 C, humidity=57.3%, ts=60
+I (60764) CRYPTO_HYBRID: Telemetry encrypted: 91 bytes -> 119 bytes (AES-256-GCM)
+I (60766) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (135 bytes)...
+I (60813) CRYPTO_HYBRID: Telemetry response decrypted successfully: 143 bytes -> 115 bytes
+I (60814) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:14:59.970064", "received_seq": 9}
+I (65826) PQC_MAIN: Preparing telemetry #10: temp=27.5 C, humidity=48.9%, ts=65
+I (65828) CRYPTO_HYBRID: Telemetry encrypted: 92 bytes -> 120 bytes (AES-256-GCM)
+I (65830) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (136 bytes)...
+I (65890) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (65891) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:15:05.060957", "received_seq": 10}
+I (70903) PQC_MAIN: Preparing telemetry #11: temp=26.6 C, humidity=64.9%, ts=70
+I (70905) CRYPTO_HYBRID: Telemetry encrypted: 92 bytes -> 120 bytes (AES-256-GCM)
+I (70907) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (136 bytes)...
+I (70947) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (70947) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:15:10.134546", "received_seq": 11}
+I (75960) PQC_MAIN: Preparing telemetry #12: temp=31.7 C, humidity=53.5%, ts=75
+I (75962) CRYPTO_HYBRID: Telemetry encrypted: 92 bytes -> 120 bytes (AES-256-GCM)
+I (75964) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (136 bytes)...
+I (76003) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (76004) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:15:15.196878", "received_seq": 12}
+I (81016) PQC_MAIN: Preparing telemetry #13: temp=22.2 C, humidity=55.1%, ts=80
+I (81018) CRYPTO_HYBRID: Telemetry encrypted: 92 bytes -> 120 bytes (AES-256-GCM)
+I (81020) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (136 bytes)...
+I (81065) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (81066) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:15:20.262208", "received_seq": 13}
+I (86078) PQC_MAIN: Preparing telemetry #14: temp=23.1 C, humidity=58.5%, ts=85
+I (86080) CRYPTO_HYBRID: Telemetry encrypted: 92 bytes -> 120 bytes (AES-256-GCM)
+I (86082) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (136 bytes)...
+I (86158) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (86159) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:15:25.358572", "received_seq": 14}
+I (91171) PQC_MAIN: Preparing telemetry #15: temp=29.7 C, humidity=45.6%, ts=90
+I (91173) CRYPTO_HYBRID: Telemetry encrypted: 92 bytes -> 120 bytes (AES-256-GCM)
+I (91175) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (136 bytes)...
+I (91221) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (91222) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:15:30.424016", "received_seq": 15}
+I (96234) PQC_MAIN: Preparing telemetry #16: temp=29.6 C, humidity=62.1%, ts=95
+I (96236) CRYPTO_HYBRID: Telemetry encrypted: 92 bytes -> 120 bytes (AES-256-GCM)
+I (96238) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (136 bytes)...
+I (96299) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (96299) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:15:35.466275", "received_seq": 16}
+I (101312) PQC_MAIN: Preparing telemetry #17: temp=31.1 C, humidity=63.8%, ts=100
+I (101314) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (101316) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (101359) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (101361) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:15:40.494796", "received_seq": 17}
+I (106373) PQC_MAIN: Preparing telemetry #18: temp=28.1 C, humidity=47.3%, ts=105
+I (106375) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (106377) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (106437) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (106438) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:15:45.541897", "received_seq": 18}
+I (111450) PQC_MAIN: Preparing telemetry #19: temp=22.4 C, humidity=56.6%, ts=110
+I (111452) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (111454) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (111519) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (111520) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:15:50.623446", "received_seq": 19}
+I (116532) PQC_MAIN: Preparing telemetry #20: temp=30.7 C, humidity=47.1%, ts=116
+I (116534) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (116536) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (116585) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (116586) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:15:55.685995", "received_seq": 20}
+I (121598) PQC_MAIN: Preparing telemetry #21: temp=29.8 C, humidity=53.6%, ts=121
+I (121600) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (121602) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (121659) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (121660) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:16:00.744212", "received_seq": 21}
+I (126672) PQC_MAIN: Preparing telemetry #22: temp=24.2 C, humidity=58.5%, ts=126
+I (126674) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (126676) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (126710) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (126711) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:16:05.750623", "received_seq": 22}
+I (131724) PQC_MAIN: Preparing telemetry #23: temp=31.0 C, humidity=62.4%, ts=131
+I (131726) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (131728) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (131763) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (131764) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:16:10.701761", "received_seq": 23}
+I (136776) PQC_MAIN: Preparing telemetry #24: temp=25.1 C, humidity=55.1%, ts=136
+I (136778) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (136780) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (136824) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (136825) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:16:15.705724", "received_seq": 24}
+I (141838) PQC_MAIN: Preparing telemetry #25: temp=22.3 C, humidity=46.6%, ts=141
+I (141840) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (141842) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (141890) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (141891) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:16:20.741877", "received_seq": 25}
+I (146904) PQC_MAIN: Preparing telemetry #26: temp=30.8 C, humidity=61.3%, ts=146
+I (146906) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (146908) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (146965) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (146967) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:16:25.805473", "received_seq": 26}
+I (151979) PQC_MAIN: Preparing telemetry #27: temp=26.1 C, humidity=55.7%, ts=151
+I (151981) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (151983) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (152023) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (152023) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:16:30.853442", "received_seq": 27}
+I (157036) PQC_MAIN: Preparing telemetry #28: temp=31.8 C, humidity=57.6%, ts=156
+I (157038) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (157040) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (157075) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (157076) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:16:35.899713", "received_seq": 28}
+I (162089) PQC_MAIN: Preparing telemetry #29: temp=31.4 C, humidity=59.7%, ts=161
+I (162091) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (162093) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (162130) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (162131) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:16:40.950090", "received_seq": 29}
+I (167143) PQC_MAIN: Preparing telemetry #30: temp=28.4 C, humidity=54.9%, ts=166
+I (167145) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (167147) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (167183) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (167184) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:16:45.999069", "received_seq": 30}
+I (172196) PQC_MAIN: Preparing telemetry #31: temp=24.2 C, humidity=57.0%, ts=171
+I (172198) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (172200) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (172245) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (172246) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:16:51.053078", "received_seq": 31}
+I (177258) PQC_MAIN: Preparing telemetry #32: temp=25.4 C, humidity=61.1%, ts=176
+I (177260) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (177262) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (177304) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (177305) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:16:56.110074", "received_seq": 32}
+I (182318) PQC_MAIN: Preparing telemetry #33: temp=27.4 C, humidity=61.8%, ts=181
+I (182320) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (182322) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (182362) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (182363) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:17:01.167362", "received_seq": 33}
+I (187375) PQC_MAIN: Preparing telemetry #34: temp=22.0 C, humidity=48.8%, ts=186
+I (187377) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (187379) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (188788) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (188789) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:17:07.458279", "received_seq": 34}
+I (193801) PQC_MAIN: Preparing telemetry #35: temp=23.2 C, humidity=52.0%, ts=193
+I (193803) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (193805) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (193861) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (193862) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:17:12.659315", "received_seq": 35}
+I (198874) PQC_MAIN: Preparing telemetry #36: temp=27.0 C, humidity=52.8%, ts=198
+I (198876) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (198878) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (198919) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (198920) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:17:17.718074", "received_seq": 36}
+I (203933) PQC_MAIN: Preparing telemetry #37: temp=24.4 C, humidity=60.7%, ts=203
+I (203935) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (203937) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (203973) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (203974) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:17:22.769004", "received_seq": 37}
+I (208986) PQC_MAIN: Preparing telemetry #38: temp=24.9 C, humidity=59.3%, ts=208
+I (208988) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (208990) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (209028) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (209029) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:17:27.821773", "received_seq": 38}
+I (214042) PQC_MAIN: Preparing telemetry #39: temp=28.3 C, humidity=54.0%, ts=213
+I (214044) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (214046) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (214080) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (214081) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:17:32.870443", "received_seq": 39}
+I (219093) PQC_MAIN: Preparing telemetry #40: temp=29.4 C, humidity=53.8%, ts=218
+I (219095) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (219097) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (219136) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (219137) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:17:37.921146", "received_seq": 40}
+I (224149) PQC_MAIN: Preparing telemetry #41: temp=31.4 C, humidity=50.7%, ts=223
+I (224151) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (224154) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (224189) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (224190) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:17:42.974304", "received_seq": 41}
+I (229202) PQC_MAIN: Preparing telemetry #42: temp=27.0 C, humidity=54.1%, ts=228
+I (229204) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (229206) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (229246) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (229247) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:17:48.028169", "received_seq": 42}
+I (234260) PQC_MAIN: Preparing telemetry #43: temp=24.4 C, humidity=51.8%, ts=233
+I (234262) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (234264) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (234304) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (234305) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:17:53.082951", "received_seq": 43}
+I (239317) PQC_MAIN: Preparing telemetry #44: temp=31.7 C, humidity=64.7%, ts=238
+I (239319) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (239321) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (239375) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (239375) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:17:58.141821", "received_seq": 44}
+I (244388) PQC_MAIN: Preparing telemetry #45: temp=24.4 C, humidity=60.7%, ts=243
+I (244390) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (244392) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (244429) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (244430) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:18:03.202879", "received_seq": 45}
+I (249442) PQC_MAIN: Preparing telemetry #46: temp=29.1 C, humidity=46.7%, ts=248
+I (249444) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (249447) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (249481) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (249481) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:18:08.252361", "received_seq": 46}
+I (254494) PQC_MAIN: Preparing telemetry #47: temp=26.9 C, humidity=61.8%, ts=253
+I (254496) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (254498) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (254540) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (254541) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:18:13.309332", "received_seq": 47}
+I (259554) PQC_MAIN: Preparing telemetry #48: temp=23.9 C, humidity=53.1%, ts=259
+I (259556) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (259558) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (259611) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (259612) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:18:18.377490", "received_seq": 48}
+I (264624) PQC_MAIN: Preparing telemetry #49: temp=30.1 C, humidity=57.4%, ts=264
+I (264626) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (264628) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (264664) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (264664) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:18:23.427543", "received_seq": 49}
+I (264677) PQC_MAIN: Key rotation threshold reached. Rotating keys...
+I (264683) PQC_MAIN: Session key successfully rotated after 50 telemetry packets.
+I (264690) CRYPTO_HYBRID: All key material zeroized
+I (264695) PQC_MAIN: Waiting 15 seconds before next handshake...
+E (279701) task_wdt: esp_task_wdt_reset(707): task not found
+I (280035) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 333566 us, 53369881 cycles
+I (280036) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (280052) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 14356 us, 2296962 cycles
+I (280052) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (280057) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (280067) PQC_MAIN: Sending handshake to http://192.168.10.23:8443/handshake (1249 bytes)...
+I (280103) PQC_MAIN: Handshake successful! Session ID: 416e1e00bdbd4674...
+I (280105) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (280276) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 169992 us, 27198548 cycles
+I (280276) CRYPTO_HYBRID: X25519 shared secret derived
+I (280278) CRYPTO_HYBRID: [DEBUG] PK sent: a978cee588c640e5...37a46800f6b164b1
+I (280285) CRYPTO_HYBRID: [DEBUG] CT recv: add64ca607caef56...b6a2c709641647f7
+I (280310) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18511 us, 2960338 cycles
+I (280310) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (280313) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (280321) PQC_MAIN: handshake_us=246862 heap after 196812
+I (285327) PQC_MAIN: Preparing telemetry #50: temp=26.3 C, humidity=47.3%, ts=284
+I (285329) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (285331) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (285368) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (285368) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:18:44.118491", "received_seq": 50}
+I (290381) PQC_MAIN: Preparing telemetry #51: temp=29.9 C, humidity=47.8%, ts=289
+I (290383) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (290385) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (290426) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (290427) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:18:49.174303", "received_seq": 51}
+I (295440) PQC_MAIN: Preparing telemetry #52: temp=22.8 C, humidity=63.2%, ts=294
+I (295442) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (295444) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (295484) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (295484) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:18:54.230136", "received_seq": 52}
+I (300497) PQC_MAIN: Preparing telemetry #53: temp=28.5 C, humidity=50.8%, ts=299
+I (300499) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (300501) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (300559) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (300560) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:18:59.303180", "received_seq": 53}
+I (305572) PQC_MAIN: Preparing telemetry #54: temp=30.0 C, humidity=59.4%, ts=305
+I (305574) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (305576) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (305612) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (305613) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:19:04.353664", "received_seq": 54}
+I (310625) PQC_MAIN: Preparing telemetry #55: temp=28.4 C, humidity=57.8%, ts=310
+I (310627) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (310629) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (310664) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (310665) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:19:09.402940", "received_seq": 55}
+I (315677) PQC_MAIN: Preparing telemetry #56: temp=29.7 C, humidity=50.6%, ts=315
+I (315679) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (315681) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (315723) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (315724) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:19:14.458916", "received_seq": 56}
+I (320736) PQC_MAIN: Preparing telemetry #57: temp=23.5 C, humidity=45.3%, ts=320
+I (320738) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (320740) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (320777) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (320777) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:19:19.510284", "received_seq": 57}
+I (325790) PQC_MAIN: Preparing telemetry #58: temp=31.3 C, humidity=52.2%, ts=325
+I (325792) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (325794) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (325834) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (325835) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:19:24.563863", "received_seq": 58}
+I (330848) PQC_MAIN: Preparing telemetry #59: temp=30.3 C, humidity=53.7%, ts=330
+I (330850) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (330852) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (331159) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (331160) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:19:29.886741", "received_seq": 59}
+I (336172) PQC_MAIN: Preparing telemetry #60: temp=28.8 C, humidity=55.6%, ts=335
+I (336174) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (336176) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (336814) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (336815) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:19:35.538646", "received_seq": 60}
+I (341828) PQC_MAIN: Preparing telemetry #61: temp=22.9 C, humidity=64.9%, ts=341
+I (341830) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (341832) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (341866) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (341867) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:19:40.589361", "received_seq": 61}
+I (346880) PQC_MAIN: Preparing telemetry #62: temp=25.3 C, humidity=45.7%, ts=346
+I (346882) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (346884) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (346985) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (346986) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:19:45.683031", "received_seq": 62}
+I (351998) PQC_MAIN: Preparing telemetry #63: temp=30.7 C, humidity=56.7%, ts=351
+I (352000) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (352002) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (353726) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (353727) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:19:52.313101", "received_seq": 63}
+I (358740) PQC_MAIN: Preparing telemetry #64: temp=29.6 C, humidity=48.5%, ts=358
+I (358742) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (358744) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (359056) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (359056) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:19:57.765568", "received_seq": 64}
+I (364069) PQC_MAIN: Preparing telemetry #65: temp=30.6 C, humidity=63.3%, ts=363
+I (364071) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (364073) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (364384) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (364385) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:20:03.094665", "received_seq": 65}
+I (369397) PQC_MAIN: Preparing telemetry #66: temp=27.6 C, humidity=63.4%, ts=368
+I (369399) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (369401) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (369436) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (369437) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:20:08.144214", "received_seq": 66}
+I (374450) PQC_MAIN: Preparing telemetry #67: temp=23.0 C, humidity=61.4%, ts=373
+I (374452) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (374454) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (374497) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (374498) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:20:13.199735", "received_seq": 67}
+I (379510) PQC_MAIN: Preparing telemetry #68: temp=23.9 C, humidity=57.1%, ts=378
+I (379512) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (379514) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (379556) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (379558) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:20:18.258742", "received_seq": 68}
+I (384570) PQC_MAIN: Preparing telemetry #69: temp=23.1 C, humidity=53.7%, ts=384
+I (384572) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (384574) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (384607) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (384608) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:20:23.307242", "received_seq": 69}
+I (389621) PQC_MAIN: Preparing telemetry #70: temp=31.7 C, humidity=59.5%, ts=389
+I (389623) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (389625) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (389660) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (389661) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:20:28.356965", "received_seq": 70}
+I (394673) PQC_MAIN: Preparing telemetry #71: temp=30.6 C, humidity=51.3%, ts=394
+I (394675) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (394677) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (396545) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (396546) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:20:35.194796", "received_seq": 71}
+I (401558) PQC_MAIN: Preparing telemetry #72: temp=25.0 C, humidity=50.0%, ts=401
+I (401560) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (401562) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (403787) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (403787) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:20:42.284483", "received_seq": 72}
+I (408800) PQC_MAIN: Preparing telemetry #73: temp=22.4 C, humidity=46.7%, ts=408
+I (408802) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (408804) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (409952) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (409952) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:20:48.530247", "received_seq": 73}
+I (414965) PQC_MAIN: Preparing telemetry #74: temp=23.4 C, humidity=52.8%, ts=414
+I (414967) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (414969) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (415010) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (415011) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:20:53.691559", "received_seq": 74}
+I (420024) PQC_MAIN: Preparing telemetry #75: temp=23.7 C, humidity=55.0%, ts=419
+I (420026) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (420028) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (420072) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (420072) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:20:58.749098", "received_seq": 75}
+I (425085) PQC_MAIN: Preparing telemetry #76: temp=26.4 C, humidity=62.4%, ts=424
+I (425087) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (425089) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (425135) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (425136) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:21:03.811807", "received_seq": 76}
+I (430149) PQC_MAIN: Preparing telemetry #77: temp=29.6 C, humidity=50.3%, ts=429
+I (430151) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (430153) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (430191) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (430192) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:21:08.864680", "received_seq": 77}
+I (435204) PQC_MAIN: Preparing telemetry #78: temp=22.7 C, humidity=45.7%, ts=434
+I (435206) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (435208) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (435247) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (435247) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:21:13.919362", "received_seq": 78}
+I (440260) PQC_MAIN: Preparing telemetry #79: temp=24.4 C, humidity=57.2%, ts=439
+I (440262) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (440264) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (440306) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (440306) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:21:18.975468", "received_seq": 79}
+I (445319) PQC_MAIN: Preparing telemetry #80: temp=30.7 C, humidity=53.7%, ts=444
+I (445321) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (445323) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (445364) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (445365) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:21:24.030631", "received_seq": 80}
+I (450378) PQC_MAIN: Preparing telemetry #81: temp=25.1 C, humidity=45.3%, ts=449
+I (450380) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (450382) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (450418) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (450419) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:21:29.081770", "received_seq": 81}
+I (455432) PQC_MAIN: Preparing telemetry #82: temp=27.7 C, humidity=45.1%, ts=454
+I (455434) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (455436) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (455471) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (455472) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:21:34.131963", "received_seq": 82}
+I (460484) PQC_MAIN: Preparing telemetry #83: temp=23.5 C, humidity=54.4%, ts=459
+I (460486) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (460488) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (460525) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (460525) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:21:39.183875", "received_seq": 83}
+I (465538) PQC_MAIN: Preparing telemetry #84: temp=28.7 C, humidity=45.3%, ts=465
+I (465540) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (465542) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (465596) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (465597) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:21:44.251414", "received_seq": 84}
+I (470609) PQC_MAIN: Preparing telemetry #85: temp=28.1 C, humidity=56.2%, ts=470
+I (470611) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (470613) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (470659) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (470659) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:21:49.312271", "received_seq": 85}
+I (475672) PQC_MAIN: Preparing telemetry #86: temp=30.5 C, humidity=51.8%, ts=475
+I (475674) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (475676) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (475756) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (475757) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:21:54.406299", "received_seq": 86}
+I (480769) PQC_MAIN: Preparing telemetry #87: temp=24.2 C, humidity=58.4%, ts=480
+I (480771) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (480773) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (480818) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (480820) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:21:59.465786", "received_seq": 87}
+I (485832) PQC_MAIN: Preparing telemetry #88: temp=29.5 C, humidity=51.9%, ts=485
+I (485834) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (485836) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (486913) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (486914) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:22:05.558086", "received_seq": 88}
+I (491926) PQC_MAIN: Preparing telemetry #89: temp=26.7 C, humidity=52.9%, ts=491
+I (491928) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (491930) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (491996) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (491997) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:22:11.100362", "received_seq": 89}
+I (497009) PQC_MAIN: Preparing telemetry #90: temp=30.1 C, humidity=60.6%, ts=496
+I (497011) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (497013) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (497049) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (497050) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:22:16.155922", "received_seq": 90}
+I (502062) PQC_MAIN: Preparing telemetry #91: temp=28.9 C, humidity=56.8%, ts=501
+I (502064) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (502066) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (502106) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (502107) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:22:21.210244", "received_seq": 91}
+I (507119) PQC_MAIN: Preparing telemetry #92: temp=29.6 C, humidity=61.5%, ts=506
+I (507121) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (507123) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (507159) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (507159) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:22:26.260094", "received_seq": 92}
+I (512172) PQC_MAIN: Preparing telemetry #93: temp=23.1 C, humidity=57.0%, ts=511
+I (512174) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (512176) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (512215) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (512215) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:22:31.314164", "received_seq": 93}
+I (517228) PQC_MAIN: Preparing telemetry #94: temp=24.9 C, humidity=47.5%, ts=516
+I (517230) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (517232) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (517273) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (517274) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:22:36.366134", "received_seq": 94}
+I (522286) PQC_MAIN: Preparing telemetry #95: temp=26.8 C, humidity=57.0%, ts=521
+I (522288) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (522290) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (522329) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (522330) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:22:41.426880", "received_seq": 95}
+I (527342) PQC_MAIN: Preparing telemetry #96: temp=30.4 C, humidity=62.4%, ts=526
+I (527344) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (527346) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (527393) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (527393) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:22:46.527547", "received_seq": 96}
+I (532406) PQC_MAIN: Preparing telemetry #97: temp=23.4 C, humidity=61.4%, ts=531
+I (532408) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (532410) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (532454) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (532455) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:22:51.604532", "received_seq": 97}
+I (537467) PQC_MAIN: Preparing telemetry #98: temp=31.9 C, humidity=46.6%, ts=536
+I (537469) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (537471) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (537527) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (537527) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:22:56.686860", "received_seq": 98}
+I (542540) PQC_MAIN: Preparing telemetry #99: temp=23.2 C, humidity=63.6%, ts=542
+I (542542) CRYPTO_HYBRID: Telemetry encrypted: 93 bytes -> 121 bytes (AES-256-GCM)
+I (542544) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (137 bytes)...
+I (542578) CRYPTO_HYBRID: Telemetry response decrypted successfully: 144 bytes -> 116 bytes
+I (542579) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:23:01.740270", "received_seq": 99}
+I (542591) PQC_MAIN: Key rotation threshold reached. Rotating keys...
+I (542598) PQC_MAIN: Session key successfully rotated after 50 telemetry packets.
+I (542605) CRYPTO_HYBRID: All key material zeroized
+I (542609) PQC_MAIN: Waiting 15 seconds before next handshake...
+E (557615) task_wdt: esp_task_wdt_reset(707): task not found
+I (557947) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 330924 us, 52947207 cycles
+I (557947) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (557963) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 14355 us, 2296742 cycles
+I (557964) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (557968) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (557978) PQC_MAIN: Sending handshake to http://192.168.10.23:8443/handshake (1249 bytes)...
+I (558039) PQC_MAIN: Handshake successful! Session ID: 4fc840500b5bad27...
+I (558042) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (558215) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 172216 us, 27554429 cycles
+I (558215) CRYPTO_HYBRID: X25519 shared secret derived
+I (558217) CRYPTO_HYBRID: [DEBUG] PK sent: 831125dcf8176ae4...65a62b21150da735
+I (558224) CRYPTO_HYBRID: [DEBUG] CT recv: d7f215c61ca06496...45762036a9193de4
+I (558249) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18505 us, 2959544 cycles
+I (558249) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (558252) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (558260) PQC_MAIN: handshake_us=274618 heap after 195752
+I (563266) PQC_MAIN: Preparing telemetry #100: temp=31.7 C, humidity=45.6%, ts=562
+I (563268) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (563271) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (563315) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (563316) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:23:22.203941", "received_seq": 100}
+I (568328) PQC_MAIN: Preparing telemetry #101: temp=22.6 C, humidity=45.0%, ts=567
+I (568330) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (568333) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (568375) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (568375) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:23:27.208823", "received_seq": 101}
+I (573388) PQC_MAIN: Preparing telemetry #102: temp=23.9 C, humidity=61.5%, ts=572
+I (573390) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (573393) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (573489) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (573491) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:23:32.293102", "received_seq": 102}
+I (578503) PQC_MAIN: Preparing telemetry #103: temp=27.4 C, humidity=51.2%, ts=577
+I (578505) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (578507) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (578542) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (578544) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:23:37.330033", "received_seq": 103}
+I (583556) PQC_MAIN: Preparing telemetry #104: temp=25.8 C, humidity=51.1%, ts=583
+I (583558) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (583560) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (583642) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (583643) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:23:42.419117", "received_seq": 104}
+I (588655) PQC_MAIN: Preparing telemetry #105: temp=22.8 C, humidity=59.5%, ts=588
+I (588657) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (588659) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (589571) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (589572) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:23:48.392722", "received_seq": 105}
+I (594584) PQC_MAIN: Preparing telemetry #106: temp=23.4 C, humidity=47.2%, ts=594
+I (594586) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (594589) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (594646) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (594647) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:23:53.623127", "received_seq": 106}
+I (599660) PQC_MAIN: Preparing telemetry #107: temp=25.2 C, humidity=46.6%, ts=599
+I (599662) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (599665) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (599716) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (599717) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:23:58.767533", "received_seq": 107}
+I (604729) PQC_MAIN: Preparing telemetry #108: temp=30.7 C, humidity=53.7%, ts=604
+I (604731) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (604734) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (604784) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (604785) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:24:03.875891", "received_seq": 108}
+I (609798) PQC_MAIN: Preparing telemetry #109: temp=28.9 C, humidity=54.2%, ts=609
+I (609800) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (609802) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (609844) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (609845) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:24:08.958041", "received_seq": 109}
+I (614857) PQC_MAIN: Preparing telemetry #110: temp=28.4 C, humidity=47.7%, ts=614
+I (614859) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (614862) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (614908) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (614909) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:24:14.028385", "received_seq": 110}
+I (619921) PQC_MAIN: Preparing telemetry #111: temp=29.1 C, humidity=47.3%, ts=619
+I (619923) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (619926) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (619973) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (619974) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:24:19.104559", "received_seq": 111}
+I (624986) PQC_MAIN: Preparing telemetry #112: temp=22.3 C, humidity=58.9%, ts=624
+I (624988) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (624990) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (625037) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (625038) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:24:24.201609", "received_seq": 112}
+I (630050) PQC_MAIN: Preparing telemetry #113: temp=22.9 C, humidity=49.9%, ts=629
+I (630052) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (630054) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (630116) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (630117) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:24:29.303685", "received_seq": 113}
+I (635130) PQC_MAIN: Preparing telemetry #114: temp=23.4 C, humidity=64.6%, ts=634
+I (635132) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (635134) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (635210) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (635211) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:24:34.403517", "received_seq": 114}
+I (640223) PQC_MAIN: Preparing telemetry #115: temp=22.5 C, humidity=50.7%, ts=639
+I (640225) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (640227) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (640271) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (640272) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:24:39.479965", "received_seq": 115}
+I (645285) PQC_MAIN: Preparing telemetry #116: temp=24.2 C, humidity=58.1%, ts=644
+I (645287) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (645290) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (645345) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (645346) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:24:44.554262", "received_seq": 116}
+I (650359) PQC_MAIN: Preparing telemetry #117: temp=28.1 C, humidity=58.6%, ts=649
+I (650361) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (650364) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (650412) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (650413) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:24:49.629307", "received_seq": 117}
+I (655425) PQC_MAIN: Preparing telemetry #118: temp=23.3 C, humidity=49.5%, ts=654
+I (655427) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (655430) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (656522) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (656523) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:24:55.702883", "received_seq": 118}
+I (661535) PQC_MAIN: Preparing telemetry #119: temp=29.6 C, humidity=62.8%, ts=661
+I (661537) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (661540) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (661597) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (661598) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:25:00.733520", "received_seq": 119}
+I (666610) PQC_MAIN: Preparing telemetry #120: temp=28.5 C, humidity=56.8%, ts=666
+I (666612) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (666614) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (666657) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (666658) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:25:05.769884", "received_seq": 120}
+I (671671) PQC_MAIN: Preparing telemetry #121: temp=29.3 C, humidity=64.7%, ts=671
+I (671673) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (671675) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (671715) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (671716) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:25:10.813010", "received_seq": 121}
+I (676728) PQC_MAIN: Preparing telemetry #122: temp=27.4 C, humidity=45.4%, ts=676
+I (676730) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (676733) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (676778) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (676778) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:25:15.866506", "received_seq": 122}
+I (681791) PQC_MAIN: Preparing telemetry #123: temp=29.6 C, humidity=51.4%, ts=681
+I (681793) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (681795) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (682077) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (682078) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:25:21.162334", "received_seq": 123}
+I (687091) PQC_MAIN: Preparing telemetry #124: temp=28.5 C, humidity=62.2%, ts=686
+I (687093) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (687095) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (688979) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (688979) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:25:28.037410", "received_seq": 124}
+I (693992) PQC_MAIN: Preparing telemetry #125: temp=28.4 C, humidity=60.1%, ts=693
+I (693994) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (693997) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (694041) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (694042) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:25:33.104797", "received_seq": 125}
+I (699055) PQC_MAIN: Preparing telemetry #126: temp=30.2 C, humidity=55.6%, ts=698
+I (699057) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (699060) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (699099) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (699099) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:25:38.161013", "received_seq": 126}
+I (704112) PQC_MAIN: Preparing telemetry #127: temp=22.3 C, humidity=55.0%, ts=703
+I (704114) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (704116) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (704157) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (704158) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:25:43.214264", "received_seq": 127}
+I (709171) PQC_MAIN: Preparing telemetry #128: temp=23.8 C, humidity=48.0%, ts=708
+I (709173) CRYPTO_HYBRID: Telemetry encrypted: 94 bytes -> 122 bytes (AES-256-GCM)
+I (709176) PQC_MAIN: Posting encrypted telemetry to http://192.168.10.23:8443/api/telemetry (138 bytes)...
+I (710492) CRYPTO_HYBRID: Telemetry response decrypted successfully: 145 bytes -> 117 bytes
+I (710493) PQC_MAIN: Successfully decrypted server response: {"status": "acknowledged", "command": "KEEP_ALIVE", "server_time": "2026-09-30T03:25:49.397948", "received_seq": 128}

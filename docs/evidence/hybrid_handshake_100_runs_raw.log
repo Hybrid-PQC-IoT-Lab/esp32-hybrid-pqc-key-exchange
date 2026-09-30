@@ -1,0 +1,2533 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+I (29) boot: ESP-IDF v5.5 2nd stage bootloader
+I (29) boot: compile time Sep 30 2026 03:01:03
+I (29) boot: Multicore bootloader
+I (30) boot: chip revision: v3.1
+I (33) boot.esp32: SPI Speed      : 40MHz
+I (37) boot.esp32: SPI Mode       : DIO
+I (40) boot.esp32: SPI Flash Size : 4MB
+I (44) boot: Enabling RNG early entropy source...
+I (49) boot: Partition Table:
+I (51) boot: ## Label            Usage          Type ST Offset   Length
+I (57) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+I (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+I (71) boot:  2 factory          factory app      00 00 00010000 00100000
+I (77) boot: End of partition table
+I (80) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=1e678h (124536) map
+I (130) esp_image: segment 1: paddr=0002e6a0 vaddr=3ff80000 size=00020h (    32) load
+I (131) esp_image: segment 2: paddr=0002e6c8 vaddr=3ffb0000 size=01950h (  6480) load
+I (137) esp_image: segment 3: paddr=00030020 vaddr=400d0020 size=abc10h (703504) map
+I (382) esp_image: segment 4: paddr=000dbc38 vaddr=3ffb1950 size=02490h (  9360) load
+I (386) esp_image: segment 5: paddr=000de0d0 vaddr=40080000 size=17220h ( 94752) load
+I (434) boot: Loaded app from partition at offset 0x10000
+I (434) boot: Disabling RNG early entropy source...
+I (445) cpu_start: Multicore app
+I (453) cpu_start: Pro cpu start user code
+I (453) cpu_start: cpu freq: 160000000 Hz
+I (453) app_init: Application information:
+I (453) app_init: Project name:     esp32_hybrid_pqc
+I (458) app_init: App version:      v2.0-mlkem768-final-6-g45d5f57-
+I (464) app_init: Compile time:     Sep 30 2026 03:00:05
+I (469) app_init: ELF file SHA256:  f367c9783...
+I (473) app_init: ESP-IDF:          v5.5
+I (477) efuse_init: Min chip rev:     v0.0
+I (481) efuse_init: Max chip rev:     v3.99 
+I (485) efuse_init: Chip rev:         v3.1
+I (489) heap_init: Initializing. RAM available for dynamic allocation:
+I (495) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM
+I (500) heap_init: At 3FFB8760 len 000278A0 (158 KiB): DRAM
+I (505) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+I (511) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+I (516) heap_init: At 40097220 len 00008DE0 (35 KiB): IRAM
+I (523) spi_flash: detected chip: generic
+I (525) spi_flash: flash io: dio
+I (529) main_task: Started on CPU0
+I (532) main_task: Calling app_main()
+I (554) PQC_MAIN: 
+I (555) PQC_MAIN: ╔══════════════════════════════════════════════════════════╗
+I (563) PQC_MAIN: ║    HYBRID POST-QUANTUM CRYPTOGRAPHY — ESP32 EDGE       ║
+I (570) PQC_MAIN: ║    X25519 + ML-KEM-768 (FIPS 203) + HKDF-SHA256        ║
+I (577) PQC_MAIN: ╠══════════════════════════════════════════════════════════╣
+I (595) PQC_MAIN: ║  Chip:    ESP32 rev 301, 2 cores @ 160 MHz             ║
+I (602) PQC_MAIN: ║  SRAM:    520 KB                                        ║
+I (609) PQC_MAIN: ║  Flash:   4 MB                                          ║
+I (616) PQC_MAIN: ║  Free heap: 270760 bytes                                   ║
+I (624) PQC_MAIN: ╚══════════════════════════════════════════════════════════╝
+I (641) PQC_MAIN: 
+I (647) wifi:wifi driver task: 3ffc20bc, prio:23, stack:6656, core=0
+I (662) wifi:wifi firmware version: f3dbad7
+I (663) wifi:wifi certification version: v7.0
+I (663) wifi:config NVS flash: enabled
+I (663) wifi:config nano formatting: disabled
+I (667) wifi:Init data frame dynamic rx buffer num: 32
+I (672) wifi:Init static rx mgmt buffer num: 5
+I (676) wifi:Init management short buffer num: 32
+I (681) wifi:Init dynamic tx buffer num: 32
+I (685) wifi:Init static rx buffer size: 1600
+I (689) wifi:Init static rx buffer num: 10
+I (692) wifi:Init dynamic rx buffer num: 32
+I (698) wifi_init: rx ba win: 6
+I (699) wifi_init: accept mbox: 6
+I (702) wifi_init: tcpip mbox: 32
+I (705) wifi_init: udp mbox: 6
+I (708) wifi_init: tcp mbox: 6
+I (711) wifi_init: tcp tx win: 5760
+I (714) wifi_init: tcp rx win: 5760
+I (717) wifi_init: tcp mss: 1440
+I (720) wifi_init: WiFi IRAM OP enabled
+I (724) wifi_init: WiFi RX IRAM OP enabled
+I (729) phy_init: phy_version 4860,6b7a6e5,Feb  6 2025,14:47:07
+I (820) wifi:mode : sta (5c:01:3b:be:bc:58)
+I (821) wifi:enable tsf
+I (824) PQC_MAIN: Connecting to Wi-Fi SSID: PTCL-BB
+I (921) wifi:new:<1,1>, old:<1,0>, ap:<255,255>, sta:<1,1>, prof:1, snd_ch_cfg:0x0
+I (923) wifi:state: init -> auth (0xb0)
+I (929) wifi:state: auth -> assoc (0x0)
+I (936) wifi:state: assoc -> run (0x10)
+I (978) wifi:<ba-add>idx:0 (ifx:0, b0:ac:d2:2f:3e:5f), tid:0, ssn:0, winSize:64
+I (1005) wifi:connected with PTCL-BB, aid = 2, channel 1, 40U, bssid = b0:ac:d2:2f:3e:5f
+I (1005) wifi:security: WPA2-PSK, phy: bgn, rssi: -58
+I (1010) wifi:pm start, type: 1
+
+I (1010) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us
+I (1020) wifi:AP's beacon interval = 102400 us, DTIM period = 1
+I (4083) esp_netif_handlers: sta ip: 192.168.10.22, mask: 255.255.255.0, gw: 192.168.10.1
+I (4084) PQC_MAIN: Connected! IP: 192.168.10.22
+I (4085) PQC_MAIN: Wi-Fi connected successfully
+I (4089) main_task: Returned from app_main()
+I (4089) PQC_MAIN: Starting Hybrid PQC task...
+I (4097) BENCHMARK: =========================================================
+I (4104) BENCHMARK: === Starting End-to-End Handshake Campaign: Hybrid (X25519 + ML-KEM-768) (n=100) ===
+I (4113) BENCHMARK: =========================================================
+I (4120) CSV_EVIDENCE: CSV_HEADER,run,total_ms,keygen_ms,handshake_ms,total_cycles,peak_heap_bytes,peak_heap_kb,payload_bytes
+I (4414) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281956 us, 45112847 cycles
+I (4414) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (4430) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 14375 us, 2299233 cycles
+I (4430) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (4434) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (4444) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (4532) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (4535) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (4681) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 145353 us, 23256424 cycles
+I (4682) CRYPTO_HYBRID: X25519 shared secret derived
+I (4683) CRYPTO_HYBRID: [DEBUG] PK sent: 5b7816bf43be7c50...bb760fffd3cb182e
+I (4690) CRYPTO_HYBRID: [DEBUG] CT recv: 9c7441126cf28f92...aeae171ea029f991
+I (4715) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18636 us, 2980284 cycles
+I (4715) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (4718) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (4726) CRYPTO_HYBRID: All key material zeroized
+I (4730) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (4736) BENCHMARK:   Keygen:    48355259 cycles (302.22 ms)
+I (4742) BENCHMARK:   Handshake: 45129622 cycles (282.06 ms)
+I (4747) BENCHMARK:   Total:     95122895 cycles (584.28 ms)
+I (4753) BENCHMARK:   Peak Heap: 440 bytes
+I (4756) BENCHMARK:   Payload:   2417 bytes
+I (4760) CSV_EVIDENCE: CSV_DATA,0,584.28,302.22,282.06,95122895,440,0.43,2417
+E (4817) task_wdt: esp_task_wdt_reset(707): task not found
+I (5099) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281336 us, 45013621 cycles
+I (5100) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (5115) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13889 us, 2221554 cycles
+I (5115) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (5119) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (5129) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (5167) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (5171) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (5314) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 141693 us, 22670841 cycles
+I (5314) CRYPTO_HYBRID: X25519 shared secret derived
+I (5315) CRYPTO_HYBRID: [DEBUG] PK sent: 93e055cae971b560...74b4d66ac103d97d
+I (5322) CRYPTO_HYBRID: [DEBUG] CT recv: 9a0301d6acf2e3b6...3efc76a9198af53e
+I (5347) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18497 us, 2958708 cycles
+I (5347) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (5350) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (5358) CRYPTO_HYBRID: All key material zeroized
+I (5362) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (5368) BENCHMARK:   Keygen:    48172841 cycles (301.08 ms)
+I (5374) BENCHMARK:   Handshake: 36661054 cycles (229.13 ms)
+I (5379) BENCHMARK:   Total:     86471389 cycles (530.21 ms)
+I (5385) BENCHMARK:   Peak Heap: 20 bytes
+I (5388) BENCHMARK:   Payload:   2417 bytes
+I (5392) CSV_EVIDENCE: CSV_DATA,0,530.21,301.08,229.13,86471389,20,0.02,2417
+E (5449) task_wdt: esp_task_wdt_reset(707): task not found
+I (5732) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282617 us, 45218581 cycles
+I (5733) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (5748) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13898 us, 2222819 cycles
+I (5748) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (5752) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (5762) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (5801) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (5804) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (5945) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 140288 us, 22445868 cycles
+I (5946) CRYPTO_HYBRID: X25519 shared secret derived
+I (5947) CRYPTO_HYBRID: [DEBUG] PK sent: 4032b3a6fb322b70...91d6fd0f9a241b4a
+I (5954) CRYPTO_HYBRID: [DEBUG] CT recv: 34deb034886ebdc1...28321dbf5aba6087
+I (5979) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18505 us, 2960032 cycles
+I (5979) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (5982) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (5990) CRYPTO_HYBRID: All key material zeroized
+I (5994) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (6000) BENCHMARK:   Keygen:    48377999 cycles (302.36 ms)
+I (6006) BENCHMARK:   Handshake: 36439344 cycles (227.75 ms)
+I (6011) BENCHMARK:   Total:     86455475 cycles (530.11 ms)
+I (6016) BENCHMARK:   Peak Heap: 28 bytes
+I (6020) BENCHMARK:   Payload:   2417 bytes
+I (6024) CSV_EVIDENCE: CSV_DATA,0,530.11,302.36,227.75,86455475,28,0.03,2417
+E (6081) task_wdt: esp_task_wdt_reset(707): task not found
+I (6364) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282082 us, 45132981 cycles
+I (6364) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (6380) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13893 us, 2222046 cycles
+I (6380) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (6384) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (6394) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (6477) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (6481) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (6623) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 141520 us, 22643161 cycles
+I (6623) CRYPTO_HYBRID: X25519 shared secret derived
+I (6624) CRYPTO_HYBRID: [DEBUG] PK sent: ebe60bc53a11bd30...eed65dd1df231fd6
+I (6631) CRYPTO_HYBRID: [DEBUG] CT recv: 7c6ba36b5a647900...f3405235b428f186
+I (6656) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18510 us, 2960898 cycles
+I (6657) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (6659) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (6667) CRYPTO_HYBRID: All key material zeroized
+I (6672) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (6678) BENCHMARK:   Keygen:    48290917 cycles (301.82 ms)
+I (6683) BENCHMARK:   Handshake: 43816036 cycles (273.85 ms)
+I (6689) BENCHMARK:   Total:     93745119 cycles (575.67 ms)
+I (6694) BENCHMARK:   Peak Heap: 0 bytes
+I (6698) BENCHMARK:   Payload:   2417 bytes
+I (6702) CSV_EVIDENCE: CSV_DATA,0,575.67,301.82,273.85,93745119,0,0.00,2417
+E (6758) task_wdt: esp_task_wdt_reset(707): task not found
+I (7042) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282755 us, 45240757 cycles
+I (7042) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (7057) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13928 us, 2227739 cycles
+I (7058) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (7062) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (7071) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (7121) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (7125) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (7269) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 142214 us, 22754072 cycles
+I (7269) CRYPTO_HYBRID: X25519 shared secret derived
+I (7270) CRYPTO_HYBRID: [DEBUG] PK sent: c00082e42c70aa4c...c64b6bd627954e5d
+I (7277) CRYPTO_HYBRID: [DEBUG] CT recv: 118edc8f27ec48ca...b566193222c152c4
+I (7302) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18497 us, 2958830 cycles
+I (7302) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (7305) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (7313) CRYPTO_HYBRID: All key material zeroized
+I (7317) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (7323) BENCHMARK:   Keygen:    48405935 cycles (302.54 ms)
+I (7329) BENCHMARK:   Handshake: 38689184 cycles (241.81 ms)
+I (7334) BENCHMARK:   Total:     88733253 cycles (544.34 ms)
+I (7340) BENCHMARK:   Peak Heap: 20 bytes
+I (7343) BENCHMARK:   Payload:   2417 bytes
+I (7347) CSV_EVIDENCE: CSV_DATA,0,544.34,302.54,241.81,88733253,20,0.02,2417
+E (7404) task_wdt: esp_task_wdt_reset(707): task not found
+I (7688) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282840 us, 45254229 cycles
+I (7688) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (7703) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13899 us, 2223066 cycles
+I (7704) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (7708) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (7717) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (7762) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (7765) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (7911) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 144568 us, 23130767 cycles
+I (7911) CRYPTO_HYBRID: X25519 shared secret derived
+I (7912) CRYPTO_HYBRID: [DEBUG] PK sent: 85c6620598c82781...5c04a2f2dce92e46
+I (7919) CRYPTO_HYBRID: [DEBUG] CT recv: e8f85f0d9d85ff78...a8cfe0236a10658d
+I (7944) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18506 us, 2960222 cycles
+I (7944) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (7947) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (7955) CRYPTO_HYBRID: All key material zeroized
+I (7959) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (7965) BENCHMARK:   Keygen:    48412083 cycles (302.58 ms)
+I (7971) BENCHMARK:   Handshake: 38023092 cycles (237.64 ms)
+I (7976) BENCHMARK:   Total:     88072675 cycles (540.22 ms)
+I (7982) BENCHMARK:   Peak Heap: 16 bytes
+I (7985) BENCHMARK:   Payload:   2417 bytes
+I (7989) CSV_EVIDENCE: CSV_DATA,0,540.22,302.58,237.64,88072675,16,0.02,2417
+E (8046) task_wdt: esp_task_wdt_reset(707): task not found
+I (8329) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281995 us, 45119062 cycles
+I (8329) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (8345) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13902 us, 2223711 cycles
+I (8345) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (8349) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (8359) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (8399) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (8402) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (8543) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 140378 us, 22460411 cycles
+I (8544) CRYPTO_HYBRID: X25519 shared secret derived
+I (8545) CRYPTO_HYBRID: [DEBUG] PK sent: 54019f14b54db2c8...f101366ef24a8860
+I (8552) CRYPTO_HYBRID: [DEBUG] CT recv: 89b968dcc68f7972...a49b9e43ba5d6a7b
+I (8577) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18504 us, 2959870 cycles
+I (8577) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (8580) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (8588) CRYPTO_HYBRID: All key material zeroized
+I (8592) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (8598) BENCHMARK:   Keygen:    48280775 cycles (301.76 ms)
+I (8604) BENCHMARK:   Handshake: 36694940 cycles (229.34 ms)
+I (8609) BENCHMARK:   Total:     86613855 cycles (531.10 ms)
+I (8614) BENCHMARK:   Peak Heap: 20 bytes
+I (8618) BENCHMARK:   Payload:   2417 bytes
+I (8622) CSV_EVIDENCE: CSV_DATA,0,531.10,301.76,229.34,86613855,20,0.02,2417
+E (8679) task_wdt: esp_task_wdt_reset(707): task not found
+I (8960) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 280582 us, 44892903 cycles
+I (8961) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (8976) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13889 us, 2221490 cycles
+I (8976) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (8980) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (8990) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (9030) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (9034) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (9179) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 144937 us, 23189803 cycles
+I (9180) CRYPTO_HYBRID: X25519 shared secret derived
+I (9181) CRYPTO_HYBRID: [DEBUG] PK sent: a3d12adc6a00d95a...f57c7933e663cbb6
+I (9187) CRYPTO_HYBRID: [DEBUG] CT recv: 8b71d8c9ce918476...ced72b57e386ac54
+I (9213) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18500 us, 2959256 cycles
+I (9213) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (9216) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (9224) CRYPTO_HYBRID: All key material zeroized
+I (9228) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (9234) BENCHMARK:   Keygen:    48052893 cycles (300.33 ms)
+I (9240) BENCHMARK:   Handshake: 37385660 cycles (233.66 ms)
+I (9245) BENCHMARK:   Total:     87076661 cycles (533.99 ms)
+I (9250) BENCHMARK:   Peak Heap: 20 bytes
+I (9254) BENCHMARK:   Payload:   2417 bytes
+I (9258) CSV_EVIDENCE: CSV_DATA,0,533.99,300.33,233.66,87076661,20,0.02,2417
+E (9315) task_wdt: esp_task_wdt_reset(707): task not found
+I (9598) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281880 us, 45100687 cycles
+I (9598) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (9613) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13898 us, 2222899 cycles
+I (9614) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (9618) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (9627) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (9664) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (9668) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (9813) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 144286 us, 23085604 cycles
+I (9813) CRYPTO_HYBRID: X25519 shared secret derived
+I (9814) CRYPTO_HYBRID: [DEBUG] PK sent: 5bc135bba01acb0b...80f32d75df916de8
+I (9820) CRYPTO_HYBRID: [DEBUG] CT recv: ebfc882391cbaa3a...97ea6911428269a3
+I (9846) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18508 us, 2960618 cycles
+I (9847) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (9849) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (9857) CRYPTO_HYBRID: All key material zeroized
+I (9862) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (9868) BENCHMARK:   Keygen:    48262399 cycles (301.64 ms)
+I (9873) BENCHMARK:   Handshake: 36791974 cycles (229.95 ms)
+I (9879) BENCHMARK:   Total:     86692487 cycles (531.59 ms)
+I (9884) BENCHMARK:   Peak Heap: 20 bytes
+I (9888) BENCHMARK:   Payload:   2417 bytes
+I (9892) CSV_EVIDENCE: CSV_DATA,0,531.59,301.64,229.95,86692487,20,0.02,2417
+E (9948) task_wdt: esp_task_wdt_reset(707): task not found
+I (10230) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 280878 us, 44940267 cycles
+I (10230) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (10246) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13897 us, 2222868 cycles
+I (10246) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (10250) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (10260) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (10299) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (10303) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (10448) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 143455 us, 22952668 cycles
+I (10448) CRYPTO_HYBRID: X25519 shared secret derived
+I (10449) CRYPTO_HYBRID: [DEBUG] PK sent: 7407394f799f0407...8c2b3ede5ccd3c3b
+I (10456) CRYPTO_HYBRID: [DEBUG] CT recv: 04a2e7be8e09a95e...3772cd069c245e80
+I (10481) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18509 us, 2960718 cycles
+I (10482) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (10484) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (10493) CRYPTO_HYBRID: All key material zeroized
+I (10497) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (10503) BENCHMARK:   Keygen:    48167093 cycles (301.05 ms)
+I (10509) BENCHMARK:   Handshake: 37256328 cycles (232.85 ms)
+I (10514) BENCHMARK:   Total:     87074817 cycles (533.90 ms)
+I (10520) BENCHMARK:   Peak Heap: 20 bytes
+I (10524) BENCHMARK:   Payload:   2417 bytes
+I (10528) CSV_EVIDENCE: CSV_DATA,0,533.90,301.05,232.85,87074817,20,0.02,2417
+E (10584) task_wdt: esp_task_wdt_reset(707): task not found
+I (10866) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281477 us, 45036223 cycles
+I (10867) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (10882) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13901 us, 2223401 cycles
+I (10882) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (10887) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (10896) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (10932) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (10935) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (11081) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 145037 us, 23205897 cycles
+I (11082) CRYPTO_HYBRID: X25519 shared secret derived
+I (11083) CRYPTO_HYBRID: [DEBUG] PK sent: 18b8485f837d94c4...a4002428ac10e4b4
+I (11090) CRYPTO_HYBRID: [DEBUG] CT recv: 8db820e53235f5ed...56e37891b1d09d3c
+I (11115) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18505 us, 2960162 cycles
+I (11115) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (11118) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (11126) CRYPTO_HYBRID: All key material zeroized
+I (11130) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (11137) BENCHMARK:   Keygen:    48250215 cycles (301.56 ms)
+I (11142) BENCHMARK:   Handshake: 36767604 cycles (229.80 ms)
+I (11148) BENCHMARK:   Total:     86669831 cycles (531.36 ms)
+I (11153) BENCHMARK:   Peak Heap: 236 bytes
+I (11157) BENCHMARK:   Payload:   2417 bytes
+I (11161) CSV_EVIDENCE: CSV_DATA,0,531.36,301.56,229.80,86669831,236,0.23,2417
+E (11218) task_wdt: esp_task_wdt_reset(707): task not found
+I (11500) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281498 us, 45039668 cycles
+I (11501) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (11516) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13896 us, 2222512 cycles
+I (11517) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (11521) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (11531) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (11580) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (11584) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (11728) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 142697 us, 22831521 cycles
+I (11728) CRYPTO_HYBRID: X25519 shared secret derived
+I (11729) CRYPTO_HYBRID: [DEBUG] PK sent: a62c624856c194b7...489e7db241434814
+I (11736) CRYPTO_HYBRID: [DEBUG] CT recv: 1de61fab63e96013...d1bbea70218eb695
+I (11761) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18507 us, 2960354 cycles
+I (11762) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (11764) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (11772) CRYPTO_HYBRID: All key material zeroized
+I (11777) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (11783) BENCHMARK:   Keygen:    48259419 cycles (301.62 ms)
+I (11789) BENCHMARK:   Handshake: 38745630 cycles (242.16 ms)
+I (11794) BENCHMARK:   Total:     88657733 cycles (543.78 ms)
+I (11800) BENCHMARK:   Peak Heap: 0 bytes
+I (11803) BENCHMARK:   Payload:   2417 bytes
+I (11807) CSV_EVIDENCE: CSV_DATA,0,543.78,301.62,242.16,88657733,0,0.00,2417
+E (11864) task_wdt: esp_task_wdt_reset(707): task not found
+I (12148) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 283632 us, 45380968 cycles
+I (12149) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (12164) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13893 us, 2222155 cycles
+I (12165) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (12169) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (12179) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (12218) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (12221) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (12364) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 141972 us, 22715379 cycles
+I (12364) CRYPTO_HYBRID: X25519 shared secret derived
+I (12365) CRYPTO_HYBRID: [DEBUG] PK sent: c9312cc31911dba6...f96c400bc21bb1be
+I (12372) CRYPTO_HYBRID: [DEBUG] CT recv: 84ebacec28f918cb...1f32e7fe4613de61
+I (12398) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18568 us, 2970232 cycles
+I (12398) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (12401) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (12409) CRYPTO_HYBRID: All key material zeroized
+I (12413) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (12420) BENCHMARK:   Keygen:    48596827 cycles (303.73 ms)
+I (12425) BENCHMARK:   Handshake: 36860880 cycles (230.38 ms)
+I (12430) BENCHMARK:   Total:     87109123 cycles (534.11 ms)
+I (12436) BENCHMARK:   Peak Heap: 0 bytes
+I (12440) BENCHMARK:   Payload:   2417 bytes
+I (12444) CSV_EVIDENCE: CSV_DATA,0,534.11,303.73,230.38,87109123,0,0.00,2417
+E (12500) task_wdt: esp_task_wdt_reset(707): task not found
+I (12783) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281989 us, 45118226 cycles
+I (12783) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (12799) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13894 us, 2222272 cycles
+I (12799) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (12803) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (12813) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (12851) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (12854) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (12999) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 143720 us, 22995214 cycles
+I (13000) CRYPTO_HYBRID: X25519 shared secret derived
+I (13001) CRYPTO_HYBRID: [DEBUG] PK sent: 67d32ea6b13540e6...a7ba1e2a5628b903
+I (13007) CRYPTO_HYBRID: [DEBUG] CT recv: 085d14cc7a587dc3...a5fcc1962371da0c
+I (13033) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18504 us, 2959866 cycles
+I (13033) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (13036) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (13044) CRYPTO_HYBRID: All key material zeroized
+I (13048) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (13055) BENCHMARK:   Keygen:    48333469 cycles (302.08 ms)
+I (13060) BENCHMARK:   Handshake: 36982044 cycles (231.14 ms)
+I (13066) BENCHMARK:   Total:     86966877 cycles (533.22 ms)
+I (13071) BENCHMARK:   Peak Heap: 0 bytes
+I (13075) BENCHMARK:   Payload:   2417 bytes
+I (13079) CSV_EVIDENCE: CSV_DATA,0,533.22,302.08,231.14,86966877,0,0.00,2417
+E (13136) task_wdt: esp_task_wdt_reset(707): task not found
+I (13420) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 283423 us, 45347648 cycles
+I (13421) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (13436) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13893 us, 2222133 cycles
+I (13436) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (13441) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (13450) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (13491) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (13494) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (13642) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 145753 us, 23320387 cycles
+I (13642) CRYPTO_HYBRID: X25519 shared secret derived
+I (13643) CRYPTO_HYBRID: [DEBUG] PK sent: ef7c1029969bce42...83c2314802e25492
+I (13650) CRYPTO_HYBRID: [DEBUG] CT recv: 7b003cbf2d43fa06...8902126e7d99992a
+I (13675) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18597 us, 2974866 cycles
+I (13676) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (13678) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (13686) CRYPTO_HYBRID: All key material zeroized
+I (13691) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (13697) BENCHMARK:   Keygen:    48564483 cycles (303.53 ms)
+I (13703) BENCHMARK:   Handshake: 37805572 cycles (236.29 ms)
+I (13708) BENCHMARK:   Total:     88022067 cycles (539.81 ms)
+I (13714) BENCHMARK:   Peak Heap: 0 bytes
+I (13717) BENCHMARK:   Payload:   2417 bytes
+I (13721) CSV_EVIDENCE: CSV_DATA,0,539.81,303.53,236.29,88022067,0,0.00,2417
+E (13778) task_wdt: esp_task_wdt_reset(707): task not found
+I (14062) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282825 us, 45251957 cycles
+I (14062) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (14078) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13892 us, 2222102 cycles
+I (14078) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (14082) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (14092) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (14176) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (14179) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (14323) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 143000 us, 22879976 cycles
+I (14324) CRYPTO_HYBRID: X25519 shared secret derived
+I (14325) CRYPTO_HYBRID: [DEBUG] PK sent: a64cc0631b0c54c3...d8c3faa5fd1535e6
+I (14332) CRYPTO_HYBRID: [DEBUG] CT recv: af8b6f566acbd51f...7792b60120bfcbfb
+I (14357) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18502 us, 2959486 cycles
+I (14357) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (14360) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (14368) CRYPTO_HYBRID: All key material zeroized
+I (14373) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (14379) BENCHMARK:   Keygen:    48461987 cycles (302.89 ms)
+I (14384) BENCHMARK:   Handshake: 44253890 cycles (276.59 ms)
+I (14390) BENCHMARK:   Total:     94366203 cycles (579.47 ms)
+I (14395) BENCHMARK:   Peak Heap: 0 bytes
+I (14399) BENCHMARK:   Payload:   2417 bytes
+I (14403) CSV_EVIDENCE: CSV_DATA,0,579.47,302.89,276.59,94366203,0,0.00,2417
+E (14460) task_wdt: esp_task_wdt_reset(707): task not found
+I (14744) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 283711 us, 45393723 cycles
+I (14745) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (14760) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13903 us, 2223767 cycles
+I (14761) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (14765) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (14775) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (14817) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (14820) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (14962) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 140609 us, 22497332 cycles
+I (14962) CRYPTO_HYBRID: X25519 shared secret derived
+I (14963) CRYPTO_HYBRID: [DEBUG] PK sent: af7a2527969342a6...2de80b8b8b509568
+I (14970) CRYPTO_HYBRID: [DEBUG] CT recv: 7acc556eb8c28d6c...df09e4016df477e1
+I (14996) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18509 us, 2960660 cycles
+I (14996) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (14999) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (15007) CRYPTO_HYBRID: All key material zeroized
+I (15011) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (15018) BENCHMARK:   Keygen:    48611337 cycles (303.82 ms)
+I (15023) BENCHMARK:   Handshake: 37166926 cycles (232.29 ms)
+I (15028) BENCHMARK:   Total:     87429625 cycles (536.11 ms)
+I (15034) BENCHMARK:   Peak Heap: 0 bytes
+I (15038) BENCHMARK:   Payload:   2417 bytes
+I (15042) CSV_EVIDENCE: CSV_DATA,0,536.11,303.82,232.29,87429625,0,0.00,2417
+E (15098) task_wdt: esp_task_wdt_reset(707): task not found
+I (15381) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282561 us, 45209721 cycles
+I (15382) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (15398) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 14098 us, 2254818 cycles
+I (15398) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (15402) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (15412) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (15450) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (15454) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (15596) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 141686 us, 22669772 cycles
+I (15597) CRYPTO_HYBRID: X25519 shared secret derived
+I (15598) CRYPTO_HYBRID: [DEBUG] PK sent: 59306b5fd813be24...7ec6b171e77742f2
+I (15605) CRYPTO_HYBRID: [DEBUG] CT recv: 31906f2717825e03...6292d409c843c607
+I (15630) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18708 us, 2992450 cycles
+I (15631) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (15633) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (15642) CRYPTO_HYBRID: All key material zeroized
+I (15646) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (15652) BENCHMARK:   Keygen:    48457993 cycles (302.86 ms)
+I (15657) BENCHMARK:   Handshake: 36802348 cycles (230.01 ms)
+I (15663) BENCHMARK:   Total:     86912331 cycles (532.88 ms)
+I (15669) BENCHMARK:   Peak Heap: 0 bytes
+I (15672) BENCHMARK:   Payload:   2417 bytes
+I (15676) CSV_EVIDENCE: CSV_DATA,0,532.88,302.86,230.01,86912331,0,0.00,2417
+E (15733) task_wdt: esp_task_wdt_reset(707): task not found
+I (16017) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 283227 us, 45316325 cycles
+I (16017) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (16033) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13896 us, 2222769 cycles
+I (16033) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (16037) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (16047) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (16091) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (16095) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (16236) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 140450 us, 22471899 cycles
+I (16236) CRYPTO_HYBRID: X25519 shared secret derived
+I (16237) CRYPTO_HYBRID: [DEBUG] PK sent: 8803a76322004c4c...07c5eb2b17fad1cf
+I (16244) CRYPTO_HYBRID: [DEBUG] CT recv: 455ae5cbdeee4a49...b26dce987b028fe6
+I (16270) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18510 us, 2960980 cycles
+I (16270) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (16273) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (16281) CRYPTO_HYBRID: All key material zeroized
+I (16285) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (16291) BENCHMARK:   Keygen:    48534257 cycles (303.34 ms)
+I (16297) BENCHMARK:   Handshake: 37394216 cycles (233.71 ms)
+I (16302) BENCHMARK:   Total:     87579851 cycles (537.05 ms)
+I (16308) BENCHMARK:   Peak Heap: 0 bytes
+I (16312) BENCHMARK:   Payload:   2417 bytes
+I (16316) CSV_EVIDENCE: CSV_DATA,0,537.05,303.34,233.71,87579851,0,0.00,2417
+E (16372) task_wdt: esp_task_wdt_reset(707): task not found
+I (16654) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281477 us, 45036331 cycles
+I (16655) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (16670) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 14101 us, 2255498 cycles
+I (16671) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (16675) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (16685) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (16725) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (16728) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (16869) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 139834 us, 22373243 cycles
+I (16869) CRYPTO_HYBRID: X25519 shared secret derived
+I (16870) CRYPTO_HYBRID: [DEBUG] PK sent: 4731b98a526b421b...5f06e9883bf9fcaa
+I (16877) CRYPTO_HYBRID: [DEBUG] CT recv: 755e5f1227f33f5d...f80e6b84316ab1f3
+I (16903) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 19390 us, 3101576 cycles
+I (16904) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (16906) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (16914) CRYPTO_HYBRID: All key material zeroized
+I (16919) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (16925) BENCHMARK:   Keygen:    48285233 cycles (301.78 ms)
+I (16931) BENCHMARK:   Handshake: 36791384 cycles (229.95 ms)
+I (16936) BENCHMARK:   Total:     86727999 cycles (531.73 ms)
+I (16942) BENCHMARK:   Peak Heap: 0 bytes
+I (16945) BENCHMARK:   Payload:   2417 bytes
+I (16949) CSV_EVIDENCE: CSV_DATA,0,531.73,301.78,229.95,86727999,0,0.00,2417
+E (17006) task_wdt: esp_task_wdt_reset(707): task not found
+I (17289) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282459 us, 45193441 cycles
+I (17290) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (17305) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13925 us, 2227317 cycles
+I (17306) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (17310) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (17319) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (17355) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (17358) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (17504) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 143801 us, 23008043 cycles
+I (17504) CRYPTO_HYBRID: X25519 shared secret derived
+I (17505) CRYPTO_HYBRID: [DEBUG] PK sent: 1f9a9ca677357ca8...40db4dfd580b51e1
+I (17512) CRYPTO_HYBRID: [DEBUG] CT recv: 62f1087daeac5670...f46377ad5acd2621
+I (17537) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18506 us, 2960148 cycles
+I (17538) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (17540) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (17548) CRYPTO_HYBRID: All key material zeroized
+I (17553) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (17559) BENCHMARK:   Keygen:    48414799 cycles (302.59 ms)
+I (17565) BENCHMARK:   Handshake: 36662706 cycles (229.14 ms)
+I (17570) BENCHMARK:   Total:     86728883 cycles (531.73 ms)
+I (17576) BENCHMARK:   Peak Heap: 0 bytes
+I (17579) BENCHMARK:   Payload:   2417 bytes
+I (17583) CSV_EVIDENCE: CSV_DATA,0,531.73,302.59,229.14,86728883,0,0.00,2417
+E (17640) task_wdt: esp_task_wdt_reset(707): task not found
+I (17923) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282317 us, 45170597 cycles
+I (17923) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (17939) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13885 us, 2220878 cycles
+I (17939) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (17943) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (17953) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (17992) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (17996) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (18141) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 144155 us, 23064694 cycles
+I (18142) CRYPTO_HYBRID: X25519 shared secret derived
+I (18143) CRYPTO_HYBRID: [DEBUG] PK sent: 8ca0535a78cf0b15...bde0832ba79978dc
+I (18150) CRYPTO_HYBRID: [DEBUG] CT recv: fa0113fc216b5378...aebdf9bc43c14b81
+I (18175) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18693 us, 2990098 cycles
+I (18176) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (18178) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (18186) CRYPTO_HYBRID: All key material zeroized
+I (18191) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (18197) BENCHMARK:   Keygen:    48382831 cycles (302.39 ms)
+I (18202) BENCHMARK:   Handshake: 37316890 cycles (233.23 ms)
+I (18208) BENCHMARK:   Total:     87351991 cycles (535.62 ms)
+I (18213) BENCHMARK:   Peak Heap: 0 bytes
+I (18217) BENCHMARK:   Payload:   2417 bytes
+I (18221) CSV_EVIDENCE: CSV_DATA,0,535.62,302.39,233.23,87351991,0,0.00,2417
+E (18278) task_wdt: esp_task_wdt_reset(707): task not found
+I (18561) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282446 us, 45191263 cycles
+I (18562) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (18577) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13888 us, 2221251 cycles
+I (18577) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (18582) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (18591) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (18643) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (18646) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (18792) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 144277 us, 23084078 cycles
+I (18792) CRYPTO_HYBRID: X25519 shared secret derived
+I (18793) CRYPTO_HYBRID: [DEBUG] PK sent: 28caafd6f7bc0dfc...ce63fb2824b106f0
+I (18800) CRYPTO_HYBRID: [DEBUG] CT recv: f74f7f6b022ed690...20f33f55db031307
+I (18825) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18506 us, 2960118 cycles
+I (18826) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (18828) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (18836) CRYPTO_HYBRID: All key material zeroized
+I (18841) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (18847) BENCHMARK:   Keygen:    48403859 cycles (302.52 ms)
+I (18853) BENCHMARK:   Handshake: 39236706 cycles (245.23 ms)
+I (18858) BENCHMARK:   Total:     89291943 cycles (547.75 ms)
+I (18864) BENCHMARK:   Peak Heap: 0 bytes
+I (18867) BENCHMARK:   Payload:   2417 bytes
+I (18871) CSV_EVIDENCE: CSV_DATA,0,547.75,302.52,245.23,89291943,0,0.00,2417
+E (18928) task_wdt: esp_task_wdt_reset(707): task not found
+I (19211) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282319 us, 45171027 cycles
+I (19212) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (19227) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13892 us, 2221958 cycles
+I (19227) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (19231) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (19241) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (19279) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (19282) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (19424) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 141209 us, 22593208 cycles
+I (19425) CRYPTO_HYBRID: X25519 shared secret derived
+I (19426) CRYPTO_HYBRID: [DEBUG] PK sent: 4a601fac631eb0c1...104c86fb9f60e022
+I (19433) CRYPTO_HYBRID: [DEBUG] CT recv: 76b8412b0335b29d...f804217ef8b5eedf
+I (19458) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18498 us, 2958822 cycles
+I (19459) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (19461) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (19469) CRYPTO_HYBRID: All key material zeroized
+I (19474) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (19480) BENCHMARK:   Keygen:    48388343 cycles (302.43 ms)
+I (19486) BENCHMARK:   Handshake: 36515886 cycles (228.22 ms)
+I (19491) BENCHMARK:   Total:     86555607 cycles (530.65 ms)
+I (19496) BENCHMARK:   Peak Heap: 0 bytes
+I (19500) BENCHMARK:   Payload:   2417 bytes
+I (19504) CSV_EVIDENCE: CSV_DATA,0,530.65,302.43,228.22,86555607,0,0.00,2417
+E (19561) task_wdt: esp_task_wdt_reset(707): task not found
+I (19844) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282456 us, 45192945 cycles
+I (19845) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (19860) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13904 us, 2223972 cycles
+I (19860) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (19865) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (19874) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (20196) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (20199) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (20342) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 142326 us, 22772027 cycles
+I (20343) CRYPTO_HYBRID: X25519 shared secret derived
+I (20344) CRYPTO_HYBRID: [DEBUG] PK sent: a931a2dc1b92d035...2dea58d0a320dea0
+I (20351) CRYPTO_HYBRID: [DEBUG] CT recv: f58c5648da677b56...f58cbf20b030de98
+I (20376) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18530 us, 2964004 cycles
+I (20376) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (20379) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (20387) CRYPTO_HYBRID: All key material zeroized
+I (20392) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (20398) BENCHMARK:   Keygen:    48410335 cycles (302.57 ms)
+I (20403) BENCHMARK:   Handshake: 82071896 cycles (512.95 ms)
+I (20409) BENCHMARK:   Total:     132134227 cycles (815.52 ms)
+I (20414) BENCHMARK:   Peak Heap: 0 bytes
+I (20418) BENCHMARK:   Payload:   2417 bytes
+I (20422) CSV_EVIDENCE: CSV_DATA,0,815.52,302.57,512.95,132134227,0,0.00,2417
+E (20479) task_wdt: esp_task_wdt_reset(707): task not found
+I (20762) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282121 us, 45139291 cycles
+I (20762) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (20778) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13898 us, 2222886 cycles
+I (20778) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (20782) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (20792) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (21108) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (21112) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (21253) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 140279 us, 22444558 cycles
+I (21253) CRYPTO_HYBRID: X25519 shared secret derived
+I (21254) CRYPTO_HYBRID: [DEBUG] PK sent: 350c724e9048ae82...c7b85ea173f45f92
+I (21261) CRYPTO_HYBRID: [DEBUG] CT recv: 4085738951d4b18f...650e61323f019a95
+I (21286) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18509 us, 2960790 cycles
+I (21287) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (21289) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (21298) CRYPTO_HYBRID: All key material zeroized
+I (21302) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (21308) BENCHMARK:   Keygen:    48373781 cycles (302.34 ms)
+I (21314) BENCHMARK:   Handshake: 80882422 cycles (505.52 ms)
+I (21319) BENCHMARK:   Total:     130907581 cycles (807.85 ms)
+I (21325) BENCHMARK:   Peak Heap: 0 bytes
+I (21328) BENCHMARK:   Payload:   2417 bytes
+I (21332) CSV_EVIDENCE: CSV_DATA,0,807.85,302.34,505.52,130907581,0,0.00,2417
+E (21389) task_wdt: esp_task_wdt_reset(707): task not found
+I (21672) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281778 us, 45084343 cycles
+I (21672) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (21688) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13898 us, 2223027 cycles
+I (21688) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (21692) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (21702) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (21775) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (21779) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (21924) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 143714 us, 22994079 cycles
+I (21924) CRYPTO_HYBRID: X25519 shared secret derived
+I (21926) CRYPTO_HYBRID: [DEBUG] PK sent: 0f43bb6f133e26d8...de6a548a5e9f460c
+I (21932) CRYPTO_HYBRID: [DEBUG] CT recv: 74ef983639eee1df...a8e5b4a720112b02
+I (21958) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18504 us, 2959864 cycles
+I (21958) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (21961) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (21969) CRYPTO_HYBRID: All key material zeroized
+I (21973) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (21980) BENCHMARK:   Keygen:    48302299 cycles (301.89 ms)
+I (21985) BENCHMARK:   Handshake: 42764090 cycles (267.27 ms)
+I (21991) BENCHMARK:   Total:     92716717 cycles (569.16 ms)
+I (21996) BENCHMARK:   Peak Heap: 4 bytes
+I (22000) BENCHMARK:   Payload:   2417 bytes
+I (22004) CSV_EVIDENCE: CSV_DATA,0,569.16,301.89,267.27,92716717,4,0.00,2417
+E (22060) task_wdt: esp_task_wdt_reset(707): task not found
+I (22343) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281873 us, 45099532 cycles
+I (22343) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (22359) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13894 us, 2222256 cycles
+I (22359) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (22363) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (22373) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (22411) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (22414) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (22558) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 142433 us, 22789304 cycles
+I (22558) CRYPTO_HYBRID: X25519 shared secret derived
+I (22559) CRYPTO_HYBRID: [DEBUG] PK sent: 3d3718c0a2bd9189...4c4bfe5456783685
+I (22566) CRYPTO_HYBRID: [DEBUG] CT recv: c1a8675ede06e596...25e21dcc837f6c0f
+I (22592) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18503 us, 2959760 cycles
+I (22592) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (22595) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (22603) CRYPTO_HYBRID: All key material zeroized
+I (22607) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (22613) BENCHMARK:   Keygen:    48312883 cycles (301.95 ms)
+I (22619) BENCHMARK:   Handshake: 36800098 cycles (230.00 ms)
+I (22624) BENCHMARK:   Total:     86765311 cycles (531.96 ms)
+I (22630) BENCHMARK:   Peak Heap: 0 bytes
+I (22634) BENCHMARK:   Payload:   2417 bytes
+I (22637) CSV_EVIDENCE: CSV_DATA,0,531.96,301.95,230.00,86765311,0,0.00,2417
+E (22694) task_wdt: esp_task_wdt_reset(707): task not found
+I (22976) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281724 us, 45075658 cycles
+I (22977) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (22992) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13900 us, 2223163 cycles
+I (22993) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (22997) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (23007) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (23052) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (23056) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (23199) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 141845 us, 22694965 cycles
+I (23199) CRYPTO_HYBRID: X25519 shared secret derived
+I (23200) CRYPTO_HYBRID: [DEBUG] PK sent: f2b60a2ef67e00a2...c7ff8418456fd7d5
+I (23207) CRYPTO_HYBRID: [DEBUG] CT recv: a82df451243f94ee...424bcc82a0de7af3
+I (23232) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18507 us, 2960360 cycles
+I (23233) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (23235) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (23243) CRYPTO_HYBRID: All key material zeroized
+I (23248) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (23254) BENCHMARK:   Keygen:    48293001 cycles (301.83 ms)
+I (23260) BENCHMARK:   Handshake: 37917726 cycles (236.99 ms)
+I (23265) BENCHMARK:   Total:     87862109 cycles (538.82 ms)
+I (23271) BENCHMARK:   Peak Heap: 0 bytes
+I (23274) BENCHMARK:   Payload:   2417 bytes
+I (23278) CSV_EVIDENCE: CSV_DATA,0,538.82,301.83,236.99,87862109,0,0.00,2417
+E (23335) task_wdt: esp_task_wdt_reset(707): task not found
+I (23618) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282049 us, 45127744 cycles
+I (23618) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (23634) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13896 us, 2222562 cycles
+I (23634) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (23638) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (23648) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (23685) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (23689) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (23831) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 141214 us, 22594102 cycles
+I (23831) CRYPTO_HYBRID: X25519 shared secret derived
+I (23832) CRYPTO_HYBRID: [DEBUG] PK sent: bddca465b813c58c...ab7c84f71c61e3f8
+I (23839) CRYPTO_HYBRID: [DEBUG] CT recv: 4c0dc6c2c28c1821...ac804e5f2e8fda02
+I (23865) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18575 us, 2971362 cycles
+I (23865) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (23867) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (23876) CRYPTO_HYBRID: All key material zeroized
+I (23880) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (23886) BENCHMARK:   Keygen:    48344337 cycles (302.15 ms)
+I (23892) BENCHMARK:   Handshake: 36447346 cycles (227.80 ms)
+I (23897) BENCHMARK:   Total:     86443067 cycles (529.95 ms)
+I (23903) BENCHMARK:   Peak Heap: 0 bytes
+I (23906) BENCHMARK:   Payload:   2417 bytes
+I (23910) CSV_EVIDENCE: CSV_DATA,0,529.95,302.15,227.80,86443067,0,0.00,2417
+E (23967) task_wdt: esp_task_wdt_reset(707): task not found
+I (24251) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282894 us, 45262997 cycles
+I (24251) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (24267) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13914 us, 2225615 cycles
+I (24267) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (24271) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (24281) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (24318) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (24321) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (24464) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 141325 us, 22611921 cycles
+I (24464) CRYPTO_HYBRID: X25519 shared secret derived
+I (24465) CRYPTO_HYBRID: [DEBUG] PK sent: 26aa95c854720868...8deb519261e032ae
+I (24472) CRYPTO_HYBRID: [DEBUG] CT recv: c528af6f3215a552...59e5eb10d8a7a39a
+I (24497) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18507 us, 2960522 cycles
+I (24498) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (24500) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (24509) CRYPTO_HYBRID: All key material zeroized
+I (24513) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (24519) BENCHMARK:   Keygen:    48482035 cycles (303.01 ms)
+I (24525) BENCHMARK:   Handshake: 36459616 cycles (227.87 ms)
+I (24530) BENCHMARK:   Total:     86593023 cycles (530.89 ms)
+I (24536) BENCHMARK:   Peak Heap: 0 bytes
+I (24539) BENCHMARK:   Payload:   2417 bytes
+I (24543) CSV_EVIDENCE: CSV_DATA,0,530.89,303.01,227.87,86593023,0,0.00,2417
+E (24600) task_wdt: esp_task_wdt_reset(707): task not found
+I (24881) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 280697 us, 44911435 cycles
+I (24882) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (24897) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13895 us, 2222530 cycles
+I (24898) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (24902) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (24912) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (24947) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (24950) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (25095) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 143882 us, 23021025 cycles
+I (25095) CRYPTO_HYBRID: X25519 shared secret derived
+I (25096) CRYPTO_HYBRID: [DEBUG] PK sent: 4b702794db5aa851...f845af0ed02451ba
+I (25103) CRYPTO_HYBRID: [DEBUG] CT recv: a14b4e263fb75ee9...334054cf0c5a5578
+I (25129) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18501 us, 2959476 cycles
+I (25129) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (25132) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (25140) CRYPTO_HYBRID: All key material zeroized
+I (25144) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (25151) BENCHMARK:   Keygen:    48127521 cycles (300.80 ms)
+I (25156) BENCHMARK:   Handshake: 36528122 cycles (228.30 ms)
+I (25161) BENCHMARK:   Total:     86307025 cycles (529.10 ms)
+I (25167) BENCHMARK:   Peak Heap: 8 bytes
+I (25171) BENCHMARK:   Payload:   2417 bytes
+I (25175) CSV_EVIDENCE: CSV_DATA,0,529.10,300.80,228.30,86307025,8,0.01,2417
+E (25231) task_wdt: esp_task_wdt_reset(707): task not found
+I (25514) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282126 us, 45140096 cycles
+I (25514) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (25530) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13899 us, 2223063 cycles
+I (25530) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (25534) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (25544) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (25580) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (25584) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (25729) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 143401 us, 22944102 cycles
+I (25729) CRYPTO_HYBRID: X25519 shared secret derived
+I (25730) CRYPTO_HYBRID: [DEBUG] PK sent: 91b3500342a94dbc...cb77f9acd08bd06e
+I (25737) CRYPTO_HYBRID: [DEBUG] CT recv: ec331355548aa0c1...04b20758b9df94fd
+I (25762) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18509 us, 2960698 cycles
+I (25763) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (25765) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (25773) CRYPTO_HYBRID: All key material zeroized
+I (25778) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (25784) BENCHMARK:   Keygen:    48358351 cycles (302.24 ms)
+I (25790) BENCHMARK:   Handshake: 36722214 cycles (229.51 ms)
+I (25795) BENCHMARK:   Total:     86732569 cycles (531.75 ms)
+I (25801) BENCHMARK:   Peak Heap: 0 bytes
+I (25804) BENCHMARK:   Payload:   2417 bytes
+I (25808) CSV_EVIDENCE: CSV_DATA,0,531.75,302.24,229.51,86732569,0,0.00,2417
+E (25865) task_wdt: esp_task_wdt_reset(707): task not found
+I (26146) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 279914 us, 44786151 cycles
+I (26146) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (26162) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13904 us, 2223826 cycles
+I (26162) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (26166) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (26176) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (26228) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (26231) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (26371) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 138566 us, 22170557 cycles
+I (26372) CRYPTO_HYBRID: X25519 shared secret derived
+I (26373) CRYPTO_HYBRID: [DEBUG] PK sent: 85e5ca4f1c16d6d0...8bbd9256128909bc
+I (26379) CRYPTO_HYBRID: [DEBUG] CT recv: fc8ff9de41b9f632...2aaffacea2fa0d11
+I (26405) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18499 us, 2959224 cycles
+I (26405) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (26408) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (26416) CRYPTO_HYBRID: All key material zeroized
+I (26420) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (26427) BENCHMARK:   Keygen:    48000657 cycles (300.00 ms)
+I (26432) BENCHMARK:   Handshake: 38442458 cycles (240.26 ms)
+I (26438) BENCHMARK:   Total:     88100759 cycles (540.27 ms)
+I (26443) BENCHMARK:   Peak Heap: 0 bytes
+I (26447) BENCHMARK:   Payload:   2417 bytes
+I (26451) CSV_EVIDENCE: CSV_DATA,0,540.27,300.00,240.26,88100759,0,0.00,2417
+E (26508) task_wdt: esp_task_wdt_reset(707): task not found
+I (26791) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282039 us, 45126146 cycles
+I (26791) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (26807) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13902 us, 2223529 cycles
+I (26807) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (26811) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (26821) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (26856) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (26859) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (27004) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 143040 us, 22886267 cycles
+I (27004) CRYPTO_HYBRID: X25519 shared secret derived
+I (27005) CRYPTO_HYBRID: [DEBUG] PK sent: 71b1805684c06ad7...1a8a8113cb9aa03d
+I (27012) CRYPTO_HYBRID: [DEBUG] CT recv: 1fc0cdc12c40e150...60cd3116cbd66d63
+I (27037) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18514 us, 2961482 cycles
+I (27038) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (27040) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (27048) CRYPTO_HYBRID: All key material zeroized
+I (27053) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (27059) BENCHMARK:   Keygen:    48342335 cycles (302.14 ms)
+I (27065) BENCHMARK:   Handshake: 36414280 cycles (227.59 ms)
+I (27070) BENCHMARK:   Total:     86407973 cycles (529.73 ms)
+I (27076) BENCHMARK:   Peak Heap: 0 bytes
+I (27079) BENCHMARK:   Payload:   2417 bytes
+I (27083) CSV_EVIDENCE: CSV_DATA,0,529.73,302.14,227.59,86407973,0,0.00,2417
+E (27140) task_wdt: esp_task_wdt_reset(707): task not found
+I (27423) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281809 us, 45089352 cycles
+I (27423) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (27439) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13894 us, 2222208 cycles
+I (27439) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (27443) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (27453) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (27489) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (27493) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (27637) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 143561 us, 22969674 cycles
+I (27638) CRYPTO_HYBRID: X25519 shared secret derived
+I (27639) CRYPTO_HYBRID: [DEBUG] PK sent: 86066bbf421ee477...51a4a4b49fbafd95
+I (27646) CRYPTO_HYBRID: [DEBUG] CT recv: d80728f72755ef76...3c1f6fa80e7ba58f
+I (27671) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18499 us, 2959120 cycles
+I (27671) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (27674) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (27682) CRYPTO_HYBRID: All key material zeroized
+I (27686) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (27693) BENCHMARK:   Keygen:    48298219 cycles (301.86 ms)
+I (27698) BENCHMARK:   Handshake: 36709098 cycles (229.43 ms)
+I (27704) BENCHMARK:   Total:     86659333 cycles (531.30 ms)
+I (27709) BENCHMARK:   Peak Heap: 8 bytes
+I (27713) BENCHMARK:   Payload:   2417 bytes
+I (27717) CSV_EVIDENCE: CSV_DATA,0,531.30,301.86,229.43,86659333,8,0.01,2417
+E (27774) task_wdt: esp_task_wdt_reset(707): task not found
+I (28058) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282861 us, 45257688 cycles
+I (28058) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (28074) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13946 us, 2230727 cycles
+I (28074) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (28078) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (28088) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (28125) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (28129) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (28271) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 140379 us, 22460522 cycles
+I (28271) CRYPTO_HYBRID: X25519 shared secret derived
+I (28272) CRYPTO_HYBRID: [DEBUG] PK sent: f6771cccda04038c...2a5e2a3b0176e517
+I (28279) CRYPTO_HYBRID: [DEBUG] CT recv: ab4f356bbe348607...ce255f8899368899
+I (28304) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18507 us, 2960350 cycles
+I (28305) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (28307) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (28315) CRYPTO_HYBRID: All key material zeroized
+I (28320) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (28326) BENCHMARK:   Keygen:    48490411 cycles (303.07 ms)
+I (28332) BENCHMARK:   Handshake: 36432596 cycles (227.70 ms)
+I (28337) BENCHMARK:   Total:     86574371 cycles (530.77 ms)
+I (28343) BENCHMARK:   Peak Heap: 0 bytes
+I (28346) BENCHMARK:   Payload:   2417 bytes
+I (28350) CSV_EVIDENCE: CSV_DATA,0,530.77,303.07,227.70,86574371,0,0.00,2417
+E (28407) task_wdt: esp_task_wdt_reset(707): task not found
+I (28690) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282496 us, 45199254 cycles
+I (28691) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (28706) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13945 us, 2230422 cycles
+I (28707) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (28711) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (28721) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (28757) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (28760) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (28903) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 142477 us, 22796291 cycles
+I (28904) CRYPTO_HYBRID: X25519 shared secret derived
+I (28905) CRYPTO_HYBRID: [DEBUG] PK sent: 1ca6916ef7420cdc...5bd2426e67723e8a
+I (28912) CRYPTO_HYBRID: [DEBUG] CT recv: 052b159228dd5ef8...83c02f716fed2cdb
+I (28937) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18504 us, 2959980 cycles
+I (28938) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (28940) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (28948) CRYPTO_HYBRID: All key material zeroized
+I (28953) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (28959) BENCHMARK:   Keygen:    48425355 cycles (302.66 ms)
+I (28965) BENCHMARK:   Handshake: 36484012 cycles (228.02 ms)
+I (28970) BENCHMARK:   Total:     86561385 cycles (530.68 ms)
+I (28976) BENCHMARK:   Peak Heap: 8 bytes
+I (28979) BENCHMARK:   Payload:   2417 bytes
+I (28983) CSV_EVIDENCE: CSV_DATA,0,530.68,302.66,228.02,86561385,8,0.01,2417
+E (29040) task_wdt: esp_task_wdt_reset(707): task not found
+I (29323) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281781 us, 45084801 cycles
+I (29323) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (29339) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13956 us, 2232175 cycles
+I (29339) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (29343) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (29353) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (29398) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (29401) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (29546) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 143670 us, 22987004 cycles
+I (29546) CRYPTO_HYBRID: X25519 shared secret derived
+I (29547) CRYPTO_HYBRID: [DEBUG] PK sent: 711b4b046988ec67...19e426312bb5b8f5
+I (29554) CRYPTO_HYBRID: [DEBUG] CT recv: d733c261972eec20...f81ccd819b623229
+I (29580) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18506 us, 2960208 cycles
+I (29580) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (29583) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (29591) CRYPTO_HYBRID: All key material zeroized
+I (29595) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (29602) BENCHMARK:   Keygen:    48313239 cycles (301.96 ms)
+I (29607) BENCHMARK:   Handshake: 38105604 cycles (238.16 ms)
+I (29612) BENCHMARK:   Total:     88070869 cycles (540.12 ms)
+I (29618) BENCHMARK:   Peak Heap: 0 bytes
+I (29622) BENCHMARK:   Payload:   2417 bytes
+I (29626) CSV_EVIDENCE: CSV_DATA,0,540.12,301.96,238.16,88070869,0,0.00,2417
+E (29682) task_wdt: esp_task_wdt_reset(707): task not found
+I (29965) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282196 us, 45151299 cycles
+I (29965) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (29981) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13939 us, 2229470 cycles
+I (29981) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (29985) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (29995) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (30033) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (30036) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (30182) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 144640 us, 23142315 cycles
+I (30182) CRYPTO_HYBRID: X25519 shared secret derived
+I (30183) CRYPTO_HYBRID: [DEBUG] PK sent: 27e591f887210295...5b44c70db546b30f
+I (30190) CRYPTO_HYBRID: [DEBUG] CT recv: 7f9cf6a3a3a09b7c...f4dd123d7959e01e
+I (30216) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18988 us, 3037310 cycles
+I (30216) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (30219) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (30227) CRYPTO_HYBRID: All key material zeroized
+I (30231) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (30238) BENCHMARK:   Keygen:    48378955 cycles (302.37 ms)
+I (30243) BENCHMARK:   Handshake: 37099254 cycles (231.87 ms)
+I (30249) BENCHMARK:   Total:     87130207 cycles (534.24 ms)
+I (30254) BENCHMARK:   Peak Heap: 0 bytes
+I (30258) BENCHMARK:   Payload:   2417 bytes
+I (30262) CSV_EVIDENCE: CSV_DATA,0,534.24,302.37,231.87,87130207,0,0.00,2417
+E (30319) task_wdt: esp_task_wdt_reset(707): task not found
+I (30603) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 283211 us, 45313745 cycles
+I (30603) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (30619) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 14239 us, 2277613 cycles
+I (30620) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (30624) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (30634) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (30673) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (30677) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (30821) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 143265 us, 22922282 cycles
+I (30821) CRYPTO_HYBRID: X25519 shared secret derived
+I (30823) CRYPTO_HYBRID: [DEBUG] PK sent: d5398c6d7a9a2246...003f5d766f173155
+I (30829) CRYPTO_HYBRID: [DEBUG] CT recv: 71d0b78621ebeb01...090903868d666730
+I (30855) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18503 us, 2959720 cycles
+I (30855) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (30858) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (30866) CRYPTO_HYBRID: All key material zeroized
+I (30870) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (30877) BENCHMARK:   Keygen:    48593739 cycles (303.71 ms)
+I (30882) BENCHMARK:   Handshake: 37190468 cycles (232.44 ms)
+I (30887) BENCHMARK:   Total:     87435617 cycles (536.15 ms)
+I (30893) BENCHMARK:   Peak Heap: 0 bytes
+I (30897) BENCHMARK:   Payload:   2417 bytes
+I (30901) CSV_EVIDENCE: CSV_DATA,0,536.15,303.71,232.44,87435617,0,0.00,2417
+E (30957) task_wdt: esp_task_wdt_reset(707): task not found
+I (31240) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282242 us, 45158497 cycles
+I (31240) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (31256) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 14089 us, 2253526 cycles
+I (31256) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (31261) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (31270) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (31306) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (31309) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (31452) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 141308 us, 22609098 cycles
+I (31452) CRYPTO_HYBRID: X25519 shared secret derived
+I (31453) CRYPTO_HYBRID: [DEBUG] PK sent: d59c236cdaa854a6...bf4d2328ff714bc1
+I (31460) CRYPTO_HYBRID: [DEBUG] CT recv: 0d5d401d104bb6ce...6af1f75c6e11370f
+I (31486) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18710 us, 2992830 cycles
+I (31486) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (31489) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (31497) CRYPTO_HYBRID: All key material zeroized
+I (31501) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (31507) BENCHMARK:   Keygen:    48405081 cycles (302.53 ms)
+I (31513) BENCHMARK:   Handshake: 36233472 cycles (226.46 ms)
+I (31518) BENCHMARK:   Total:     86290565 cycles (528.99 ms)
+I (31524) BENCHMARK:   Peak Heap: 0 bytes
+I (31528) BENCHMARK:   Payload:   2417 bytes
+I (31532) CSV_EVIDENCE: CSV_DATA,0,528.99,302.53,226.46,86290565,0,0.00,2417
+E (31588) task_wdt: esp_task_wdt_reset(707): task not found
+I (31872) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 283064 us, 45290245 cycles
+I (31872) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (31888) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13897 us, 2222773 cycles
+I (31888) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (31892) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (31902) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (31942) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (31946) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (32092) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 144959 us, 23193271 cycles
+I (32092) CRYPTO_HYBRID: X25519 shared secret derived
+I (32093) CRYPTO_HYBRID: [DEBUG] PK sent: 102a3a0afa95b021...17659aaedee590ae
+I (32100) CRYPTO_HYBRID: [DEBUG] CT recv: aa002a80675ecb8f...d86114db599714a8
+I (32126) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18505 us, 2960090 cycles
+I (32126) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (32129) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (32137) CRYPTO_HYBRID: All key material zeroized
+I (32141) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (32147) BENCHMARK:   Keygen:    48507113 cycles (303.17 ms)
+I (32153) BENCHMARK:   Handshake: 37582568 cycles (234.89 ms)
+I (32158) BENCHMARK:   Total:     87741705 cycles (538.06 ms)
+I (32164) BENCHMARK:   Peak Heap: 8 bytes
+I (32168) BENCHMARK:   Payload:   2417 bytes
+I (32172) CSV_EVIDENCE: CSV_DATA,0,538.06,303.17,234.89,87741705,8,0.01,2417
+E (32228) task_wdt: esp_task_wdt_reset(707): task not found
+I (32510) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281295 us, 45007056 cycles
+I (32510) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (32526) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13899 us, 2223058 cycles
+I (32526) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (32530) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (32540) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (32584) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (32587) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (32728) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 139731 us, 22356863 cycles
+I (32728) CRYPTO_HYBRID: X25519 shared secret derived
+I (32729) CRYPTO_HYBRID: [DEBUG] PK sent: 26953b7647367044...3548c0e70c958b45
+I (32736) CRYPTO_HYBRID: [DEBUG] CT recv: d632280ae03aebf5...3b6c53ddb43d4e83
+I (32761) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18527 us, 2963478 cycles
+I (32762) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (32764) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (32773) CRYPTO_HYBRID: All key material zeroized
+I (32777) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (32783) BENCHMARK:   Keygen:    48224513 cycles (301.40 ms)
+I (32789) BENCHMARK:   Handshake: 37191118 cycles (232.44 ms)
+I (32794) BENCHMARK:   Total:     87067617 cycles (533.85 ms)
+I (32800) BENCHMARK:   Peak Heap: 0 bytes
+I (32803) BENCHMARK:   Payload:   2417 bytes
+I (32807) CSV_EVIDENCE: CSV_DATA,0,533.85,301.40,232.44,87067617,0,0.00,2417
+E (32864) task_wdt: esp_task_wdt_reset(707): task not found
+I (33146) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281369 us, 45018957 cycles
+I (33147) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (33162) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13892 us, 2221933 cycles
+I (33162) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (33166) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (33176) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (33212) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (33216) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (33356) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 139169 us, 22266910 cycles
+I (33356) CRYPTO_HYBRID: X25519 shared secret derived
+I (33357) CRYPTO_HYBRID: [DEBUG] PK sent: 53c956b69930be03...91063578e0812f02
+I (33364) CRYPTO_HYBRID: [DEBUG] CT recv: f02e80bdcbb9d21d...5aeea8fb13fbafa3
+I (33390) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18997 us, 3038728 cycles
+I (33390) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (33393) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (33401) CRYPTO_HYBRID: All key material zeroized
+I (33406) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (33412) BENCHMARK:   Keygen:    48236475 cycles (301.48 ms)
+I (33417) BENCHMARK:   Handshake: 35996836 cycles (224.98 ms)
+I (33423) BENCHMARK:   Total:     85884695 cycles (526.46 ms)
+I (33428) BENCHMARK:   Peak Heap: 0 bytes
+I (33432) BENCHMARK:   Payload:   2417 bytes
+I (33436) CSV_EVIDENCE: CSV_DATA,0,526.46,301.48,224.98,85884695,0,0.00,2417
+E (33493) task_wdt: esp_task_wdt_reset(707): task not found
+I (33774) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 279865 us, 44778356 cycles
+I (33774) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (33790) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13900 us, 2223290 cycles
+I (33790) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (33794) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (33804) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (33845) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (33848) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (33991) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 142351 us, 22776025 cycles
+I (33992) CRYPTO_HYBRID: X25519 shared secret derived
+I (33993) CRYPTO_HYBRID: [DEBUG] PK sent: f72749dd5956d1c7...83a256859a7c5359
+I (34000) CRYPTO_HYBRID: [DEBUG] CT recv: 13347971705e80c4...f9df4502305cf604
+I (34025) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18505 us, 2960094 cycles
+I (34025) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (34028) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (34036) CRYPTO_HYBRID: All key material zeroized
+I (34040) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (34047) BENCHMARK:   Keygen:    47994919 cycles (299.97 ms)
+I (34052) BENCHMARK:   Handshake: 37187802 cycles (232.42 ms)
+I (34058) BENCHMARK:   Total:     86834693 cycles (532.39 ms)
+I (34063) BENCHMARK:   Peak Heap: 8 bytes
+I (34067) BENCHMARK:   Payload:   2417 bytes
+I (34071) CSV_EVIDENCE: CSV_DATA,0,532.39,299.97,232.42,86834693,8,0.01,2417
+E (34128) task_wdt: esp_task_wdt_reset(707): task not found
+I (34410) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281282 us, 45004995 cycles
+I (34410) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (34426) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13890 us, 2221771 cycles
+I (34426) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (34430) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (34440) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (34478) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (34481) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (34626) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 143609 us, 22977341 cycles
+I (34626) CRYPTO_HYBRID: X25519 shared secret derived
+I (34627) CRYPTO_HYBRID: [DEBUG] PK sent: ee28145b675dca84...ecee7491ef246bf9
+I (34634) CRYPTO_HYBRID: [DEBUG] CT recv: f7f5a0381cf7ecd0...9359207409a86763
+I (34660) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18709 us, 2992694 cycles
+I (34660) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (34663) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (34671) CRYPTO_HYBRID: All key material zeroized
+I (34675) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (34682) BENCHMARK:   Keygen:    48222797 cycles (301.39 ms)
+I (34687) BENCHMARK:   Handshake: 36936776 cycles (230.85 ms)
+I (34693) BENCHMARK:   Total:     86811559 cycles (532.25 ms)
+I (34698) BENCHMARK:   Peak Heap: 0 bytes
+I (34702) BENCHMARK:   Payload:   2417 bytes
+I (34706) CSV_EVIDENCE: CSV_DATA,0,532.25,301.39,230.85,86811559,0,0.00,2417
+E (34763) task_wdt: esp_task_wdt_reset(707): task not found
+I (35047) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282968 us, 45274646 cycles
+I (35047) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (35063) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 14103 us, 2255788 cycles
+I (35063) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (35067) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (35077) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (35117) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (35120) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (35265) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 143652 us, 22984113 cycles
+I (35266) CRYPTO_HYBRID: X25519 shared secret derived
+I (35267) CRYPTO_HYBRID: [DEBUG] PK sent: be771f4236c2c5bc...fe7bcc3da107580d
+I (35274) CRYPTO_HYBRID: [DEBUG] CT recv: 0a00ae977651c3c7...2ba05424581c596f
+I (35299) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18705 us, 2992014 cycles
+I (35299) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (35302) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (35310) CRYPTO_HYBRID: All key material zeroized
+I (35315) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (35321) BENCHMARK:   Keygen:    48523819 cycles (303.27 ms)
+I (35326) BENCHMARK:   Handshake: 37333830 cycles (233.34 ms)
+I (35332) BENCHMARK:   Total:     87510063 cycles (536.61 ms)
+I (35337) BENCHMARK:   Peak Heap: 0 bytes
+I (35341) BENCHMARK:   Payload:   2417 bytes
+I (35345) CSV_EVIDENCE: CSV_DATA,0,536.61,303.27,233.34,87510063,0,0.00,2417
+E (35402) task_wdt: esp_task_wdt_reset(707): task not found
+I (35685) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282289 us, 45166058 cycles
+I (35685) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (35701) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13897 us, 2222837 cycles
+I (35701) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (35705) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (35715) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (35756) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (35760) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (35905) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 144636 us, 23141655 cycles
+I (35906) CRYPTO_HYBRID: X25519 shared secret derived
+I (35907) CRYPTO_HYBRID: [DEBUG] PK sent: dd591eaf13a67a19...c394f4cf3a3d44aa
+I (35914) CRYPTO_HYBRID: [DEBUG] CT recv: 160be88f6b8ebb2c...aa6e21a06870f94d
+I (35939) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18512 us, 2961170 cycles
+I (35939) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (35942) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (35950) CRYPTO_HYBRID: All key material zeroized
+I (35955) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (35961) BENCHMARK:   Keygen:    48383793 cycles (302.40 ms)
+I (35966) BENCHMARK:   Handshake: 37606378 cycles (235.04 ms)
+I (35972) BENCHMARK:   Total:     87642183 cycles (537.44 ms)
+I (35977) BENCHMARK:   Peak Heap: 0 bytes
+I (35981) BENCHMARK:   Payload:   2417 bytes
+I (35985) CSV_EVIDENCE: CSV_DATA,0,537.44,302.40,235.04,87642183,0,0.00,2417
+E (36042) task_wdt: esp_task_wdt_reset(707): task not found
+I (36324) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281037 us, 44965782 cycles
+I (36324) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (36340) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13897 us, 2222806 cycles
+I (36340) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (36344) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (36354) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (36391) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (36394) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (36540) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 144907 us, 23184938 cycles
+I (36541) CRYPTO_HYBRID: X25519 shared secret derived
+I (36542) CRYPTO_HYBRID: [DEBUG] PK sent: 2547192ca927965b...e683dcc5be449b52
+I (36549) CRYPTO_HYBRID: [DEBUG] CT recv: 9aba50936cec65e1...2bb27ec512063db4
+I (36574) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18507 us, 2960392 cycles
+I (36575) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (36577) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (36585) CRYPTO_HYBRID: All key material zeroized
+I (36590) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (36596) BENCHMARK:   Keygen:    48191075 cycles (301.19 ms)
+I (36602) BENCHMARK:   Handshake: 37033122 cycles (231.46 ms)
+I (36607) BENCHMARK:   Total:     86876201 cycles (532.65 ms)
+I (36612) BENCHMARK:   Peak Heap: 0 bytes
+I (36616) BENCHMARK:   Payload:   2417 bytes
+I (36620) CSV_EVIDENCE: CSV_DATA,0,532.65,301.19,231.46,86876201,0,0.00,2417
+E (36677) task_wdt: esp_task_wdt_reset(707): task not found
+I (36956) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 278762 us, 44601914 cycles
+I (36957) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (36972) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13902 us, 2223465 cycles
+I (36973) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (36977) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (36987) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (37025) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (37028) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (37171) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 141825 us, 22691876 cycles
+I (37172) CRYPTO_HYBRID: X25519 shared secret derived
+I (37173) CRYPTO_HYBRID: [DEBUG] PK sent: 9da40dfe2a455bc8...407ed83bbfc20771
+I (37180) CRYPTO_HYBRID: [DEBUG] CT recv: 9ee4d53814233d4c...ccd33f61c660e9c3
+I (37205) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18504 us, 2959820 cycles
+I (37205) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (37208) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (37216) CRYPTO_HYBRID: All key material zeroized
+I (37220) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (37227) BENCHMARK:   Keygen:    47812351 cycles (298.83 ms)
+I (37232) BENCHMARK:   Handshake: 36721000 cycles (229.51 ms)
+I (37238) BENCHMARK:   Total:     86184733 cycles (528.33 ms)
+I (37243) BENCHMARK:   Peak Heap: 0 bytes
+I (37247) BENCHMARK:   Payload:   2417 bytes
+I (37251) CSV_EVIDENCE: CSV_DATA,0,528.33,298.83,229.51,86184733,0,0.00,2417
+E (37308) task_wdt: esp_task_wdt_reset(707): task not found
+I (37590) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281146 us, 44983351 cycles
+I (37590) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (37606) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13890 us, 2221620 cycles
+I (37606) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (37610) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (37620) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (37656) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (37660) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (37800) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 139168 us, 22266834 cycles
+I (37801) CRYPTO_HYBRID: X25519 shared secret derived
+I (37802) CRYPTO_HYBRID: [DEBUG] PK sent: 27e98c41a87d2b89...d26bca1ab8cbfba0
+I (37809) CRYPTO_HYBRID: [DEBUG] CT recv: cf971eee6df0d795...1ccbe7a0d0169cdd
+I (37834) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18501 us, 2959376 cycles
+I (37835) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (37837) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (37845) CRYPTO_HYBRID: All key material zeroized
+I (37850) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (37856) BENCHMARK:   Keygen:    48199269 cycles (301.24 ms)
+I (37862) BENCHMARK:   Handshake: 36065738 cycles (225.41 ms)
+I (37867) BENCHMARK:   Total:     85916377 cycles (526.66 ms)
+I (37872) BENCHMARK:   Peak Heap: 0 bytes
+I (37876) BENCHMARK:   Payload:   2417 bytes
+I (37880) CSV_EVIDENCE: CSV_DATA,0,526.66,301.24,225.41,85916377,0,0.00,2417
+E (37937) task_wdt: esp_task_wdt_reset(707): task not found
+I (38220) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282171 us, 45147186 cycles
+I (38220) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (38236) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13897 us, 2222835 cycles
+I (38236) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (38240) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (38250) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (38293) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (38298) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (38441) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 142512 us, 22801748 cycles
+I (38442) CRYPTO_HYBRID: X25519 shared secret derived
+I (38443) CRYPTO_HYBRID: [DEBUG] PK sent: 59eb1af905a8e7e7...a7dd0c9c1b6daa2e
+I (38450) CRYPTO_HYBRID: [DEBUG] CT recv: e0ed8be5ccd7076c...0fb50547f657993c
+I (38475) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18500 us, 2959374 cycles
+I (38475) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (38478) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (38486) CRYPTO_HYBRID: All key material zeroized
+I (38491) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (38497) BENCHMARK:   Keygen:    48361809 cycles (302.26 ms)
+I (38502) BENCHMARK:   Handshake: 37809670 cycles (236.31 ms)
+I (38508) BENCHMARK:   Total:     87824251 cycles (538.57 ms)
+I (38513) BENCHMARK:   Peak Heap: 0 bytes
+I (38517) BENCHMARK:   Payload:   2417 bytes
+I (38521) CSV_EVIDENCE: CSV_DATA,0,538.57,302.26,236.31,87824251,0,0.00,2417
+E (38578) task_wdt: esp_task_wdt_reset(707): task not found
+I (38861) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281952 us, 45112240 cycles
+I (38861) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (38877) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13886 us, 2221032 cycles
+I (38877) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (38881) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (38891) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (38928) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (38932) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (39074) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 141264 us, 22602096 cycles
+I (39074) CRYPTO_HYBRID: X25519 shared secret derived
+I (39076) CRYPTO_HYBRID: [DEBUG] PK sent: e37423254ca66803...26c88b15d55bcd9a
+I (39082) CRYPTO_HYBRID: [DEBUG] CT recv: 32b0f011ee93bb4a...7d7a67484efc735b
+I (39108) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18499 us, 2959142 cycles
+I (39108) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (39111) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (39119) CRYPTO_HYBRID: All key material zeroized
+I (39123) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (39130) BENCHMARK:   Keygen:    48325987 cycles (302.04 ms)
+I (39135) BENCHMARK:   Handshake: 36513600 cycles (228.21 ms)
+I (39141) BENCHMARK:   Total:     86491593 cycles (530.25 ms)
+I (39146) BENCHMARK:   Peak Heap: 0 bytes
+I (39150) BENCHMARK:   Payload:   2417 bytes
+I (39154) CSV_EVIDENCE: CSV_DATA,0,530.25,302.04,228.21,86491593,0,0.00,2417
+E (39211) task_wdt: esp_task_wdt_reset(707): task not found
+I (39493) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281673 us, 45067561 cycles
+I (39494) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (39509) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13900 us, 2223159 cycles
+I (39510) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (39514) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (39524) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (39563) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (39566) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (39711) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 143995 us, 23039155 cycles
+I (39712) CRYPTO_HYBRID: X25519 shared secret derived
+I (39713) CRYPTO_HYBRID: [DEBUG] PK sent: e14083d3309482d5...4df909d03d7d1916
+I (39720) CRYPTO_HYBRID: [DEBUG] CT recv: 43a9906033800431...49f308b3471ccd7f
+I (39745) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18538 us, 2965384 cycles
+I (39745) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (39748) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (39756) CRYPTO_HYBRID: All key material zeroized
+I (39760) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (39767) BENCHMARK:   Keygen:    48285311 cycles (301.78 ms)
+I (39772) BENCHMARK:   Handshake: 37214052 cycles (232.59 ms)
+I (39778) BENCHMARK:   Total:     87152777 cycles (534.37 ms)
+I (39783) BENCHMARK:   Peak Heap: 0 bytes
+I (39787) BENCHMARK:   Payload:   2417 bytes
+I (39791) CSV_EVIDENCE: CSV_DATA,0,534.37,301.78,232.59,87152777,0,0.00,2417
+E (39848) task_wdt: esp_task_wdt_reset(707): task not found
+I (40129) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 280683 us, 44909225 cycles
+I (40130) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (40146) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 14174 us, 2267150 cycles
+I (40146) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (40150) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (40160) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (40202) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (40205) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (40347) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 141078 us, 22572302 cycles
+I (40348) CRYPTO_HYBRID: X25519 shared secret derived
+I (40349) CRYPTO_HYBRID: [DEBUG] PK sent: 71f5a973c6cc401c...964f93e109748563
+I (40356) CRYPTO_HYBRID: [DEBUG] CT recv: aee74de2250931d9...e85e6ce1966264cc
+I (40381) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18509 us, 2960672 cycles
+I (40381) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (40384) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (40392) CRYPTO_HYBRID: All key material zeroized
+I (40397) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (40403) BENCHMARK:   Keygen:    48170381 cycles (301.07 ms)
+I (40408) BENCHMARK:   Handshake: 37171570 cycles (232.32 ms)
+I (40414) BENCHMARK:   Total:     86995345 cycles (533.39 ms)
+I (40419) BENCHMARK:   Peak Heap: 0 bytes
+I (40423) BENCHMARK:   Payload:   2417 bytes
+I (40427) CSV_EVIDENCE: CSV_DATA,0,533.39,301.07,232.32,86995345,0,0.00,2417
+E (40484) task_wdt: esp_task_wdt_reset(707): task not found
+I (40766) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281523 us, 45043557 cycles
+I (40767) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (40782) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13899 us, 2223111 cycles
+I (40783) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (40787) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (40797) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (41297) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (41301) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (41445) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 143047 us, 22887438 cycles
+I (41445) CRYPTO_HYBRID: X25519 shared secret derived
+I (41446) CRYPTO_HYBRID: [DEBUG] PK sent: 66a2c9ab1014ba09...5e4598439f01453b
+I (41453) CRYPTO_HYBRID: [DEBUG] CT recv: 9cc9237b3ef46c24...0cf1c14cbc8f830c
+I (41479) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18798 us, 3006874 cycles
+I (41479) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (41482) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (41490) CRYPTO_HYBRID: All key material zeroized
+I (41494) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (41501) BENCHMARK:   Keygen:    48260675 cycles (301.63 ms)
+I (41506) BENCHMARK:   Handshake: 110977888 cycles (693.61 ms)
+I (41512) BENCHMARK:   Total:     160891281 cycles (995.24 ms)
+I (41517) BENCHMARK:   Peak Heap: 8 bytes
+I (41521) BENCHMARK:   Payload:   2417 bytes
+I (41525) CSV_EVIDENCE: CSV_DATA,0,995.24,301.63,693.61,160891281,8,0.01,2417
+E (41582) task_wdt: esp_task_wdt_reset(707): task not found
+I (41863) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 280555 us, 44888686 cycles
+I (41864) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (41879) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13900 us, 2223272 cycles
+I (41880) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (41884) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (41894) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (41929) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (41933) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (42077) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 142615 us, 22818189 cycles
+I (42077) CRYPTO_HYBRID: X25519 shared secret derived
+I (42078) CRYPTO_HYBRID: [DEBUG] PK sent: 21135f2e335c97e2...7b0f7cee2ac3131a
+I (42085) CRYPTO_HYBRID: [DEBUG] CT recv: 3ecf4a8a51beaeaa...0e97a89302cc9990
+I (42110) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18510 us, 2960768 cycles
+I (42111) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (42113) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (42122) CRYPTO_HYBRID: All key material zeroized
+I (42126) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (42132) BENCHMARK:   Keygen:    48106369 cycles (300.67 ms)
+I (42138) BENCHMARK:   Handshake: 36519638 cycles (228.25 ms)
+I (42143) BENCHMARK:   Total:     86278025 cycles (528.91 ms)
+I (42149) BENCHMARK:   Peak Heap: 0 bytes
+I (42152) BENCHMARK:   Payload:   2417 bytes
+I (42156) CSV_EVIDENCE: CSV_DATA,0,528.91,300.67,228.25,86278025,0,0.00,2417
+E (42213) task_wdt: esp_task_wdt_reset(707): task not found
+I (42497) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282997 us, 45279456 cycles
+I (42497) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (42513) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 14101 us, 2255369 cycles
+I (42513) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (42517) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (42527) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (42565) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (42568) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (42711) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 141612 us, 22657821 cycles
+I (42711) CRYPTO_HYBRID: X25519 shared secret derived
+I (42712) CRYPTO_HYBRID: [DEBUG] PK sent: 559242e1753ca798...a501a651dd5ce3ab
+I (42719) CRYPTO_HYBRID: [DEBUG] CT recv: 2306ea366113483c...43bd7a38c3adf685
+I (42745) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18716 us, 2993758 cycles
+I (42745) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (42748) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (42756) CRYPTO_HYBRID: All key material zeroized
+I (42760) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (42767) BENCHMARK:   Keygen:    48525601 cycles (303.29 ms)
+I (42772) BENCHMARK:   Handshake: 36610224 cycles (228.81 ms)
+I (42777) BENCHMARK:   Total:     86787195 cycles (532.10 ms)
+I (42783) BENCHMARK:   Peak Heap: 0 bytes
+I (42787) BENCHMARK:   Payload:   2417 bytes
+I (42791) CSV_EVIDENCE: CSV_DATA,0,532.10,303.29,228.81,86787195,0,0.00,2417
+E (42847) task_wdt: esp_task_wdt_reset(707): task not found
+I (43130) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282262 us, 45161840 cycles
+I (43130) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (43146) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13894 us, 2222298 cycles
+I (43146) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (43150) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (43160) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (43200) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (43204) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (43347) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 142413 us, 22786051 cycles
+I (43348) CRYPTO_HYBRID: X25519 shared secret derived
+I (43349) CRYPTO_HYBRID: [DEBUG] PK sent: 74f8c8e965410298...0132ba0dc56bb365
+I (43356) CRYPTO_HYBRID: [DEBUG] CT recv: baae8928c7c3aafa...f3b6026b6f2abcd3
+I (43381) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18502 us, 2959490 cycles
+I (43381) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (43384) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (43392) CRYPTO_HYBRID: All key material zeroized
+I (43397) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (43403) BENCHMARK:   Keygen:    48378717 cycles (302.37 ms)
+I (43408) BENCHMARK:   Handshake: 37150650 cycles (232.19 ms)
+I (43414) BENCHMARK:   Total:     87181541 cycles (534.56 ms)
+I (43419) BENCHMARK:   Peak Heap: 0 bytes
+I (43423) BENCHMARK:   Payload:   2417 bytes
+I (43427) CSV_EVIDENCE: CSV_DATA,0,534.56,302.37,232.19,87181541,0,0.00,2417
+E (43484) task_wdt: esp_task_wdt_reset(707): task not found
+I (43767) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282293 us, 45166762 cycles
+I (43767) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (43783) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13893 us, 2222213 cycles
+I (43783) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (43787) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (43797) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (44649) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (44653) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (44800) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 146114 us, 23378078 cycles
+I (44800) CRYPTO_HYBRID: X25519 shared secret derived
+I (44801) CRYPTO_HYBRID: [DEBUG] PK sent: 18294a25fa8f32a6...523508d065bf2f77
+I (44808) CRYPTO_HYBRID: [DEBUG] CT recv: 87f278181e436a95...8e63427467bfc4e4
+I (44834) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18505 us, 2960050 cycles
+I (44834) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (44837) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (44845) CRYPTO_HYBRID: All key material zeroized
+I (44849) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (44856) BENCHMARK:   Keygen:    48383781 cycles (302.40 ms)
+I (44861) BENCHMARK:   Handshake: 167633648 cycles (1047.71 ms)
+I (44867) BENCHMARK:   Total:     217669441 cycles (1350.11 ms)
+I (44872) BENCHMARK:   Peak Heap: 0 bytes
+I (44876) BENCHMARK:   Payload:   2417 bytes
+I (44880) CSV_EVIDENCE: CSV_DATA,0,1350.11,302.40,1047.71,217669441,0,0.00,2417
+E (44937) task_wdt: esp_task_wdt_reset(707): task not found
+I (45220) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282519 us, 45202992 cycles
+I (45221) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (45236) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13897 us, 2222800 cycles
+I (45237) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (45241) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (45251) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (46455) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (46459) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (46602) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 142483 us, 22797276 cycles
+I (46602) CRYPTO_HYBRID: X25519 shared secret derived
+I (46604) CRYPTO_HYBRID: [DEBUG] PK sent: 2414076a51616875...a2399591c4733bd4
+I (46610) CRYPTO_HYBRID: [DEBUG] CT recv: 2eec3936651df4aa...bcf670edfc94f40f
+I (46636) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18502 us, 2959582 cycles
+I (46636) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (46639) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (46647) CRYPTO_HYBRID: All key material zeroized
+I (46651) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (46658) BENCHMARK:   Keygen:    48419779 cycles (302.62 ms)
+I (46663) BENCHMARK:   Handshake: 223451721 cycles (1396.57 ms)
+I (46669) BENCHMARK:   Total:     273523513 cycles (1699.20 ms)
+I (46674) BENCHMARK:   Peak Heap: 324 bytes
+I (46678) BENCHMARK:   Payload:   2417 bytes
+I (46682) CSV_EVIDENCE: CSV_DATA,0,1699.20,302.62,1396.57,273523513,324,0.32,2417
+E (46739) task_wdt: esp_task_wdt_reset(707): task not found
+I (47024) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 283935 us, 45429457 cycles
+I (47024) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (47040) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13895 us, 2222523 cycles
+I (47040) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (47044) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (47054) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (47217) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (47220) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (47360) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 139145 us, 22263122 cycles
+I (47361) CRYPTO_HYBRID: X25519 shared secret derived
+I (47362) CRYPTO_HYBRID: [DEBUG] PK sent: 8622becde22cb135...63310c0cad35cfee
+I (47368) CRYPTO_HYBRID: [DEBUG] CT recv: c697943f3f848143...16f9d65c8966ad84
+I (47394) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18502 us, 2959470 cycles
+I (47394) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (47397) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (47405) CRYPTO_HYBRID: All key material zeroized
+I (47409) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (47416) BENCHMARK:   Keygen:    48638167 cycles (303.99 ms)
+I (47421) BENCHMARK:   Handshake: 56199981 cycles (351.25 ms)
+I (47427) BENCHMARK:   Total:     106489521 cycles (655.24 ms)
+I (47432) BENCHMARK:   Peak Heap: 328 bytes
+I (47436) BENCHMARK:   Payload:   2417 bytes
+I (47440) CSV_EVIDENCE: CSV_DATA,0,655.24,303.99,351.25,106489521,328,0.32,2417
+E (47497) task_wdt: esp_task_wdt_reset(707): task not found
+I (47780) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282033 us, 45125136 cycles
+I (47780) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (47796) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13894 us, 2222196 cycles
+I (47796) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (47800) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (47810) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (49306) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (49309) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (49452) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 142132 us, 22740966 cycles
+I (49453) CRYPTO_HYBRID: X25519 shared secret derived
+I (49454) CRYPTO_HYBRID: [DEBUG] PK sent: 6e1949dab0cdddec...14a744f12033360d
+I (49461) CRYPTO_HYBRID: [DEBUG] CT recv: 66a8af2ed8ed06d0...c3c659b50a5cea11
+I (49486) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18502 us, 2959542 cycles
+I (49486) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (49489) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (49497) CRYPTO_HYBRID: All key material zeroized
+I (49502) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (49508) BENCHMARK:   Keygen:    48332357 cycles (302.08 ms)
+I (49513) BENCHMARK:   Handshake: 269970357 cycles (1687.31 ms)
+I (49519) BENCHMARK:   Total:     319954713 cycles (1989.39 ms)
+I (49525) BENCHMARK:   Peak Heap: 0 bytes
+I (49528) BENCHMARK:   Payload:   2417 bytes
+I (49532) CSV_EVIDENCE: CSV_DATA,0,1989.39,302.08,1687.31,319954713,0,0.00,2417
+E (49589) task_wdt: esp_task_wdt_reset(707): task not found
+I (49871) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281325 us, 45011945 cycles
+I (49871) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (49887) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 14104 us, 2255963 cycles
+I (49888) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (49892) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (49901) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (49936) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (49940) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (50083) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 142561 us, 22809730 cycles
+I (50084) CRYPTO_HYBRID: X25519 shared secret derived
+I (50085) CRYPTO_HYBRID: [DEBUG] PK sent: b6e90064618b37cb...bf2407ce56ac11d0
+I (50091) CRYPTO_HYBRID: [DEBUG] CT recv: b83b4050f08d4be0...b31d0c62ae239158
+I (50117) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18709 us, 2992664 cycles
+I (50117) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (50120) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (50128) CRYPTO_HYBRID: All key material zeroized
+I (50133) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (50139) BENCHMARK:   Keygen:    48254029 cycles (301.59 ms)
+I (50144) BENCHMARK:   Handshake: 36299272 cycles (226.87 ms)
+I (50150) BENCHMARK:   Total:     86204683 cycles (528.46 ms)
+I (50155) BENCHMARK:   Peak Heap: 0 bytes
+I (50159) BENCHMARK:   Payload:   2417 bytes
+I (50163) CSV_EVIDENCE: CSV_DATA,0,528.46,301.59,226.87,86204683,0,0.00,2417
+E (50220) task_wdt: esp_task_wdt_reset(707): task not found
+I (50502) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281189 us, 44990028 cycles
+I (50502) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (50518) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13898 us, 2222832 cycles
+I (50518) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (50522) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (50532) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (50917) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (50921) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (51061) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 139904 us, 22384550 cycles
+I (51062) CRYPTO_HYBRID: X25519 shared secret derived
+I (51063) CRYPTO_HYBRID: [DEBUG] PK sent: 49379e8fdbb6216c...2eb7fcd8ed398dca
+I (51070) CRYPTO_HYBRID: [DEBUG] CT recv: ca6d6ac5abc8056c...075d2ceb33da111d
+I (51095) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18514 us, 2961533 cycles
+I (51096) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (51098) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (51106) CRYPTO_HYBRID: All key material zeroized
+I (51111) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (51117) BENCHMARK:   Keygen:    48206601 cycles (301.29 ms)
+I (51122) BENCHMARK:   Handshake: 91893076 cycles (574.33 ms)
+I (51128) BENCHMARK:   Total:     141751979 cycles (875.62 ms)
+I (51134) BENCHMARK:   Peak Heap: 0 bytes
+I (51137) BENCHMARK:   Payload:   2417 bytes
+I (51141) CSV_EVIDENCE: CSV_DATA,0,875.62,301.29,574.33,141751979,0,0.00,2417
+E (51198) task_wdt: esp_task_wdt_reset(707): task not found
+I (51481) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282173 us, 45147534 cycles
+I (51481) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (51497) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13894 us, 2222309 cycles
+I (51497) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (51501) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (51511) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (51546) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (51550) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (51691) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 140372 us, 22459422 cycles
+I (51691) CRYPTO_HYBRID: X25519 shared secret derived
+I (51693) CRYPTO_HYBRID: [DEBUG] PK sent: aa0745f8a83c5cd3...6975f4dc96ed5b69
+I (51699) CRYPTO_HYBRID: [DEBUG] CT recv: 46079d1c952bd714...f2615843504e685f
+I (51725) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 19167 us, 3066068 cycles
+I (51726) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (51728) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (51736) CRYPTO_HYBRID: All key material zeroized
+I (51741) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (51747) BENCHMARK:   Keygen:    48363859 cycles (302.27 ms)
+I (51753) BENCHMARK:   Handshake: 36085776 cycles (225.54 ms)
+I (51758) BENCHMARK:   Total:     86101639 cycles (527.81 ms)
+I (51764) BENCHMARK:   Peak Heap: 0 bytes
+I (51767) BENCHMARK:   Payload:   2417 bytes
+I (51771) CSV_EVIDENCE: CSV_DATA,0,527.81,302.27,225.54,86101639,0,0.00,2417
+E (51828) task_wdt: esp_task_wdt_reset(707): task not found
+I (52112) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 283590 us, 45374329 cycles
+I (52113) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (52128) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13897 us, 2222668 cycles
+I (52129) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (52133) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (52143) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (52185) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (52189) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (52334) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 144560 us, 23129567 cycles
+I (52335) CRYPTO_HYBRID: X25519 shared secret derived
+I (52336) CRYPTO_HYBRID: [DEBUG] PK sent: dba210ad3016e974...e7031e9178d8abe1
+I (52343) CRYPTO_HYBRID: [DEBUG] CT recv: 59ad99a0857c35da...96b1f964a0421f8b
+I (52368) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18498 us, 2958860 cycles
+I (52368) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (52371) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (52379) CRYPTO_HYBRID: All key material zeroized
+I (52384) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (52390) BENCHMARK:   Keygen:    48590433 cycles (303.69 ms)
+I (52395) BENCHMARK:   Handshake: 37890073 cycles (236.81 ms)
+I (52401) BENCHMARK:   Total:     88132525 cycles (540.50 ms)
+I (52406) BENCHMARK:   Peak Heap: 332 bytes
+I (52410) BENCHMARK:   Payload:   2417 bytes
+I (52414) CSV_EVIDENCE: CSV_DATA,0,540.50,303.69,236.81,88132525,332,0.32,2417
+E (52471) task_wdt: esp_task_wdt_reset(707): task not found
+I (52752) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 280768 us, 44922783 cycles
+I (52753) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (52768) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13891 us, 2221821 cycles
+I (52769) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (52773) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (52783) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (52860) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (52863) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (53008) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 143189 us, 22910171 cycles
+I (53008) CRYPTO_HYBRID: X25519 shared secret derived
+I (53009) CRYPTO_HYBRID: [DEBUG] PK sent: 60421ca1f7b24dd5...23961a9a8a22959d
+I (53016) CRYPTO_HYBRID: [DEBUG] CT recv: fcf382b4c778460c...17b281258b8a06d1
+I (53042) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18500 us, 2959244 cycles
+I (53042) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (53045) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (53053) CRYPTO_HYBRID: All key material zeroized
+I (53057) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (53064) BENCHMARK:   Keygen:    48128925 cycles (300.81 ms)
+I (53069) BENCHMARK:   Handshake: 43250904 cycles (270.32 ms)
+I (53074) BENCHMARK:   Total:     93031825 cycles (571.12 ms)
+I (53080) BENCHMARK:   Peak Heap: 12 bytes
+I (53084) BENCHMARK:   Payload:   2417 bytes
+I (53088) CSV_EVIDENCE: CSV_DATA,0,571.12,300.81,270.32,93031825,12,0.01,2417
+E (53145) task_wdt: esp_task_wdt_reset(707): task not found
+I (53428) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282019 us, 45122916 cycles
+I (53428) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (53444) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13970 us, 2234564 cycles
+I (53444) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (53448) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (53458) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (53533) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (53536) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (53680) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 143275 us, 22923946 cycles
+I (53681) CRYPTO_HYBRID: X25519 shared secret derived
+I (53682) CRYPTO_HYBRID: [DEBUG] PK sent: 5ab30f4270124216...a55f7686b5e62340
+I (53689) CRYPTO_HYBRID: [DEBUG] CT recv: c6941094ef6e5c17...0ca7ff7e41670aa9
+I (53714) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18498 us, 2958922 cycles
+I (53714) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (53717) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (53725) CRYPTO_HYBRID: All key material zeroized
+I (53730) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (53736) BENCHMARK:   Keygen:    48349855 cycles (302.19 ms)
+I (53741) BENCHMARK:   Handshake: 42771334 cycles (267.32 ms)
+I (53747) BENCHMARK:   Total:     92772947 cycles (569.51 ms)
+I (53752) BENCHMARK:   Peak Heap: 0 bytes
+I (53756) BENCHMARK:   Payload:   2417 bytes
+I (53760) CSV_EVIDENCE: CSV_DATA,0,569.51,302.19,267.32,92772947,0,0.00,2417
+E (53817) task_wdt: esp_task_wdt_reset(707): task not found
+I (54101) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 283270 us, 45323130 cycles
+I (54101) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (54117) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13895 us, 2222563 cycles
+I (54117) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (54121) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (54131) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (54171) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (54174) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (54318) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 142830 us, 22852777 cycles
+I (54319) CRYPTO_HYBRID: X25519 shared secret derived
+I (54320) CRYPTO_HYBRID: [DEBUG] PK sent: 8b4741cef2337d5a...818b167251bd4cf2
+I (54327) CRYPTO_HYBRID: [DEBUG] CT recv: 205388ee906c05cc...fe70804af3293301
+I (54352) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18494 us, 2958274 cycles
+I (54352) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (54355) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (54363) CRYPTO_HYBRID: All key material zeroized
+I (54368) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (54374) BENCHMARK:   Keygen:    48540843 cycles (303.38 ms)
+I (54379) BENCHMARK:   Handshake: 37152646 cycles (232.20 ms)
+I (54385) BENCHMARK:   Total:     87346123 cycles (535.58 ms)
+I (54390) BENCHMARK:   Peak Heap: 4 bytes
+I (54394) BENCHMARK:   Payload:   2417 bytes
+I (54398) CSV_EVIDENCE: CSV_DATA,0,535.58,303.38,232.20,87346123,4,0.00,2417
+E (54455) task_wdt: esp_task_wdt_reset(707): task not found
+I (54738) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282253 us, 45160355 cycles
+I (54738) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (54754) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13890 us, 2221645 cycles
+I (54754) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (54758) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (54768) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (54809) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (54812) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (54954) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 140149 us, 22423787 cycles
+I (54955) CRYPTO_HYBRID: X25519 shared secret derived
+I (54956) CRYPTO_HYBRID: [DEBUG] PK sent: dabc2d84505e703a...e2b67843a0db26bc
+I (54963) CRYPTO_HYBRID: [DEBUG] CT recv: fe1f965ff6afdad0...9fe35223517aa4a5
+I (54988) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18549 us, 2967108 cycles
+I (54988) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (54991) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (54999) CRYPTO_HYBRID: All key material zeroized
+I (55004) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (55010) BENCHMARK:   Keygen:    48374887 cycles (302.34 ms)
+I (55015) BENCHMARK:   Handshake: 36970064 cycles (231.06 ms)
+I (55021) BENCHMARK:   Total:     86996963 cycles (533.41 ms)
+I (55026) BENCHMARK:   Peak Heap: 0 bytes
+I (55030) BENCHMARK:   Payload:   2417 bytes
+I (55034) CSV_EVIDENCE: CSV_DATA,0,533.41,302.34,231.06,86996963,0,0.00,2417
+E (55091) task_wdt: esp_task_wdt_reset(707): task not found
+I (55375) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 283014 us, 45282054 cycles
+I (55375) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (55391) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13894 us, 2222252 cycles
+I (55391) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (55395) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (55405) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (55446) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (55449) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (55593) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 143005 us, 22880559 cycles
+I (55594) CRYPTO_HYBRID: X25519 shared secret derived
+I (55595) CRYPTO_HYBRID: [DEBUG] PK sent: d9151430192cd3f2...940c3f64a09d216a
+I (55601) CRYPTO_HYBRID: [DEBUG] CT recv: 257499f9ea8ad7ba...94fcb206563d2e29
+I (55627) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18502 us, 2959520 cycles
+I (55627) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (55630) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (55638) CRYPTO_HYBRID: All key material zeroized
+I (55642) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (55649) BENCHMARK:   Keygen:    48495451 cycles (303.10 ms)
+I (55654) BENCHMARK:   Handshake: 37299112 cycles (233.12 ms)
+I (55660) BENCHMARK:   Total:     87446561 cycles (536.22 ms)
+I (55665) BENCHMARK:   Peak Heap: 0 bytes
+I (55669) BENCHMARK:   Payload:   2417 bytes
+I (55673) CSV_EVIDENCE: CSV_DATA,0,536.22,303.10,233.12,87446561,0,0.00,2417
+E (55730) task_wdt: esp_task_wdt_reset(707): task not found
+I (56013) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282479 us, 45196558 cycles
+I (56014) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (56029) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13901 us, 2223417 cycles
+I (56030) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (56034) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (56043) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (56085) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (56088) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (56233) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 143154 us, 22904389 cycles
+I (56234) CRYPTO_HYBRID: X25519 shared secret derived
+I (56235) CRYPTO_HYBRID: [DEBUG] PK sent: b54006687cc8de11...ad248461bb8336a4
+I (56242) CRYPTO_HYBRID: [DEBUG] CT recv: e670bbf3baa1a2e6...83fb739592cba144
+I (56267) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18505 us, 2960132 cycles
+I (56267) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (56270) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (56278) CRYPTO_HYBRID: All key material zeroized
+I (56282) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (56289) BENCHMARK:   Keygen:    48414163 cycles (302.59 ms)
+I (56294) BENCHMARK:   Handshake: 37557568 cycles (234.74 ms)
+I (56300) BENCHMARK:   Total:     87623743 cycles (537.32 ms)
+I (56305) BENCHMARK:   Peak Heap: 0 bytes
+I (56309) BENCHMARK:   Payload:   2417 bytes
+I (56313) CSV_EVIDENCE: CSV_DATA,0,537.32,302.59,234.74,87623743,0,0.00,2417
+E (56370) task_wdt: esp_task_wdt_reset(707): task not found
+I (56651) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 280525 us, 44883880 cycles
+I (56652) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (56667) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13891 us, 2221884 cycles
+I (56668) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (56672) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (56682) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (56985) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (56988) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (57133) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 143518 us, 22962732 cycles
+I (57133) CRYPTO_HYBRID: X25519 shared secret derived
+I (57134) CRYPTO_HYBRID: [DEBUG] PK sent: 66fa474bab903540...001866eb65501e2f
+I (57141) CRYPTO_HYBRID: [DEBUG] CT recv: 1d5a3eeeef0c6ebe...a6714c9c3830fff4
+I (57166) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18508 us, 2960528 cycles
+I (57167) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (57169) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (57177) CRYPTO_HYBRID: All key material zeroized
+I (57182) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (57188) BENCHMARK:   Keygen:    48096217 cycles (300.60 ms)
+I (57194) BENCHMARK:   Handshake: 79385142 cycles (496.16 ms)
+I (57199) BENCHMARK:   Total:     129133371 cycles (796.76 ms)
+I (57205) BENCHMARK:   Peak Heap: 0 bytes
+I (57208) BENCHMARK:   Payload:   2417 bytes
+I (57212) CSV_EVIDENCE: CSV_DATA,0,796.76,300.60,496.16,129133371,0,0.00,2417
+E (57269) task_wdt: esp_task_wdt_reset(707): task not found
+I (57552) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282485 us, 45197436 cycles
+I (57553) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (57568) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 14109 us, 2256785 cycles
+I (57569) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (57573) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (57583) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (57617) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (57621) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (57760) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 138530 us, 22164649 cycles
+I (57761) CRYPTO_HYBRID: X25519 shared secret derived
+I (57762) CRYPTO_HYBRID: [DEBUG] PK sent: abfaa4388cb32885...5d1469f350b368bd
+I (57769) CRYPTO_HYBRID: [DEBUG] CT recv: afe31cd47905f81d...e0a4407ed6125339
+I (57794) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18714 us, 2993520 cycles
+I (57795) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (57797) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (57805) CRYPTO_HYBRID: All key material zeroized
+I (57810) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (57816) BENCHMARK:   Keygen:    48448549 cycles (302.80 ms)
+I (57822) BENCHMARK:   Handshake: 35656460 cycles (222.85 ms)
+I (57827) BENCHMARK:   Total:     85756999 cycles (525.66 ms)
+I (57832) BENCHMARK:   Peak Heap: 0 bytes
+I (57836) BENCHMARK:   Payload:   2417 bytes
+I (57840) CSV_EVIDENCE: CSV_DATA,0,525.66,302.80,222.85,85756999,0,0.00,2417
+E (57897) task_wdt: esp_task_wdt_reset(707): task not found
+I (58182) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 283740 us, 45398295 cycles
+I (58182) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (58197) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13892 us, 2222010 cycles
+I (58198) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (58202) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (58212) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (58283) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (58286) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (58428) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 140292 us, 22446524 cycles
+I (58429) CRYPTO_HYBRID: X25519 shared secret derived
+I (58430) CRYPTO_HYBRID: [DEBUG] PK sent: 8a23369cb4199f12...ea7d41c709cc649c
+I (58436) CRYPTO_HYBRID: [DEBUG] CT recv: 20267eb058c1e01c...0707624dc144ed36
+I (58462) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18504 us, 2959838 cycles
+I (58462) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (58465) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (58473) CRYPTO_HYBRID: All key material zeroized
+I (58477) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (58484) BENCHMARK:   Keygen:    48614731 cycles (303.84 ms)
+I (58489) BENCHMARK:   Handshake: 41838192 cycles (261.49 ms)
+I (58495) BENCHMARK:   Total:     92104305 cycles (565.33 ms)
+I (58500) BENCHMARK:   Peak Heap: 0 bytes
+I (58504) BENCHMARK:   Payload:   2417 bytes
+I (58508) CSV_EVIDENCE: CSV_DATA,0,565.33,303.84,261.49,92104305,0,0.00,2417
+E (58565) task_wdt: esp_task_wdt_reset(707): task not found
+I (58848) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282693 us, 45230750 cycles
+I (58849) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (58864) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13901 us, 2223473 cycles
+I (58865) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (58869) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (58879) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (58916) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (58919) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (59063) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 142345 us, 22775168 cycles
+I (59063) CRYPTO_HYBRID: X25519 shared secret derived
+I (59064) CRYPTO_HYBRID: [DEBUG] PK sent: 051a504ed3aef501...72c918b238ef3c9a
+I (59071) CRYPTO_HYBRID: [DEBUG] CT recv: 2073c99252d6ae2c...de52e3682dc3c30b
+I (59097) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18521 us, 2962666 cycles
+I (59097) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (59099) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (59108) CRYPTO_HYBRID: All key material zeroized
+I (59112) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (59118) BENCHMARK:   Keygen:    48445585 cycles (302.79 ms)
+I (59124) BENCHMARK:   Handshake: 36664198 cycles (229.15 ms)
+I (59129) BENCHMARK:   Total:     86761173 cycles (531.94 ms)
+I (59135) BENCHMARK:   Peak Heap: 0 bytes
+I (59138) BENCHMARK:   Payload:   2417 bytes
+I (59142) CSV_EVIDENCE: CSV_DATA,0,531.94,302.79,229.15,86761173,0,0.00,2417
+E (59199) task_wdt: esp_task_wdt_reset(707): task not found
+I (59481) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 280940 us, 44950306 cycles
+I (59481) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (59497) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13889 us, 2221452 cycles
+I (59497) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (59501) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (59511) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (59552) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (59555) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (59698) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 141748 us, 22679501 cycles
+I (59698) CRYPTO_HYBRID: X25519 shared secret derived
+I (59699) CRYPTO_HYBRID: [DEBUG] PK sent: c41aad73113fae14...94a441699903b12e
+I (59706) CRYPTO_HYBRID: [DEBUG] CT recv: 4a8a7577cd943ef9...e0e8c8dc02c7d2ab
+I (59732) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18502 us, 2959612 cycles
+I (59732) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (59735) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (59743) CRYPTO_HYBRID: All key material zeroized
+I (59747) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (59753) BENCHMARK:   Keygen:    48165949 cycles (301.04 ms)
+I (59759) BENCHMARK:   Handshake: 37125896 cycles (232.04 ms)
+I (59764) BENCHMARK:   Total:     86943217 cycles (533.07 ms)
+I (59770) BENCHMARK:   Peak Heap: 0 bytes
+I (59774) BENCHMARK:   Payload:   2417 bytes
+I (59778) CSV_EVIDENCE: CSV_DATA,0,533.07,301.04,232.04,86943217,0,0.00,2417
+E (59834) task_wdt: esp_task_wdt_reset(707): task not found
+I (60116) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281452 us, 45032219 cycles
+I (60117) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (60132) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13900 us, 2223278 cycles
+I (60132) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (60137) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (60146) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (60189) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (60193) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (60335) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 141078 us, 22572244 cycles
+I (60335) CRYPTO_HYBRID: X25519 shared secret derived
+I (60336) CRYPTO_HYBRID: [DEBUG] PK sent: 444c15aff77c0651...85a8d1f1048b8013
+I (60343) CRYPTO_HYBRID: [DEBUG] CT recv: e9f842dc04d33f4d...bb061ff99019652a
+I (60369) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18507 us, 2960372 cycles
+I (60369) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (60372) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (60380) CRYPTO_HYBRID: All key material zeroized
+I (60384) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (60390) BENCHMARK:   Keygen:    48249067 cycles (301.56 ms)
+I (60396) BENCHMARK:   Handshake: 37361596 cycles (233.51 ms)
+I (60401) BENCHMARK:   Total:     87262655 cycles (535.07 ms)
+I (60407) BENCHMARK:   Peak Heap: 0 bytes
+I (60411) BENCHMARK:   Payload:   2417 bytes
+I (60415) CSV_EVIDENCE: CSV_DATA,0,535.07,301.56,233.51,87262655,0,0.00,2417
+E (60471) task_wdt: esp_task_wdt_reset(707): task not found
+I (60754) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281930 us, 45108552 cycles
+I (60754) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (60770) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13899 us, 2223074 cycles
+I (60770) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (60774) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (60784) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (61004) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (61008) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (61151) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 141765 us, 22682444 cycles
+I (61151) CRYPTO_HYBRID: X25519 shared secret derived
+I (61152) CRYPTO_HYBRID: [DEBUG] PK sent: ff3353c36c02cc24...60e952c35f8a1f2f
+I (61159) CRYPTO_HYBRID: [DEBUG] CT recv: 72df0458b90a875a...b70f2b4f963ffdf5
+I (61184) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18541 us, 2965800 cycles
+I (61185) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (61187) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (61195) CRYPTO_HYBRID: All key material zeroized
+I (61200) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (61206) BENCHMARK:   Keygen:    48325195 cycles (302.03 ms)
+I (61212) BENCHMARK:   Handshake: 65877860 cycles (411.74 ms)
+I (61217) BENCHMARK:   Total:     115855061 cycles (713.77 ms)
+I (61223) BENCHMARK:   Peak Heap: 0 bytes
+I (61226) BENCHMARK:   Payload:   2417 bytes
+I (61230) CSV_EVIDENCE: CSV_DATA,0,713.77,302.03,411.74,115855061,0,0.00,2417
+E (61287) task_wdt: esp_task_wdt_reset(707): task not found
+I (61569) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 280998 us, 44959569 cycles
+I (61569) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (61585) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13902 us, 2223699 cycles
+I (61585) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (61589) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (61599) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (61777) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (61780) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (61924) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 143255 us, 22920824 cycles
+I (61925) CRYPTO_HYBRID: X25519 shared secret derived
+I (61926) CRYPTO_HYBRID: [DEBUG] PK sent: 8529aaabd5190a24...8669a470fbb96efe
+I (61933) CRYPTO_HYBRID: [DEBUG] CT recv: 658e9fd82cd9a4c2...8508f8b0490bceb3
+I (61958) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18526 us, 2963320 cycles
+I (61959) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (61961) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (61969) CRYPTO_HYBRID: All key material zeroized
+I (61974) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (61980) BENCHMARK:   Keygen:    48177591 cycles (301.11 ms)
+I (61986) BENCHMARK:   Handshake: 59287416 cycles (370.55 ms)
+I (61991) BENCHMARK:   Total:     109116371 cycles (671.66 ms)
+I (61997) BENCHMARK:   Peak Heap: 0 bytes
+I (62000) BENCHMARK:   Payload:   2417 bytes
+I (62004) CSV_EVIDENCE: CSV_DATA,0,671.66,301.11,370.55,109116371,0,0.00,2417
+E (62061) task_wdt: esp_task_wdt_reset(707): task not found
+I (62342) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 280594 us, 44894892 cycles
+I (62343) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (62358) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13895 us, 2222562 cycles
+I (62359) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (62363) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (62373) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (62421) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (62425) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (62572) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 146399 us, 23423698 cycles
+I (62572) CRYPTO_HYBRID: X25519 shared secret derived
+I (62573) CRYPTO_HYBRID: [DEBUG] PK sent: 9694733ed3bfdef8...10b6b23a241d2213
+I (62580) CRYPTO_HYBRID: [DEBUG] CT recv: b2d36aed35f2d6a9...d070d74ec33cff43
+I (62606) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18497 us, 2958836 cycles
+I (62606) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (62609) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (62617) CRYPTO_HYBRID: All key material zeroized
+I (62621) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (62628) BENCHMARK:   Keygen:    48110769 cycles (300.69 ms)
+I (62633) BENCHMARK:   Handshake: 39109512 cycles (244.43 ms)
+I (62638) BENCHMARK:   Total:     88872041 cycles (545.13 ms)
+I (62644) BENCHMARK:   Peak Heap: 0 bytes
+I (62648) BENCHMARK:   Payload:   2417 bytes
+I (62652) CSV_EVIDENCE: CSV_DATA,0,545.13,300.69,244.43,88872041,0,0.00,2417
+E (62708) task_wdt: esp_task_wdt_reset(707): task not found
+I (62991) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281949 us, 45111706 cycles
+I (62991) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (63007) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13903 us, 2223725 cycles
+I (63007) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (63011) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (63021) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (63056) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (63059) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (63204) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 143430 us, 22948682 cycles
+I (63204) CRYPTO_HYBRID: X25519 shared secret derived
+I (63205) CRYPTO_HYBRID: [DEBUG] PK sent: 501b99929a5764a9...2306faab0ce4c726
+I (63212) CRYPTO_HYBRID: [DEBUG] CT recv: a884912569e7b072...df13c18587ddb97d
+I (63237) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18509 us, 2960784 cycles
+I (63238) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (63240) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (63249) CRYPTO_HYBRID: All key material zeroized
+I (63253) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (63259) BENCHMARK:   Keygen:    48328931 cycles (302.06 ms)
+I (63265) BENCHMARK:   Handshake: 36452350 cycles (227.83 ms)
+I (63270) BENCHMARK:   Total:     86433273 cycles (529.88 ms)
+I (63276) BENCHMARK:   Peak Heap: 0 bytes
+I (63279) BENCHMARK:   Payload:   2417 bytes
+I (63283) CSV_EVIDENCE: CSV_DATA,0,529.88,302.06,227.83,86433273,0,0.00,2417
+E (63340) task_wdt: esp_task_wdt_reset(707): task not found
+I (63623) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282650 us, 45223890 cycles
+I (63624) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (63639) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13899 us, 2223226 cycles
+I (63640) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (63644) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (63654) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (63703) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (63707) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (63850) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 142479 us, 22796586 cycles
+I (63851) CRYPTO_HYBRID: X25519 shared secret derived
+I (63852) CRYPTO_HYBRID: [DEBUG] PK sent: 414138ece9317aa0...f46b2d8e88a2f7a1
+I (63859) CRYPTO_HYBRID: [DEBUG] CT recv: 9d1fce25ae7a8359...dfe47d4220ac4b0d
+I (63884) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18505 us, 2960110 cycles
+I (63884) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (63887) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (63895) CRYPTO_HYBRID: All key material zeroized
+I (63899) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (63906) BENCHMARK:   Keygen:    48440775 cycles (302.76 ms)
+I (63911) BENCHMARK:   Handshake: 38654052 cycles (241.59 ms)
+I (63917) BENCHMARK:   Total:     88753797 cycles (544.34 ms)
+I (63922) BENCHMARK:   Peak Heap: 0 bytes
+I (63926) BENCHMARK:   Payload:   2417 bytes
+I (63930) CSV_EVIDENCE: CSV_DATA,0,544.34,302.76,241.59,88753797,0,0.00,2417
+E (63987) task_wdt: esp_task_wdt_reset(707): task not found
+I (64271) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 283617 us, 45378518 cycles
+I (64272) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (64287) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13896 us, 2222616 cycles
+I (64288) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (64292) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (64302) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (64339) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (64343) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (64489) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 145965 us, 23354236 cycles
+I (64490) CRYPTO_HYBRID: X25519 shared secret derived
+I (64491) CRYPTO_HYBRID: [DEBUG] PK sent: 870520c6830e61d9...b11a8d51cc659c29
+I (64498) CRYPTO_HYBRID: [DEBUG] CT recv: f05ef327b6c21605...3f599ba5d2941665
+I (64523) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18509 us, 2960730 cycles
+I (64524) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (64526) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (64534) CRYPTO_HYBRID: All key material zeroized
+I (64539) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (64545) BENCHMARK:   Keygen:    48594203 cycles (303.71 ms)
+I (64551) BENCHMARK:   Handshake: 37267166 cycles (232.92 ms)
+I (64556) BENCHMARK:   Total:     87513385 cycles (536.63 ms)
+I (64561) BENCHMARK:   Peak Heap: 0 bytes
+I (64565) BENCHMARK:   Payload:   2417 bytes
+I (64569) CSV_EVIDENCE: CSV_DATA,0,536.63,303.71,232.92,87513385,0,0.00,2417
+E (64626) task_wdt: esp_task_wdt_reset(707): task not found
+I (64909) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282125 us, 45139896 cycles
+I (64909) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (64925) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13949 us, 2231081 cycles
+I (64925) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (64929) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (64939) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (64978) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (64982) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (65123) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 139343 us, 22294774 cycles
+I (65123) CRYPTO_HYBRID: X25519 shared secret derived
+I (65124) CRYPTO_HYBRID: [DEBUG] PK sent: 3275068ba6a428d2...8d9ae5d6401e7ef2
+I (65131) CRYPTO_HYBRID: [DEBUG] CT recv: 67580edf47c80754...c9a2f933d4e11236
+I (65156) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18501 us, 2959448 cycles
+I (65157) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (65159) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (65167) CRYPTO_HYBRID: All key material zeroized
+I (65172) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (65178) BENCHMARK:   Keygen:    48365541 cycles (302.29 ms)
+I (65184) BENCHMARK:   Handshake: 36564060 cycles (228.53 ms)
+I (65189) BENCHMARK:   Total:     86580971 cycles (530.81 ms)
+I (65195) BENCHMARK:   Peak Heap: 0 bytes
+I (65198) BENCHMARK:   Payload:   2417 bytes
+I (65202) CSV_EVIDENCE: CSV_DATA,0,530.81,302.29,228.53,86580971,0,0.00,2417
+E (65259) task_wdt: esp_task_wdt_reset(707): task not found
+I (65541) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281652 us, 45064210 cycles
+I (65542) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (65557) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13897 us, 2222776 cycles
+I (65558) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (65562) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (65572) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (65607) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (65611) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (65751) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 139363 us, 22297963 cycles
+I (65752) CRYPTO_HYBRID: X25519 shared secret derived
+I (65753) CRYPTO_HYBRID: [DEBUG] PK sent: 2bbb8ee5468a6cc7...05f03782cb741f14
+I (65759) CRYPTO_HYBRID: [DEBUG] CT recv: 6e653a1053b49dba...e2b2bc5302cdc6e0
+I (65785) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18504 us, 2959934 cycles
+I (65785) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (65788) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (65796) CRYPTO_HYBRID: All key material zeroized
+I (65800) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (65807) BENCHMARK:   Keygen:    48277465 cycles (301.73 ms)
+I (65812) BENCHMARK:   Handshake: 35920056 cycles (224.50 ms)
+I (65818) BENCHMARK:   Total:     85849545 cycles (526.23 ms)
+I (65823) BENCHMARK:   Peak Heap: 0 bytes
+I (65827) BENCHMARK:   Payload:   2417 bytes
+I (65831) CSV_EVIDENCE: CSV_DATA,0,526.23,301.73,224.50,85849545,0,0.00,2417
+E (65888) task_wdt: esp_task_wdt_reset(707): task not found
+I (66172) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 283335 us, 45333531 cycles
+I (66173) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (66188) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13902 us, 2223627 cycles
+I (66188) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (66192) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (66202) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (66277) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (66280) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (66426) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 145477 us, 23276069 cycles
+I (66427) CRYPTO_HYBRID: X25519 shared secret derived
+I (66428) CRYPTO_HYBRID: [DEBUG] PK sent: 008338e6f44a2dab...6b3aafcfb71afcca
+I (66435) CRYPTO_HYBRID: [DEBUG] CT recv: acca6defa4b78113...ae7aafb2556f01bd
+I (66460) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18502 us, 2959636 cycles
+I (66460) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (66463) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (66471) CRYPTO_HYBRID: All key material zeroized
+I (66476) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (66482) BENCHMARK:   Keygen:    48551391 cycles (303.45 ms)
+I (66487) BENCHMARK:   Handshake: 43056070 cycles (269.10 ms)
+I (66493) BENCHMARK:   Total:     93259447 cycles (572.55 ms)
+I (66498) BENCHMARK:   Peak Heap: 0 bytes
+I (66502) BENCHMARK:   Payload:   2417 bytes
+I (66506) CSV_EVIDENCE: CSV_DATA,0,572.55,303.45,269.10,93259447,0,0.00,2417
+E (66563) task_wdt: esp_task_wdt_reset(707): task not found
+I (66847) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 283111 us, 45297728 cycles
+I (66847) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (66863) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13914 us, 2225516 cycles
+I (66863) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (66867) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (66877) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (66961) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (66965) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (67109) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 142836 us, 22853661 cycles
+I (67109) CRYPTO_HYBRID: X25519 shared secret derived
+I (67110) CRYPTO_HYBRID: [DEBUG] PK sent: 3c16bd9bc01b7fe5...b31d8642bd105257
+I (67117) CRYPTO_HYBRID: [DEBUG] CT recv: 3cc4ce1b3bad698d...66d0b91545905580
+I (67142) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18509 us, 2960724 cycles
+I (67143) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (67145) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (67153) CRYPTO_HYBRID: All key material zeroized
+I (67158) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (67164) BENCHMARK:   Keygen:    48516519 cycles (303.23 ms)
+I (67170) BENCHMARK:   Handshake: 44244034 cycles (276.52 ms)
+I (67175) BENCHMARK:   Total:     94412557 cycles (579.75 ms)
+I (67181) BENCHMARK:   Peak Heap: 0 bytes
+I (67184) BENCHMARK:   Payload:   2417 bytes
+I (67188) CSV_EVIDENCE: CSV_DATA,0,579.75,303.23,276.52,94412557,0,0.00,2417
+E (67245) task_wdt: esp_task_wdt_reset(707): task not found
+I (67530) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 283996 us, 45439194 cycles
+I (67530) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (67546) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13901 us, 2223365 cycles
+I (67546) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (67550) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (67560) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (67599) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (67603) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (67750) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 146230 us, 23396547 cycles
+I (67750) CRYPTO_HYBRID: X25519 shared secret derived
+I (67752) CRYPTO_HYBRID: [DEBUG] PK sent: aa99602a96a958ea...8a01b0560eadb621
+I (67758) CRYPTO_HYBRID: [DEBUG] CT recv: e0246b2e0feb0005...3802083b3b39fd33
+I (67784) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18506 us, 2960218 cycles
+I (67784) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (67787) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (67795) CRYPTO_HYBRID: All key material zeroized
+I (67799) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (67806) BENCHMARK:   Keygen:    48656093 cycles (304.10 ms)
+I (67811) BENCHMARK:   Handshake: 37607074 cycles (235.04 ms)
+I (67816) BENCHMARK:   Total:     87915165 cycles (539.15 ms)
+I (67822) BENCHMARK:   Peak Heap: 0 bytes
+I (67826) BENCHMARK:   Payload:   2417 bytes
+I (67830) CSV_EVIDENCE: CSV_DATA,0,539.15,304.10,235.04,87915165,0,0.00,2417
+E (67886) task_wdt: esp_task_wdt_reset(707): task not found
+I (68168) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281163 us, 44985918 cycles
+I (68168) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (68184) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13891 us, 2221922 cycles
+I (68184) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (68188) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (68198) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (68234) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (68237) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (68379) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 140905 us, 22544772 cycles
+I (68380) CRYPTO_HYBRID: X25519 shared secret derived
+I (68381) CRYPTO_HYBRID: [DEBUG] PK sent: 5e1b5c4f34528972...faa3c9961c7d7886
+I (68388) CRYPTO_HYBRID: [DEBUG] CT recv: 1e2a9b19004677cc...7209e03d451fccd8
+I (68413) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18524 us, 2963114 cycles
+I (68413) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (68416) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (68424) CRYPTO_HYBRID: All key material zeroized
+I (68429) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (68435) BENCHMARK:   Keygen:    48202187 cycles (301.26 ms)
+I (68440) BENCHMARK:   Handshake: 36194370 cycles (226.21 ms)
+I (68446) BENCHMARK:   Total:     86048561 cycles (527.48 ms)
+I (68451) BENCHMARK:   Peak Heap: 0 bytes
+I (68455) BENCHMARK:   Payload:   2417 bytes
+I (68459) CSV_EVIDENCE: CSV_DATA,0,527.48,301.26,226.21,86048561,0,0.00,2417
+E (68516) task_wdt: esp_task_wdt_reset(707): task not found
+I (68798) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 280850 us, 44935880 cycles
+I (68798) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (68814) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13896 us, 2222729 cycles
+I (68814) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (68818) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (68828) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (69539) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (69542) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (69687) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 143656 us, 22984868 cycles
+I (69687) CRYPTO_HYBRID: X25519 shared secret derived
+I (69688) CRYPTO_HYBRID: [DEBUG] PK sent: a9286f01d12a3501...e3981c15796c4ff6
+I (69695) CRYPTO_HYBRID: [DEBUG] CT recv: 60887b99d1384489...19aa656e7c673c7d
+I (69721) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18503 us, 2959838 cycles
+I (69721) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (69724) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (69732) CRYPTO_HYBRID: All key material zeroized
+I (69736) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (69742) BENCHMARK:   Keygen:    48151675 cycles (300.95 ms)
+I (69748) BENCHMARK:   Handshake: 144656898 cycles (904.11 ms)
+I (69753) BENCHMARK:   Total:     194460843 cycles (1205.05 ms)
+I (69759) BENCHMARK:   Peak Heap: 0 bytes
+I (69763) BENCHMARK:   Payload:   2417 bytes
+I (69767) CSV_EVIDENCE: CSV_DATA,0,1205.05,300.95,904.11,194460843,0,0.00,2417
+E (69824) task_wdt: esp_task_wdt_reset(707): task not found
+I (70107) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282036 us, 45125587 cycles
+I (70107) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (70123) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13891 us, 2221760 cycles
+I (70123) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (70127) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (70137) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (70179) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (70183) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (70325) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 141441 us, 22630476 cycles
+I (70326) CRYPTO_HYBRID: X25519 shared secret derived
+I (70327) CRYPTO_HYBRID: [DEBUG] PK sent: 276753b54139d543...1516351611d34eed
+I (70333) CRYPTO_HYBRID: [DEBUG] CT recv: c8f041674e29001e...a79a5c8a74d98149
+I (70359) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18562 us, 2969170 cycles
+I (70359) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (70362) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (70370) CRYPTO_HYBRID: All key material zeroized
+I (70374) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (70381) BENCHMARK:   Keygen:    48341041 cycles (302.13 ms)
+I (70386) BENCHMARK:   Handshake: 37313108 cycles (233.21 ms)
+I (70392) BENCHMARK:   Total:     87305519 cycles (535.34 ms)
+I (70397) BENCHMARK:   Peak Heap: 0 bytes
+I (70401) BENCHMARK:   Payload:   2417 bytes
+I (70405) CSV_EVIDENCE: CSV_DATA,0,535.34,302.13,233.21,87305519,0,0.00,2417
+E (70462) task_wdt: esp_task_wdt_reset(707): task not found
+I (70745) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282483 us, 45197085 cycles
+I (70746) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (70761) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13914 us, 2225554 cycles
+I (70762) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (70766) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (70776) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (71829) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (71833) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (71977) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 143242 us, 22918559 cycles
+I (71977) CRYPTO_HYBRID: X25519 shared secret derived
+I (71978) CRYPTO_HYBRID: [DEBUG] PK sent: f484b9ae410e591b...62a8919be64d86ad
+I (71985) CRYPTO_HYBRID: [DEBUG] CT recv: b403e98a67ad1b3e...a215169275a7f7dd
+I (72011) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18504 us, 2959988 cycles
+I (72011) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (72014) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (72022) CRYPTO_HYBRID: All key material zeroized
+I (72026) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (72032) BENCHMARK:   Keygen:    48415689 cycles (302.60 ms)
+I (72038) BENCHMARK:   Handshake: 199422725 cycles (1246.39 ms)
+I (72044) BENCHMARK:   Total:     249490401 cycles (1548.99 ms)
+I (72049) BENCHMARK:   Peak Heap: 332 bytes
+I (72053) BENCHMARK:   Payload:   2417 bytes
+I (72057) CSV_EVIDENCE: CSV_DATA,0,1548.99,302.60,1246.39,249490401,332,0.32,2417
+E (72114) task_wdt: esp_task_wdt_reset(707): task not found
+I (72397) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282761 us, 45241775 cycles
+I (72398) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (72413) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13897 us, 2222705 cycles
+I (72414) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (72418) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (72428) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (72462) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (72466) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (72609) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 141226 us, 22596083 cycles
+I (72609) CRYPTO_HYBRID: X25519 shared secret derived
+I (72610) CRYPTO_HYBRID: [DEBUG] PK sent: c1f8661c4890f733...5fcb01505903539c
+I (72617) CRYPTO_HYBRID: [DEBUG] CT recv: 2a4d807d0313a24a...30f02584750a8e74
+I (72643) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18505 us, 2960118 cycles
+I (72643) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (72645) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (72654) CRYPTO_HYBRID: All key material zeroized
+I (72658) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (72664) BENCHMARK:   Keygen:    48450321 cycles (302.82 ms)
+I (72670) BENCHMARK:   Handshake: 36179878 cycles (226.12 ms)
+I (72675) BENCHMARK:   Total:     86281581 cycles (528.94 ms)
+I (72681) BENCHMARK:   Peak Heap: 0 bytes
+I (72684) BENCHMARK:   Payload:   2417 bytes
+I (72688) CSV_EVIDENCE: CSV_DATA,0,528.94,302.82,226.12,86281581,0,0.00,2417
+E (72745) task_wdt: esp_task_wdt_reset(707): task not found
+I (73030) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 284024 us, 45443623 cycles
+I (73030) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (73046) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13969 us, 2234184 cycles
+I (73046) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (73050) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (73060) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (73335) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (73338) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (73484) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 144398 us, 23103577 cycles
+I (73485) CRYPTO_HYBRID: X25519 shared secret derived
+I (73486) CRYPTO_HYBRID: [DEBUG] PK sent: 694952c30a6dac29...d6f86618fd62d9e0
+I (73493) CRYPTO_HYBRID: [DEBUG] CT recv: 9e49842e39956270...046bcd7f788ecb68
+I (73518) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18498 us, 2958890 cycles
+I (73518) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (73521) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (73529) CRYPTO_HYBRID: All key material zeroized
+I (73534) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (73540) BENCHMARK:   Keygen:    48671501 cycles (304.20 ms)
+I (73545) BENCHMARK:   Handshake: 75102170 cycles (469.39 ms)
+I (73551) BENCHMARK:   Total:     125425483 cycles (773.58 ms)
+I (73556) BENCHMARK:   Peak Heap: 0 bytes
+I (73560) BENCHMARK:   Payload:   2417 bytes
+I (73564) CSV_EVIDENCE: CSV_DATA,0,773.58,304.20,469.39,125425483,0,0.00,2417
+E (73621) task_wdt: esp_task_wdt_reset(707): task not found
+I (73905) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 283155 us, 45304609 cycles
+I (73905) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (73921) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 14060 us, 2249005 cycles
+I (73921) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (73926) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (73935) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (74494) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (74498) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (74640) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 141740 us, 22678260 cycles
+I (74641) CRYPTO_HYBRID: X25519 shared secret derived
+I (74642) CRYPTO_HYBRID: [DEBUG] PK sent: 06f463205376c054...4e9ae904bd07d6a7
+I (74649) CRYPTO_HYBRID: [DEBUG] CT recv: 6f2b6f6d1ed0b2e4...385d516febb4ef53
+I (74674) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18502 us, 2959540 cycles
+I (74674) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (74677) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (74685) CRYPTO_HYBRID: All key material zeroized
+I (74690) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (74696) BENCHMARK:   Keygen:    48551785 cycles (303.45 ms)
+I (74701) BENCHMARK:   Handshake: 120018592 cycles (750.12 ms)
+I (74707) BENCHMARK:   Total:     170221533 cycles (1053.57 ms)
+I (74713) BENCHMARK:   Peak Heap: 0 bytes
+I (74716) BENCHMARK:   Payload:   2417 bytes
+I (74720) CSV_EVIDENCE: CSV_DATA,0,1053.57,303.45,750.12,170221533,0,0.00,2417
+E (74777) task_wdt: esp_task_wdt_reset(707): task not found
+I (75058) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 280646 us, 44903267 cycles
+I (75059) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (75074) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13898 us, 2223018 cycles
+I (75075) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (75079) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (75089) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (75124) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (75127) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (75270) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 141966 us, 22714352 cycles
+I (75271) CRYPTO_HYBRID: X25519 shared secret derived
+I (75272) CRYPTO_HYBRID: [DEBUG] PK sent: 243c471088062bb5...2ecd177bedb8b547
+I (75278) CRYPTO_HYBRID: [DEBUG] CT recv: 0dfe2b9759f38287...245c131cd2fd39e5
+I (75304) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18504 us, 2960032 cycles
+I (75304) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (75307) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (75315) CRYPTO_HYBRID: All key material zeroized
+I (75319) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (75326) BENCHMARK:   Keygen:    48119339 cycles (300.75 ms)
+I (75331) BENCHMARK:   Handshake: 36236996 cycles (226.48 ms)
+I (75337) BENCHMARK:   Total:     86007715 cycles (527.23 ms)
+I (75342) BENCHMARK:   Peak Heap: 0 bytes
+I (75346) BENCHMARK:   Payload:   2417 bytes
+I (75350) CSV_EVIDENCE: CSV_DATA,0,527.23,300.75,226.48,86007715,0,0.00,2417
+E (75407) task_wdt: esp_task_wdt_reset(707): task not found
+I (75690) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 282423 us, 45187594 cycles
+I (75691) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (75706) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13891 us, 2221825 cycles
+I (75706) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (75711) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (75720) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (75756) BENCHMARK: Fetched 1168 bytes (content_length=1168)
+I (75759) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (75900) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 139843 us, 22374649 cycles
+I (75901) CRYPTO_HYBRID: X25519 shared secret derived
+I (75902) CRYPTO_HYBRID: [DEBUG] PK sent: ead85a96275f1efc...3fb691cb76bc3197
+I (75909) CRYPTO_HYBRID: [DEBUG] CT recv: 0fe4e26842017268...833d9cd737d167da
+I (75934) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Decap]: 18493 us, 2958180 cycles
+I (75934) CRYPTO_HYBRID: ML-KEM-768 shared secret derived and appended
+I (75937) CRYPTO_HYBRID: Session key derived via HKDF-SHA256 (mode: Hybrid (X25519 + ML-KEM-768))
+I (75945) CRYPTO_HYBRID: All key material zeroized
+I (75949) BENCHMARK: --- Iteration 0 (Hybrid (X25519 + ML-KEM-768)) ---
+I (75956) BENCHMARK:   Keygen:    48403215 cycles (302.52 ms)
+I (75961) BENCHMARK:   Handshake: 35975112 cycles (224.84 ms)
+I (75967) BENCHMARK:   Total:     86030339 cycles (527.36 ms)
+I (75972) BENCHMARK:   Peak Heap: 0 bytes
+I (75976) BENCHMARK:   Payload:   2417 bytes
+I (75980) CSV_EVIDENCE: CSV_DATA,0,527.36,302.52,224.84,86030339,0,0.00,2417
+E (76037) task_wdt: esp_task_wdt_reset(707): task not found
+I (76037) BENCHMARK: 
+I (76037) BENCHMARK: === CAMPAIGN STATISTICAL SUMMARY (n=100, Hybrid (X25519 + ML-KEM-768)) ===
+I (76042) BENCHMARK:   Latency:     Mean = 616.75 ms, StdDev = 242.92 ms, Min = 525.66 ms, Max = 1989.39 ms
+I (76051) BENCHMARK:   CPU Cycles:  Mean = 100330347 (100.33M), Min = 85756999 (85.76M), Max = 319954713 (319.95M)
+I (76061) BENCHMARK:   SRAM Heap:   Mean = 22 B (0.0 KB), Min = 0 B (0.0 KB), Max = 440 B (0.4 KB)
+I (76070) BENCHMARK:   Failure Rate: 0% (100/100 successful)
+I (76075) BENCHMARK: =========================================================
+I (76082) PQC_MAIN: 
+I (76084) PQC_MAIN: === Starting continuous hybrid telemetry (15s interval) ===
+E (76091) task_wdt: esp_task_wdt_reset(707): task not found
+I (76378) CRYPTO_HYBRID: BENCHMARK [X25519 Keygen]: 281224 us, 44995830 cycles
+I (76379) CRYPTO_HYBRID: X25519 keypair generated (32-byte pubkey)
+I (76394) CRYPTO_HYBRID: BENCHMARK [ML-KEM-768 Keygen]: 13988 us, 2237344 cycles
+I (76395) CRYPTO_HYBRID: ML-KEM-768 keypair generated (pk=1184 bytes, sk=2400 bytes)
+I (76399) CRYPTO_HYBRID: Packed 1249 bytes of public keys (including 32B HMAC) for mode Hybrid (X25519 + ML-KEM-768)
+I (76409) PQC_MAIN: Sending handshake to http://192.168.10.23:8443/handshake (1249 bytes)...
+I (76447) PQC_MAIN: Handshake successful! Session ID: 68d04252c808a545...
+I (76449) CRYPTO_HYBRID: Server response HMAC verification successful!
+I (76590) CRYPTO_HYBRID: BENCHMARK [X25519 Shared Secret]: 138812 us, 22209929 cycles
+I (76590) CRYPTO_HYBRID: X25519 shared secret derived
+I (76591) CRYPTO_HYBRID: [DEBUG] PK sent: 64aa4fbff042ebc8...ab4b61874ca221a1

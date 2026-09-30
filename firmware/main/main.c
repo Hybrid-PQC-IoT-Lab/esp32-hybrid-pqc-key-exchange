@@ -279,18 +279,11 @@ static void test_google_connection(void) {
 static void pqc_task(void *pvParameters) {
     ESP_LOGI(TAG, "Starting Hybrid PQC task...");
 
-    /* Skip initial benchmark suite for clean standalone hybrid measurement */
-    /*
-    test_google_connection();
-    benchmark_stats_t stats[3];
-    int iterations = BENCHMARK_ITERATIONS;
-    benchmark_run_suite(iterations, server_ip, SERVER_PORT, stats);
-    benchmark_print_comparison(stats);
-    benchmark_send_results(stats, server_ip, SERVER_PORT);
-    benchmark_run_mbedtls_baseline();
-    */
+    /* Run the formal End-to-End Hybrid Handshake Campaign (n=100) */
+    benchmark_stats_t hybrid_stats;
+    benchmark_run_campaign(MODE_HYBRID, 100, server_ip, SERVER_PORT, &hybrid_stats);
 
-    /* Now run continuous hybrid handshake with 15s interval */
+    /* Now run continuous hybrid telemetry (15s interval) */
     ESP_LOGI(TAG, "");
     ESP_LOGI(TAG, "=== Starting continuous hybrid telemetry (15s interval) ===");
 
@@ -362,7 +355,7 @@ static void pqc_task(void *pvParameters) {
         snprintf(telemetry_url, sizeof(telemetry_url), "http://%s:%d/api/telemetry", server_ip, SERVER_PORT);
 
         while (telemetry_errors < 3) {
-            if (packets_sent >= 0) {
+            if (packets_sent >= 50) {
                 ESP_LOGI(TAG, "Key rotation threshold reached. Rotating keys...");
                 break;
             }

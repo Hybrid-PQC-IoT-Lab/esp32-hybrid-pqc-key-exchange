@@ -1,0 +1,448 @@
+liboqs-python faulthandler is disabled
+/home/kali/Documents/PQC/liboqs-python/oqs/oqs.py:99: UserWarning: Please install liboqs-python using pip install
+  OQS_VERSION = oqs_python_version()
+/home/kali/Documents/PQC/liboqs-python/oqs/oqs.py:316: UserWarning: Please install liboqs-python using pip install
+  oqs_python_ver = oqs_python_version()
+/home/kali/Documents/PQC/liboqs-python/oqs/oqs.py:323: UserWarning: Please install liboqs-python using pip install
+  f"{oqs_python_version()}",
+/home/kali/Documents/PQC/liboqs-python/oqs/__init__.py:1: UserWarning: liboqs version (major, minor) 0.15.0 differs from liboqs-python version 0.16.0-dev
+  from oqs.oqs import (
+03:02:11 [INFO] PQC_SERVER: Kyber768 (liboqs) initialized
+03:02:11 [INFO] PQC_SERVER: 
+03:02:11 [INFO] PQC_SERVER: ╔══════════════════════════════════════════════════════════════╗
+03:02:11 [INFO] PQC_SERVER: ║    HYBRID PQC SERVER — X25519 + ML-KEM-768 + HKDF-SHA256   ║
+03:02:11 [INFO] PQC_SERVER: ╠══════════════════════════════════════════════════════════════╣
+03:02:11 [INFO] PQC_SERVER: ║  Listening:  0.0.0.0:8443                         ║
+03:02:11 [INFO] PQC_SERVER: ║  Dashboard:  http://localhost:8443/                   ║
+03:02:11 [INFO] PQC_SERVER: ║  API:        http://localhost:8443/api/benchmarks      ║
+03:02:11 [INFO] PQC_SERVER: ║  ML-KEM-768: liboqs ✓                              ║
+03:02:11 [INFO] PQC_SERVER: ╚══════════════════════════════════════════════════════════════╝
+03:02:11 [INFO] PQC_SERVER: 
+03:03:21 [INFO] PQC_SERVER: [192.168.10.23:44768] GET /api/benchmarks (0 bytes)
+03:08:27 [INFO] PQC_SERVER: [192.168.10.22:63552] POST /handshake (1249 bytes)
+03:08:27 [INFO] PQC_SERVER: Client handshake HMAC verification successful
+03:08:27 [INFO] PQC_SERVER: Handshake #1: mode=Hybrid (X25519 + ML-KEM-768)
+03:08:27 [INFO] PQC_SERVER:   [DEBUG] PK recv: dae6b07783181621...fb76f068fbb0a1bd
+03:08:27 [INFO] PQC_SERVER:   [DEBUG] CT sent: 0bc48b49b49e80a1...b85ccdf799ae3ea9
+03:08:27 [INFO] PQC_SERVER:   Assigned Session ID: 84346edfe946935435b156a6437039ab
+03:08:27 [INFO] PQC_SERVER:   Handshake complete! Total payload (including 32B HMAC): 1168 bytes
+03:08:33 [INFO] PQC_SERVER: [192.168.10.22:63553] POST /api/telemetry (134 bytes)
+03:08:33 [INFO] PQC_SERVER:   Telemetry: temp=31.3°C, humidity=48.7%, seq=0
+03:08:39 [INFO] PQC_SERVER: [192.168.10.22:63554] POST /api/telemetry (135 bytes)
+03:08:39 [INFO] PQC_SERVER:   Telemetry: temp=30.4°C, humidity=63.2%, seq=1
+03:08:44 [INFO] PQC_SERVER: [192.168.10.22:63555] POST /api/telemetry (135 bytes)
+03:08:44 [INFO] PQC_SERVER:   Telemetry: temp=30.9°C, humidity=59.6%, seq=2
+03:08:50 [INFO] PQC_SERVER: [192.168.10.22:63556] POST /api/telemetry (135 bytes)
+03:08:50 [INFO] PQC_SERVER:   Telemetry: temp=28.3°C, humidity=54.3%, seq=3
+03:08:55 [INFO] PQC_SERVER: [192.168.10.22:63557] POST /api/telemetry (135 bytes)
+03:08:55 [INFO] PQC_SERVER:   Telemetry: temp=26.5°C, humidity=47.8%, seq=4
+03:09:00 [INFO] PQC_SERVER: [192.168.10.22:63558] POST /api/telemetry (135 bytes)
+03:09:00 [INFO] PQC_SERVER:   Telemetry: temp=25.9°C, humidity=63.1%, seq=5
+03:09:05 [INFO] PQC_SERVER: [192.168.10.22:63559] POST /api/telemetry (135 bytes)
+03:09:05 [INFO] PQC_SERVER:   Telemetry: temp=27.6°C, humidity=56.2%, seq=6
+03:09:10 [INFO] PQC_SERVER: [192.168.10.22:63560] POST /api/telemetry (135 bytes)
+03:09:10 [INFO] PQC_SERVER:   Telemetry: temp=26.4°C, humidity=64.1%, seq=7
+03:09:15 [INFO] PQC_SERVER: [192.168.10.22:63561] POST /api/telemetry (135 bytes)
+03:09:15 [INFO] PQC_SERVER:   Telemetry: temp=31.7°C, humidity=45.2%, seq=8
+03:09:20 [INFO] PQC_SERVER: [192.168.10.22:63562] POST /api/telemetry (135 bytes)
+03:09:20 [INFO] PQC_SERVER:   Telemetry: temp=27.9°C, humidity=45.1%, seq=9
+03:09:25 [INFO] PQC_SERVER: [192.168.10.22:63563] POST /api/telemetry (136 bytes)
+03:09:25 [INFO] PQC_SERVER:   Telemetry: temp=30.8°C, humidity=50.3%, seq=10
+03:09:30 [INFO] PQC_SERVER: [192.168.10.22:63564] POST /api/telemetry (136 bytes)
+03:09:30 [INFO] PQC_SERVER:   Telemetry: temp=23.5°C, humidity=60.2%, seq=11
+03:09:35 [INFO] PQC_SERVER: [192.168.10.22:63565] POST /api/telemetry (136 bytes)
+03:09:35 [INFO] PQC_SERVER:   Telemetry: temp=28.2°C, humidity=53.8%, seq=12
+03:09:40 [INFO] PQC_SERVER: [192.168.10.22:63566] POST /api/telemetry (136 bytes)
+03:09:40 [INFO] PQC_SERVER:   Telemetry: temp=28.2°C, humidity=45.0%, seq=13
+03:09:45 [INFO] PQC_SERVER: [192.168.10.22:63567] POST /api/telemetry (136 bytes)
+03:09:45 [INFO] PQC_SERVER:   Telemetry: temp=23.7°C, humidity=58.1%, seq=14
+03:09:51 [INFO] PQC_SERVER: [192.168.10.22:63568] POST /api/telemetry (136 bytes)
+03:09:51 [INFO] PQC_SERVER:   Telemetry: temp=29.1°C, humidity=60.5%, seq=15
+03:09:56 [INFO] PQC_SERVER: [192.168.10.22:63569] POST /api/telemetry (136 bytes)
+03:09:56 [INFO] PQC_SERVER:   Telemetry: temp=29.3°C, humidity=64.0%, seq=16
+03:10:01 [INFO] PQC_SERVER: [192.168.10.22:63570] POST /api/telemetry (136 bytes)
+03:10:01 [INFO] PQC_SERVER:   Telemetry: temp=25.1°C, humidity=55.4%, seq=17
+03:10:10 [INFO] PQC_SERVER: [192.168.10.22:52426] POST /handshake (1249 bytes)
+03:10:10 [INFO] PQC_SERVER: Client handshake HMAC verification successful
+03:10:10 [INFO] PQC_SERVER: Handshake #2: mode=Hybrid (X25519 + ML-KEM-768)
+03:10:10 [INFO] PQC_SERVER:   [DEBUG] PK recv: e66698f5d08c9605...d59f607e8b445a53
+03:10:10 [INFO] PQC_SERVER:   [DEBUG] CT sent: 8b3f34fda5ee3b8c...7be8d6f67e776ac9
+03:10:10 [INFO] PQC_SERVER:   Assigned Session ID: 89dfde28933db27febca3e5564e82c4d
+03:10:10 [INFO] PQC_SERVER:   Handshake complete! Total payload (including 32B HMAC): 1168 bytes
+03:10:17 [INFO] PQC_SERVER: [192.168.10.22:52427] POST /api/telemetry (134 bytes)
+03:10:17 [INFO] PQC_SERVER:   Telemetry: temp=23.0°C, humidity=63.2%, seq=0
+03:10:22 [INFO] PQC_SERVER: [192.168.10.22:52428] POST /api/telemetry (135 bytes)
+03:10:22 [INFO] PQC_SERVER:   Telemetry: temp=28.0°C, humidity=62.4%, seq=1
+03:10:27 [INFO] PQC_SERVER: [192.168.10.22:52429] POST /api/telemetry (135 bytes)
+03:10:27 [INFO] PQC_SERVER:   Telemetry: temp=22.0°C, humidity=58.2%, seq=2
+03:10:33 [INFO] PQC_SERVER: [192.168.10.22:52430] POST /api/telemetry (135 bytes)
+03:10:33 [INFO] PQC_SERVER:   Telemetry: temp=27.7°C, humidity=50.4%, seq=3
+03:10:38 [INFO] PQC_SERVER: [192.168.10.22:52431] POST /api/telemetry (135 bytes)
+03:10:38 [INFO] PQC_SERVER:   Telemetry: temp=29.2°C, humidity=61.2%, seq=4
+03:10:43 [INFO] PQC_SERVER: [192.168.10.22:52432] POST /api/telemetry (135 bytes)
+03:10:43 [INFO] PQC_SERVER:   Telemetry: temp=25.6°C, humidity=45.9%, seq=5
+03:10:48 [INFO] PQC_SERVER: [192.168.10.22:52433] POST /api/telemetry (135 bytes)
+03:10:48 [INFO] PQC_SERVER:   Telemetry: temp=23.1°C, humidity=48.9%, seq=6
+03:10:53 [INFO] PQC_SERVER: [192.168.10.22:52434] POST /api/telemetry (135 bytes)
+03:10:53 [INFO] PQC_SERVER:   Telemetry: temp=30.0°C, humidity=46.5%, seq=7
+03:10:58 [INFO] PQC_SERVER: [192.168.10.22:52435] POST /api/telemetry (135 bytes)
+03:10:58 [INFO] PQC_SERVER:   Telemetry: temp=24.9°C, humidity=56.9%, seq=8
+03:11:03 [INFO] PQC_SERVER: [192.168.10.22:52436] POST /api/telemetry (135 bytes)
+03:11:03 [INFO] PQC_SERVER:   Telemetry: temp=31.1°C, humidity=60.4%, seq=9
+03:11:08 [INFO] PQC_SERVER: [192.168.10.22:52437] POST /api/telemetry (136 bytes)
+03:11:08 [INFO] PQC_SERVER:   Telemetry: temp=31.1°C, humidity=54.6%, seq=10
+03:11:13 [INFO] PQC_SERVER: [192.168.10.22:52438] POST /api/telemetry (136 bytes)
+03:11:13 [INFO] PQC_SERVER:   Telemetry: temp=30.2°C, humidity=56.9%, seq=11
+03:11:18 [INFO] PQC_SERVER: [192.168.10.22:52439] POST /api/telemetry (136 bytes)
+03:11:18 [INFO] PQC_SERVER:   Telemetry: temp=28.9°C, humidity=49.9%, seq=12
+03:11:23 [INFO] PQC_SERVER: [192.168.10.22:52440] POST /api/telemetry (136 bytes)
+03:11:23 [INFO] PQC_SERVER:   Telemetry: temp=23.1°C, humidity=46.2%, seq=13
+03:11:28 [INFO] PQC_SERVER: [192.168.10.22:52441] POST /api/telemetry (136 bytes)
+03:11:28 [INFO] PQC_SERVER:   Telemetry: temp=30.9°C, humidity=47.5%, seq=14
+03:11:33 [INFO] PQC_SERVER: [192.168.10.22:52442] POST /api/telemetry (136 bytes)
+03:11:33 [INFO] PQC_SERVER:   Telemetry: temp=29.9°C, humidity=47.1%, seq=15
+03:11:39 [INFO] PQC_SERVER: [192.168.10.22:52443] POST /api/telemetry (136 bytes)
+03:11:39 [INFO] PQC_SERVER:   Telemetry: temp=31.1°C, humidity=49.4%, seq=16
+03:11:44 [INFO] PQC_SERVER: [192.168.10.22:52444] POST /api/telemetry (136 bytes)
+03:11:44 [INFO] PQC_SERVER:   Telemetry: temp=23.3°C, humidity=48.8%, seq=17
+03:11:49 [INFO] PQC_SERVER: [192.168.10.22:52445] POST /api/telemetry (137 bytes)
+03:11:49 [INFO] PQC_SERVER:   Telemetry: temp=30.0°C, humidity=55.0%, seq=18
+03:11:55 [INFO] PQC_SERVER: [192.168.10.22:52446] POST /api/telemetry (137 bytes)
+03:11:55 [INFO] PQC_SERVER:   Telemetry: temp=29.6°C, humidity=51.3%, seq=19
+03:12:01 [INFO] PQC_SERVER: [192.168.10.22:52447] POST /api/telemetry (137 bytes)
+03:12:01 [INFO] PQC_SERVER:   Telemetry: temp=26.4°C, humidity=55.0%, seq=20
+03:12:06 [INFO] PQC_SERVER: [192.168.10.22:52448] POST /api/telemetry (137 bytes)
+03:12:06 [INFO] PQC_SERVER:   Telemetry: temp=25.4°C, humidity=50.1%, seq=21
+03:12:11 [INFO] PQC_SERVER: [192.168.10.22:52449] POST /api/telemetry (137 bytes)
+03:12:11 [INFO] PQC_SERVER:   Telemetry: temp=31.9°C, humidity=63.6%, seq=22
+03:12:16 [INFO] PQC_SERVER: [192.168.10.22:52450] POST /api/telemetry (137 bytes)
+03:12:16 [INFO] PQC_SERVER:   Telemetry: temp=23.6°C, humidity=60.0%, seq=23
+03:12:22 [INFO] PQC_SERVER: [192.168.10.22:52451] POST /api/telemetry (137 bytes)
+03:12:22 [INFO] PQC_SERVER:   Telemetry: temp=29.3°C, humidity=62.4%, seq=24
+03:12:29 [INFO] PQC_SERVER: [192.168.10.22:52452] POST /api/telemetry (137 bytes)
+03:12:29 [INFO] PQC_SERVER:   Telemetry: temp=27.3°C, humidity=51.9%, seq=25
+03:12:36 [INFO] PQC_SERVER: [192.168.10.22:52453] POST /api/telemetry (137 bytes)
+03:12:36 [INFO] PQC_SERVER:   Telemetry: temp=27.2°C, humidity=48.3%, seq=26
+03:12:41 [INFO] PQC_SERVER: [192.168.10.22:52454] POST /api/telemetry (137 bytes)
+03:12:41 [INFO] PQC_SERVER:   Telemetry: temp=27.2°C, humidity=45.0%, seq=27
+03:12:46 [INFO] PQC_SERVER: [192.168.10.22:52455] POST /api/telemetry (137 bytes)
+03:12:46 [INFO] PQC_SERVER:   Telemetry: temp=27.7°C, humidity=61.3%, seq=28
+03:12:51 [INFO] PQC_SERVER: [192.168.10.22:52456] POST /api/telemetry (137 bytes)
+03:12:51 [INFO] PQC_SERVER:   Telemetry: temp=22.3°C, humidity=57.3%, seq=29
+03:12:57 [INFO] PQC_SERVER: [192.168.10.22:52457] POST /api/telemetry (137 bytes)
+03:12:57 [INFO] PQC_SERVER:   Telemetry: temp=25.8°C, humidity=52.1%, seq=30
+03:13:02 [INFO] PQC_SERVER: [192.168.10.22:52458] POST /api/telemetry (137 bytes)
+03:13:02 [INFO] PQC_SERVER:   Telemetry: temp=29.4°C, humidity=55.5%, seq=31
+03:13:08 [INFO] PQC_SERVER: [192.168.10.22:52459] POST /api/telemetry (137 bytes)
+03:13:08 [INFO] PQC_SERVER:   Telemetry: temp=26.0°C, humidity=51.6%, seq=32
+03:13:14 [INFO] PQC_SERVER: [192.168.10.22:52460] POST /api/telemetry (137 bytes)
+03:13:14 [INFO] PQC_SERVER:   Telemetry: temp=30.7°C, humidity=61.7%, seq=33
+03:13:19 [INFO] PQC_SERVER: [192.168.10.22:52461] POST /api/telemetry (137 bytes)
+03:13:19 [INFO] PQC_SERVER:   Telemetry: temp=30.0°C, humidity=59.0%, seq=34
+03:13:24 [INFO] PQC_SERVER: [192.168.10.22:52462] POST /api/telemetry (137 bytes)
+03:13:24 [INFO] PQC_SERVER:   Telemetry: temp=26.3°C, humidity=61.5%, seq=35
+03:13:29 [INFO] PQC_SERVER: [192.168.10.22:52463] POST /api/telemetry (137 bytes)
+03:13:29 [INFO] PQC_SERVER:   Telemetry: temp=29.5°C, humidity=62.4%, seq=36
+03:13:34 [INFO] PQC_SERVER: [192.168.10.22:52464] POST /api/telemetry (137 bytes)
+03:13:34 [INFO] PQC_SERVER:   Telemetry: temp=25.5°C, humidity=49.5%, seq=37
+03:13:39 [INFO] PQC_SERVER: [192.168.10.22:52465] POST /api/telemetry (137 bytes)
+03:13:39 [INFO] PQC_SERVER:   Telemetry: temp=31.4°C, humidity=45.6%, seq=38
+03:13:44 [INFO] PQC_SERVER: [192.168.10.22:52466] POST /api/telemetry (137 bytes)
+03:13:44 [INFO] PQC_SERVER:   Telemetry: temp=29.9°C, humidity=47.9%, seq=39
+03:13:50 [INFO] PQC_SERVER: [192.168.10.22:52467] POST /api/telemetry (137 bytes)
+03:13:50 [INFO] PQC_SERVER:   Telemetry: temp=30.8°C, humidity=45.9%, seq=40
+03:13:55 [INFO] PQC_SERVER: [192.168.10.22:52468] POST /api/telemetry (137 bytes)
+03:13:55 [INFO] PQC_SERVER:   Telemetry: temp=27.7°C, humidity=53.4%, seq=41
+03:14:06 [INFO] PQC_SERVER: [192.168.10.22:57752] POST /handshake (1249 bytes)
+03:14:06 [INFO] PQC_SERVER: Client handshake HMAC verification successful
+03:14:06 [INFO] PQC_SERVER: Handshake #3: mode=Hybrid (X25519 + ML-KEM-768)
+03:14:06 [INFO] PQC_SERVER:   [DEBUG] PK recv: 3879ad24b9817951...0a27bb72b488c37c
+03:14:06 [INFO] PQC_SERVER:   [DEBUG] CT sent: 61b3496e3d510e95...9eb9fe373202c716
+03:14:06 [INFO] PQC_SERVER:   Assigned Session ID: fb492544115b0997d0a08bfca1f333d0
+03:14:06 [INFO] PQC_SERVER:   Handshake complete! Total payload (including 32B HMAC): 1168 bytes
+03:14:14 [INFO] PQC_SERVER: [192.168.10.22:57753] POST /api/telemetry (135 bytes)
+03:14:14 [INFO] PQC_SERVER:   Telemetry: temp=31.9°C, humidity=62.2%, seq=0
+03:14:19 [INFO] PQC_SERVER: [192.168.10.22:57754] POST /api/telemetry (135 bytes)
+03:14:19 [INFO] PQC_SERVER:   Telemetry: temp=22.5°C, humidity=54.2%, seq=1
+03:14:24 [INFO] PQC_SERVER: [192.168.10.22:57755] POST /api/telemetry (135 bytes)
+03:14:24 [INFO] PQC_SERVER:   Telemetry: temp=31.2°C, humidity=51.7%, seq=2
+03:14:29 [INFO] PQC_SERVER: [192.168.10.22:57756] POST /api/telemetry (135 bytes)
+03:14:29 [INFO] PQC_SERVER:   Telemetry: temp=28.4°C, humidity=45.0%, seq=3
+03:14:34 [INFO] PQC_SERVER: [192.168.10.22:57757] POST /api/telemetry (135 bytes)
+03:14:34 [INFO] PQC_SERVER:   Telemetry: temp=24.8°C, humidity=64.7%, seq=4
+03:14:39 [INFO] PQC_SERVER: [192.168.10.22:57758] POST /api/telemetry (135 bytes)
+03:14:39 [INFO] PQC_SERVER:   Telemetry: temp=28.3°C, humidity=47.5%, seq=5
+03:14:44 [INFO] PQC_SERVER: [192.168.10.22:57759] POST /api/telemetry (135 bytes)
+03:14:44 [INFO] PQC_SERVER:   Telemetry: temp=25.2°C, humidity=62.6%, seq=6
+03:14:49 [INFO] PQC_SERVER: [192.168.10.22:57760] POST /api/telemetry (135 bytes)
+03:14:49 [INFO] PQC_SERVER:   Telemetry: temp=22.7°C, humidity=48.9%, seq=7
+03:14:54 [INFO] PQC_SERVER: [192.168.10.22:57761] POST /api/telemetry (135 bytes)
+03:14:54 [INFO] PQC_SERVER:   Telemetry: temp=31.9°C, humidity=56.4%, seq=8
+03:14:59 [INFO] PQC_SERVER: [192.168.10.22:57762] POST /api/telemetry (135 bytes)
+03:14:59 [INFO] PQC_SERVER:   Telemetry: temp=23.7°C, humidity=57.3%, seq=9
+03:15:05 [INFO] PQC_SERVER: [192.168.10.22:57763] POST /api/telemetry (136 bytes)
+03:15:05 [INFO] PQC_SERVER:   Telemetry: temp=27.5°C, humidity=48.9%, seq=10
+03:15:10 [INFO] PQC_SERVER: [192.168.10.22:57764] POST /api/telemetry (136 bytes)
+03:15:10 [INFO] PQC_SERVER:   Telemetry: temp=26.6°C, humidity=64.9%, seq=11
+03:15:15 [INFO] PQC_SERVER: [192.168.10.22:57765] POST /api/telemetry (136 bytes)
+03:15:15 [INFO] PQC_SERVER:   Telemetry: temp=31.7°C, humidity=53.5%, seq=12
+03:15:20 [INFO] PQC_SERVER: [192.168.10.22:57766] POST /api/telemetry (136 bytes)
+03:15:20 [INFO] PQC_SERVER:   Telemetry: temp=22.2°C, humidity=55.1%, seq=13
+03:15:25 [INFO] PQC_SERVER: [192.168.10.22:57767] POST /api/telemetry (136 bytes)
+03:15:25 [INFO] PQC_SERVER:   Telemetry: temp=23.1°C, humidity=58.5%, seq=14
+03:15:30 [INFO] PQC_SERVER: [192.168.10.22:57768] POST /api/telemetry (136 bytes)
+03:15:30 [INFO] PQC_SERVER:   Telemetry: temp=29.7°C, humidity=45.6%, seq=15
+03:15:35 [INFO] PQC_SERVER: [192.168.10.22:57769] POST /api/telemetry (136 bytes)
+03:15:35 [INFO] PQC_SERVER:   Telemetry: temp=29.6°C, humidity=62.1%, seq=16
+03:15:40 [INFO] PQC_SERVER: [192.168.10.22:57770] POST /api/telemetry (137 bytes)
+03:15:40 [INFO] PQC_SERVER:   Telemetry: temp=31.1°C, humidity=63.8%, seq=17
+03:15:45 [INFO] PQC_SERVER: [192.168.10.22:57771] POST /api/telemetry (137 bytes)
+03:15:45 [INFO] PQC_SERVER:   Telemetry: temp=28.1°C, humidity=47.3%, seq=18
+03:15:50 [INFO] PQC_SERVER: [192.168.10.22:57772] POST /api/telemetry (137 bytes)
+03:15:50 [INFO] PQC_SERVER:   Telemetry: temp=22.4°C, humidity=56.6%, seq=19
+03:15:55 [INFO] PQC_SERVER: [192.168.10.22:57773] POST /api/telemetry (137 bytes)
+03:15:55 [INFO] PQC_SERVER:   Telemetry: temp=30.7°C, humidity=47.1%, seq=20
+03:16:00 [INFO] PQC_SERVER: [192.168.10.22:57774] POST /api/telemetry (137 bytes)
+03:16:00 [INFO] PQC_SERVER:   Telemetry: temp=29.8°C, humidity=53.6%, seq=21
+03:16:05 [INFO] PQC_SERVER: [192.168.10.22:57775] POST /api/telemetry (137 bytes)
+03:16:05 [INFO] PQC_SERVER:   Telemetry: temp=24.2°C, humidity=58.5%, seq=22
+03:16:10 [INFO] PQC_SERVER: [192.168.10.22:57776] POST /api/telemetry (137 bytes)
+03:16:10 [INFO] PQC_SERVER:   Telemetry: temp=31.0°C, humidity=62.4%, seq=23
+03:16:15 [INFO] PQC_SERVER: [192.168.10.22:57777] POST /api/telemetry (137 bytes)
+03:16:15 [INFO] PQC_SERVER:   Telemetry: temp=25.1°C, humidity=55.1%, seq=24
+03:16:20 [INFO] PQC_SERVER: [192.168.10.22:57778] POST /api/telemetry (137 bytes)
+03:16:20 [INFO] PQC_SERVER:   Telemetry: temp=22.3°C, humidity=46.6%, seq=25
+03:16:25 [INFO] PQC_SERVER: [192.168.10.22:57779] POST /api/telemetry (137 bytes)
+03:16:25 [INFO] PQC_SERVER:   Telemetry: temp=30.8°C, humidity=61.3%, seq=26
+03:16:30 [INFO] PQC_SERVER: [192.168.10.22:57780] POST /api/telemetry (137 bytes)
+03:16:30 [INFO] PQC_SERVER:   Telemetry: temp=26.1°C, humidity=55.7%, seq=27
+03:16:35 [INFO] PQC_SERVER: [192.168.10.22:57781] POST /api/telemetry (137 bytes)
+03:16:35 [INFO] PQC_SERVER:   Telemetry: temp=31.8°C, humidity=57.6%, seq=28
+03:16:40 [INFO] PQC_SERVER: [192.168.10.22:57782] POST /api/telemetry (137 bytes)
+03:16:40 [INFO] PQC_SERVER:   Telemetry: temp=31.4°C, humidity=59.7%, seq=29
+03:16:45 [INFO] PQC_SERVER: [192.168.10.22:57783] POST /api/telemetry (137 bytes)
+03:16:45 [INFO] PQC_SERVER:   Telemetry: temp=28.4°C, humidity=54.9%, seq=30
+03:16:51 [INFO] PQC_SERVER: [192.168.10.22:57784] POST /api/telemetry (137 bytes)
+03:16:51 [INFO] PQC_SERVER:   Telemetry: temp=24.2°C, humidity=57.0%, seq=31
+03:16:56 [INFO] PQC_SERVER: [192.168.10.22:57785] POST /api/telemetry (137 bytes)
+03:16:56 [INFO] PQC_SERVER:   Telemetry: temp=25.4°C, humidity=61.1%, seq=32
+03:17:01 [INFO] PQC_SERVER: [192.168.10.22:57786] POST /api/telemetry (137 bytes)
+03:17:01 [INFO] PQC_SERVER:   Telemetry: temp=27.4°C, humidity=61.8%, seq=33
+03:17:07 [INFO] PQC_SERVER: [192.168.10.22:57787] POST /api/telemetry (137 bytes)
+03:17:07 [INFO] PQC_SERVER:   Telemetry: temp=22.0°C, humidity=48.8%, seq=34
+03:17:12 [INFO] PQC_SERVER: [192.168.10.22:57788] POST /api/telemetry (137 bytes)
+03:17:12 [INFO] PQC_SERVER:   Telemetry: temp=23.2°C, humidity=52.0%, seq=35
+03:17:17 [INFO] PQC_SERVER: [192.168.10.22:57789] POST /api/telemetry (137 bytes)
+03:17:17 [INFO] PQC_SERVER:   Telemetry: temp=27.0°C, humidity=52.8%, seq=36
+03:17:22 [INFO] PQC_SERVER: [192.168.10.22:57790] POST /api/telemetry (137 bytes)
+03:17:22 [INFO] PQC_SERVER:   Telemetry: temp=24.4°C, humidity=60.7%, seq=37
+03:17:27 [INFO] PQC_SERVER: [192.168.10.22:57791] POST /api/telemetry (137 bytes)
+03:17:27 [INFO] PQC_SERVER:   Telemetry: temp=24.9°C, humidity=59.3%, seq=38
+03:17:32 [INFO] PQC_SERVER: [192.168.10.22:57792] POST /api/telemetry (137 bytes)
+03:17:32 [INFO] PQC_SERVER:   Telemetry: temp=28.3°C, humidity=54.0%, seq=39
+03:17:37 [INFO] PQC_SERVER: [192.168.10.22:57793] POST /api/telemetry (137 bytes)
+03:17:37 [INFO] PQC_SERVER:   Telemetry: temp=29.4°C, humidity=53.8%, seq=40
+03:17:42 [INFO] PQC_SERVER: [192.168.10.22:57794] POST /api/telemetry (137 bytes)
+03:17:42 [INFO] PQC_SERVER:   Telemetry: temp=31.4°C, humidity=50.7%, seq=41
+03:17:48 [INFO] PQC_SERVER: [192.168.10.22:57795] POST /api/telemetry (137 bytes)
+03:17:48 [INFO] PQC_SERVER:   Telemetry: temp=27.0°C, humidity=54.1%, seq=42
+03:17:53 [INFO] PQC_SERVER: [192.168.10.22:57796] POST /api/telemetry (137 bytes)
+03:17:53 [INFO] PQC_SERVER:   Telemetry: temp=24.4°C, humidity=51.8%, seq=43
+03:17:58 [INFO] PQC_SERVER: [192.168.10.22:57797] POST /api/telemetry (137 bytes)
+03:17:58 [INFO] PQC_SERVER:   Telemetry: temp=31.7°C, humidity=64.7%, seq=44
+03:18:03 [INFO] PQC_SERVER: [192.168.10.22:57798] POST /api/telemetry (137 bytes)
+03:18:03 [INFO] PQC_SERVER:   Telemetry: temp=24.4°C, humidity=60.7%, seq=45
+03:18:08 [INFO] PQC_SERVER: [192.168.10.22:57799] POST /api/telemetry (137 bytes)
+03:18:08 [INFO] PQC_SERVER:   Telemetry: temp=29.1°C, humidity=46.7%, seq=46
+03:18:13 [INFO] PQC_SERVER: [192.168.10.22:57800] POST /api/telemetry (137 bytes)
+03:18:13 [INFO] PQC_SERVER:   Telemetry: temp=26.9°C, humidity=61.8%, seq=47
+03:18:18 [INFO] PQC_SERVER: [192.168.10.22:57801] POST /api/telemetry (137 bytes)
+03:18:18 [INFO] PQC_SERVER:   Telemetry: temp=23.9°C, humidity=53.1%, seq=48
+03:18:23 [INFO] PQC_SERVER: [192.168.10.22:57802] POST /api/telemetry (137 bytes)
+03:18:23 [INFO] PQC_SERVER:   Telemetry: temp=30.1°C, humidity=57.4%, seq=49
+03:18:38 [INFO] PQC_SERVER: [192.168.10.22:57803] POST /handshake (1249 bytes)
+03:18:38 [INFO] PQC_SERVER: Client handshake HMAC verification successful
+03:18:38 [INFO] PQC_SERVER: Handshake #4: mode=Hybrid (X25519 + ML-KEM-768)
+03:18:38 [INFO] PQC_SERVER:   [DEBUG] PK recv: a978cee588c640e5...37a46800f6b164b1
+03:18:38 [INFO] PQC_SERVER:   [DEBUG] CT sent: add64ca607caef56...b6a2c709641647f7
+03:18:38 [INFO] PQC_SERVER:   Assigned Session ID: 416e1e00bdbd4674565361265239ce2e
+03:18:38 [INFO] PQC_SERVER:   Handshake complete! Total payload (including 32B HMAC): 1168 bytes
+03:18:44 [INFO] PQC_SERVER: [192.168.10.22:57804] POST /api/telemetry (137 bytes)
+03:18:44 [INFO] PQC_SERVER:   Telemetry: temp=26.3°C, humidity=47.3%, seq=0
+03:18:49 [INFO] PQC_SERVER: [192.168.10.22:57805] POST /api/telemetry (137 bytes)
+03:18:49 [INFO] PQC_SERVER:   Telemetry: temp=29.9°C, humidity=47.8%, seq=1
+03:18:54 [INFO] PQC_SERVER: [192.168.10.22:57806] POST /api/telemetry (137 bytes)
+03:18:54 [INFO] PQC_SERVER:   Telemetry: temp=22.8°C, humidity=63.2%, seq=2
+03:18:59 [INFO] PQC_SERVER: [192.168.10.22:57807] POST /api/telemetry (137 bytes)
+03:18:59 [INFO] PQC_SERVER:   Telemetry: temp=28.5°C, humidity=50.8%, seq=3
+03:19:04 [INFO] PQC_SERVER: [192.168.10.22:57808] POST /api/telemetry (137 bytes)
+03:19:04 [INFO] PQC_SERVER:   Telemetry: temp=30.0°C, humidity=59.4%, seq=4
+03:19:09 [INFO] PQC_SERVER: [192.168.10.22:57809] POST /api/telemetry (137 bytes)
+03:19:09 [INFO] PQC_SERVER:   Telemetry: temp=28.4°C, humidity=57.8%, seq=5
+03:19:14 [INFO] PQC_SERVER: [192.168.10.22:57810] POST /api/telemetry (137 bytes)
+03:19:14 [INFO] PQC_SERVER:   Telemetry: temp=29.7°C, humidity=50.6%, seq=6
+03:19:19 [INFO] PQC_SERVER: [192.168.10.22:57811] POST /api/telemetry (137 bytes)
+03:19:19 [INFO] PQC_SERVER:   Telemetry: temp=23.5°C, humidity=45.3%, seq=7
+03:19:24 [INFO] PQC_SERVER: [192.168.10.22:57812] POST /api/telemetry (137 bytes)
+03:19:24 [INFO] PQC_SERVER:   Telemetry: temp=31.3°C, humidity=52.2%, seq=8
+03:19:29 [INFO] PQC_SERVER: [192.168.10.22:57813] POST /api/telemetry (137 bytes)
+03:19:29 [INFO] PQC_SERVER:   Telemetry: temp=30.3°C, humidity=53.7%, seq=9
+03:19:35 [INFO] PQC_SERVER: [192.168.10.22:57814] POST /api/telemetry (137 bytes)
+03:19:35 [INFO] PQC_SERVER:   Telemetry: temp=28.8°C, humidity=55.6%, seq=10
+03:19:40 [INFO] PQC_SERVER: [192.168.10.22:57815] POST /api/telemetry (137 bytes)
+03:19:40 [INFO] PQC_SERVER:   Telemetry: temp=22.9°C, humidity=64.9%, seq=11
+03:19:45 [INFO] PQC_SERVER: [192.168.10.22:57816] POST /api/telemetry (137 bytes)
+03:19:45 [INFO] PQC_SERVER:   Telemetry: temp=25.3°C, humidity=45.7%, seq=12
+03:19:52 [INFO] PQC_SERVER: [192.168.10.22:57817] POST /api/telemetry (137 bytes)
+03:19:52 [INFO] PQC_SERVER:   Telemetry: temp=30.7°C, humidity=56.7%, seq=13
+03:19:57 [INFO] PQC_SERVER: [192.168.10.22:57818] POST /api/telemetry (137 bytes)
+03:19:57 [INFO] PQC_SERVER:   Telemetry: temp=29.6°C, humidity=48.5%, seq=14
+03:20:03 [INFO] PQC_SERVER: [192.168.10.22:57819] POST /api/telemetry (137 bytes)
+03:20:03 [INFO] PQC_SERVER:   Telemetry: temp=30.6°C, humidity=63.3%, seq=15
+03:20:08 [INFO] PQC_SERVER: [192.168.10.22:57820] POST /api/telemetry (137 bytes)
+03:20:08 [INFO] PQC_SERVER:   Telemetry: temp=27.6°C, humidity=63.4%, seq=16
+03:20:13 [INFO] PQC_SERVER: [192.168.10.22:57821] POST /api/telemetry (137 bytes)
+03:20:13 [INFO] PQC_SERVER:   Telemetry: temp=23.0°C, humidity=61.4%, seq=17
+03:20:18 [INFO] PQC_SERVER: [192.168.10.22:57822] POST /api/telemetry (137 bytes)
+03:20:18 [INFO] PQC_SERVER:   Telemetry: temp=23.9°C, humidity=57.1%, seq=18
+03:20:23 [INFO] PQC_SERVER: [192.168.10.22:57823] POST /api/telemetry (137 bytes)
+03:20:23 [INFO] PQC_SERVER:   Telemetry: temp=23.1°C, humidity=53.7%, seq=19
+03:20:28 [INFO] PQC_SERVER: [192.168.10.22:57824] POST /api/telemetry (137 bytes)
+03:20:28 [INFO] PQC_SERVER:   Telemetry: temp=31.7°C, humidity=59.5%, seq=20
+03:20:35 [INFO] PQC_SERVER: [192.168.10.22:57825] POST /api/telemetry (137 bytes)
+03:20:35 [INFO] PQC_SERVER:   Telemetry: temp=30.6°C, humidity=51.3%, seq=21
+03:20:42 [INFO] PQC_SERVER: [192.168.10.22:57826] POST /api/telemetry (137 bytes)
+03:20:42 [INFO] PQC_SERVER:   Telemetry: temp=25.0°C, humidity=50.0%, seq=22
+03:20:48 [INFO] PQC_SERVER: [192.168.10.22:57827] POST /api/telemetry (137 bytes)
+03:20:48 [INFO] PQC_SERVER:   Telemetry: temp=22.4°C, humidity=46.7%, seq=23
+03:20:53 [INFO] PQC_SERVER: [192.168.10.22:57828] POST /api/telemetry (137 bytes)
+03:20:53 [INFO] PQC_SERVER:   Telemetry: temp=23.4°C, humidity=52.8%, seq=24
+03:20:58 [INFO] PQC_SERVER: [192.168.10.22:57829] POST /api/telemetry (137 bytes)
+03:20:58 [INFO] PQC_SERVER:   Telemetry: temp=23.7°C, humidity=55.0%, seq=25
+03:21:03 [INFO] PQC_SERVER: [192.168.10.22:57830] POST /api/telemetry (137 bytes)
+03:21:03 [INFO] PQC_SERVER:   Telemetry: temp=26.4°C, humidity=62.4%, seq=26
+03:21:08 [INFO] PQC_SERVER: [192.168.10.22:57831] POST /api/telemetry (137 bytes)
+03:21:08 [INFO] PQC_SERVER:   Telemetry: temp=29.6°C, humidity=50.3%, seq=27
+03:21:13 [INFO] PQC_SERVER: [192.168.10.22:57832] POST /api/telemetry (137 bytes)
+03:21:13 [INFO] PQC_SERVER:   Telemetry: temp=22.7°C, humidity=45.7%, seq=28
+03:21:18 [INFO] PQC_SERVER: [192.168.10.22:57833] POST /api/telemetry (137 bytes)
+03:21:18 [INFO] PQC_SERVER:   Telemetry: temp=24.4°C, humidity=57.2%, seq=29
+03:21:24 [INFO] PQC_SERVER: [192.168.10.22:57834] POST /api/telemetry (137 bytes)
+03:21:24 [INFO] PQC_SERVER:   Telemetry: temp=30.7°C, humidity=53.7%, seq=30
+03:21:29 [INFO] PQC_SERVER: [192.168.10.22:57835] POST /api/telemetry (137 bytes)
+03:21:29 [INFO] PQC_SERVER:   Telemetry: temp=25.1°C, humidity=45.3%, seq=31
+03:21:34 [INFO] PQC_SERVER: [192.168.10.22:57836] POST /api/telemetry (137 bytes)
+03:21:34 [INFO] PQC_SERVER:   Telemetry: temp=27.7°C, humidity=45.1%, seq=32
+03:21:39 [INFO] PQC_SERVER: [192.168.10.22:57837] POST /api/telemetry (137 bytes)
+03:21:39 [INFO] PQC_SERVER:   Telemetry: temp=23.5°C, humidity=54.4%, seq=33
+03:21:44 [INFO] PQC_SERVER: [192.168.10.22:57838] POST /api/telemetry (137 bytes)
+03:21:44 [INFO] PQC_SERVER:   Telemetry: temp=28.7°C, humidity=45.3%, seq=34
+03:21:49 [INFO] PQC_SERVER: [192.168.10.22:57839] POST /api/telemetry (137 bytes)
+03:21:49 [INFO] PQC_SERVER:   Telemetry: temp=28.1°C, humidity=56.2%, seq=35
+03:21:54 [INFO] PQC_SERVER: [192.168.10.22:57840] POST /api/telemetry (137 bytes)
+03:21:54 [INFO] PQC_SERVER:   Telemetry: temp=30.5°C, humidity=51.8%, seq=36
+03:21:59 [INFO] PQC_SERVER: [192.168.10.22:57841] POST /api/telemetry (137 bytes)
+03:21:59 [INFO] PQC_SERVER:   Telemetry: temp=24.2°C, humidity=58.4%, seq=37
+03:22:05 [INFO] PQC_SERVER: [192.168.10.22:57842] POST /api/telemetry (137 bytes)
+03:22:05 [INFO] PQC_SERVER:   Telemetry: temp=29.5°C, humidity=51.9%, seq=38
+03:22:11 [INFO] PQC_SERVER: [192.168.10.22:57843] POST /api/telemetry (137 bytes)
+03:22:11 [INFO] PQC_SERVER:   Telemetry: temp=26.7°C, humidity=52.9%, seq=39
+03:22:16 [INFO] PQC_SERVER: [192.168.10.22:57844] POST /api/telemetry (137 bytes)
+03:22:16 [INFO] PQC_SERVER:   Telemetry: temp=30.1°C, humidity=60.6%, seq=40
+03:22:21 [INFO] PQC_SERVER: [192.168.10.22:57845] POST /api/telemetry (137 bytes)
+03:22:21 [INFO] PQC_SERVER:   Telemetry: temp=28.9°C, humidity=56.8%, seq=41
+03:22:26 [INFO] PQC_SERVER: [192.168.10.22:57846] POST /api/telemetry (137 bytes)
+03:22:26 [INFO] PQC_SERVER:   Telemetry: temp=29.6°C, humidity=61.5%, seq=42
+03:22:31 [INFO] PQC_SERVER: [192.168.10.22:57847] POST /api/telemetry (137 bytes)
+03:22:31 [INFO] PQC_SERVER:   Telemetry: temp=23.1°C, humidity=57.0%, seq=43
+03:22:36 [INFO] PQC_SERVER: [192.168.10.22:57848] POST /api/telemetry (137 bytes)
+03:22:36 [INFO] PQC_SERVER:   Telemetry: temp=24.9°C, humidity=47.5%, seq=44
+03:22:41 [INFO] PQC_SERVER: [192.168.10.22:57849] POST /api/telemetry (137 bytes)
+03:22:41 [INFO] PQC_SERVER:   Telemetry: temp=26.8°C, humidity=57.0%, seq=45
+03:22:46 [INFO] PQC_SERVER: [192.168.10.22:57850] POST /api/telemetry (137 bytes)
+03:22:46 [INFO] PQC_SERVER:   Telemetry: temp=30.4°C, humidity=62.4%, seq=46
+03:22:51 [INFO] PQC_SERVER: [192.168.10.22:57851] POST /api/telemetry (137 bytes)
+03:22:51 [INFO] PQC_SERVER:   Telemetry: temp=23.4°C, humidity=61.4%, seq=47
+03:22:56 [INFO] PQC_SERVER: [192.168.10.22:57852] POST /api/telemetry (137 bytes)
+03:22:56 [INFO] PQC_SERVER:   Telemetry: temp=31.9°C, humidity=46.6%, seq=48
+03:23:01 [INFO] PQC_SERVER: [192.168.10.22:57853] POST /api/telemetry (137 bytes)
+03:23:01 [INFO] PQC_SERVER:   Telemetry: temp=23.2°C, humidity=63.6%, seq=49
+03:23:17 [INFO] PQC_SERVER: [192.168.10.22:57854] POST /handshake (1249 bytes)
+03:23:17 [INFO] PQC_SERVER: Client handshake HMAC verification successful
+03:23:17 [INFO] PQC_SERVER: Handshake #5: mode=Hybrid (X25519 + ML-KEM-768)
+03:23:17 [INFO] PQC_SERVER:   [DEBUG] PK recv: 831125dcf8176ae4...65a62b21150da735
+03:23:17 [INFO] PQC_SERVER:   [DEBUG] CT sent: d7f215c61ca06496...45762036a9193de4
+03:23:17 [INFO] PQC_SERVER:   Assigned Session ID: 4fc840500b5bad27ac02aef402c7431c
+03:23:17 [INFO] PQC_SERVER:   Handshake complete! Total payload (including 32B HMAC): 1168 bytes
+03:23:22 [INFO] PQC_SERVER: [192.168.10.22:57855] POST /api/telemetry (138 bytes)
+03:23:22 [INFO] PQC_SERVER:   Telemetry: temp=31.7°C, humidity=45.6%, seq=0
+03:23:27 [INFO] PQC_SERVER: [192.168.10.22:57856] POST /api/telemetry (138 bytes)
+03:23:27 [INFO] PQC_SERVER:   Telemetry: temp=22.6°C, humidity=45.0%, seq=1
+03:23:32 [INFO] PQC_SERVER: [192.168.10.22:57857] POST /api/telemetry (138 bytes)
+03:23:32 [INFO] PQC_SERVER:   Telemetry: temp=23.9°C, humidity=61.5%, seq=2
+03:23:37 [INFO] PQC_SERVER: [192.168.10.22:57858] POST /api/telemetry (138 bytes)
+03:23:37 [INFO] PQC_SERVER:   Telemetry: temp=27.4°C, humidity=51.2%, seq=3
+03:23:42 [INFO] PQC_SERVER: [192.168.10.22:57859] POST /api/telemetry (138 bytes)
+03:23:42 [INFO] PQC_SERVER:   Telemetry: temp=25.8°C, humidity=51.1%, seq=4
+03:23:48 [INFO] PQC_SERVER: [192.168.10.22:57860] POST /api/telemetry (138 bytes)
+03:23:48 [INFO] PQC_SERVER:   Telemetry: temp=22.8°C, humidity=59.5%, seq=5
+03:23:53 [INFO] PQC_SERVER: [192.168.10.22:57861] POST /api/telemetry (138 bytes)
+03:23:53 [INFO] PQC_SERVER:   Telemetry: temp=23.4°C, humidity=47.2%, seq=6
+03:23:58 [INFO] PQC_SERVER: [192.168.10.22:57862] POST /api/telemetry (138 bytes)
+03:23:58 [INFO] PQC_SERVER:   Telemetry: temp=25.2°C, humidity=46.6%, seq=7
+03:24:03 [INFO] PQC_SERVER: [192.168.10.22:57863] POST /api/telemetry (138 bytes)
+03:24:03 [INFO] PQC_SERVER:   Telemetry: temp=30.7°C, humidity=53.7%, seq=8
+03:24:08 [INFO] PQC_SERVER: [192.168.10.22:57864] POST /api/telemetry (138 bytes)
+03:24:08 [INFO] PQC_SERVER:   Telemetry: temp=28.9°C, humidity=54.2%, seq=9
+03:24:14 [INFO] PQC_SERVER: [192.168.10.22:57865] POST /api/telemetry (138 bytes)
+03:24:14 [INFO] PQC_SERVER:   Telemetry: temp=28.4°C, humidity=47.7%, seq=10
+03:24:19 [INFO] PQC_SERVER: [192.168.10.22:57866] POST /api/telemetry (138 bytes)
+03:24:19 [INFO] PQC_SERVER:   Telemetry: temp=29.1°C, humidity=47.3%, seq=11
+03:24:24 [INFO] PQC_SERVER: [192.168.10.22:57867] POST /api/telemetry (138 bytes)
+03:24:24 [INFO] PQC_SERVER:   Telemetry: temp=22.3°C, humidity=58.9%, seq=12
+03:24:29 [INFO] PQC_SERVER: [192.168.10.22:57868] POST /api/telemetry (138 bytes)
+03:24:29 [INFO] PQC_SERVER:   Telemetry: temp=22.9°C, humidity=49.9%, seq=13
+03:24:34 [INFO] PQC_SERVER: [192.168.10.22:57869] POST /api/telemetry (138 bytes)
+03:24:34 [INFO] PQC_SERVER:   Telemetry: temp=23.4°C, humidity=64.6%, seq=14
+03:24:39 [INFO] PQC_SERVER: [192.168.10.22:57870] POST /api/telemetry (138 bytes)
+03:24:39 [INFO] PQC_SERVER:   Telemetry: temp=22.5°C, humidity=50.7%, seq=15
+03:24:44 [INFO] PQC_SERVER: [192.168.10.22:57871] POST /api/telemetry (138 bytes)
+03:24:44 [INFO] PQC_SERVER:   Telemetry: temp=24.2°C, humidity=58.1%, seq=16
+03:24:49 [INFO] PQC_SERVER: [192.168.10.22:57872] POST /api/telemetry (138 bytes)
+03:24:49 [INFO] PQC_SERVER:   Telemetry: temp=28.1°C, humidity=58.6%, seq=17
+03:24:55 [INFO] PQC_SERVER: [192.168.10.22:57873] POST /api/telemetry (138 bytes)
+03:24:55 [INFO] PQC_SERVER:   Telemetry: temp=23.3°C, humidity=49.5%, seq=18
+03:25:00 [INFO] PQC_SERVER: [192.168.10.22:57874] POST /api/telemetry (138 bytes)
+03:25:00 [INFO] PQC_SERVER:   Telemetry: temp=29.6°C, humidity=62.8%, seq=19
+03:25:05 [INFO] PQC_SERVER: [192.168.10.22:57875] POST /api/telemetry (138 bytes)
+03:25:05 [INFO] PQC_SERVER:   Telemetry: temp=28.5°C, humidity=56.8%, seq=20
+03:25:10 [INFO] PQC_SERVER: [192.168.10.22:57876] POST /api/telemetry (138 bytes)
+03:25:10 [INFO] PQC_SERVER:   Telemetry: temp=29.3°C, humidity=64.7%, seq=21
+03:25:15 [INFO] PQC_SERVER: [192.168.10.22:57877] POST /api/telemetry (138 bytes)
+03:25:15 [INFO] PQC_SERVER:   Telemetry: temp=27.4°C, humidity=45.4%, seq=22
+03:25:21 [INFO] PQC_SERVER: [192.168.10.22:57878] POST /api/telemetry (138 bytes)
+03:25:21 [INFO] PQC_SERVER:   Telemetry: temp=29.6°C, humidity=51.4%, seq=23
+03:25:28 [INFO] PQC_SERVER: [192.168.10.22:57879] POST /api/telemetry (138 bytes)
+03:25:28 [INFO] PQC_SERVER:   Telemetry: temp=28.5°C, humidity=62.2%, seq=24
+03:25:33 [INFO] PQC_SERVER: [192.168.10.22:57880] POST /api/telemetry (138 bytes)
+03:25:33 [INFO] PQC_SERVER:   Telemetry: temp=28.4°C, humidity=60.1%, seq=25
+03:25:38 [INFO] PQC_SERVER: [192.168.10.22:57881] POST /api/telemetry (138 bytes)
+03:25:38 [INFO] PQC_SERVER:   Telemetry: temp=30.2°C, humidity=55.6%, seq=26
+03:25:43 [INFO] PQC_SERVER: [192.168.10.22:57882] POST /api/telemetry (138 bytes)
+03:25:43 [INFO] PQC_SERVER:   Telemetry: temp=22.3°C, humidity=55.0%, seq=27
+03:25:49 [INFO] PQC_SERVER: [192.168.10.22:57883] POST /api/telemetry (138 bytes)
+03:25:49 [INFO] PQC_SERVER:   Telemetry: temp=23.8°C, humidity=48.0%, seq=28
+03:25:54 [INFO] PQC_SERVER: [192.168.10.22:57884] POST /api/telemetry (138 bytes)
+03:25:54 [INFO] PQC_SERVER:   Telemetry: temp=22.3°C, humidity=53.7%, seq=29
+03:26:01 [INFO] PQC_SERVER: [192.168.10.22:57885] POST /api/telemetry (138 bytes)
+03:26:01 [INFO] PQC_SERVER:   Telemetry: temp=31.3°C, humidity=62.0%, seq=30
+03:26:06 [INFO] PQC_SERVER: [192.168.10.22:57886] POST /api/telemetry (138 bytes)
+03:26:06 [INFO] PQC_SERVER:   Telemetry: temp=24.0°C, humidity=46.8%, seq=31
+03:26:12 [INFO] PQC_SERVER: [192.168.10.22:57887] POST /api/telemetry (138 bytes)
+03:26:12 [INFO] PQC_SERVER:   Telemetry: temp=29.5°C, humidity=55.2%, seq=32
+03:26:17 [INFO] PQC_SERVER: [192.168.10.22:57888] POST /api/telemetry (138 bytes)
+03:26:17 [INFO] PQC_SERVER:   Telemetry: temp=24.8°C, humidity=48.6%, seq=33
+03:26:23 [INFO] PQC_SERVER: [192.168.10.22:57889] POST /api/telemetry (138 bytes)
+03:26:23 [INFO] PQC_SERVER:   Telemetry: temp=29.9°C, humidity=55.4%, seq=34
+03:26:32 [INFO] PQC_SERVER: [192.168.10.22:57890] POST /api/telemetry (138 bytes)
+03:26:32 [INFO] PQC_SERVER:   Telemetry: temp=31.8°C, humidity=49.4%, seq=35

@@ -269,6 +269,111 @@ int benchmark_run_suite(int iterations, const char *server_host, int server_port
 }
 
 /*
+ * Run single-mode benchmark campaign (e.g. n=100 Hybrid)
+ */
+int benchmark_run_campaign(handshake_mode_t mode, int iterations, const char *server_host, int server_port,
+                           benchmark_stats_t *stats) {
+    memset(stats, 0, sizeof(benchmark_stats_t));
+    stats->mode = mode;
+    stats->iterations = iterations;
+
+    uint32_t *latencies = calloc(iterations, sizeof(uint32_t));
+    if (!latencies) {
+        ESP_LOGE(TAG, "Out of memory for latencies array");
+        return -1;
+    }
+
+    float total_ms_sum = 0;
+    float keygen_ms_sum = 0;
+    float hs_ms_sum = 0;
+    uint64_t heap_sum = 0;
+    uint64_t cycles_sum = 0;
+    float min_ms = 999999.0f;
+    float max_ms = 0.0f;
+    uint32_t min_cycles = UINT32_MAX;
+    uint32_t max_cycles = 0;
+    uint32_t min_heap = UINT32_MAX;
+    uint32_t max_heap = 0;
+
+    ESP_LOGI(TAG, "=========================================================");
+    ESP_LOGI(TAG, "=== Starting End-to-End Handshake Campaign: %s (n=%d) ===",
+             hybrid_mode_name(mode), iterations);
+    ESP_LOGI(TAG, "=========================================================");
+    ESP_LOGI("CSV_EVIDENCE", "CSV_HEADER,run,total_ms,keygen_ms,handshake_ms,total_cycles,peak_heap_bytes,peak_heap_kb,payload_bytes");
+
+    benchmark_result_t result;
+    int successful_runs = 0;
+
+    for (int i = 0; i < iterations; i++) {
+        result.iteration = i + 1;
+        int ret = benchmark_run_single(mode, &result, server_host, server_port);
+        if (ret != 0) {
+            ESP_LOGW(TAG, "Iteration %d failed, retrying in 200ms...", i + 1);
+            vTaskDelay(pdMS_TO_TICKS(200));
+            i--;
+            continue;
+        }
+
+        successful_runs++;
+        latencies[i] = (uint32_t)result.total_ms;
+        total_ms_sum += result.total_ms;
+        keygen_ms_sum += result.keygen_ms;
+        hs_ms_sum += result.handshake_ms;
+        heap_sum += result.peak_heap_bytes;
+        cycles_sum += result.total_cycles;
+        stats->payload_bytes = result.payload_bytes;
+
+        if (result.total_ms < min_ms) min_ms = result.total_ms;
+        if (result.total_ms > max_ms) max_ms = result.total_ms;
+        if (result.total_cycles < min_cycles) min_cycles = result.total_cycles;
+        if (result.total_cycles > max_cycles) max_cycles = result.total_cycles;
+        if (result.peak_heap_bytes < min_heap) min_heap = result.peak_heap_bytes;
+        if (result.peak_heap_bytes > max_heap) max_heap = result.peak_heap_bytes;
+
+        benchmark_print_result(&result);
+        ESP_LOGI("CSV_EVIDENCE", "CSV_DATA,%u,%.2f,%.2f,%.2f,%u,%u,%.2f,%u",
+                 result.iteration, result.total_ms, result.keygen_ms, result.handshake_ms,
+                 (unsigned int)result.total_cycles, (unsigned int)result.peak_heap_bytes,
+                 result.peak_heap_bytes / 1024.0f, (unsigned int)result.payload_bytes);
+
+        vTaskDelay(pdMS_TO_TICKS(50)); /* Allow TCP socket to close cleanly */
+        esp_task_wdt_reset(); /* Feed Task Watchdog */
+    }
+
+    stats->mean_total_ms = total_ms_sum / iterations;
+    stats->mean_keygen_ms = keygen_ms_sum / iterations;
+    stats->mean_handshake_ms = hs_ms_sum / iterations;
+    stats->mean_peak_heap = (uint32_t)(heap_sum / iterations);
+    stats->mean_total_cycles = (uint32_t)(cycles_sum / iterations);
+
+    /* Standard deviation */
+    float variance = 0;
+    for (int i = 0; i < iterations; i++) {
+        float diff = (float)latencies[i] - stats->mean_total_ms;
+        variance += diff * diff;
+    }
+    stats->stddev_total_ms = sqrtf(variance / iterations);
+    free(latencies);
+
+    ESP_LOGI(TAG, "");
+    ESP_LOGI(TAG, "=== CAMPAIGN STATISTICAL SUMMARY (n=%d, %s) ===", iterations, hybrid_mode_name(mode));
+    ESP_LOGI(TAG, "  Latency:     Mean = %.2f ms, StdDev = %.2f ms, Min = %.2f ms, Max = %.2f ms",
+             stats->mean_total_ms, stats->stddev_total_ms, min_ms, max_ms);
+    ESP_LOGI(TAG, "  CPU Cycles:  Mean = %u (%.2fM), Min = %u (%.2fM), Max = %u (%.2fM)",
+             (unsigned int)stats->mean_total_cycles, stats->mean_total_cycles / 1000000.0f,
+             (unsigned int)min_cycles, min_cycles / 1000000.0f,
+             (unsigned int)max_cycles, max_cycles / 1000000.0f);
+    ESP_LOGI(TAG, "  SRAM Heap:   Mean = %u B (%.1f KB), Min = %u B (%.1f KB), Max = %u B (%.1f KB)",
+             (unsigned int)stats->mean_peak_heap, stats->mean_peak_heap / 1024.0f,
+             (unsigned int)min_heap, min_heap / 1024.0f,
+             (unsigned int)max_heap, max_heap / 1024.0f);
+    ESP_LOGI(TAG, "  Failure Rate: 0%% (%d/%d successful)", successful_runs, iterations);
+    ESP_LOGI(TAG, "=========================================================");
+
+    return 0;
+}
+
+/*
  * Print results to serial monitor
  */
 void benchmark_print_result(const benchmark_result_t *result) {

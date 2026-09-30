@@ -1,8 +1,8 @@
 # Hybrid Post-Quantum Cryptography (PQC) Key Exchange on ESP32
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![CI](https://github.com/muhammadsohaimmuqtada/esp32-hybrid-pqc-key-exchange/actions/workflows/ci.yml/badge.svg)](https://github.com/muhammadsohaimmuqtada/esp32-hybrid-pqc-key-exchange/actions/workflows/ci.yml)
-[![Release: v2.1-mlkem768](https://img.shields.io/badge/Release-v2.1--mlkem768--final-blue.svg)](https://github.com/muhammadsohaimmuqtada/esp32-hybrid-pqc-key-exchange/releases/tag/v2.1-mlkem768-final)
+[![CI](https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/actions/workflows/ci.yml/badge.svg)](https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/actions/workflows/ci.yml)
+[![Release: v2.1-mlkem768](https://img.shields.io/badge/Release-v2.1--mlkem768--final-blue.svg)](https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/releases/tag/v2.1-mlkem768-final)
 [![FIPS 203: ML-KEM-768](https://img.shields.io/badge/FIPS%20203-ML--KEM--768-success.svg)](https://csrc.nist.gov/pubs/fips/203/final)
 [![ProVerif: Verified](https://img.shields.io/badge/ProVerif%202.05-Formally%20Verified-brightgreen.svg)](docs/evidence/proverif_verification_output.txt)
 

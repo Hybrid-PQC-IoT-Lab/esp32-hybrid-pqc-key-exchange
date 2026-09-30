@@ -115,9 +115,17 @@ idf.py -p /dev/ttyUSB0 flash monitor
 
 ---
 
-## 📊 Summary of Cryptographic Primitive Benchmarks
+## 📊 Experimental Benchmark Results
 
-Measured on physical ESP32-D0WD-V3 @ 160 MHz (source: [`data/raw_logs/energy_esp32_mlkem768_usb_proof.txt`](data/raw_logs/energy_esp32_mlkem768_usb_proof.txt), parsed via [`data/processed_results/parsed_cycles.csv`](data/processed_results/parsed_cycles.csv)):
+### 1. End-to-End Hybrid Handshake Campaign ($n = 100$)
+Measured across 100 consecutive Wi-Fi handshakes between physical ESP32-D0WD-V3 @ 160 MHz and native `liboqs` server (source: [`docs/evidence/hybrid_handshake_100_runs_raw.log`](docs/evidence/hybrid_handshake_100_runs_raw.log), structured data: [`docs/evidence/hybrid_handshake_100_runs.csv`](docs/evidence/hybrid_handshake_100_runs.csv)):
+
+| Protocol Mode | Sample Count ($n$) | Mean Handshake Latency | Mean CPU Cycles | Wire Bytes (Req / Resp) | Success Rate | Peak Heap |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Hybrid (ML-KEM-768 + X25519)** | **$n = 100$** | **616.75 ms** ($635.88\ \text{ms}$ in paper Table II) | **100.33M cycles** ($103.38\text{M}$ in paper Table II) | 1,249 B / 1,168 B | **100/100 (100%)** | 13.8 KB |
+
+### 2. Cryptographic Primitive Micro-Benchmarks ($n = 50 / 49$)
+Isolated micro-benchmarks of individual cryptographic operations measured on physical ESP32-D0WD-V3 @ 160 MHz (source: [`data/raw_logs/energy_esp32_mlkem768_usb_proof.txt`](data/raw_logs/energy_esp32_mlkem768_usb_proof.txt), parsed via [`data/processed_results/parsed_cycles.csv`](data/processed_results/parsed_cycles.csv), paper Table IV):
 
 | Operation | Sample Count ($n$) | Mean Latency | Mean CPU Cycles | Public Key Size | Secret Key / Ciphertext Size |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -125,7 +133,6 @@ Measured on physical ESP32-D0WD-V3 @ 160 MHz (source: [`data/raw_logs/energy_esp
 | **ML-KEM-768 Decap** | $n = 49$ | 18.58 ms ($18,582\ \mu\text{s}$) | 2.97M cycles ($2,973,098$) | 1,184 bytes | 1,088 bytes (ct) |
 | **X25519 Keygen** | $n = 50$ | 392.27 ms ($392,269\ \mu\text{s}$) | 62.76M cycles ($62,762,347$) | 32 bytes | 32 bytes |
 | **X25519 Shared Secret** | $n = 49$ | 200.53 ms ($200,530\ \mu\text{s}$) | 32.08M cycles ($32,083,991$) | 32 bytes | 32 bytes |
-| **End-to-End Hybrid Handshake** | $n = 100$ | 616.75 ms ($635.88\ \text{ms}$ in paper) | 100.33M cycles ($103.38\text{M}$ in paper) | 1,249 bytes (req) | 1,168 bytes (resp) |
 
 > **Note on TLS 1.3 Baseline & Synthetic Harness Withdrawal**: Earlier reported values of 776.40 ms and 372.66M cycles for TLS 1.3 were synthetic artifacts from an emulation loop in `firmware/main/benchmark.c` (applying synthetic scalar multipliers and heap floors) and have been formally withdrawn. Actual physical wall-clock TLS 1.3 handshakes on ESP32 measure ~1.09 s for hybrid wolfSSL (see [`data/raw_logs/hybrid_tls_usb_serial.txt`](data/raw_logs/hybrid_tls_usb_serial.txt)) and 0.80–2.35 s for classical mbedTLS (see [`data/raw_logs/classical_tls_usb_serial.txt`](data/raw_logs/classical_tls_usb_serial.txt)).
 

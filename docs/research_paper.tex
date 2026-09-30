@@ -126,7 +126,7 @@ ML-KEM achieves IND-CCA2 security by wrapping an IND-CPA public-key encryption s
 \subsection{Cryptographic Key Binding via HKDF}
 Binding the classical and post-quantum shared secrets is necessary to prevent an adversary from tampering with either component. We use HKDF-SHA256~\cite{b20,b33,b36} in two steps:
 \begin{enumerate}
-    \item \textbf{Extract Step:} We extract a pseudorandom key (PRK) from the concatenated shared secrets. The extraction uses the session salt (or Session ID):
+    \item \textbf{Extract Step:} We extract a pseudorandom key (PRK) from the concatenated shared secrets. The extraction uses a fixed domain-separation salt string (\texttt{"HybridPQC-ESP32-Session-v1"}):
     \begin{equation}
     \text{PRK} = \text{HMAC-SHA256}(\text{salt}, \text{X25519\_ss} \parallel \text{ML-KEM\_ss})
     \end{equation}
@@ -428,7 +428,7 @@ ML-KEM-768 Decapsulation & $18.58$ & $2{,}973{,}098$ & $49$ & $ct = 1088$, $ss =
 \hline
 \multicolumn{5}{|c|}{\textit{Protocol Key Binding \& Authentication}} \\
 \hline
-HKDF-SHA256 Key Derivation & $<0.10$ & $<16{,}000$ & $100$ & $salt = \text{SessionID}$, $L = 32$ bytes \\
+HKDF-SHA256 Key Derivation & $<0.10$ & $<16{,}000$ & $100$ & $salt = \text{domain-sep string}$, $L = 32$ bytes \\
 \hline
 HMAC-SHA256 (Auth + Verify) & $<0.10$ & $<16{,}000$ & $100$ & $PSK = 32$, $\tau = 32$ bytes \\
 \hline

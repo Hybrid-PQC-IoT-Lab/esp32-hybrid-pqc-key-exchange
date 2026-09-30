@@ -14,18 +14,17 @@ The protocol establishes a post-quantum forward-secure session key between an ES
 
 ### Message 1: Client Handshake Request (`POST /handshake`)
 ```
-+--------+------------------+---------------------+---------------------+----------------------+
-| Mode   | Client Nonce     | X25519 Ephemeral PK | ML-KEM-768 PK       | Client HMAC-SHA256   |
-| 1 byte | 32 bytes         | 32 bytes (if hybrid)| 1184 bytes (hybrid) | 32 bytes             |
-+--------+------------------+---------------------+---------------------+----------------------+
++--------+---------------------+---------------------+----------------------+
+| Mode   | X25519 Ephemeral PK | ML-KEM-768 PK       | Client HMAC-SHA256   |
+| 1 byte | 32 bytes (if hybrid)| 1184 bytes (hybrid) | 32 bytes             |
++--------+---------------------+---------------------+----------------------+
 ```
 * **Mode**:
-  - `0x00`: Classical X25519 only.
-  - `0x01`: PQC ML-KEM-768 only.
-  - `0x02`: Hybrid (X25519 + ML-KEM-768).
-* **Client Nonce**: 32-byte cryptographic random challenge generated via ESP32 hardware RNG (`esp_random()`).
+  - `0x00`: Classical X25519 only (65 bytes total).
+  - `0x01`: PQC ML-KEM-768 only (1,217 bytes total).
+  - `0x02`: Hybrid (X25519 + ML-KEM-768, 1,249 bytes total).
 * **Public Keys**: Ephemeral public keys corresponding to the chosen mode.
-* **Client HMAC**: $\text{HMAC-SHA256}_{PSK}(\text{Mode} \parallel \text{Client Nonce} \parallel \text{Public Keys})$.
+* **Client HMAC**: $\text{HMAC-SHA256}_{PSK}(\text{Mode} \parallel \text{Public Keys})$.
 
 ### Message 2: Server Handshake Response
 ```
@@ -49,14 +48,14 @@ Upon successful decapsulation and ECDH computation:
    $$SS_{hybrid} = SS_{X25519} \parallel SS_{ML-KEM-768} \quad (\text{64 bytes})$$
    *(Note: RFC 7748 Section 6.1: Weak/all-zero $SS_{X25519}$ values are rejected in constant time prior to HKDF combination).*
 2. **HKDF Extraction**:
-   $$PRK = \text{HKDF-Extract}(\text{salt}=\text{None}, IKM=SS_{hybrid})$$
+   $$PRK = \text{HKDF-Extract}(\text{salt}=\text{"HybridPQC-ESP32-Session-v1"}, IKM=SS_{hybrid})$$
 3. **HKDF Expansion**:
-   $$K_{session} = \text{HKDF-Expand}(PRK, \text{info} = \text{"esp32-pqc-hybrid-v2"}, L = 32)$$
+   $$K_{session} = \text{HKDF-Expand}(PRK, \text{info} = \text{"session-key"}, L = 32)$$
 4. **Zeroization**: Immediately following key derivation, ephemeral private keys and intermediate shared secrets are wiped using `mbedtls_platform_zeroize`.
 
 ---
 
-## 4. Authenticated Telemetry (`POST /telemetry`)
+## 4. Authenticated Telemetry (`POST /api/telemetry`)
 ```
 +-----------------+---------------------+-----------------------+--------------------+
 | Session ID      | GCM IV              | Encrypted Payload     | GCM Tag            |

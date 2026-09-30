@@ -62,7 +62,11 @@ let Client() =
         let ss_m = kem_dec(m_ct, m_sk) in
         let session_key = hkdf(ss_x, ss_m) in
         
-        event client_key_derived(session_key).
+        event client_key_derived(session_key);
+        out(c, senc(secret_client_data, session_key));
+        in(c, ack_enc: bitstring);
+        let ack_dec = sdec(ack_enc, session_key) in
+        0.
 
 let Server() =
     in(c, (msg1: bitstring, sig1: bitstring));
@@ -83,7 +87,10 @@ let Server() =
         let msg2 = (x_pub_s, m_ct) in
         (* FIXED: Server generates HMAC over both msg1 and msg2 *)
         let sig2 = hmac((msg1, msg2), psk_auth) in
-        out(c, (msg2, sig2)).
+        out(c, (msg2, sig2));
+        in(c, telem_enc: bitstring);
+        let telem_dec = sdec(telem_enc, session_key) in
+        out(c, senc(secret_server_data, session_key)).
 
 process
     (!Client) | (!Server)

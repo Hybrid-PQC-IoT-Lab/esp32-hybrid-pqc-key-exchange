@@ -2,7 +2,7 @@
 
 This directory contains the complete experimental verification evidence, raw and processed benchmark logs, formal security models, Known Answer Tests (KAT), electrical measurement sheets, and memory footprint analyses supporting the revised manuscript:
 
-> **"Stateful Hybrid Post-Quantum Key Exchange on Constrained IoT Edge Microcontrollers: An Empirical Implementation and Evaluation"**
+> **"A Secure Hybrid Post-Quantum Cryptographic Key Exchange for ESP32 IoT Devices"**
 
 ---
 
@@ -18,7 +18,11 @@ This directory contains the complete experimental verification evidence, raw and
 
 | Evidence Category | File / Artifact | Description |
 |---|---|---|
-| **Formal Security Verification** | [`hybrid_pqc_fixed.pv`](./hybrid_pqc_fixed.pv) | ProVerif 2.05 formal model of the hybrid protocol with transcript binding. |
+| **End-to-End Hybrid Handshake ($n=100$)** | [`hybrid_handshake_100_runs_raw.log`](./hybrid_handshake_100_runs_raw.log) | Complete raw UART serial log of 100 consecutive Wi-Fi handshakes against native `liboqs` server (0% failure rate). |
+| | [`hybrid_handshake_100_runs.csv`](./hybrid_handshake_100_runs.csv) | Structured per-run metrics: mean latency 616.75 ms (Paper: 635.88 ms), mean cycles 100.33M (Paper: 103.38M). |
+| **Telemetry Key Rotation (50 Pkts)** | [`telemetry_50_packets_key_rotation_proof.log`](./telemetry_50_packets_key_rotation_proof.log) | Hardware UART capture proving exactly 50 packets (`seq: 0..49`) sent, session key zeroized, and automatic re-handshake executed. |
+| | [`telemetry_50_packets_server.log`](./telemetry_50_packets_server.log) | Server-side log confirming receipt, AES-256-GCM authentication, and bidirectional encrypted acknowledgments. |
+| **Formal Security Verification** | [`hybrid_pqc_fixed.pv`](./hybrid_pqc_fixed.pv) | ProVerif 2.05 formal model of the hybrid protocol with transcript binding and payload confidentiality. |
 | | [`proverif_verification_output.txt`](./proverif_verification_output.txt) | Complete output log proving secrecy of client/server data and injective agreement against replay. |
 | **Known Answer Tests (KAT)** | [`tools/test_mlkem768_kat.py`](../../tools/test_mlkem768_kat.py) | Python test suite verifying deterministic derandomized vectors, IND-CCA2 implicit rejection, and 100 round-trip cycles. |
 | | [`mlkem768_kat_verification.log`](./mlkem768_kat_verification.log) | Execution log of the KAT suite confirming 100/100 passes against `libmlkem.so`. |

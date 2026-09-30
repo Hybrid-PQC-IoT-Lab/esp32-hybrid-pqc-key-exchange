@@ -1,6 +1,7 @@
 # Hybrid Post-Quantum Cryptography (PQC) Key Exchange on ESP32
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![CI](https://github.com/muhammadsohaimmuqtada/esp32-hybrid-pqc-key-exchange/actions/workflows/ci.yml/badge.svg)](https://github.com/muhammadsohaimmuqtada/esp32-hybrid-pqc-key-exchange/actions/workflows/ci.yml)
 [![Release: v2.1-mlkem768](https://img.shields.io/badge/Release-v2.1--mlkem768--final-blue.svg)](https://github.com/muhammadsohaimmuqtada/esp32-hybrid-pqc-key-exchange/releases/tag/v2.1-mlkem768-final)
 [![FIPS 203: ML-KEM-768](https://img.shields.io/badge/FIPS%20203-ML--KEM--768-success.svg)](https://csrc.nist.gov/pubs/fips/203/final)
 [![ProVerif: Verified](https://img.shields.io/badge/ProVerif%202.05-Formally%20Verified-brightgreen.svg)](docs/evidence/proverif_verification_output.txt)
@@ -37,16 +38,19 @@ In strict accordance with peer-review research integrity standards and privacy b
 │   │   ├── cpu_frequency_cycle_consistency.md  # Formal 160 MHz clock proof
 │   │   ├── endurance_summary.csv               # 14,157 physical handshake records (19.0h)
 │   │   ├── endurance_test_report.md            # Statistical breakdown of endurance sessions
+│   │   ├── hybrid_handshake_100_runs.csv       # 100-run physical benchmark data
+│   │   ├── hybrid_handshake_100_runs_raw.log   # 100-run raw UART serial dump
 │   │   ├── hybrid_pqc_fixed.pv                 # ProVerif 2.05 formal security model
 │   │   ├── memory_footprint_analysis.md        # Xtensa ELF Flash, Stack, and Heap breakdown
 │   │   ├── mlkem768_kat_verification.log       # 100/100 NIST Known Answer Tests output
 │   │   ├── power_energy_calculations.csv       # UNI-T benchtop PSU and DMM calculations
 │   │   ├── proverif_verification_output.txt    # ProVerif solver transcript
+│   │   ├── telemetry_50_packets_key_rotation_proof.log # 50-packet re-keying validation
 │   │   └── README.md                           # Evidence verification index
 │   ├── hardware_setup.md    # Testbed wiring, benchtop PSU, and DMM instrumentation
 │   ├── protocol_specification.md # Packet formats, HKDF derivation, and transcript HMAC
 │   ├── reproduction_steps.md# One-command step-by-step reproduction instructions
-│   ├── research_paper.pdf   # Full compiled 11-page manuscript
+│   ├── research_paper.pdf   # Full compiled 12-page manuscript
 │   └── threat_model.md      # Dolev-Yao & HNDL security proofs and assumptions
 ├── figures/                 # High-resolution architectural and experimental diagrams
 ├── firmware/
@@ -121,6 +125,7 @@ Measured on physical ESP32-D0WD-V3 @ 160 MHz (source: [`data/raw_logs/energy_esp
 | **ML-KEM-768 Decap** | $n = 49$ | 18.58 ms ($18,582\ \mu\text{s}$) | 2.97M cycles ($2,973,098$) | 1,184 bytes | 1,088 bytes (ct) |
 | **X25519 Keygen** | $n = 50$ | 392.27 ms ($392,269\ \mu\text{s}$) | 62.76M cycles ($62,762,347$) | 32 bytes | 32 bytes |
 | **X25519 Shared Secret** | $n = 49$ | 200.53 ms ($200,530\ \mu\text{s}$) | 32.08M cycles ($32,083,991$) | 32 bytes | 32 bytes |
+| **End-to-End Hybrid Handshake** | $n = 100$ | 616.75 ms ($635.88\ \text{ms}$ in paper) | 100.33M cycles ($103.38\text{M}$ in paper) | 1,249 bytes (req) | 1,168 bytes (resp) |
 
 > **Note on TLS 1.3 Baseline & Synthetic Harness Withdrawal**: Earlier reported values of 776.40 ms and 372.66M cycles for TLS 1.3 were synthetic artifacts from an emulation loop in `firmware/main/benchmark.c` (applying synthetic scalar multipliers and heap floors) and have been formally withdrawn. Actual physical wall-clock TLS 1.3 handshakes on ESP32 measure ~1.09 s for hybrid wolfSSL (see [`data/raw_logs/hybrid_tls_usb_serial.txt`](data/raw_logs/hybrid_tls_usb_serial.txt)) and 0.80–2.35 s for classical mbedTLS (see [`data/raw_logs/classical_tls_usb_serial.txt`](data/raw_logs/classical_tls_usb_serial.txt)).
 

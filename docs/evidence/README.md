@@ -7,8 +7,8 @@ This directory contains the complete experimental verification evidence, raw and
 ---
 
 ## 1. Release and Repository Identification
-- **Repository**: [https://github.com/muhammadsohaimmuqtada/Hybrid-PQC-implementaion-on-IOT-esp32-](https://github.com/muhammadsohaimmuqtada/Hybrid-PQC-implementaion-on-IOT-esp32-)
-- **Release / Git Tag**: `v2.0-mlkem768-final`
+- **Repository**: [https://github.com/muhammadsohaimmuqtada/esp32-hybrid-pqc-key-exchange](https://github.com/muhammadsohaimmuqtada/esp32-hybrid-pqc-key-exchange)
+- **Release / Git Tag**: `v2.1-mlkem768-final`
 - **Target Hardware**: Espressif ESP32-D0WD-V3 (Xtensa Dual-Core LX6 @ 160 MHz active Wi-Fi PLL, 520 KB SRAM, 4 MB Flash)
 - **Target Cryptographic Parameter Set**: **NIST FIPS 203 ML-KEM-768** ($k=3$, $\eta_1=2$, $\eta_2=2$, PK: 1,184 B, SK: 2,400 B, CT: 1,088 B, SS: 32 B) + **RFC 7748 X25519** (PK: 32 B, SK: 32 B, SS: 32 B)
 

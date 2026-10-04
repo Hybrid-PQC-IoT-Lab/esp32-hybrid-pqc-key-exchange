@@ -48,3 +48,6 @@ Thumbs.db
 .idea/
 *.swp
 *~
+
+# Exported build identity (derived from a frozen commit)
+/docs/artifact_identity.tex

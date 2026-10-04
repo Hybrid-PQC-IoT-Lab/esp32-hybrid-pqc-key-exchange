@@ -11,26 +11,25 @@ class TestHandshakeProtocolV2(unittest.TestCase):
         psk = b"SecurIoT-Quantum-PQC-Hybrid-PSK!"
         
         # Protocol v2 Client Request:
-        # Mode (1 byte) + Client Nonce (32 bytes) + X25519 PK (32 bytes) + ML-KEM-768 PK (1184 bytes)
+        # Mode (1 byte) + X25519 PK (32 bytes) + ML-KEM-768 PK (1184 bytes)
         mode = b'\x02'  # Hybrid mode
-        client_nonce = b'\x01' * 32
         x25519_pk = b'\x02' * 32
         mlkem_pk = b'\x03' * 1184
         
-        request_body = mode + client_nonce + x25519_pk + mlkem_pk
-        self.assertEqual(len(request_body), 1249)
+        request_body = mode + x25519_pk + mlkem_pk
+        self.assertEqual(len(request_body), 1217)
         
         # Compute client authentication tag
         client_hmac = hmac.new(psk, request_body, hashlib.sha256).digest()
         self.assertEqual(len(client_hmac), 32)
         
         full_client_request = request_body + client_hmac
-        self.assertEqual(len(full_client_request), 1281)
+        self.assertEqual(len(full_client_request), 1249)
 
     def test_server_transcript_binding(self):
         psk = b"SecurIoT-Quantum-PQC-Hybrid-PSK!"
         
-        request_body = b'\x02' + (b'\x01' * 32) + (b'\x02' * 32) + (b'\x03' * 1184)
+        request_body = b'\x02' + (b'\x02' * 32) + (b'\x03' * 1184)
         
         # Server response: Session ID (16 bytes) + X25519 PK (32 bytes) + ML-KEM-768 CT (1088 bytes)
         session_id = b'\x04' * 16

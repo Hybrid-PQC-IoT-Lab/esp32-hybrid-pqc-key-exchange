@@ -1,0 +1,4 @@
+- An ESP32 prototype combines X25519 and ML-KEM-768 in one handshake.
+- Reanalysis of 100 archived handshakes gives a mean latency of 616.75 ms.
+- Timing, heap profiles and electrical estimates have distinct evidence scopes.
+- Open artifacts document protocol assumptions and remaining validation gaps.

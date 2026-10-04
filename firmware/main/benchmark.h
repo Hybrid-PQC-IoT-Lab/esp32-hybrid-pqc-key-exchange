@@ -7,6 +7,7 @@
 #define BENCHMARK_H
 
 #include <stdint.h>
+#include "sdkconfig.h"
 #include "crypto_hybrid.h"
 
 /* Single benchmark result */
@@ -18,7 +19,7 @@ typedef struct {
     float    keygen_ms;
     float    handshake_ms;
     float    total_ms;
-    uint32_t peak_heap_bytes;
+    uint32_t peak_heap_bytes; /* Legacy field name: sparse snapshot delta, not a true peak. */
     uint32_t payload_bytes;
     uint32_t iteration;
 } benchmark_result_t;
@@ -26,7 +27,9 @@ typedef struct {
 /* Aggregated stats over multiple iterations */
 typedef struct {
     handshake_mode_t mode;
-    uint32_t iterations;
+    uint32_t iterations; /* Attempt count, including failures. */
+    uint32_t successful_runs;
+    uint32_t failed_runs;
     float    mean_total_ms;
     float    stddev_total_ms;
     float    mean_keygen_ms;
@@ -43,9 +46,9 @@ static inline uint32_t benchmark_get_cycles(void) {
     return ccount;
 }
 
-/* Convert cycles to milliseconds at 240 MHz */
+/* Convert elapsed cycles at the configured fixed CPU clock. */
 static inline float cycles_to_ms(uint32_t cycles) {
-    return (float)cycles / 240000.0f;
+    return (float)cycles / (CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ * 1000.0f);
 }
 
 /* Run a single benchmark iteration for a given mode */

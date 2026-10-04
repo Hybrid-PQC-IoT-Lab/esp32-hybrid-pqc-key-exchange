@@ -1,39 +1,25 @@
-# Formal Threat Model & Security Evaluation
+# Threat model and verified scope
 
-## 1. Adversary Model
-The security properties of the protocol are evaluated under the standard **Dolev-Yao** network adversary model augmented with post-quantum cryptanalysis capabilities:
+The supplied symbolic model has an active Dolev–Yao network adversary, idealized
+cryptographic functions and a private, uncompromised PSK.
 
-1. **Active Network Adversary ($\mathcal{A}_{net}$)**:
-   - Full control over the wireless channel: can intercept, eavesdrop, modify, inject, reorder, and replay packets.
-   - Capable of initiating arbitrary protocol sessions as a malicious client or spoofing server responses.
+| Property | Evidence and boundary |
+|---|---|
+| Modeled client/server payload confidentiality | Archived ProVerif output says `not attacker(secret_client_data[])` and `not attacker(secret_server_data[])` are true. |
+| Client-to-server injective key agreement | Archived query `inj-event(client_key_derived(k)) ==> inj-event(server_key_derived(k))` is true. Reverse correspondence is not queried. |
+| Session-key secrecy | No separate session-key exposure query is encoded; do not quote a nonexistent `k_session` result. |
+| Forward secrecy after PSK disclosure | Design rationale only; no PSK-reveal process or query. Requires secure ephemeral erasure and cryptographic assumptions. |
+| Quantum resistance | Depends on the ML-KEM security assumptions and the combiner, not a ProVerif proof of quantum hardness. |
+| Telemetry replay | Server checks increasing 32-bit counters. Both directions share one key and lack a direction label; reflection/cross-direction replay remains a limitation. |
+| Timing/power leakage | Not empirically evaluated. No TVLA, DPA or compiler-level constant-time verification. |
+| Device memory dump | Selected client buffers are zeroized. Active session keys, server objects, copies and registers are not covered by a complete erasure proof. |
 
-2. **Harvest-Now-Decrypt-Later (HNDL) Adversary ($\mathcal{A}_{quantum}$)**:
-   - Records classical encrypted network traffic today.
-   - Possesses a cryptanalytically relevant quantum computer (CRQC) in the future capable of running Shor's algorithm to solve the Discrete Logarithm Problem (DLP) on Curve25519.
+The public repository PSK is an evaluation constant, not a deployment secret.
+Authentication claims assume a private provisioned PSK. Session IDs are generated
+server-side using `secrets.token_bytes(16)`. Client nonce random suffixes use
+`esp_fill_random`; server acknowledgments use the server OS CSPRNG. Both directions
+sharing one traffic key must not be described as providing directional binding.
 
----
-
-## 2. Security Objectives & Formal Claims
-
-| Security Goal | Mechanism | Formally Verified? |
-| :--- | :--- | :--- |
-| **Session Key Secrecy** | Dual-combiner HKDF over $SS_{X25519} \parallel SS_{ML-KEM-768}$ | **YES** (ProVerif 2.05: Query `not attacker(k_session)` holds TRUE) |
-| **Mutual Authentication** | HMAC-SHA256 with Pre-Shared Key (PSK) | **YES** (ProVerif 2.05: Mutual injection holds TRUE) |
-| **Transcript Binding** | Server signature covers client challenge + server response | **YES** (ProVerif 2.05: Query `inj-event(...)` holds TRUE) |
-| **Perfect Forward Secrecy** | Fresh ephemeral keys per handshake session + zeroization | **YES** (Past sessions remain secure even upon subsequent PSK leak) |
-| **Quantum Resistance** | FIPS 203 ML-KEM-768 lattice hardness (Module Learning With Errors) | **YES** (Remains secure against Shor's algorithm) |
-| **Replay Protection** | Cryptographic client nonce + GCM 32-bit monotonic sequence counter | **YES** (Replayed packets rejected at server parser) |
-
----
-
-## 3. Assumptions & Declared Boundaries
-
-As required by scientific integrity standards, we explicitly delineate assumptions and out-of-scope threats:
-* **In Scope**:
-  - Passive eavesdropping, active man-in-the-middle attacks, message tampering, transcript re-ordering, replay attacks, future quantum key decryption.
-* **Assumptions**:
-  - Ephemeral private keys and intermediate shared secrets are properly zeroized in memory immediately after derivation.
-  - The long-term PSK is securely provisioned to authorized edge devices during manufacturing/provisioning.
-* **Out of Scope (Explicit Limitation)**:
-  - Physical side-channel analysis (DPA/CPA) requiring decapping or micro-probing of the silicon die on unhardened commercial ESP32 microcontrollers.
-  - Complete device compromise while the session key is actively in registers.
+The corrected code removes simulated ML-KEM fallback output. Host tests do not
+replace hardware integration tests. The unchanged formal model does not establish
+correctness of the implementation's concrete message parser, IV policy or scheduler.

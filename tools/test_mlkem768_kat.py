@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # Self-consistency test using fixed seeds. Not NIST CAVP certified test vectors.
 """
-Known Answer Test (KAT) and Deterministic Verification Suite for ML-KEM-768
+Fixed-seed and randomized self-consistency suite for ML-KEM-768
 Validates the ML-KEM-768 shared object implementation (libmlkem.so)
-against FIPS 203 / PQ-Crystals reference specifications.
+by round-trip agreement. No external expected-answer vectors are compared.
 Tests:
 1. Deterministic derandomized key generation and encapsulation with fixed seeds
 2. Correctness of decapsulation (ss_enc == ss_dec)
-3. IND-CCA2 implicit rejection on ciphertext corruption
+3. implicit-rejection behavior on ciphertext corruption
 4. 100 randomized stress rounds
 """
 
@@ -56,7 +56,7 @@ def run_kat():
     lib.mlkem768_decaps.restype = ctypes.c_int
     
     print("=" * 80)
-    print("      ML-KEM-768 (FIPS 203) KNOWN ANSWER TEST & VERIFICATION SUITE")
+    print("      ML-KEM-768 (FIPS 203) SELF-CONSISTENCY TEST SUITE")
     print("=" * 80)
     print(f"Library: {so_path}")
     print(f"Parameter Set: ML-KEM-768 (Kyber-768)")
@@ -66,8 +66,8 @@ def run_kat():
     print(f"  Shared Key Size:  {SS_SIZE} bytes")
     print("-" * 80)
     
-    # --- TEST 1: Deterministic KAT Vector 1 ---
-    print("[TEST 1] Deterministic KAT with Fixed Seed Vector 1 (All zeros seed)...")
+    # --- TEST 1: Fixed-seed round-trip Vector 1 ---
+    print("[TEST 1] Fixed-seed round-trip with Fixed Seed Vector 1 (All zeros seed)...")
     coins_kp1 = bytes([0] * COINS_KEYPAIR_SIZE)
     coins_enc1 = bytes([0] * COINS_ENC_SIZE)
     
@@ -108,11 +108,11 @@ def run_kat():
     
     print(f"  SS (dec):   {ss_dec1_bytes.hex()}")
     assert ss_enc1_bytes == ss_dec1_bytes, "FATAL: Encapsulation and decapsulation shared secrets do not match!"
-    print("  => PASSED: Deterministic KAT Vector 1 validated perfectly.")
+    print("  => PASSED: Fixed-seed round-trip Vector 1 validated perfectly.")
     print("-" * 80)
     
-    # --- TEST 2: Deterministic KAT Vector 2 (Incremental counter seed) ---
-    print("[TEST 2] Deterministic KAT with Fixed Seed Vector 2 (0x01..0x40)...")
+    # --- TEST 2: Fixed-seed round-trip Vector 2 (Incremental counter seed) ---
+    print("[TEST 2] Fixed-seed round-trip with Fixed Seed Vector 2 (0x01..0x40)...")
     coins_kp2 = bytes(range(1, COINS_KEYPAIR_SIZE + 1))
     coins_enc2 = bytes(range(100, 100 + COINS_ENC_SIZE))
     
@@ -137,11 +137,11 @@ def run_kat():
     print(f"  PK SHA-256: {hashlib.sha256(pk2_bytes).hexdigest()}")
     print(f"  CT SHA-256: {hashlib.sha256(bytes(ct2)).hexdigest()}")
     print(f"  Shared Secret: {bytes(ss_enc2).hex()}")
-    print("  => PASSED: Deterministic KAT Vector 2 validated perfectly.")
+    print("  => PASSED: Fixed-seed round-trip Vector 2 validated perfectly.")
     print("-" * 80)
     
     # --- TEST 3: Fujisaki-Okamoto Implicit Rejection (IND-CCA2 Security) ---
-    print("[TEST 3] IND-CCA2 Implicit Rejection on Ciphertext Modification...")
+    print("[TEST 3] Implicit-Rejection Behavior on Ciphertext Modification...")
     # Corrupt one bit in ciphertext
     corrupted_ct = bytearray(bytes(ct2))
     corrupted_ct[42] ^= 0x01  # Flip one bit
@@ -153,7 +153,7 @@ def run_kat():
     assert bytes(ss_reject) != bytes(ss_enc2), "FATAL: Corrupted ciphertext did not reject shared secret!"
     print(f"  Original SS:  {bytes(ss_enc2).hex()}")
     print(f"  Rejected SS:  {bytes(ss_reject).hex()} (Pseudorandom invalid key returned)")
-    print("  => PASSED: IND-CCA2 implicit rejection confirmed. No timing or error oracle exposed.")
+    print("  => PASSED: Modified ciphertext produced a different secret. Timing leakage was not tested.")
     print("-" * 80)
     
     # --- TEST 4: 100 Randomized Stress Test Rounds ---
@@ -180,7 +180,7 @@ def run_kat():
     assert passed_rounds == 100, f"Only {passed_rounds}/100 passed!"
     print("  => PASSED: 100/100 rounds verified 100% agreement.")
     print("=" * 80)
-    print("                  ALL ML-KEM-768 KAT VERIFICATIONS PASSED")
+    print("                  ALL ML-KEM-768 SELF-CONSISTENCY CHECKS PASSED")
     print("=" * 80)
 
 if __name__ == '__main__':

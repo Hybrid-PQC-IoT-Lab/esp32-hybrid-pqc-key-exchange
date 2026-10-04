@@ -1,5 +1,4 @@
 \documentclass[journal, 10pt]{IEEEtran}
-\usepackage[T1]{fontenc}
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
@@ -579,10 +578,10 @@ To prevent the replay of intercepted telemetry, our protocol incorporates a 4-by
 
 In embedded environments, verifying nonce security across device reboots is critical (summarized in Table \ref{tab:lifecycle}). When the ESP32 reboots, its sequence counter resets to zero. However, because every reboot forces a fresh ephemeral X25519 + ML-KEM key exchange, a completely new Session ID and 256-bit session key are established. A fresh session key is intended to separate nonce use across reboots. This depends on fresh entropy and does not remove cross-direction collisions or reflection within a session. Furthermore, because session keys are strictly rotated every 50 packets, the intended 50-response session lifetime is far below the 32-bit sequence-counter range; repeated failed exchanges are not a demonstrated lifetime bound.
 
-\begin{table}[htbp]
+\begin{table*}[htbp]
 \caption{IV and Key Lifecycle State Machine}
 \begin{center}
-\resizebox{\columnwidth}{!}{%
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{|l|l|l|l|}
 \hline
 \textbf{Event} & \textbf{Session Key} & \textbf{Session ID (SID)} & \textbf{GCM Sequence Counter} \\
@@ -600,7 +599,7 @@ Hardware Reboot & Ephemeral (New) & Fresh 16-byte random & Resets to 0 \\
 }
 \label{tab:lifecycle}
 \end{center}
-\end{table}
+\end{table*}
 
 \subsection{Diagnostic Log Hardening}
 To prevent physical adversaries from extracting cryptographic parameters via the UART serial interface, the firmware applies diagnostic log discipline. In the current firmware build, no raw shared-secret byte arrays (\texttt{X25519\_ss} or \texttt{ML-KEM\_ss}), ephemeral private keys, or derived session keys are emitted to the serial console.

@@ -12,7 +12,7 @@
   "heap_definition": "Three snapshots of free heap; not transient peak allocation; bytes, not KB.",
   "ci_method": "Student t, two-sided 95%, df=99, sample SD (ddof=1), no outlier removal.",
   "sources": {
-    "docs/evidence/hybrid_handshake_100_runs.csv": "52dd092ffb43993bb92596e381b0d6fbfc68435b0e37d664392f39dbb700f7d8",
+    "docs/evidence/hybrid_handshake_100_runs.csv": "a3744338b3ffa847bd9f79a84a4f912b7e20967b21c5442d47818bf66a4e3af3",
     "docs/evidence/hybrid_handshake_100_runs_raw.log": "41cb43703cd7f7e0dcef6d009d9087666176bd0fcd63dbc96358ea44e82e5025"
   },
   "total_ms": {

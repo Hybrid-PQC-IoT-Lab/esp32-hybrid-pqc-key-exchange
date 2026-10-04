@@ -33,21 +33,23 @@
 \title{A Secure Hybrid Post-Quantum Cryptographic Key Exchange for ESP32 IoT Devices}
 
 \author{
-    [First author full name]$^{1,*}$, Muhammad Sohaim Muqtada$^{2}$\\
-    $^{1}$[Department, institution, city, country]\\
+    Hafiz Ali Mansoor Elahi$^{1,*}$, Muhammad Sohaim Muqtada$^{2}$\\
+    $^{1}$Co-founder, Pro Maker Institute, 18-C Block, Civic Center,\\
+    Faisal Town, Lahore, Pakistan\\
     $^{2}$Department of Cybersecurity, University of Management and Technology, Lahore, Pakistan\\
-    $^{*}$Corresponding author: [email]; ORCID: [ORCID]\\
+    $^{*}$Corresponding author: \href{mailto:hafiz.ali@PromakerInstitute.com}{hafiz.ali@PromakerInstitute.com}\\
+    ORCID: \url{https://orcid.org/0009-0006-4378-6391}\\
     Muhammad Sohaim Muqtada: f2024408084@umt.edu.pk
 }
 
 \maketitle
 
 \begin{abstract}
-IoT edge nodes deployed in industrial, medical, and municipal networks increasingly rely on Elliptic Curve Diffie-Hellman (ECDH) for session key establishment. Once a Cryptographically Relevant Quantum Computer (CRQC) becomes operational, Shor's algorithm renders every such session retroactively decryptable---a threat compounded today by Harvest Now, Decrypt Later (HNDL) adversaries who archive encrypted traffic for future decryption. This paper reports an implementation of a stateful hybrid key-exchange protocol on a physical Espressif ESP32-D0WD-V3 microcontroller running FreeRTOS at 160~MHz. The protocol executes X25519 and ML-KEM-768 (NIST FIPS 203) within the same handshake, binding both shared secrets through HKDF-SHA256 so that session confidentiality survives even if one primitive is broken. On physical hardware, ML-KEM-768 primitives benchmark at 13.89~ms (2.22M cycles, $n=50$) for KeyGen and 18.58~ms (2.97M cycles, $n=49$) for Decap. Mutual authentication is enforced using HMAC-SHA256 authentication tags keyed by a 32-byte pre-shared key (PSK); subsequent telemetry packets are encrypted with AES-256-GCM with replay prevention via a monotonic sequence counter in the 12-byte IV. In a separate $n=100$ handshake campaign, the mean instrumented latency was \BenchmarkMeanMs~ms (sample SD \BenchmarkSdMs~ms; 95\% confidence interval \BenchmarkLowMs--\BenchmarkHighMs~ms), with a mean elapsed CCOUNT interval of \BenchmarkCyclesM~million cycles. Separate heap profiling reported a 13.8~KB allocation; the campaign snapshots do not measure transient peak heap usage. Manual power observations were obtained using a UNI-T UTP1310 laboratory power supply (5.00\,V) and a digital multimeter across a 0.1\,$\Omega$ shunt resistor, supporting a 0.75\,J estimate for a specified 1.0\,s window at 150\,mA; this is not a measured energy distribution or an upper bound for every campaign handshake. The archived endurance report lists 17,502 raw TCP SYNs and 14,157 parser-accepted completed sessions (validated by payload size + TCP FIN) over 19.00\,h of active execution across 4 operational sittings, with an 8.10-hour longest continuous window. Finally, ProVerif accepted the queries encoded in \texttt{hybrid\_pqc\_fixed.pv} (client/server secret-payload confidentiality and client-to-server injective key agreement) under a private uncompromised PSK against active Dolev-Yao adversaries; forward secrecy after long-term PSK leakage was not queried.
+This paper presents an ESP32 implementation of a hybrid X25519 and ML-KEM-768 key exchange for constrained Internet of Things devices. The prototype runs alongside FreeRTOS and Wi-Fi on an ESP32-D0WD-V3 at 160~MHz. It combines the two shared secrets through HKDF-SHA256, authenticates the handshake transcript with a pre-shared-key HMAC-SHA256 construction, and encrypts subsequent telemetry using AES-256-GCM. Reanalysis of an archived 100-handshake campaign gives a mean instrumented latency of \BenchmarkMeanMs~ms, sample standard deviation of \BenchmarkSdMs~ms, and 95\% confidence interval of \BenchmarkLowMs--\BenchmarkHighMs~ms. The broader elapsed processor-cycle interval averages \BenchmarkCyclesM~million cycles. All recorded observations, including slow runs, are retained. Independent heap profiling reported a 13.8~KB allocation; the campaign's sparse heap snapshots do not establish a transient peak. Manual electrical observations support calculations over specified time windows rather than a measured energy distribution. Archived ProVerif results establish the encoded secret-payload confidentiality and client-to-server injective agreement properties under an uncompromised private pre-shared key. They do not establish post-compromise security or concrete telemetry-direction separation. The retained telemetry design shares a key across directions, and empirical side-channel resistance remains unevaluated. The implementation, raw observations, analysis scripts, and stated evidence limitations support reproducible evaluation of an embedded research prototype. The archived measurements describe the historical build; physical validation of the corrected benchmark harness remains necessary.
 \end{abstract}
 
 \begin{IEEEkeywords}
-Post-Quantum Cryptography, Internet of Things, Embedded Systems, Hybrid Key Exchange, ESP32, ML-KEM, Curve25519, FreeRTOS.
+Post-quantum cryptography, Internet of Things, Hybrid key exchange, ESP32, ML-KEM, X25519, FreeRTOS.
 \end{IEEEkeywords}
 
 \section{Introduction}
@@ -60,7 +62,7 @@ NIST finalized the answer in August 2024 with FIPS~203~\cite{b2} following the T
 Our implementation negotiates the ephemeral cryptographic key exchange in a single application-layer request/response flight over TCP, avoiding the X.509 certificate parsing performed by the certificate-based TLS baselines. We ran it on a physical board, measured it with hardware timers, and verified its electrical behaviour with a bench supply. The source, raw serial logs, processed endurance observations and synthetic packet illustrations are published at the repository listed in the Data Availability section.
 
 \subsection{Contributions}
-Prior work has run post-quantum and hybrid KEMs on the ESP32~\cite{b11,b6,b12,b14}, but typically as standalone benchmark kernels rather than integrated, network-connected, mutually-authenticated protocols with live telemetry. Our specific contributions are:
+Prior work has evaluated post-quantum cryptography on embedded targets and integrated post-quantum exchanges with TLS~\cite{b11,b6,b12,b14}. These studies use different processor architectures, authentication mechanisms, and protocol boundaries. Our contribution is the integration and documented evaluation of a PSK-authenticated ESP32 handshake and telemetry prototype. Its specific features are:
 \begin{enumerate}
     \item A native, non-TLS RTOS handshake that bypasses X.509 certificate parsing entirely, with a separately reported 13.8~KB heap allocation and a configured 32~KiB task stack; these quantities are distinct from total SRAM usage.
     \item An inter-iteration scheduling approach that yields outside cryptographic routines. The archived campaign completed despite unsuccessful watchdog-reset API calls; it does not validate a task-watchdog registration fix.
@@ -501,7 +503,7 @@ Table \ref{tab:power} summarizes the comparative electrical profile across the f
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{|l|c|c|c|l|}
 \hline
-\textbf{Cryptographic Protocol} & \textbf{Idle $I$ (mA)} & \textbf{Peak $I$ (mA)} & \textbf{Window Estimate ($E_{bound}$)} & \textbf{Hardware Acceleration} \\
+\textbf{Cryptographic Protocol} & \textbf{Idle $I$ (mA)} & \textbf{Peak $I$ (mA)} & \textbf{Window Estimate ($E_{window}$)} & \textbf{Hardware Acceleration} \\
 \hline
 \hline
 \textbf{Classical TLS 1.3 (mbedTLS)} & 55 & 120 & 0.60 J & Partially (Big-Int HW) \\
@@ -531,7 +533,7 @@ Endurance was not a single 18-hour or 19-hour uninterrupted capture. Active test
 Across the multi-session endurance campaign, the ESP32 received 17,502 TCP SYNs on the wire, yielding 14,157 parser-accepted completed sessions (validated by payload size and TCP FIN: 10,235 Custom Hybrid PQC on port 8443, 3,922 Hybrid TLS 1.3 on port 4443). Active execution totaled 19.00\,h ($68{,}381$\,s) across four sittings, with the longest continuous test window running 8.10\,h uninterrupted. Three operational pauses occurred: two daytime interruptions for power/network re-establishment and one 5.0\,h overnight bench pause. The nominal schedule of 8,640 sessions represents the theoretical count for an uninterrupted 36-hour run at a 15\,s polling interval, not the completed session tally. The historical report states that no watchdog resets or unhandled exceptions were observed; the original master capture and continuous UART record are unavailable for independent confirmation. Port 4443 executed Hybrid TLS 1.3 (\texttt{X25519MLKEM768} via wolfSSL, not Classical-TLS), while Port 8443 ran Custom Hybrid PQC. The processed CSV describes accepted sessions; it does not establish the success rate of every attempted handshake or the mechanism of recovery across pause boundaries.
 
 \subsection{Physical Power and Window Estimates Validation}
-Due to the unreliability of I2C-based digital power logging at high polling rates on constrained devices, energy consumption was formally bounded using direct hardware instrumentation. The ESP32 was isolated on a UNI-T UTP1310 laboratory power supply fixed at 5.00V, with all USB data and debug lines physically detached to eliminate parasitic current. A 0.1\,$\Omega$ shunt resistor was placed in series with the VIN rail, and the voltage drop was measured using a UNI-T UT55 digital multimeter.
+Due to the unreliability of I2C-based digital power logging at high polling rates on constrained devices, manual current observations were obtained using laboratory instrumentation for fixed-window energy calculations. The ESP32 was isolated on a UNI-T UTP1310 laboratory power supply fixed at 5.00V, with all USB data and debug lines physically detached to eliminate parasitic current. A 0.1\,$\Omega$ shunt resistor was placed in series with the VIN rail, and the voltage drop was measured using a UNI-T UT55 digital multimeter.
 
 \begin{figure}[h]
     \centering
@@ -655,9 +657,20 @@ The archived implementation demonstrates hybrid X25519 and ML-KEM-768 key exchan
 Independent heap profiling reported 13.8~KB, separate from the campaign and the configured 32~KiB task stack. The available snapshots do not establish a transient maximum. The archived watchdog-reset errors are now disclosed, and the corrected harness requires a hardware rerun. The retained implementation also has a directional-telemetry limitation and no empirical side-channel characterization. Its value is an inspectable embedded research prototype; further controlled memory, energy and security validation is needed before a production-readiness claim.
 
 \section*{Data and Code Availability}
-The original measurement artifacts are preserved at source commit \nolinkurl{467bbe7a3c5a718d4eec7c882bc00f042487304d} of \url{https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange}. The historical tag \texttt{v2.1-mlkem768-final} was subsequently moved to \nolinkurl{670448651276740e0d58931f388ca32035cb6245}; commit hashes identify the exact versions. The corrected source, manuscript and evidence manifest are packaged from exact commit \expandafter\nolinkurl\expandafter{\ArtifactCommit} at \expandafter\url\expandafter{\ArtifactRepository}. The candidate release is \expandafter\url\expandafter{\ArtifactRelease}. The package records each file's SHA-256 digest and distinguishes preserved measurements from generated analyses. The recorded firmware version in the original boot log is \texttt{v2.0-mlkem768-final-6-g45d5f57-}, with a truncated ELF digest; an exact binary-to-source mapping is not available. No new hardware execution of the corrected commit is implied.
+The original measurement artifacts are preserved at source commit \nolinkurl{467bbe7a3c5a718d4eec7c882bc00f042487304d} of \url{https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange}. The historical tag \texttt{v2.1-mlkem768-final} was subsequently moved to \nolinkurl{670448651276740e0d58931f388ca32035cb6245}; commit hashes identify the exact versions. The archived corrected implementation, its candidate manuscript and evidence manifest were packaged from exact commit \expandafter\nolinkurl\expandafter{\ArtifactCommit} at \expandafter\url\expandafter{\ArtifactRepository}. That archived candidate release is \expandafter\url\expandafter{\ArtifactRelease}. The package records each file's SHA-256 digest and distinguishes preserved measurements from generated analyses. The recorded firmware version in the original boot log is \texttt{v2.0-mlkem768-final-6-g45d5f57-}, with a truncated ELF digest; an exact binary-to-source mapping is not available. No new hardware execution of the corrected commit is implied.
 
 The tests use fixed-seed and randomized self-consistency checks, not an externally certified NIST KAT suite. Files in \texttt{data/sanitized\_pcaps/} are synthetic Scapy illustrations. The endurance CSV is available, but the original master wire-capture log referenced by its parser is absent from the supplied release.
+
+
+\section*{Author Contributions}
+Hafiz Ali Mansoor Elahi: Conceptualization, Methodology, Supervision, Validation.
+Muhammad Sohaim Muqtada: Software, Investigation, Data curation.
+
+\section*{Funding}
+This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.
+
+\section*{Declaration of Competing Interests}
+Hafiz Ali Mansoor Elahi is a co-founder of Pro Maker Institute, his stated institutional affiliation. The authors declare no competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
 
 \begin{thebibliography}{00}
 \setlength{\itemsep}{0.5pt}

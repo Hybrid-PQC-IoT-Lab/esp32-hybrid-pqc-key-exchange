@@ -1,37 +1,25 @@
 Dear Editor,
 
-Please consider our manuscript, “A Secure Hybrid Post-Quantum Cryptographic Key
-Exchange for ESP32 IoT Devices,” for publication as a research article in the
-Journal of Systems Architecture.
+Please consider our manuscript, “A Secure Hybrid Post-Quantum Cryptographic Key Exchange for ESP32 IoT Devices,” for publication as a research article in the Journal of Information Security and Applications.
 
-The manuscript examines the integration of X25519 and ML-KEM-768 into a
-PSK-authenticated, non-TLS handshake and telemetry prototype on an ESP32 running
-FreeRTOS. Its contribution is the embedded implementation and an inspectable
-account of its measurement and protocol boundaries. The archived 100-handshake
-campaign has a mean instrumented latency of 616.75 ms and a sample standard
-deviation of 244.13 ms. The revised analysis separates campaign timing from
-independent memory profiles and fixed-window electrical calculations.
+The manuscript presents an ESP32 implementation that integrates X25519 and ML-KEM-768 within a PSK-authenticated handshake and encrypted telemetry prototype. Its contribution is practical integration with FreeRTOS and Wi-Fi, accompanied by inspectable implementation artifacts and a qualified analysis of the experimental evidence. Reanalysis of an archived 100-handshake campaign gives a mean instrumented latency of 616.75 ms and a sample standard deviation of 244.13 ms. The manuscript separates these observations from independent heap profiles and fixed-window electrical estimates.
 
-The work may be of interest to readers studying embedded security, constrained
-systems and post-quantum migration. The source, archived observations, analysis
-scripts and explicit limitations are provided in an exact-version evidence package.
-The paper does not claim empirical side-channel resistance, NIST validation, or
-production readiness.
+The work fits the journal's focus on practice-driven information security. It provides an applied account of post-quantum migration on constrained devices and explicitly identifies the limits of its symbolic security model, measurements and retained telemetry design.
 
-[Before submission: update the results/version if a new physical campaign replaces
-the archived dataset, and confirm that all audit blockers have been resolved.]
+[Before upload: resolve corrected-firmware validation, replace or retain historical results with clear provenance, finalize the immutable evidence release and check the manuscript's claims against that release.]
 
-[All authors must confirm originality, approval of the final manuscript and author
-order, appropriate permissions, and that the work is not under consideration elsewhere.]
+The manuscript is not currently under consideration by another journal. No specific funding grant supported this research. The corresponding author's institutional relationship as co-founder of Pro Maker Institute is disclosed, and no competing interests have been reported.
 
-Ethics and consent: [Confirmed statement or approval information].
-Conflicts of interest: [Confirmed statement].
-Funding: [Confirmed statement and grant numbers].
+[Before upload: confirm originality, all authors' approval of this exact final version and author order, and permissions for any third-party material. Complete the journal's declaration tool and AI-assistance disclosure.]
+
+We request consideration under the subscription publication route.
 
 Thank you for considering our manuscript.
 
 Sincerely,
-[Corresponding author full name]
-[Affiliation]
-[Email]
-[ORCID]
+Hafiz Ali Mansoor Elahi
+First and corresponding author
+Co-founder, Pro Maker Institute
+18-C Block, Civic Center, Faisal Town, Lahore, Pakistan
+Email: hafiz.ali@PromakerInstitute.com
+ORCID: https://orcid.org/0009-0006-4378-6391

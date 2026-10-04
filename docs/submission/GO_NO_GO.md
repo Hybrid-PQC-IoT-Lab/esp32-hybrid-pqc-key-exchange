@@ -1,82 +1,34 @@
-# Journal-readiness audit
+# Journal-readiness decision — 5 October 2026
 
-**Verdict: NO-GO for journal submission; GO for author review and the specified hardware rerun.**
+**NO-GO for upload; GO for completing the submission preparation.**
 
-Audit updated: 5 October 2026. This verdict concerns the corrected candidate,
-not an assertion that it is a newly hardware-validated release. The exported
-package's `BUILD_PROVENANCE.json` records the exact corrected commit.
+The paper has value as an applied embedded-security research prototype with real archived observations. The contribution is implementation and evaluation rather than a new primitive or a general protocol-security proof. Its practical basis supports a journal submission after evidence and author-intake items close; it does not by itself establish high-impact novelty or acceptance.
 
-## Working set verified
+## What is complete
 
-- At the first audit, tag `v2.1-mlkem768-final` identified commit `467bbe7a3c5a718d4eec7c882bc00f042487304d`. On 4 October it instead resolves to `670448651276740e0d58931f388ca32035cb6245`. Exact commit hashes, rather than that moved tag alone, are used for provenance.
-- Uploaded `research_paper_9.pdf`, the repository PDF and the evidence ZIP's PDF have SHA-256 `3a95ae9c4feca696084fd67a78eee4cf13c287bd2dd8212e9b1381f5bb104b58`, matching the GitHub release asset digest.
-- Uploaded Evidence Package 4 has SHA-256 `c9f2d65f04ee89d3cbc2feb5a3e3308967ed40dffc4b93f11a8fe1281b6ccfdb`, matching the release ZIP digest.
-- The supplied TeX copies agree after newline normalization. Original measurement files are preserved in Git and checked against the original commit by the packaging tool.
-- The latest primary repository is `Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange`, at `670448651276740e0d58931f388ca32035cb6245`. Its later documentation, dependency and wire-format test changes have been reconciled into this candidate.
-- The primary release downloaded on 4 October has PDF SHA-256 `794cc1f743971680f4a046e3a56bc76d11066a62a5e04d5e1eb0409bf064355a` and evidence ZIP SHA-256 `a84d636bbd1c92a6f3f627ec58e4cc9f705be2abf818a8e27206e3c036e87557`. Its TeX is identical to the latest repository TeX after newline normalization. Compared with uploaded Evidence Package 4, 103 files are byte-identical; only the manuscript source/PDF and three submission/provenance README/COMMIT files changed. No fresh measurements were introduced. Its COMMIT.txt names `b3af7e4b38a2a522581301e253aee7d7945541fa`, whereas the moved tag names `6704486`; the new package explicitly records one source commit.
+- Historical n=100 values are synchronized through benchmark macros: 616.75 ms mean, 244.13 ms sample SD, 568.31–665.19 ms 95% CI, 525.66–1989.39 ms range and 100.33M elapsed cycles.
+- 13.8 KB is a separately reported historical heap allocation, not a campaign peak.
+- Earlier audit corrected metadata/watchdog/RNG/KAT/PCAP wording and narrowed unsupported security claims. Host/native tests and ESP-IDF v5.5 CI for db93361 passed in the earlier audit; those unchanged firmware tests were not unnecessarily repeated for author-document changes.
+- First/corresponding author metadata, postal address, seven keywords, <=250-word abstract, roles, funding and disclosed institutional relationship are prepared.
+- Live JISA guide, indexing page, metrics and publishing-choice page have been checked. JISA is the primary target; JSA is a backup.
 
-## Corrections completed
+## Real remaining blockers and risks
 
-| Item | Finding and correction |
-|---|---|
-| n=100 latency | 616.7478 ms mean; sample SD 244.1282405 ms; Student t 95% CI 568.3074607–665.1881393 ms; range 525.66–1989.39 ms. No outliers removed. |
-| Cycle count | Mean 100.33034716M; sample SD 39.06089356M; CI 92.57981845–108.08087587M; range 85.756999–319.954713M. Labeled elapsed CCOUNT, not isolated CPU cost. |
-| Success count | 100 numerical records match UART; campaign window has 100 successful HMAC checks and 100 derived keys, with no logged handshake retries/failures. The 100 watchdog API errors are separately disclosed. |
-| Measurement boundaries | Latency sums two intervals; the cycle counter spans a wider region. Primitive means from a separate trace are not subtracted from the campaign mean. |
-| Heap and stack | 13.8 KB retained as a separate reported profile, not an n=100 peak. Campaign snapshot delta is 22.24 B mean / 440 B maximum. Stack is 32 KiB configured; no supported 9.2 KB high-water result. Context/message arrays are stack objects. |
-| Build metadata | ESP-IDF v5.5 and 160 MHz are in the boot log. Unarchived mbedTLS version/complete compiler command are not invented. |
-| Watchdog | Removed unsubscribed-task reset calls; retained outer delays. Paper no longer claims a hardware-validated watchdog feed fix or constant-time proof. |
-| Benchmark harness | Correct run IDs, float samples/sample SD, failed-attempt denominator, error propagation, and no local-only fallback counted as a successful network handshake. |
-| Server fallback | Missing native ML-KEM library now fails the operation instead of returning random stand-in ciphertext/secret. |
-| Protocol wording | Session ID comes from server `secrets.token_bytes(16)`. Server HMAC covers the 1,217-byte unsigned client body plus unsigned server response. Total handshake bodies are 2,417 bytes. Old nonce-bearing tests corrected. |
-| Security | Actual three ProVerif queries stated; no post-PSK-compromise query or physical-side-channel proof claimed. Directional reflection remains explicit; selected buffer zeroization is only partial memory-exposure mitigation. |
-| KAT/PCAP | Fixed-seed and randomized self-consistency terminology; synthetic Scapy PCAPs clearly labeled. Historical logs remain unchanged, including their obsolete labels. |
-| Energy | 0.75 J is a 1.0 s × 150 mA × 5 V calculation, not a bound for a 1.98939 s sample. The worksheet's separate 142 mA TLS transient is disclosed. No invented power trace. |
-| Author/version metadata | First/corresponding-author placeholders and separate declarations prepared. Exported Data Availability uses an exact source commit and candidate release, while preserving original measurement provenance. |
+1. Corrected firmware has no identified new physical campaign in the supplied working set. The user's fork is at 1bd76b11ba0904b0abf0a893b0fb391a857e3be1, dated 30 September, and predates corrected audit commit db93361. Linking that fork does not establish a later rerun. Recover existing identified logs or follow HARDWARE_RERUN.md.
+2. Final source/PDF/evidence must be frozen from one identified revision after validation. Published rc1 remains the earlier archive, not this updated author version. No old release/tag was overwritten.
+3. Final author approval, Sohaim biography/photo and full affiliation address, permissions, declaration-tool output and finalized AI disclosure remain intake items.
+4. The 40-reference bibliography still needs a full metadata-and-claim check. RFC 10024 and RFC 9954 were verified as real current RFCs during this pass; this does not certify the other references or novelty coverage.
+5. Shared telemetry keys across directions and acknowledged reflection risk may concern security reviewers. Do not claim complete replay resistance or production security. Further redesign would change the evaluated protocol and require fresh validation.
+6. TLS comparison uses different security/configuration boundaries; sparse heap and manual power evidence cannot support strong matched-efficiency conclusions. Retain qualified wording or acquire the specific stronger evidence.
 
-## Remaining submission blockers
+**Editorial readiness estimate: 65/100.** Author/intake preparation has improved, but unresolved physical provenance and technical contribution risks still dominate. This score is a judgment, not a calibrated acceptance probability. No numerical acceptance probability is supported. Confidence is high in raw-CSV statistics and document consistency; lower in absent historical peak-memory/endurance evidence.
 
-1. **Physical validation of corrected firmware.** Host tests cannot establish ESP32 execution. Run the 100-attempt campaign and 50-packet rotation procedure in [HARDWARE_RERUN.md](HARDWARE_RERUN.md) from a clean, identified build. Keep every attempt and original log. Do not reuse the archived 616.75 ms as a new-build result.
-2. **Authorship and declarations.** Replace the first/corresponding-author placeholders, confirm author order and contributions with all authors, and supply funding, conflicts, ethics applicability and author approval. No author identity or approval has been inferred.
-3. **Evidence for a strong memory-efficiency conclusion.** The original 13.8 KB baseline/peak/recovery trace and ELF/map are incomplete. The candidate discloses this and makes a narrower reported-profile claim. To retain a measured-peak or matched TLS memory advantage as a principal contribution, complete the memory procedure below; editorial changes cannot supply this evidence.
-4. **Target-journal intake check.** Journal of Systems Architecture is the contextual candidate. Its current author-guide page returned access errors during this audit, so journal-specific abstract length, review-anonymity, required files and formatting have not been certified. The existing IEEE-style layout was retained. Resolve these against the live official guide before upload.
+## Versions
 
-## Limitations that do not justify invented reruns
+- Original measurement-source freeze: 467bbe7a3c5a718d4eec7c882bc00f042487304d.
+- Corrected archived candidate: db93361b46043ea50a2080d3b095de9baa9f756a.
+- Archived release: https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/releases/tag/v2.2.0-journal-audit-rc1.
+- Author/source changes in this kit are a subsequent working revision. Data Availability now labels rc1 as an archived candidate rather than claiming this revised manuscript is its frozen asset.
+- Current editor source remains output/ESP32_PQC_Journal_Audit_v2.2.0_rc1/source/docs/research_paper.tex.
 
-- The original endurance master tcpdump file is absent. The processed 14,157-row CSV is preserved. Recover the raw capture if exact SYN totals, sitting boundaries and reset-free execution are to be independently revalidated; otherwise retain only clearly attributed processed/report-level observations. A new 19-hour experiment is not automatically required for the narrowed claims.
-- A slow manual multimeter does not establish transient energy maxima. New synchronized power traces are needed only for stronger measured-energy or campaign-wide-bound claims. The candidate labels the existing values as calculations.
-- Directional traffic keys, a direction label and expanded formal modeling are future protocol changes; they were not silently introduced into a benchmark revision.
-- External ML-KEM expected-answer validation, multi-board variability and side-channel testing remain research limitations. The current self-consistency checks are not renamed as certification.
-
-## Validation and assessment
-
-The validation directory contains host-test/build records and, when available,
-GitHub CI status for the exact source commit. The local native library passed
-two fixed-seed round trips, a modified-ciphertext check and 100 randomized rounds.
-Eight Python tests passed. Compiled benchmark host assertions passed for sample
-SD, ordinal IDs, missing/failed handshakes, no-success campaigns and CPU conversion.
-The PDF was rebuilt using bundled Tectonic and its layout inspected. The native editor compiler was unavailable; the terminal build succeeded. ESP-IDF v5.5 CI compilation also passed for the corrected firmware; exact final-commit CI records accompany the package. The unchanged ProVerif model/output
-were inspected; ProVerif was not rerun locally. No ESP32 was flashed or measured.
-
-**Domain:** embedded IoT systems and applied post-quantum protocol implementation.
-**Contribution:** system integration and inspectable experimental artifacts; a new
-cryptographic primitive or general security proof is not established.
-**Audience:** embedded-systems/IoT-security researchers. A systems journal or
-implementation-focused conference is a plausible format after the blockers close.
-
-**Readiness estimate: 65/100**, an editorial judgment reflecting improved consistency
-but incomplete build-to-measurement provenance, physical validation and authorship.
-Acceptance probability cannot be responsibly quantified from these materials or
-an unverified journal acceptance rate. For JSA, the main editorial risk is whether
-the systems contribution and controlled baseline evidence are sufficient. Confidence
-is high in the CSV reanalysis and identified source inconsistencies, and limited in
-unarchived physical profiles. This is not a full novelty search or a blanket
-verification of all 40 bibliography entries.
-
-## Official sources checked
-
-- [Original release](https://github.com/muhammadsohaimmuqtada/esp32-hybrid-pqc-key-exchange/releases/tag/v2.1-mlkem768-final).
-- [ESP-IDF v5.5 watchdog documentation](https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/api-reference/system/wdts.html): reset calls require task subscription; yielding permits idle-task execution.
-- [JSA author guide](https://www.sciencedirect.com/journal/journal-of-systems-architecture/publish/guide-for-authors): retrieval failed, journal-specific compliance remains unverified.
-- [Elsevier AI policy](https://www.elsevier.com/about/policies-and-standards/generative-ai-policies-for-journals): disclose substantive AI assistance and retain author responsibility.
-- [Elsevier highlights guidance](https://www.elsevier.support/publishing/answer/how-do-i-include-highlights-with-my-manuscript): candidate highlights are supplied separately, subject to the journal's requirements.
+Compiler result is recorded separately in COMPILE_STATUS.md. No journal submission has been made.

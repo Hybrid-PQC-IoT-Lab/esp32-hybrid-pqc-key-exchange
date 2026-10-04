@@ -63,7 +63,7 @@ jobs:
           cd firmware
           idf.py build
           idf.py --version > build/build-identity.txt
-          git rev-parse HEAD >> build/build-identity.txt
+          printf '%s\n' "$GITHUB_SHA" >> build/build-identity.txt
           xtensa-esp32-elf-gcc --version >> build/build-identity.txt
           sha256sum build/*.elf build/*.bin build/*.map sdkconfig >> build/build-identity.txt
       - name: Preserve compiler outputs (not hardware execution evidence)

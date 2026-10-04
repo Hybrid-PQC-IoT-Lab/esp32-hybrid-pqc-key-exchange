@@ -2,7 +2,7 @@
 
 **Verdict: NO-GO for journal submission; GO for author review and the specified hardware rerun.**
 
-Audit updated: 4 October 2026. This verdict concerns the corrected candidate,
+Audit updated: 5 October 2026. This verdict concerns the corrected candidate,
 not an assertion that it is a newly hardware-validated release. The exported
 package's `BUILD_PROVENANCE.json` records the exact corrected commit.
 

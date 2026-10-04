@@ -14,6 +14,7 @@ from pathlib import Path
 import subprocess
 import sys
 import zipfile
+from datetime import datetime, timezone
 
 ROOT=Path(__file__).resolve().parents[1]
 BASE='467bbe7a3c5a718d4eec7c882bc00f042487304d'
@@ -92,6 +93,9 @@ def main():
         'derived_outputs':['source/docs/artifact_identity.tex','manuscript/research_paper.pdf','validation/','BUILD_PROVENANCE.json','MANIFEST_SHA256.json'],
         'original_release_pdf_sha256':'3a95ae9c4feca696084fd67a78eee4cf13c287bd2dd8212e9b1381f5bb104b58',
         'original_release_zip_sha256':'c9f2d65f04ee89d3cbc2feb5a3e3308967ed40dffc4b93f11a8fe1281b6ccfdb',
+        'upstream_reviewed_commit':'670448651276740e0d58931f388ca32035cb6245',
+        'latest_primary_release_pdf_sha256':'794cc1f743971680f4a046e3a56bc76d11066a62a5e04d5e1eb0409bf064355a',
+        'latest_primary_release_zip_sha256':'a84d636bbd1c92a6f3f627ec58e4cc9f705be2abf818a8e27206e3c036e87557',
         'hardware_execution':'None performed for corrected commit; archived data remain historical',
     }
     (out/'BUILD_PROVENANCE.json').write_text(json.dumps(provenance,indent=2)+'\n',encoding='utf-8')
@@ -114,7 +118,8 @@ def main():
     with zipfile.ZipFile(zip_path,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
         for p in sorted(out.rglob('*')):
             if p.is_file():
-                info=zipfile.ZipInfo(p.relative_to(out).as_posix(),date_time=(2026,9,30,0,0,0))
+                stamp=datetime.fromtimestamp(int(env['SOURCE_DATE_EPOCH']),timezone.utc)
+                info=zipfile.ZipInfo(p.relative_to(out).as_posix(),date_time=stamp.timetuple()[:6])
                 info.compress_type=zipfile.ZIP_DEFLATED
                 z.writestr(info,p.read_bytes())
     with zipfile.ZipFile(zip_path) as z:

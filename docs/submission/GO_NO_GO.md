@@ -2,16 +2,18 @@
 
 **Verdict: NO-GO for journal submission; GO for author review and the specified hardware rerun.**
 
-Audit date: 30 September 2026. This verdict concerns the corrected candidate,
+Audit updated: 4 October 2026. This verdict concerns the corrected candidate,
 not an assertion that it is a newly hardware-validated release. The exported
 package's `BUILD_PROVENANCE.json` records the exact corrected commit.
 
 ## Working set verified
 
-- Original tag `v2.1-mlkem768-final` resolves to commit `467bbe7a3c5a718d4eec7c882bc00f042487304d`.
+- At the first audit, tag `v2.1-mlkem768-final` identified commit `467bbe7a3c5a718d4eec7c882bc00f042487304d`. On 4 October it instead resolves to `670448651276740e0d58931f388ca32035cb6245`. Exact commit hashes, rather than that moved tag alone, are used for provenance.
 - Uploaded `research_paper_9.pdf`, the repository PDF and the evidence ZIP's PDF have SHA-256 `3a95ae9c4feca696084fd67a78eee4cf13c287bd2dd8212e9b1381f5bb104b58`, matching the GitHub release asset digest.
 - Uploaded Evidence Package 4 has SHA-256 `c9f2d65f04ee89d3cbc2feb5a3e3308967ed40dffc4b93f11a8fe1281b6ccfdb`, matching the release ZIP digest.
 - The supplied TeX copies agree after newline normalization. Original measurement files are preserved in Git and checked against the original commit by the packaging tool.
+- The latest primary repository is `Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange`, at `670448651276740e0d58931f388ca32035cb6245`. Its later documentation, dependency and wire-format test changes have been reconciled into this candidate.
+- The primary release downloaded on 4 October has PDF SHA-256 `794cc1f743971680f4a046e3a56bc76d11066a62a5e04d5e1eb0409bf064355a` and evidence ZIP SHA-256 `a84d636bbd1c92a6f3f627ec58e4cc9f705be2abf818a8e27206e3c036e87557`. Its TeX is identical to the latest repository TeX after newline normalization. Compared with uploaded Evidence Package 4, 103 files are byte-identical; only the manuscript source/PDF and three submission/provenance README/COMMIT files changed. No fresh measurements were introduced. Its COMMIT.txt names `b3af7e4b38a2a522581301e253aee7d7945541fa`, whereas the moved tag names `6704486`; the new package explicitly records one source commit.
 
 ## Corrections completed
 

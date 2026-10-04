@@ -51,3 +51,10 @@ Thumbs.db
 
 # Exported build identity (derived from a frozen commit)
 /docs/artifact_identity.tex
+# LaTeX build outputs
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk

@@ -2,8 +2,11 @@
 
 Manuscript: **A Secure Hybrid Post-Quantum Cryptographic Key Exchange for ESP32 IoT Devices**.
 
-Original source release: `v2.1-mlkem768-final`, commit
+Primary repository: https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange
+
+Original archived source commit
 `467bbe7a3c5a718d4eec7c882bc00f042487304d`.
+The historical tag was later moved to `670448651276740e0d58931f388ca32035cb6245`; the corrected branch includes those later documentation/test changes.
 The corrected package's `BUILD_PROVENANCE.json` identifies its exact source commit.
 Packaging existing measurements from a new commit does not make them executions
 of that commit.

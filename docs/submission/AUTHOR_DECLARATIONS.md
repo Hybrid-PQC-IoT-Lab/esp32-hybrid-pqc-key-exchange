@@ -6,7 +6,7 @@
 **ORCID:** https://orcid.org/0009-0006-4378-6391.
 
 **Second author:** Muhammad Sohaim Muqtada.
-**Affiliation:** Department of Cybersecurity, University of Management and Technology, Lahore, Pakistan. Full postal address to complete.
+**Affiliation:** Department of Cybersecurity, University of Management and Technology, C-II, Johar Town, Lahore, Pakistan. Address verified at https://www.umt.edu.pk/Contact-us.aspx.
 **Email:** f2024408084@umt.edu.pk.
 **ORCID:** Not supplied; do not invent.
 

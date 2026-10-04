@@ -55,7 +55,7 @@ GitHub CI status for the exact source commit. The local native library passed
 two fixed-seed round trips, a modified-ciphertext check and 100 randomized rounds.
 Eight Python tests passed. Compiled benchmark host assertions passed for sample
 SD, ordinal IDs, missing/failed handshakes, no-success campaigns and CPU conversion.
-The PDF was rebuilt and its layout inspected. The unchanged ProVerif model/output
+The PDF was rebuilt using bundled Tectonic and its layout inspected. The native editor compiler was unavailable; the terminal build succeeded. ESP-IDF v5.5 CI compilation also passed for the corrected firmware; exact final-commit CI records accompany the package. The unchanged ProVerif model/output
 were inspected; ProVerif was not rerun locally. No ESP32 was flashed or measured.
 
 **Domain:** embedded IoT systems and applied post-quantum protocol implementation.

@@ -1,6 +1,7 @@
 # Scoped correction record
 
-Base: `467bbe7a3c5a718d4eec7c882bc00f042487304d` (`v2.1-mlkem768-final`).
+Measurement archive base: `467bbe7a3c5a718d4eec7c882bc00f042487304d`.
+Current upstream `670448651276740e0d58931f388ca32035cb6245` was reconciled on 4 October.
 
 1. Recomputed n=100 results from matching CSV/UART fields with sample SD and Student t CI; centralized manuscript values in a generated TeX file.
 2. Distinguished separate heap profiles, configured stack allocation, sparse campaign heap sampling and missing peak/high-water traces.
@@ -13,5 +14,6 @@ Base: `467bbe7a3c5a718d4eec7c882bc00f042487304d` (`v2.1-mlkem768-final`).
 9. Prepared first/corresponding-author placeholders, exact-commit packaging, declarations, checklist and hardware rerun instructions.
 
 Raw logs, CSV observations, synthetic PCAPs, formal model and historical solver
-output are preserved. The old release/tag is not moved or overwritten. Corrections
+output are preserved. This work does not move or overwrite the old release/tag;
+the earlier upstream tag movement is recorded in the audit. Corrections
 do not constitute new hardware measurements or a security redesign.

@@ -285,7 +285,7 @@ To guarantee the entropy quality of the ephemeral key generation, the private ke
     \STATE $B \leftarrow \text{Mode} \mathbin{\Vert} Q_C \mathbin{\Vert} pk_{\text{KEM}}$
     \STATE $\tau_C \leftarrow \text{HMAC-SHA256}(PSK,B)$
     \STATE $\text{ClientHello} \leftarrow B \mathbin{\Vert} \tau_C$
-    \STATE $(\mathit{resp}, s) \leftarrow \text{HTTP\_POST}(\text{"/handshake"}, \text{ClientHello})$
+    \STATE $(\mathit{resp}, s) \leftarrow \text{POST}(\texttt{/handshake}, \text{ClientHello})$
     \IF{$s \neq 200 \lor |\mathit{resp}| < 48$}
         \STATE $\text{vTaskDelay}(5000\text{ ms})$ \textbf{continue}
     \ENDIF

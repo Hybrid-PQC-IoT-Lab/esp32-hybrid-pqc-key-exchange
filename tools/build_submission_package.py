@@ -21,7 +21,8 @@ BASE='467bbe7a3c5a718d4eec7c882bc00f042487304d'
 
 
 def git(*args):
-    return subprocess.check_output(['git',*args],cwd=ROOT)
+    # Export canonical object bytes even on Windows checkouts using autocrlf.
+    return subprocess.check_output(['git','-c','core.autocrlf=false',*args],cwd=ROOT)
 
 
 def digest(path):

@@ -6,13 +6,15 @@
 - [x] Four highlights <=85 characters.
 - [x] Hafiz biography <=100 words and original photo extracted.
 - [x] Tailored cover-letter draft and evidence rerun protocol.
-- [ ] Exact corrected-build physical evidence and per-attempt statistics.
+- [x] Archived 100-handshake measurements and 50-packet rotation trace verified.
+- [ ] Final measured-build attribution; corrected-build campaign only if claimed.
 - [ ] Final author approval/order/roles and name spelling.
-- [ ] Sohaim biography/photo, full postal address and ORCID if available.
+- [ ] Sohaim biography/photo and ORCID if available.
 - [ ] Originality and third-party figure/software permissions checked.
 - [ ] Elsevier declaration-tool output; finalized funding/conflicts statements.
 - [ ] Final AI disclosure after author review.
-- [ ] Full bibliography metadata/claim check and final novelty assessment.
+- [x] Author-reported reference cross-check; independent metadata audit recorded.
+- [ ] Final citation-placement/claim-scope review and novelty assessment.
 - [ ] Final source/figures/table integrity and compiled PDF visual inspection.
 - [ ] Immutable final release/commit/manifest; matching Data Availability.
 - [ ] Reviewer suggestions only if portal asks, with real expertise and no conflicts.

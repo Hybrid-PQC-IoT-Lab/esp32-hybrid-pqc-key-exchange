@@ -1,6 +1,10 @@
 # Physical work required before a stronger GO verdict
 
-## A. Corrected-firmware campaign and rotation (required)
+## First check existing evidence before repeating physical work
+
+The archived 100-handshake campaign and 50-packet rotation proof already exist and have been verified. Obtain the original build/ELF/map/configuration or operator record first. The following procedure is required only when claiming physical validation of the later corrected firmware, reporting new results from it, or testing a behavior not established by existing logs. Historical measurements may be retained with clear attribution and explicit limits. See EXISTING_EVIDENCE_RECHECK.md.
+
+## A. Corrected-firmware campaign and rotation (conditional)
 
 1. Use one identified ESP32-D0WD-V3 board and ESP-IDF v5.5. Record the board model/revision, supply, Wi-Fi conditions and server OS/library versions. Keep credentials out of the public package.
 2. Build from the exact candidate commit with a clean tree. Save `git rev-parse HEAD`, `git status --porcelain`, `idf.py --version`, the compiler version, full sdkconfig, build log, ELF, map, flashed binary and their SHA-256 digests. If a fix is needed, create a new commit and identify that build; do not silently reuse a tag.

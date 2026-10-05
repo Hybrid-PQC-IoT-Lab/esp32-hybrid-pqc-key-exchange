@@ -6,7 +6,7 @@ The manuscript presents an ESP32 implementation that integrates X25519 and ML-KE
 
 The work fits the journal's focus on practice-driven information security. It provides an applied account of post-quantum migration on constrained devices and explicitly identifies the limits of its symbolic security model, measurements and retained telemetry design.
 
-[Before upload: resolve corrected-firmware validation, replace or retain historical results with clear provenance, finalize the immutable evidence release and check the manuscript's claims against that release.]
+[Before upload: resolve measured-build attribution, retain the verified historical results with clear provenance or validate a new campaign if the final claims require it, finalize the immutable evidence release and check the manuscript's claims against that release.]
 
 The manuscript is not currently under consideration by another journal. No specific funding grant supported this research. The corresponding author's institutional relationship as co-founder of Pro Maker Institute is disclosed, and no competing interests have been reported.
 

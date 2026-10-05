@@ -1,0 +1,747 @@
+\documentclass[journal, 10pt]{IEEEtran}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{graphicx}
+\graphicspath{{../../figures/}}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{tabularx}
+\input{../benchmark_values.tex}
+% The packaging tool creates this file from the exact frozen source commit.
+\IfFileExists{../artifact_identity.tex}{\input{../artifact_identity.tex}}{%
+  \newcommand{\ArtifactCommit}{UNFROZEN-WORKING-COPY}%
+  \newcommand{\ArtifactRepository}{https://github.com/muhammadsohaimmuqtada/esp32-hybrid-pqc-key-exchange}%
+  \newcommand{\ArtifactRelease}{UNPUBLISHED-CANDIDATE}%
+}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+% Use colons for the journal template's abstract and keyword separators.
+\makeatletter
+\def\abstract{\normalfont\@IEEEabskeysecsize\bfseries\textit{\abstractname}:\ \relax\@IEEEgobbleleadPARNLSP}
+\def\IEEEkeywords{\normalfont\@IEEEabskeysecsize\bfseries\textit{\IEEEkeywordsname}:\ \relax\@IEEEgobbleleadPARNLSP}
+\makeatother
+
+\usepackage{placeins}
+\setlength{\textfloatsep}{11pt plus 2pt minus 2pt}
+\setlength{\dbltextfloatsep}{11pt plus 2pt minus 2pt}
+\setlength{\intextsep}{11pt plus 2pt minus 2pt}
+\setlength{\floatsep}{11pt plus 2pt minus 2pt}
+\setlength{\dblfloatsep}{11pt plus 2pt minus 2pt}
+\def\IEEEbibitemsep{0pt}
+
+\begin{document}
+
+\title{Supplementary Material S1: Extended Technical Analysis of the ESP32 Hybrid Key-Exchange Testbed}
+
+\author{
+    Hafiz Ali Mansoor Elahi$^{a,*}$, Muhammad Sohaim Muqtada$^{b}$\\
+    $^{a}$Co-founder, Promaker Institute, 18-C Block, Civic Center,\\
+    Faisal Town, Lahore, Pakistan\\
+    $^{b}$Department of Cybersecurity, University of Management and Technology,\\
+    C-II, Johar Town, Lahore, Pakistan\\
+    $^{*}$Corresponding author: \href{mailto:hafiz.ali@PromakerInstitute.com}{hafiz.ali@PromakerInstitute.com}\\
+    ORCID: \url{https://orcid.org/0009-0006-4378-6391}\\
+    Muhammad Sohaim Muqtada: f2024408084@umt.edu.pk
+}
+
+\maketitle
+
+\begin{abstract}
+This paper presents a hybrid X25519 and ML-KEM-768 key exchange on an ESP32-D0WD-V3 at 160~MHz with FreeRTOS and Wi-Fi. HKDF-SHA256 combines the shared secrets, a pre-shared-key HMAC-SHA256 construction authenticates the handshake transcript, and AES-256-GCM encrypts telemetry. Reanalysis of an archived 100-handshake campaign gives a mean instrumented latency of \BenchmarkMeanMs~ms, sample standard deviation of \BenchmarkSdMs~ms, and 95\% confidence interval of \BenchmarkLowMs~to~\BenchmarkHighMs~ms. The broader processor-cycle interval averages \BenchmarkCyclesM~million cycles. All observations, including slow runs, are retained. Independent heap profiling reported a 13.8~KB allocation; sparse campaign snapshots do not establish a transient peak. Manual electrical observations support fixed-window calculations. Archived ProVerif results establish encoded payload confidentiality and client-to-server injective agreement under an uncompromised private pre-shared key. Post-compromise security and telemetry-direction separation are not established. Telemetry shares a key across directions, and empirical side-channel resistance remains unevaluated. Source code, raw observations, and analysis scripts support reproducible evaluation of this embedded research prototype. Historical measurements do not physically validate later benchmark-harness corrections.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Post-quantum cryptography, Internet of Things, Hybrid key exchange, ESP32, ML-KEM.
+\end{IEEEkeywords}
+
+\section{Introduction}
+Deploying post-quantum key exchange on a Wi-Fi microcontroller requires attention to task scheduling, memory allocation and measurement boundaries as well as cryptographic operations. This work examines a PSK-authenticated X25519 and ML-KEM-768 implementation on an ESP32-D0WD-V3 at 160~MHz with FreeRTOS. The objective is to document the behavior and limitations of this specific embedded prototype, rather than introduce a new cryptographic primitive.
+
+X25519 provides classical key agreement~\cite{b5,b19}, but its underlying discrete-logarithm problem is vulnerable to Shor's algorithm~\cite{b1,b27}. Data captured today may remain sensitive when quantum attacks become practical; this motivates migration planning for long-lived information~\cite{b10,b39}. NIST standardized ML-KEM in FIPS~203 in August 2024~\cite{b2}, following its third-round evaluation~\cite{b15}. ML-KEM-768 targets NIST Security Category~3. Hybrid designs combine traditional and post-quantum components under explicit combiner assumptions~\cite{b8,b9}; security does not follow from concatenation alone.
+
+Existing work already establishes hybrid X25519 and ML-KEM-768 constructions~\cite{b41} and post-quantum communication on embedded systems~\cite{b11,b42}. The question here is how a specific application-layer implementation behaves on an ESP32 using pre-provisioned symmetric authentication. The client exchanges one request and one response over HTTP/TCP, then sends AES-GCM telemetry. Archived measurements are retained with their actual acquisition boundaries. The source, raw serial records, processed endurance observations and synthetic packet illustrations are identified in the Data Availability section.
+
+\subsection{Contributions}
+Prior embedded implementations and TLS studies~\cite{b6,b11,b12,b14,b42} differ in architecture, authentication and protocol boundaries. The contribution of this work is a documented implementation and evaluation artifact for a PSK-authenticated ESP32 research prototype:
+\begin{enumerate}
+    \item An inspectable client/server exchange specifying transcript authentication, fixed HKDF labels, byte encodings and the 1,249-byte request and 1,168-byte response bodies.
+    \item Reanalysis of 100 archived handshakes using sample statistics and retaining the full latency tail, with instrumented latency distinguished from the broader elapsed-cycle interval.
+    \item A separation of campaign observations, primitive timings, independent heap reports and manual electrical calculations, allowing readers to assess what each artifact supports.
+    \item A bounded security assessment that relates the archived symbolic model to the implementation and identifies untested properties, including telemetry-direction separation and post-compromise security.
+\end{enumerate}
+These contributions concern reproducible inspection of one prototype. No new KEM, standardized protocol replacement, controlled superiority over TLS, or first deployment of PQC on ESP32 is claimed.
+
+\section{Related Work}
+\subsection{Lattice-Based Cryptography: From Theory to Embedded Practice}
+The path from Regev's original LWE construction~\cite{b3} to a running firmware binary on an Xtensa microcontroller is not obvious, and the literature reflects that. Early LWE schemes were unworkably large; key sizes scale quadratically with security parameter $n$. Ring-LWE changed that by moving operations into polynomial rings, where the Number Theoretic Transform (NTT) drops multiplication from $O(n^2)$ schoolbook to $O(n \log n)$~\cite{b13,b26,b28}. Module-LWE goes one step further: it parameterizes security via a module rank $k$ over a fixed-degree ring, giving a single codebase that scales across security levels. That is what lets ML-KEM-512, ML-KEM-768, and ML-KEM-1024 share their core NTT implementation, an important practical point for code-size-constrained firmware~\cite{b2,b28}.
+
+\subsection{Hybrid Key Encapsulation}
+The case for running two KEMs simultaneously rather than picking one is theoretically grounded: Bindel et al.~\cite{b8} formally proved that a combiner KEM is secure as long as at least one constituent KEM is secure. Standardized guidance in NIST SP~800-227~\cite{b9}, hybrid terminology RFC~9794~\cite{b31}, HPKE RFC~9180~\cite{b32}, and IETF hybrid key-exchange documents~\cite{b16,b17} all recommend or frame hybrid designs for exactly this reason during the transition period. Our implementation concatenates the two shared secrets as HKDF input and authenticates the handshake transcript with a PSK. The cited combiner results motivate this design; they do not constitute a concrete security proof for this exact construction.
+
+\subsection{TLS vs. Bare-Metal RTOS Approaches}
+Most hybrid PQC integration work targets TLS~1.3~\cite{b14,b16,b17,b21,b34,b38}. The advantage is clear: you get a fully standardized, analyzed protocol. The cost on constrained hardware is also clear: physical TLS~1.3 handshakes on ESP32 hardware measure approximately 1.09~s in wall-clock latency for hybrid wolfSSL (X25519MLKEM768, documented in \texttt{hybrid\_tls\_usb\_serial.txt}) and 0.80~to~2.35~s for classical mbedTLS (ECDHE-ECDSA, documented in \texttt{classical\_tls\_usb\_serial.txt}), with separately reported heap allocations of 38.5~KB and 49.0~KB, respectively. These figures do not by themselves establish that the ESP32 lacks sufficient total SRAM for either implementation. Preliminary drafts of this work reported a synthetic baseline of 776.40~ms and 372.66M CPU cycles; that baseline was an artifact of an emulation benchmark loop in \texttt{benchmark.c} applying scalar multipliers and has been formally withdrawn. On physical hardware, third-party TLS stacks do not expose internal CCOUNT cycle counters for network handshakes, so cycle counts for full TLS~1.3 handshakes are unavailable. We therefore eliminated the complex TLS state machine entirely and structured the cryptographic negotiation as a single application-layer round-trip (1 RTT) directly over an established TCP connection. This architectural decision strictly decouples transport setup (the standard TCP 3-way handshake) from the ephemeral key agreement (one \texttt{ClientHello}/\texttt{ServerHello} exchange) and subsequent authenticated telemetry flights, which reduces protocol machinery; the separately reported 13.8~KB heap figure excludes the task stack and static allocations.
+
+\subsection{PQC Benchmarks on Constrained Processors}
+The pqm4 project~\cite{b7} established the ARM Cortex-M4 as the standard embedded PQC benchmark target. Botros et al.~\cite{b6} and Abdulrahman et al.~\cite{b12} squeezed fast Kyber implementations into tight SRAM using hand-written NTT assembly. Our target, the Xtensa LX6, is a different architecture. It lacks the Cortex-M4's SIMD MAC instructions, so those optimizations do not transfer directly~\cite{b11}. The available traces report performance for the selected implementation. They do not isolate an architectural overhead relative to Cortex-M4 under matching conditions.
+
+\subsection{IoT Security and the HNDL Threat}
+Mosca's framing of the HNDL risk~\cite{b10} motivates migration for data with long confidentiality requirements. Embedded TLS studies~\cite{b11} and more recent ESP32 work~\cite{b42} demonstrate that post-quantum communication is feasible on constrained devices. Our archived watchdog API errors are documented as an implementation issue; the trace does not establish a previously unreported cryptographic starvation mechanism.
+
+\subsection{Closest Hybrid and ESP32 Implementations}
+X-Wing combines X25519 and ML-KEM-768 with a specific combiner and a concrete security analysis~\cite{b41}. Our PSK-authenticated HTTP exchange is a different construction; X-Wing's proof cannot be transferred to it. Blanco-Romero et al.~\cite{b42}, in a 2026 preprint, evaluate post-quantum DTLS/CoAP on an ESP32 at 240~MHz using Zephyr and wolfSSL. Their system includes ML-KEM-512 and signature-based authentication. It establishes prior ESP32 feasibility and provides a relevant comparison of implementation scope. Differences in clock, RTOS, parameter set, authentication and timing boundaries prevent direct ranking of their latency against our 160~MHz campaign. Table~\ref{tab:comparison} provides historical implementation context rather than a controlled performance comparison.
+
+\section{Cryptographic Preliminaries and Hybrid Key Agreement}
+\subsection{Mathematical Foundations of Curve25519}
+X25519 is the ECDH function built on Curve25519, a Montgomery curve over $\mathbb{F}_p$ where $p = 2^{255} - 19$. The curve equation is:
+\begin{equation}
+E_{A,B} : By^2 = x^3 + Ax^2 + x \pmod{p}
+\end{equation}
+with $A = 486662$, $B = 1$~\cite{b5}. The protocol works only on x-coordinates, which is what makes the Montgomery ladder efficient and branchless. Our ESP32 client generates a random 32-byte private scalar $d_C$, clamps it to clear the cofactor bits:
+\begin{equation}
+d'_C = 2^{254} + 8 \cdot \lfloor \frac{d_C \bmod 2^{254}}{8} \rfloor
+\end{equation}
+then computes $Q_C = x([d'_C]P_B)$ where the base point has $x_P = 9$. After receiving the server's $Q_S$, the shared secret is:
+\begin{equation}
+\text{X25519\_ss} = x([d'_C]Q_S) \in \mathbb{F}_p
+\end{equation}
+
+\subsection{Module Learning With Errors and ML-KEM-768}
+ML-KEM-768 works in the ring $R_q = \mathbb{Z}_q[X]/(X^{256} + 1)$ with $q = 3329$ and module dimension $k = 3$~\cite{b2}. Security rests on the M-LWE problem: given a public pair $(A, t)$ where
+\begin{equation}
+t = As + e \pmod{q}
+\end{equation}
+with small secret $s \in R_q^k$ and noise $e \in R_q^k$ drawn from centered binomial distribution $B_\eta$ ($\eta_1 = \eta_2 = 2$), distinguish $(A,t)$ from uniform random. This is believed hard for both classical and quantum computers, targeting NIST Security Category~3 (192-bit security level).
+
+\subsubsection{Number Theoretic Transform (NTT)}
+Because $q = 3329 \equiv 1 \pmod{256}$, there exists a primitive 256th root of unity $\zeta = 17 \pmod{q}$. This is what makes the NTT work. The Cooley-Tukey butterfly at each stage is:
+\begin{equation}
+u \leftarrow X_j, \quad t \leftarrow \zeta^W X_k \pmod{q}
+\end{equation}
+\begin{equation}
+X_j \leftarrow u + t \pmod{q}, \quad X_k \leftarrow u - t \pmod{q}
+\end{equation}
+where $W$ follows the implementation's twiddle-factor schedule. This reduces the asymptotic polynomial multiplication cost relative to schoolbook multiplication. The reference implementation uses signed reductions. Its Barrett reduction uses $v=\lfloor(2^{26}+q/2)/q\rfloor=20159$:
+\begin{equation}
+t=\left\lfloor\frac{va+2^{25}}{2^{26}}\right\rfloor,\qquad r=a-tq.
+\end{equation}
+For Montgomery reduction, $R=2^{16}$ and the stored signed constant is $\texttt{QINV}=-3327$, representing $q^{-1}$ modulo $R$. With $t$ the signed 16-bit representative of $a\,\texttt{QINV}$ modulo $R$, the code computes
+\begin{equation}
+r=(a-tq)/R.
+\end{equation}
+The result is congruent to $aR^{-1}$ modulo $q$. These routines use centered or signed representatives internally; they do not normalize every intermediate result to $[0,q-1]$.
+
+\subsubsection{Fujisaki-Okamoto Transform}
+ML-KEM achieves IND-CCA2 security by wrapping an IND-CPA public-key encryption scheme with the Fujisaki-Okamoto (FO) transform~\cite{b4,b23}. In concrete terms:
+\begin{itemize}
+    \item \textbf{Encapsulate:} The caller uses public key $pk = (t, \rho)$ to produce ciphertext $c = (c_1, c_2)$ and the 256-bit shared secret $\text{ML-KEM\_ss}$.
+    \item \textbf{Decapsulate:} The holder of secret key $sk = (s, pk, H(pk), z)$ decrypts by computing $m' = c_2 - s^T c_1 \pmod{q}$, applies polynomial error correction, and confirms correctness by re-encrypting. On mismatch it returns a deterministic pseudorandom output, preventing the oracle queries that IND-CPA schemes are vulnerable to.
+\end{itemize}
+
+\subsection{Cryptographic Key Binding via HKDF}
+Binding the classical and post-quantum shared secrets is necessary to prevent an adversary from tampering with either component. We use HKDF-SHA256~\cite{b20,b33,b36} in two steps:
+\begin{enumerate}
+    \item \textbf{Extract Step:} We extract a pseudorandom key (PRK) from the concatenated shared secrets. Writing the two shared secrets as $S_X$ and $S_M$, extraction uses a fixed domain-separation salt string (\texttt{"HybridPQC-ESP32-Session-v1"}):
+    \begin{equation}
+    \text{PRK} = \text{HMAC-SHA256}(\text{salt}, S_X \parallel S_M)
+    \end{equation}
+    \item \textbf{Expand Step:} We expand the PRK into the final 256-bit session key using $\mathit{info}=$\texttt{"session-key"}:
+    \begin{equation}
+    k_s = \text{HMAC-SHA256}(\text{PRK}, \mathit{info} \parallel \text{0x01})
+    \end{equation}
+\end{enumerate}
+
+\section{Hybrid Protocol Specification and Message Layout}
+The protocol uses HTTP/1.1 over TCP. The benchmark creates and cleans up an HTTP client for each handshake, so connection reuse is not established by the campaign. Transport connection establishment follows the standard TCP 3-way handshake (1 transport RTT via SYN $\to$ SYN-ACK $\to$ ACK). Once the TCP transport is active, the core cryptographic key-exchange phase executes in exactly a single application-layer round-trip (1 application RTT): the ESP32 client transmits its 1,249-byte \texttt{ClientHello} containing ephemeral public keys and HMAC tag, and receives the 1,168-byte \texttt{ServerHello} containing the server's public key, ML-KEM ciphertext, Session ID, and transcript authentication tag $\tau_S$. Both endpoints derive the bound 256-bit session key, after which the session key is used for authenticated telemetry requests.
+
+We chose HTTP/1.1 as the application framing layer deliberately for this research prototype because it keeps the Python server simple and lets us capture clean Wireshark traces without TLS record-layer wrapping. The binary cryptographic payloads are transport-agnostic; they could equally sit inside MQTT or CoAP messages in a production deployment. Authentication uses HMAC-SHA256 under a 32-byte PSK compiled as a firmware constant. A deployment would require independently evaluated private-PSK provisioning and storage protection. Secure Boot V2 alone does not establish application-secret confidentiality.
+
+This work is not proposing that HTTP/1.1 replace TLS for general Internet deployments. The contribution is a compact, memory-fitting hybrid handshake kernel for pre-provisioned IoT nodes where certificate stores and full TLS stacks are impractical.
+
+\subsection{Handshake Request (ClientHello) Layout}
+The client serializes its public key material:
+\begin{equation}
+\text{ClientHello} = \text{Mode} \parallel Q_C \parallel pk_{\text{KEM}} \parallel \tau_C
+\end{equation}
+The payload consists of a 1-byte mode identifier (Hybrid = 2), a 32-byte X25519 public key $Q_C$, an 1,184-byte ML-KEM-768 public key $pk_{\text{KEM}}$, and a 32-byte HMAC-SHA256 authentication tag $\tau_C = \text{HMAC-SHA256}(PSK, \text{Mode} \parallel Q_C \parallel pk_{\text{KEM}})$, totalling 1,249 bytes.
+
+\subsection{Handshake Response (ServerHello) Layout}
+The server response body encodes a 16-byte session identifier, cryptographic response, and a 32-byte transcript authentication tag $\tau_S$:
+\begin{equation}
+\begin{aligned}
+\text{ServerHello} &= \text{SID} \parallel Q_S \parallel c_{\text{KEM}} \parallel \tau_S \\
+M_S &= \text{ClientHello}^{-} \parallel \text{SID} \parallel Q_S \parallel c_{\text{KEM}} \\
+\tau_S &= \text{HMAC-SHA256}(PSK, M_S)
+\end{aligned}
+\end{equation}
+The payload consists of a 16-byte Session ID, a 32-byte X25519 public key $Q_S$, a 1,088-byte ML-KEM-768 ciphertext $c_{\text{KEM}}$, and a 32-byte HMAC tag $\tau_S$, totalling 1,168 bytes. Here $\text{ClientHello}^{-}$ denotes the first 1,217 request bytes (mode and public keys), excluding the client HMAC. This is the transcript prefix used by both implementations.
+
+\subsection{Mutual Authentication and Absence of ClientFinished}
+Unlike TLS 1.3, which mandates a subsequent \texttt{ClientFinished} handshake flight, the client authenticates the server parameters upon verification of $\tau_S$. The server authenticates possession of the PSK in the request, but receives explicit evidence of the client's derived key only when valid telemetry arrives. There is no separate \texttt{ClientFinished} message; the client verifies $\tau_S$ using the shared PSK and transcript binding, derives the session key, and immediately transitions to authenticated data transmission.
+
+\subsection{Telemetry POST Body Layout}
+Each encrypted telemetry packet is structured as:
+\begin{equation}
+P_{\text{telem}} = \text{SID} \parallel \text{IV} \parallel C \parallel \tau
+\end{equation}
+The payload consists of a 16-byte Session ID, a 12-byte GCM IV, a variable-length ciphertext $C$, and a 16-byte GCM Authentication Tag $\tau$. Telemetry payload encryption utilizes AES-256-GCM~\cite{b22,b29,b35,b30} with NULL Additional Authenticated Data ($\text{AAD} = \text{NULL}, \text{len} = 0$). Monotonic replay protection and packet ordering are enforced directly through the 12-byte IV, which concatenates a 4-byte sequence counter with 8 bytes from the hardware TRNG ($IV = \text{Counter}_{32} \parallel \text{Random}_{64}$).
+
+The overall system architecture is illustrated in Fig. \ref{fig1}, detailing the dual-core pinning and network stack isolation. The hybrid handshake message exchange sequence is shown in Fig. \ref{fig2}.
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=0.5\textwidth]{architecture_diagram.png}}
+\caption{System Architecture Diagram}
+\label{fig1}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\small
+\begin{tabularx}{\columnwidth}{@{}X@{}}
+\toprule
+\textbf{ESP32 client and Python server}\\
+\midrule
+Client: generate ephemeral X25519 and ML-KEM-768 keypairs.\\[3pt]
+Client $\longrightarrow$ Server: POST /handshake with the 1,249-byte ClientHello and its PSK HMAC.\\[3pt]
+Server: verify the client HMAC, generate an ephemeral X25519 keypair and Session ID, encapsulate ML-KEM-768, and derive the session key with HKDF-SHA256.\\[3pt]
+Server $\longrightarrow$ Client: HTTP 200 with the 1,168-byte ServerHello and transcript HMAC.\\[3pt]
+Client: verify the transcript HMAC, derive the X25519 and ML-KEM shared secrets, and apply HKDF-SHA256.\\[3pt]
+Client $\longrightarrow$ Server: POST /api/telemetry with the Session ID, IV, AES-GCM ciphertext and tag.\\[3pt]
+Server $\longrightarrow$ Client: authenticated AES-GCM acknowledgement.\\
+\bottomrule
+\end{tabularx}
+\caption{Implemented hybrid handshake and subsequent telemetry exchange. There is no separate ClientFinished message; valid telemetry provides the server with evidence of the client's derived key.}
+\label{fig2}
+\end{figure}
+
+\section{Protocol Architecture and Algorithmic Design}
+\subsection{Context and Memory Management Layout}
+The cryptographic state is managed on the edge client using \texttt{hybrid\_ctx\_t}; selected fields are shown below. The context is a local automatic object in the benchmark and telemetry tasks and therefore contributes to their stack use. Temporary library and HTTP-client allocations may use the heap.
+\begin{verbatim}
+typedef struct {
+  uint8_t x25519_privkey[32];
+  uint8_t x25519_pubkey[32];
+  uint8_t x25519_shared_secret[32];
+  uint8_t mlkem_pk[1184];
+  uint8_t mlkem_sk[2400];
+  uint8_t mlkem_shared_secret[32];
+  uint8_t session_key[32];
+  handshake_mode_t mode;
+  int handshake_complete;
+} hybrid_ctx_t;
+\end{verbatim}
+
+\subsection{Core Algorithmic Logic}
+Ephemeral key generation obtains bytes from the ESP32 hardware RNG. ESP-IDF documents true-random output while an appropriate entropy source, such as the enabled Wi-Fi or Bluetooth RF subsystem, is active~\cite{b43}. The application initializes Wi-Fi before launching the cryptographic task. This operating condition is a prerequisite, not an empirical entropy-quality measurement.
+
+\begin{algorithm}[!t]
+\caption{Client Keypair Generation (\texttt{hybrid\_keygen})}
+\begin{algorithmic}[1]
+\REQUIRE Cryptographic context \texttt{ctx}
+\ENSURE Returns 0 on success; -1 on failure
+\IF{\texttt{ctx.mode} $\in \{\text{CLASSICAL}, \text{HYBRID}\}$}
+    \STATE Generate random 32-byte private key \texttt{ctx.x25519\_privkey} using hardware RNG
+    \STATE Clamp private key:
+    \STATE \texttt{ctx.x25519\_privkey[0]} $\leftarrow$ \texttt{ctx.x25519\_privkey[0]} $\wedge$ 248
+    \STATE \texttt{ctx.x25519\_privkey[31]} $\leftarrow$ (\texttt{ctx.x25519\_privkey[31]} $\wedge$ 127) $\vee$ 64
+    \STATE Compute public key \texttt{ctx.x25519\_pubkey} $\leftarrow$ [\texttt{ctx.x25519\_privkey}]$P_B$
+\ENDIF
+\IF{\texttt{ctx.mode} $\in \{\text{PQC}, \text{HYBRID}\}$}
+    \STATE Generate ML-KEM-768 keypair (\texttt{ctx.mlkem\_pk}, \texttt{ctx.mlkem\_sk})
+\ENDIF
+\RETURN 0
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[!t]
+\caption{Server Response Processing and Key Agreement}
+\begin{algorithmic}[1]
+\REQUIRE Context \texttt{ctx}; \texttt{ClientHello}; server response $S_{\text{data}}$ of length $S_{\text{len}}$
+\ENSURE Returns $0$ on success; $-1$ on failure
+\IF{$S_{\text{len}} < 48$}
+    \RETURN $-1$
+\ENDIF
+\STATE $\text{ServerHello} \leftarrow S_{\text{data}}[0 \dots S_{\text{len}} - 33]$
+\STATE Extract authentication tag $\tau_S \leftarrow S_{\text{data}}[S_{\text{len}} - 32 \dots S_{\text{len}} - 1]$
+\STATE $M \leftarrow \text{ClientHello}^{-} \mathbin{\Vert} \text{ServerHello}$
+\STATE $\mathit{calc\_mac} \leftarrow \text{HMAC-SHA256}(PSK,M)$
+\IF{$\mathit{calc\_mac} \neq \tau_S$}
+    \RETURN $-1$ \COMMENT{Server authentication failed}
+\ENDIF
+\STATE Extract Session ID: $\mathit{SID} \leftarrow S_{\text{data}}[0 \dots 15]$
+\STATE $\mathit{offset} \leftarrow 16$
+\STATE $\mathit{combined} \leftarrow \emptyset$
+\IF{\texttt{ctx.mode} $\in \{\text{CLASSICAL}, \text{HYBRID}\}$}
+    \STATE Extract server public key $Q_S \leftarrow S_{\text{data}}[\mathit{offset} \dots \mathit{offset}+31]$
+    \STATE $\mathit{offset} \leftarrow \mathit{offset} + 32$
+    \STATE Compute classical secret: $\text{X25519\_ss} \leftarrow [\texttt{ctx.x25519\_privkey}] Q_S$
+    \STATE $\mathit{combined} \leftarrow \mathit{combined} \mathbin{\Vert} \text{X25519\_ss}$
+\ENDIF
+\IF{\texttt{ctx.mode} $\in \{\text{PQC}, \text{HYBRID}\}$}
+    \STATE Extract ML-KEM ciphertext $c_{\text{KEM}} \leftarrow S_{\text{data}}[\mathit{offset} \dots \mathit{offset} + 1087]$
+    \STATE $\mathit{offset} \leftarrow \mathit{offset} + 1088$
+    \STATE Decapsulate: $\text{ML-KEM\_ss} \leftarrow \text{mlkem768\_decaps}(c_{\text{KEM}}, \texttt{ctx.mlkem\_sk})$
+    \STATE $\mathit{combined} \leftarrow \mathit{combined} \mathbin{\Vert} \text{ML-KEM\_ss}$
+\ENDIF
+\STATE Derive session key via HKDF-SHA256:
+\STATE $\mathit{PRK} \leftarrow \text{HMAC-SHA256}(\text{salt},\; \mathit{combined})$ \COMMENT{HKDF-Extract}
+\STATE $\mathit{info} \leftarrow \text{"session-key"} \mathbin{\Vert} \text{0x01}$
+\STATE \texttt{ctx.session\_key} $\leftarrow \text{HMAC-SHA256}(\mathit{PRK},\; \mathit{info})$ \COMMENT{HKDF-Expand}
+\STATE Securely zeroize $\mathit{combined}$, $\mathit{PRK}$, \texttt{ctx.x25519\_privkey}, and \texttt{ctx.mlkem\_sk}
+\RETURN $0$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[!t]
+\caption{Stateful Telemetry and Key Rotation Loop (\texttt{pqc\_task})}
+\begin{algorithmic}[1]
+\REQUIRE Wi-Fi connectivity; server address
+\ENSURE Infinite execution loop
+\WHILE{\TRUE}
+    \STATE Initialize cryptographic context \texttt{ctx} with mode \texttt{HYBRID}
+    \STATE $\mathit{ret} \leftarrow \text{hybrid\_keygen}(\texttt{ctx})$
+    \IF{$\mathit{ret} \neq 0$}
+        \STATE $\text{vTaskDelay}(5000\text{ ms})$ \textbf{continue}
+    \ENDIF
+    \STATE $B \leftarrow \text{Mode} \mathbin{\Vert} Q_C \mathbin{\Vert} pk_{\text{KEM}}$
+    \STATE $\tau_C \leftarrow \text{HMAC-SHA256}(PSK,B)$
+    \STATE $\text{ClientHello} \leftarrow B \mathbin{\Vert} \tau_C$
+    \STATE $(\mathit{resp}, s) \leftarrow \text{POST}(\texttt{/handshake}, \text{ClientHello})$
+    \IF{$s \neq 200 \lor |\mathit{resp}| < 48$}
+        \STATE $\text{vTaskDelay}(5000\text{ ms})$ \textbf{continue}
+    \ENDIF
+    \STATE $\mathit{ret} \leftarrow \text{ProcessResponse}(\texttt{ctx},\mathit{resp})$
+    \IF{$\mathit{ret} \neq 0$}
+        \STATE $\text{vTaskDelay}(5000\text{ ms})$ \textbf{continue}
+    \ENDIF
+    \STATE Secure Channel Established (AES-256-GCM)
+    \STATE $k_s \leftarrow \texttt{ctx.session\_key}$
+    \FOR{$i \leftarrow 1$ \TO $50$}
+        \STATE Gather sensor data (Temp / Humidity)
+        \STATE $C \leftarrow \text{AES\_GCM\_Encrypt}(\text{Data}, k_s)$
+        \STATE $\text{HTTP\_POST}(\text{"/api/telemetry"}, C)$
+        \STATE $\text{vTaskDelay}(5000\text{ ms})$
+    \ENDFOR
+\ENDWHILE
+\end{algorithmic}
+\end{algorithm}
+
+\section{Overcoming Embedded Constraints}
+\subsection{Watchdog API Errors Under FreeRTOS}
+The ESP-IDF task watchdog can monitor idle tasks to detect prolonged execution without yielding. Application tasks must be subscribed before calling \texttt{esp\_task\_wdt\_reset()}; that call does not feed another task's watchdog subscription.
+
+The archived $n=100$ campaign includes a 50~ms delay between iterations and completes all 100 observed handshakes. It also records 100 \texttt{task not found} errors from the watchdog-reset API. Consequently, the trace supports completion with inter-iteration yielding, but does not demonstrate successful task-watchdog feeding or diagnose NTT execution as the cause of starvation. The corrected harness removes reset calls from the unsubscribed task and retains the delays. This correction requires a hardware rerun before claiming error-free execution of the revised firmware. Scheduler behavior alone does not establish constant-time cryptographic execution.
+
+\subsection{Endianness Mismatches in ECDH Point Mapping}
+RFC 7748~\cite{b19} specifies little-endian encodings for X25519 scalar input and public u-coordinates. The implementation uses \texttt{mbedtls\_mpi\_read\_binary\_le} to import these byte strings and \texttt{mbedtls\_mpi\_write\_binary\_le} to export public coordinates and the shared secret. Interpreting an RFC-encoded byte string with a big-endian import routine would change its numerical value. The correction concerns byte serialization at the MPI API boundary; no claim about native MPI limb order or X25519 hardware acceleration is needed.
+
+\subsection{System Architecture and RTOS Topology}
+The implementation leverages the asymmetric dual-core topology of the ESP32 (Xtensa Dual-Core 32-bit LX6 microprocessor). To ensure that the computational demands of post-quantum polynomial arithmetic do not interfere with network tasks, the system enforces strict RTOS task pinning.
+
+The \texttt{pqc\_task}, responsible for executing the hybrid handshake and telemetry encryption, is pinned to Core 1 with a high priority. Conversely, the lwIP network stack and the Wi-Fi baseband interrupt handlers are isolated to Core 0. This placement separates application work from the Wi-Fi task; continuous packet service under saturation has not been established by these measurements.
+
+To mitigate the risk of stack overflows during the deep call graphs of the Keccak-f[1600] permutation, the \texttt{pqc\_task} is allocated a dedicated 32~KiB stack ($32{,}768$ bytes, \texttt{xTaskCreatePinnedToCore}). The local cryptographic context and message buffers occupy task-stack storage. A configured stack allocation is not a measured stack high-water mark.
+
+\section{Experimental Results}
+The archived hybrid campaign contains 100 consecutive logged handshakes on one ESP32-D0WD-V3 unit. Every numerical CSV field matches the corresponding raw UART record; the CSV run numbers are acquisition-order indices because the original firmware logged zero for each run identifier. The log contains 100 successful server-HMAC verifications and 100 key derivations, with no handshake failure or retry messages in the campaign window. Table~\ref{tab:statistical_confidence} reports statistics recomputed from these observations without removing outliers. Other primitive, TLS, heap, electrical and endurance measurements are separate datasets.
+
+Latency is the sum of two \texttt{esp\_timer\_get\_time()} intervals for key generation and network exchange plus response processing. Packing, logging and heap sampling between these intervals are excluded. The CCOUNT interval spans a broader region, including waits and instrumentation, so it is an elapsed cycle count rather than isolated CPU work. The intervals must not be subtracted to estimate networking overhead. The 95\% confidence intervals use Student's $t$ distribution (99 degrees of freedom) and sample SD. They assume independent observations within this campaign and do not quantify variability across boards or environments.
+
+\begin{table}[htbp]
+\caption{Protocol observations from separate datasets. Heap figures are independent reported profiles, not $n=100$ peak measurements.}
+\centering
+\small
+\begin{tabularx}{\columnwidth}{lXX}
+\toprule
+Mode & Latency (ms) & Reported heap (KB)\\
+\midrule
+Custom hybrid & \BenchmarkMeanMs{} ($n=100$) & 13.8\\
+Hybrid TLS & $\sim1089$ & 38.5\\
+Classical TLS & 800~to~2350 & 49.0\\
+\bottomrule
+\end{tabularx}
+\par\smallskip\footnotesize
+The custom handshake has 1,249-byte and 1,168-byte bodies (2,417 bytes total), excluding HTTP/TCP/IP overhead. Comparable campaign-level X25519-only and ML-KEM-only observations are not supplied, so previously tabulated standalone estimates are not used for a controlled comparison.
+\label{tab:protocol_comparison}
+\end{table}
+
+\begin{table}[htbp]
+\caption{Reanalysis of the archived hybrid campaign ($n=100$).}
+\centering
+\small
+\begin{tabularx}{\columnwidth}{lXX}
+\toprule
+Statistic & Latency (ms) & Elapsed cycles (M)\\
+\midrule
+Mean & \BenchmarkMeanMs & \BenchmarkCyclesM\\
+Sample SD & \BenchmarkSdMs & \BenchmarkCyclesSdM\\
+95\% CI of mean & [\BenchmarkLowMs, \BenchmarkHighMs] & [\BenchmarkCyclesLowM, \BenchmarkCyclesHighM]\\
+Minimum & \BenchmarkMinMs & \BenchmarkCyclesMinM\\
+Maximum & \BenchmarkMaxMs & \BenchmarkCyclesMaxM\\
+\bottomrule
+\end{tabularx}
+\par\smallskip\footnotesize
+Observed completions: 100/100; 100 watchdog-reset API errors are separately recorded. The heap snapshots average 22.24 bytes (maximum 440 bytes) and cannot estimate transient peaks. The independent 13.8~KB profile and 1.0~s electrical calculation are not campaign statistics.
+\label{tab:statistical_confidence}
+\end{table}
+
+\begin{table}[htbp]
+\caption{Hardware and software provenance for the archived campaign.}
+\centering\small
+\begin{tabularx}{\columnwidth}{lX}
+\toprule
+Item & Evidence\\
+\midrule
+ESP32 & D0WD-V3, revision v3.1\\
+Clock & 160 MHz (boot log)\\
+ESP-IDF & v5.5 (boot log)\\
+mbedTLS & Exact version not archived\\
+ML-KEM & Repository reference C code ($k=3$)\\
+Task stack & 32,768 bytes configured in source\\
+Compiler & Performance optimization requested; full command absent\\
+Reported testbed & Intel Core i7, 16 GB, Ubuntu 22.04; TP-Link Archer C7 at 2 m; RSSI $-45$ dBm\\
+\bottomrule
+\end{tabularx}
+\label{tab:hw_config}
+\end{table}
+
+\subsection{Network Latency and CPU Overheads}
+Table \ref{tab:latency} presents a granular micro-benchmark breakdown of each cryptographic primitive executed during the hybrid handshake, with primitive operations evaluated on the physical ESP32 testbed ($n=50$ for key generation and $n=49$ for decapsulation and ECDH, from \texttt{energy\_esp32\_mlkem768\_usb\_proof.txt}). All timings were captured using native hardware cycle counters at the active 160 MHz operating CPU frequency (160 cycles/$\mu$s).
+
+\begin{table*}[htbp]
+\caption{Cryptographic Primitive Micro-Benchmarks Measured on ESP32-D0WD-V3 @ 160 MHz (source: \texttt{energy\_esp32\_mlkem768\_usb\_proof.txt})}
+\begin{center}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|r|r|c|l|}
+\hline
+\textbf{Primitive Operation} & \textbf{Latency (ms)} & \textbf{CPU Cycles} & \textbf{$n$} & \textbf{Key / CT Parameters} \\
+\hline
+\hline
+\multicolumn{5}{|c|}{\textit{Classical Component (X25519, RFC 7748)}} \\
+\hline
+X25519 KeyGen (Scalar Mult.) & $392.27$ & $62{,}762{,}347$ & $50$ & $pk = 32$, $sk = 32$ bytes \\
+\hline
+X25519 ECDH (Shared Secret) & $200.53$ & $32{,}083{,}991$ & $49$ & $ss = 32$ bytes \\
+\hline
+\hline
+\multicolumn{5}{|c|}{\textit{Post-Quantum Component (ML-KEM-768, FIPS 203)}} \\
+\hline
+ML-KEM-768 KeyGen (NTT) & $13.89$ & $2{,}221{,}038$ & $50$ & $pk = 1184$, $sk = 2400$ bytes \\
+\hline
+ML-KEM-768 Decapsulation & $18.58$ & $2{,}973{,}098$ & $49$ & $ct = 1088$, $ss = 32$ bytes \\
+\hline
+\hline
+\multicolumn{5}{|c|}{\textit{Protocol Key Binding \& Authentication}} \\
+\hline
+HKDF-SHA256 Key Derivation & Not isolated & Not isolated & N/A & $salt = \text{domain-sep string}$, $L = 32$ bytes \\
+\hline
+HMAC-SHA256 (Auth + Verify) & Not isolated & Not isolated & N/A & $PSK = 32$, $\tau = 32$ bytes \\
+\hline
+\end{tabular}%
+}
+\label{tab:latency}
+\end{center}
+\end{table*}
+
+Table \ref{tab:latency} reveals that classical X25519 scalar multiplication dominates the local computational cost of the hybrid handshake, accounting for $592.80$~ms combined (392.27~ms for KeyGen and 200.53~ms for shared-secret derivation, or 94.8\% of local crypto latency). By contrast, the entire ML-KEM-768 post-quantum component, including both keypair generation ($13.89$~ms, 2.22M cycles, $n=50$) and decapsulation ($18.58$~ms, 2.97M cycles, $n=49$), completes in only $32.47$~ms combined ($5.19\times 10^6$ cycles, representing just 5.2\% of local cryptographic execution time). This identifies X25519 as the dominant cost in this selected implementation and trace. It does not establish a general algorithmic advantage of lattice arithmetic over elliptic-curve implementations or isolate hardware-acceleration effects. The separate $n=100$ campaign measured $\BenchmarkMeanMs\pm\BenchmarkSdMs$~ms. Its run-to-run spread and acquisition conditions differ from the primitive trace. Summing primitive means and subtracting them from the campaign mean would therefore not yield a valid network-overhead estimate.
+
+To compare against standardized TLS 1.3 implementations on the same physical ESP32 hardware, we benchmarked both classical TLS 1.3 (mbedTLS with ECDHE-ECDSA prime256v1) and hybrid TLS 1.3 (wolfSSL with X25519MLKEM768) running over the local Wi-Fi testbed. Table \ref{tab:mbedtls} summarizes the measured wall-clock performance. Classical mbedTLS 1.3 handshakes measured between 0.80~s and 2.35~s ($800 - 2{,}350$~ms, documented in \texttt{classical\_tls\_usb\_serial.txt}) with a peak dynamic heap overhead of 49.0~KB. Hybrid wolfSSL TLS 1.3 handshakes averaged $\sim 1.09$~s ($1{,}089$~ms, documented in \texttt{hybrid\_tls\_usb\_serial.txt}) with 38.5~KB peak RAM.
+
+Earlier drafts of this work reported a synthetic baseline of 776.40~ms and 372.66M CPU cycles for TLS 1.3. That baseline was an artifact of an artificial emulation loop in \texttt{benchmark.c} that applied synthetic scalar multipliers ($*3$) and heap floors to local operations, and has been formally withdrawn. On real hardware, third-party TLS stacks do not expose internal CCOUNT cycle counters for network handshakes, so cycle counts for full TLS 1.3 handshakes are not available.
+
+\begin{table*}[htbp]
+\caption{Physical TLS 1.3 Handshake Wall-Clock Baseline (ESP32-D0WD-V3 @ 160 MHz)}
+\label{tab:mbedtls}
+\begin{center}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|r|r|}
+\hline
+\textbf{Stack / Protocol} & \textbf{Wall-Clock Latency} & \textbf{Peak RAM} \\
+\hline
+\hline
+Classical TLS 1.3 (mbedTLS, ECDHE-ECDSA) & $800 - 2350$ ms & $49.0$ KB \\
+\hline
+Hybrid TLS 1.3 (wolfSSL, X25519MLKEM768) & $\sim 1089$ ms & $38.5$ KB \\
+\hline
+Custom Hybrid PQC (This Work, HTTP/1.1) & $\BenchmarkMeanMs$ ms & $13.8$ KB\textsuperscript{a} \\
+\hline
+\multicolumn{3}{|p{0.95\textwidth}|}{\footnotesize{\textsuperscript{a}Heap is from a separate reported profile, not the $n=100$ campaign. \textit{Note on Withdrawn Synthetic Baseline}: The preliminary 776.40~ms / 372.66M cycle baseline was an artifact of an emulation benchmark loop in \texttt{benchmark.c} and has been withdrawn. CCOUNT cycle counts are not available for full TLS handshakes as third-party stacks do not instrument internal cycle counters.}} \\
+\hline
+\end{tabular}%
+}
+\end{center}
+\end{table*}
+
+\subsection{Resource Footprint Comparison}
+Independent heap profiling reported 13.8~KB (13,800 bytes) for the custom protocol. The accompanying memory note gives 210,536 bytes before and 196,736 bytes at the reported allocation point; the archived UART excerpt contains the latter value but not a complete transient allocation trace. Thus the figure is retained as a separate reported profile, not as an independently revalidated maximum or a statistic from the $n=100$ campaign. The campaign's sparse heap snapshots average 22.24 bytes and miss allocations freed between sampling points.
+
+The reported mbedTLS and wolfSSL heap figures are 49.0~KB and 38.5~KB, respectively. These snapshots suggest lower heap demand for the custom protocol, but their sampling boundaries are not equivalent enough to establish a controlled peak-memory reduction. The 32,768-byte task stack and static data are additional to heap usage. A matching TLS-PSK baseline and allocation tracing would be needed for a security-equivalent memory comparison. The hybrid handshake bodies total 2,417 bytes; TCP segmentation and HTTP headers must be accounted for separately.
+
+\subsection{Comparative Efficiency Against Published Work}
+Table \ref{tab:comparison} contextualizes our implementation against other standalone and hybrid KEM deployments on constrained devices.
+
+\begin{table*}[htbp]
+\centering
+\caption{Comparative Performance Against Published PQC-IoT Implementations. \textit{Note: Cycle counts for Botros et al., and pqm4 represent bare, standalone cryptographic primitives executing offline. Our \BenchmarkCyclesM{} million elapsed cycles include network waits and instrumentation, so they are not comparable to isolated primitive execution counts. Heap figures come from separate reported profiles. Full handshake cycle counts for third-party TLS stacks are unavailable as hardware counters are not instrumented; synthetic 372.7M baseline is withdrawn.}}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llcccccr}
+\toprule
+\textbf{Reference / Platform} & \textbf{Algorithm} & \textbf{Hybrid?} & \textbf{Clock} & \textbf{RAM (KB)} & \textbf{Latency (ms)} & \textbf{Window Estimate} & \textbf{Total Cycles} \\
+\midrule
+Botros et al.~\cite{b6} (Cortex-M4) & Kyber-768 & No & 168 MHz & $\sim$3.4 & N/A & N/A & $\sim$4.81M \\
+pqm4 \texttt{m4fspeed}~\cite{b7} (Cortex-M4) & Kyber-768 & No & 168 MHz & $\sim$3.3 & N/A & N/A & $\sim$3.67M \\
+Classical TLS 1.3 (mbedTLS) (ESP32) & ECDHE-ECDSA (Classical) & No & 160 MHz & $\sim$49.0 & 800~to~2350 & 0.60 J (1 s) & N/A\textsuperscript{*} \\
+Hybrid TLS 1.3 (wolfSSL) (ESP32) & X25519MLKEM768 & Yes & 160 MHz & $\sim$38.5 & $\sim$1089 & 0.56 J (1.1 s) & N/A\textsuperscript{*} \\
+\textbf{This Work} (ESP32-D0WD-V3) & \textbf{ML-KEM-768 + X25519} & \textbf{Yes} & \textbf{160 MHz} & \textbf{13.8} & \textbf{\BenchmarkMeanMs} & 0.75 J (1 s window) & \textbf{\BenchmarkCyclesM{}M} \\
+\bottomrule
+\multicolumn{8}{l}{\textsuperscript{*}\footnotesize{Hardware CCOUNT cycle counters are not instrumented in third-party TLS stacks; synthetic baseline reported in preliminary drafts is withdrawn.}} \\
+\end{tabular}%
+}
+\label{tab:comparison}
+\end{table*}
+
+\subsection{Manual Electrical Verifications and Voltage Profiling}
+Power stability is a critical failure point for IoT edge devices running PQC. In initial tests using standard USB power rails, the massive current spikes characteristic of Wi-Fi initialization combined with the heavy cryptographic processing induced voltage dropouts via the development board's AMS1117-3.3 linear voltage regulator, triggering the ESP32's internal Brownout Detector (BOD).
+
+To rigorously profile and resolve this, power was injected directly into the \texttt{VIN} and \texttt{GND} pins (5V nominal) using a UNI-T UTP1310 Regulated Bench Power Supply, completely bypassing the USB interface. No brownout was reported during this separately profiled bench-supply run. Since standard digital multimeters sample too slowly to accurately capture a transient cryptographic spike, we executed the hybrid handshake in a continuous, infinite execution loop. This forced the ESP32 processor into a sustained, steady-state cryptographic load. Electrical current was then measured during this steady state using a digital multimeter connected in series via a 0.1\,$\Omega$ shunt resistor with a UNI-T UT55 digital multimeter.
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=0.65\columnwidth]{power_lifecycle.png}}
+\caption{Power Consumption Lifecycle of the ESP32}
+\label{fig3}
+\end{figure}
+Fig. \ref{fig3} illustrates the resulting power consumption lifecycle of the ESP32 across the full boot-to-idle sequence. The physically isolated electrical tests revealed a 110 mA peak current spike during the initial Wi-Fi radio calibration boot phase and X25519/ML-KEM-768 key generation. Following successful connection to the WLAN and completion of the handshake, the device entered its telemetry loop. During standard TLS 1.3 telemetry (AES-GCM encryption), the hardware AES accelerator maintains a flat 30 mA. However, during the separately profiled repeated-hybrid-handshake workload, the reported current fluctuated between 30 mA and 70 mA. NTT operations belong to key exchange, not ordinary AES-GCM telemetry.
+
+Table \ref{tab:power} summarizes the comparative electrical profile across the four tested cryptographic modes. To ensure absolute physical isolation and prevent linear regulator dropouts, all current measurements were obtained natively by injecting 5.0V directly into the \texttt{VIN} rail using a UNI-T UTP1310 Regulated Bench Power Supply, with a series shunt and a digital multimeter measuring its voltage drop.
+
+\begin{table*}[htbp]
+\caption{Comparative Electrical Power Profile (Isolated UNI-T UTP1310 Bench Supply, 5.00V)}
+\begin{center}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|c|c|c|l|}
+\hline
+\textbf{Cryptographic Protocol} & \textbf{Idle $I$ (mA)} & \textbf{Peak $I$ (mA)} & \textbf{Window Estimate ($E_{window}$)} & \textbf{Hardware Acceleration} \\
+\hline
+\hline
+\textbf{Classical TLS 1.3 (mbedTLS)} & 55 & 120 & 0.60 J & Partially (Big-Int HW) \\
+\hline
+\textbf{Hybrid TLS 1.3 (wolfSSL)} & 50 & 101 & 0.56 J & Partial (TLS state machine) \\
+\hline
+\textbf{Custom Hybrid PQC (HTTP)} & 60 & 150 & 0.75 J & No (Pure Software NTT) \\
+\hline
+\end{tabular}%
+}
+\label{tab:power}
+\end{center}
+\end{table*}
+
+The manual electrical notes describe workload-dependent current at the 5.00~V input rail. They do not isolate the contribution of NTT arithmetic from Wi-Fi activity or establish negligible incremental energy for X25519. Supplying VIN bypasses the USB supply path; it does not establish that the board's 3.3~V regulator is bypassed. No BOD event was reported during the profiled run. These observations are not battery-life measurements.
+
+\subsection{Multi-Sitting Endurance Evaluation}
+Endurance was not a single 18-hour or 19-hour uninterrupted capture. Active testing totaled 19.00~h ($68{,}381$~s) across four sittings separated by three pauses. Two sittings were short (on the order of two to three hours) at the nominal cadence. One sitting was an uninterrupted 8.10~h window. One sitting used a short interval so that several thousand handshakes completed in a few hours (high-rate stress). Combined wire count: 17,502 TCP SYNs; parser-accepted completed sessions: 14,157 (10,235 custom PQC on :8443, 3,922 Hybrid TLS 1.3 X25519MLKEM768 on :4443). The value 8,640 is only the nominal 15~s $\times$ dual-device schedule arithmetic, not a completed continuous run. The evaluation utilized two concurrently operating devices: an ESP32-D0WD-V3 running the standard Hybrid TLS 1.3 stack (wolfSSL, X25519+ML-KEM-768 on port 4443) and an ESP32-S3 running the custom Hybrid PQC protocol over HTTP on port 8443.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.48\textwidth]{endurance_test.png}
+    \caption{Cumulative throughput and stability of the hybrid post-quantum endurance evaluation across 19.00 active hours (17,502 raw TCP SYNs captured on the wire, 14,157 parser-accepted completed sessions across 4 operational sittings with an 8.10\,h longest continuous window; 8,640 reflects the nominal 15\,s schedule target).}
+    \label{fig:endurance}
+\end{figure}
+
+Across the multi-session endurance campaign, the ESP32 received 17,502 TCP SYNs on the wire, yielding 14,157 parser-accepted completed sessions (validated by payload size and TCP FIN: 10,235 Custom Hybrid PQC on port 8443, 3,922 Hybrid TLS 1.3 on port 4443). Active execution totaled 19.00\,h ($68{,}381$\,s) across four sittings, with the longest continuous test window running 8.10\,h uninterrupted. Three operational pauses occurred: two daytime interruptions for power/network re-establishment and one 5.0\,h overnight bench pause. The nominal schedule of 8,640 sessions represents the theoretical count for an uninterrupted 36-hour run at a 15\,s polling interval, not the completed session tally. The historical report states that no watchdog resets or unhandled exceptions were observed; the original master capture and continuous UART record are unavailable for independent confirmation. Port 4443 executed Hybrid TLS 1.3 (\texttt{X25519MLKEM768} via wolfSSL, not Classical-TLS), while Port 8443 ran Custom Hybrid PQC. The processed CSV describes accepted sessions; it does not establish the success rate of every attempted handshake or the mechanism of recovery across pause boundaries.
+
+\subsection{Physical Power and Window Estimates Validation}
+Due to the unreliability of I2C-based digital power logging at high polling rates on constrained devices, manual current observations were obtained using laboratory instrumentation for fixed-window energy calculations. The ESP32 was isolated on a UNI-T UTP1310 laboratory power supply fixed at 5.00V, with all USB data and debug lines physically detached to eliminate parasitic current. A 0.1\,$\Omega$ shunt resistor was placed in series with the VIN rail, and the voltage drop was measured using a UNI-T UT55 digital multimeter.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.48\textwidth]{energy_bounds.png}
+    \caption{Historical manual current profiles and fixed-window energy estimates at 5.00~V. The plotted upper-bound labels apply only to the stated window and assumed current; these are not $n=100$ campaign maxima.}
+    \label{fig:energy_bounds}
+\end{figure}
+
+The calculation is $E_{window}=V_{rail} I_{assumed} t_{window}$, not a sampled energy measurement. The historical custom-hybrid entry uses 5.00~V, 150~mA and 1.0~s, giving 0.75~J. The hybrid-TLS entry uses 101~mA over 1.1~s, giving 0.556~J; the same worksheet also reports a 142~mA transient, so 0.556~J cannot be treated as an absolute peak bound. Applying 142~mA to that window gives 0.781~J as an assumption-based calculation.
+
+The fresh hybrid campaign reaches \BenchmarkMaxMs~ms, exceeding the historical 1.0~s window. Even maintaining the assumed 150~mA throughout 1.98939~s would give 1.492~J, a calculation rather than a new observation. Slow multimeter sampling cannot certify the true transient maximum. A synchronized voltage/current trace over each complete handshake is required for a measured energy distribution or a defensible campaign-wide upper bound.
+
+\section{Security Evaluation and Threat Matrix}
+
+\subsection{Formal Verification and Replay-Check Boundaries}
+To evaluate the cryptographic soundness of the custom Hybrid PQC protocol, the state machine and cryptographic primitives were modeled using the ProVerif automated theorem prover~\cite{b25}.
+
+Initial modeling revealed a theoretical Responder Replay vulnerability in the original protocol draft: because the server's HMAC signature covered only its own response payload, a Dolev-Yao attacker could intercept and replay a stale server response to a new client session. While ephemeral key generation prevented the attacker from deriving the session key, the client would accept the replayed signature and derive a desynchronized key, resulting in a Denial-of-Service condition.
+
+To eliminate this vulnerability, the protocol was updated to enforce strict transcript binding. The server's HMAC signature now formally includes the client's original challenge parameters:
+\begin{equation}
+MAC_{srv} = \text{HMAC-SHA256}(PSK, C_{hello}^{-} \parallel S_{hello})
+\end{equation}
+Re-evaluating the updated protocol in ProVerif confirmed the modeled security properties under active Dolev-Yao adversaries. The verification engine proved both \texttt{not attacker(secret\_client\_data[]) is true} and \texttt{not attacker(secret\_server\_data[]) is true}, establishing confidentiality of those modeled payload constants under idealized cryptographic operations and an uncompromised private PSK. A separate session-key secrecy query is not encoded. The model does not include concrete GCM nonces, directional replay, memory exposure or post-compromise PSK disclosure. Furthermore, the engine proved \texttt{inj-event(client\_key\_derived(k)) ==> inj-event(server\_key\_derived(k)) is true}, formally confirming injective key agreement and eliminating responder replay attacks via transcript binding.
+
+
+
+\subsection{Formal Security Reductions and IND-CCA2 Security}
+The security of the ML-KEM encapsulation mechanism is formally proven in the Quantum Random Oracle Model (QROM). The construction achieves IND-CCA2 security through a variant of the Fujisaki-Okamoto (FO) transform~\cite{b4,b23}. The implicit rejection mechanism ensures that any modification to the ML-KEM ciphertext $c$ results in the decapsulation function returning a pseudorandom secret, preventing reaction attacks~\cite{b4}.
+
+\subsection{Active MitM Protection via HMAC-SHA256 PSK}
+Without authentication, ephemeral Diffie-Hellman and KEM exchanges are vulnerable to active MitM parameter manipulation. By introducing a 32-byte pre-shared key (PSK) and signing all handshake request/response messages with HMAC-SHA256~\cite{b24,b37}, both parties mutually verify the integrity of the public parameters. Any tampering immediately halts key derivation.
+
+The PSK-based authentication model is suitable for pre-provisioned closed IoT deployments, but not for open Internet-scale enrollment without a secure provisioning infrastructure.
+
+\subsection{Forward Secrecy and Key Rotation}
+The implementation generates ephemeral key material for each handshake and zeroizes selected client buffers after derivation. The PSK authenticates the transcript and is not input entropy to HKDF. This separation supports a forward-secrecy design rationale if ephemeral material is erased and at least one component remains secure. The supplied ProVerif queries assume an uncompromised PSK and do not test later PSK disclosure. Python server objects and all intermediate copies have not been shown to be securely erased. Key rotation after 50 successful telemetry responses limits a session's intended lifetime but does not prove protection after device compromise.
+
+\subsection{Side-Channel Resistance and Watchdog Management}
+The implementation uses reference cryptographic routines and enables hardware AES in its configuration. No timing-leakage experiment, TVLA, DPA or compiled-code constant-time audit is supplied. Avoiding explicit scheduler yields within cryptographic routines does not establish resistance to timing, power or electromagnetic analysis. These properties remain unevaluated~\cite{b18,b40}.
+
+\subsection{Replay Attack Resistance and Nonce Lifecycle}
+To prevent the replay of intercepted telemetry, our protocol incorporates a 4-byte monotonic sequence counter into the 12-byte AES-GCM IV (followed by 8 bytes of hardware TRNG randomness), with GCM security dependent on nonce uniqueness under each key~\cite{b22}. The Client increments this counter for every transmitted packet. The Server extracts the counter from the GCM IV and compares it against the highest counter observed for that Session ID ($C_{\text{recv}} > C_{\text{last}}$), immediately rejecting replayed packets. The server mirrors this counter in its acknowledgment IV and draws a new random suffix. Matching counters alone do not provide direction separation.
+
+In embedded environments, verifying nonce security across device reboots is critical (summarized in Table \ref{tab:lifecycle}). When the ESP32 reboots, its sequence counter resets to zero. However, because every reboot forces a fresh ephemeral X25519 + ML-KEM key exchange, a completely new Session ID and 256-bit session key are established. A fresh session key is intended to separate nonce use across reboots. This depends on fresh entropy and does not remove cross-direction collisions or reflection within a session. Furthermore, because session keys are strictly rotated every 50 packets, the intended 50-response session lifetime is far below the 32-bit sequence-counter range; repeated failed exchanges are not a demonstrated lifetime bound.
+
+\begin{table*}[htbp]
+\caption{IV and Key Lifecycle State Machine}
+\begin{center}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Event} & \textbf{Session Key} & \textbf{Session ID (SID)} & \textbf{GCM Sequence Counter} \\
+\hline
+\hline
+Initial Power-On & Ephemeral (New) & Fresh 16-byte random & Initialized to 0 \\
+\hline
+Normal Packet Tx & Persists & Persists & Increments by 1 ($C_{last} + 1$) \\
+\hline
+Key Rotation (50 pkts) & Ephemeral (New) & Fresh 16-byte random & Resets to 0 \\
+\hline
+Hardware Reboot & Ephemeral (New) & Fresh 16-byte random & Resets to 0 \\
+\hline
+\end{tabular}%
+}
+\label{tab:lifecycle}
+\end{center}
+\end{table*}
+
+\subsection{Diagnostic Log Hardening}
+To prevent physical adversaries from extracting cryptographic parameters via the UART serial interface, the firmware applies diagnostic log discipline. In the current firmware build, no raw shared-secret byte arrays (\texttt{X25519\_ss} or \texttt{ML-KEM\_ss}), ephemeral private keys, or derived session keys are emitted to the serial console.
+
+\subsection{Protocol Robustness and Cryptographic Binding}
+Building the handshake over a plain TCP socket rather than TLS means we had to explicitly handle several attacks that TLS record-layer machinery handles implicitly. Here is how each case is covered:
+
+\textbf{Downgrade attacks:} The mode byte (Classical = 0, PQC = 1, Hybrid = 2) is included inside the HMAC-authenticated region of the request payload. An attacker who rewrites the mode byte in transit will break the HMAC tag, and the server immediately aborts. There is no fallback negotiation.
+
+\textbf{Reflection attacks and directional keys:} The client and server compute their handshake HMAC tags over distinct parameter sets (the client signs its own public keys; the server signs the Session ID + response keys + client parameters), preventing handshake message reflection. For subsequent telemetry, both transmission directions share the same session key ($k_s$). This leaves residual directional reflection and cross-direction replay risks: a counter does not bind a message to its sending role, and the client expects the counter used in its request. No directional traffic-key derivation or authenticated direction label is implemented. These limitations are not resolved by the symbolic model.
+
+\textbf{Handshake replay:} The server generates the 16-byte Session ID with Python's \texttt{secrets.token\_bytes(16)}, using the operating system CSPRNG. It is not generated by the ESP32 TRNG. Transcript authentication binds the server response to the client's current request. No campaign-wide Session ID collision study is claimed; fresh identifiers alone do not authenticate a transcript.
+
+\textbf{PSK compromise:} If an attacker learns the PSK, they can impersonate a node during the handshake. Recovery of past keys additionally depends on the security of the ephemeral exchange and actual erasure of historical secrets, neither of which is tested under PSK disclosure in the supplied model. This is a limitation of symmetric PSK authentication. A production design would require private credential provisioning and protection. Secure Boot V2 verifies signed firmware~\cite{b44}; it does not by itself provide application-PSK confidentiality. Secure provisioning, storage protection and firmware integrity must be evaluated separately.
+
+\textbf{GCM IV construction and telemetry integrity:} Telemetry payload encryption utilizes AES-256-GCM~\cite{b22,b29,b35,b30} without AAD (no AAD is passed to the cipher); replay prevention and packet ordering are enforced because the 4-byte monotonic sequence counter lives directly in the 12-byte GCM IV, concatenated with 8 bytes of hardware TRNG randomness ($IV = \text{Counter}_{32} \parallel \text{Random}_{64}$). The receiver rejects any packet whose sequence counter fails to strictly advance ($C_{\text{recv}} \leq C_{\text{last}}$), and any in-transit tampering with the ciphertext or IV breaks the 16-byte GCM authentication tag, causing immediate rejection.
+
+\textbf{Device reset:} A hardware reboot forces a full fresh handshake. The sequence counter resets to zero under a brand-new session key, with the intended protection depending on fresh key generation. Direction separation remains an open limitation.
+
+\subsection{Scope and Experimental Validation}
+The evidence comprises distinct acquisition campaigns, implementation artifacts and derived calculations. They must not be interpreted as a single controlled experiment:
+\begin{enumerate}
+\item \textbf{Timing.} The hybrid campaign has 100 records, while the primitive trace has 50 key-generation and 49 decapsulation/ECDH measurements. The firmware's printed aggregate used integer-truncated latencies and population SD; the revised table instead recomputes sample statistics from the raw two-decimal records. The observed spread includes the full recorded tail.
+\item \textbf{Memory and electrical evidence.} The 13.8~KB profile is independent of the campaign's sparse heap snapshots. Electrical energy entries are calculations over stated windows from manual current notes, not integrated traces.
+\item \textbf{Security.} Self-consistency tests and archived symbolic results do not constitute NIST validation, empirical side-channel certification, or proof against live memory extraction. The documented public evaluation PSK must be replaced with private provisioned credentials before any security deployment.
+\end{enumerate}
+
+Table \ref{tab:threats} consolidates the threat model and mitigation mapping for the full protocol.
+
+\begin{table}[htbp]
+\caption{Security threat matrix and evidence boundaries.}
+\centering\small
+\begin{tabularx}{\columnwidth}{lX}
+\toprule
+Threat & Scope of mitigation\\
+\midrule
+Quantum ECDLP attack & Depends on ML-KEM hardness and hybrid assumptions\\
+Lattice cryptanalysis & Classical protection depends on X25519 hardness\\
+HNDL capture & Conditional on cryptographic assumptions and secret erasure\\
+Timing side-channel & Not empirically evaluated\\
+GCM forgery & Requires nonce uniqueness; direction limitation remains\\
+Memory dump & Selected client-buffer zeroization only\\
+Active MitM & Transcript HMAC under a private PSK\\
+Replay & Counter checks; directional reflection remains\\
+\bottomrule
+\end{tabularx}
+\label{tab:threats}
+\end{table}
+
+\section{Conclusion}
+The archived implementation demonstrates hybrid X25519 and ML-KEM-768 key exchange on a physical ESP32 alongside FreeRTOS and Wi-Fi. Reanalysis of 100 logged handshakes gives a mean instrumented latency of \BenchmarkMeanMs~ms, sample SD of \BenchmarkSdMs~ms and 95\% confidence interval of \BenchmarkLowMs~to~\BenchmarkHighMs~ms. The broader elapsed CCOUNT interval averages \BenchmarkCyclesM{} million cycles. These results describe one board and one campaign, with no excluded outliers.
+
+Independent heap profiling reported 13.8~KB, separate from the campaign and the configured 32~KiB task stack. The available snapshots do not establish a transient maximum. The archived watchdog-reset errors are disclosed; the later harness corrections have not been physically validated by those observations. The retained implementation also has a directional-telemetry limitation and no empirical side-channel characterization. Its value is an inspectable embedded research prototype; further controlled memory, energy and security validation is needed before a production-readiness claim.
+
+\section*{Data and Code Availability}
+The original measurement artifacts are preserved at source commit \nolinkurl{467bbe7a3c5a718d4eec7c882bc00f042487304d} of \url{https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange}. The historical tag \texttt{v2.1-mlkem768-final} was subsequently moved to \nolinkurl{670448651276740e0d58931f388ca32035cb6245}; commit hashes identify the exact versions. The previously submitted JSA manuscript and its evidence package remain preserved at \url{https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/releases/tag/v2.2.3-jsa-submission}, source commit \nolinkurl{9ff00b50744ef2d8195afb94449bd25537d8c910}. This supplementary analysis is preserved alongside the software article at source commit \nolinkurl{\ArtifactCommit}, archive \url{\ArtifactRelease}. It is not a file from the historical JSA release. The package records each file's SHA-256 digest and distinguishes preserved measurements from generated analyses. The recorded firmware version in the original boot log is \texttt{v2.0-mlkem768-final-6-g45d5f57-}, with a truncated ELF digest; an exact binary-to-source mapping is not available. No new hardware execution of the corrected commit is implied.
+
+The tests use fixed-seed and randomized self-consistency checks, not an externally certified NIST KAT suite. Files in \texttt{data/sanitized\_pcaps/} are synthetic Scapy illustrations. The endurance CSV is available, but the original master wire-capture log referenced by its parser is absent from the supplied release.
+
+
+\section*{Author Contributions}
+Hafiz Ali Mansoor Elahi: Conceptualization, Methodology, Supervision, Validation.
+Muhammad Sohaim Muqtada: Software, Investigation, Data curation.
+
+\section*{Funding}
+This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.
+
+\section*{Declaration of Competing Interests}
+Hafiz Ali Mansoor Elahi is a co-founder of Promaker Institute, his stated institutional affiliation. The authors declare no competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+
+\section*{Declaration of Generative AI and AI-Assisted Technologies in the Manuscript Preparation Process}
+During preparation of this manuscript, the authors used OpenAI Codex to assist with evidence consistency checks, reproducible statistical analysis, code and documentation corrections, and manuscript editing. After using this tool, the authors reviewed and edited the content as needed and take full responsibility for the content of the published article. No hardware measurements were generated by AI.
+
+\begin{thebibliography}{00}
+\setlength{\itemsep}{0.5pt}
+\setlength{\parskip}{0pt}
+\bibitem{b5} D. J. Bernstein, ``Curve25519: New Diffie-Hellman speed records,'' in \textit{PKC 2006}, LNCS 3958, pp. 207~to~228, doi: 10.1007/11745853\_14. [Online]. Available: \url{https://doi.org/10.1007/11745853_14}
+\bibitem{b19} A. Langley, M. Hamburg, and S. Turner, ``Elliptic Curves for Security,'' RFC 7748, Jan. 2016, doi: 10.17487/RFC7748. [Online]. Available: \url{https://www.rfc-editor.org/rfc/rfc7748}
+\bibitem{b1} P. W. Shor, ``Algorithms for quantum computation: discrete logarithms and factoring,'' in \textit{Proc. 35th FOCS}, 1994, pp. 124~to~134, doi: 10.1109/SFCS.1994.365700. [Online]. Available: \url{https://doi.org/10.1109/SFCS.1994.365700}
+\bibitem{b27} L. Chen \textit{et al.}, ``Report on Post-Quantum Cryptography,'' NIST IR 8105, 2016, doi: 10.6028/NIST.IR.8105. [Online]. Available: \url{https://doi.org/10.6028/NIST.IR.8105}
+\bibitem{b10} M. Mosca, ``Cybersecurity in an era with quantum computers: Will we be ready?,'' \textit{IEEE Security \& Privacy}, vol. 16, no. 5, pp. 38~to~41, 2018, doi: 10.1109/MSP.2018.3761723. [Online]. Available: \url{https://doi.org/10.1109/MSP.2018.3761723}
+\bibitem{b39} D. Moody \textit{et al.}, ``Transition to Post-Quantum Cryptography Standards,'' NIST IR 8547 (Initial Public Draft), Nov. 2024, doi: 10.6028/NIST.IR.8547.ipd. [Online]. Available: \url{https://doi.org/10.6028/NIST.IR.8547.ipd}
+\bibitem{b2} NIST, ``FIPS 203: Module-Lattice-Based Key-Encapsulation Mechanism Standard,'' Aug. 2024, doi: 10.6028/NIST.FIPS.203. [Online]. Available: \url{https://doi.org/10.6028/NIST.FIPS.203}
+\bibitem{b15} G. Alagic \textit{et al.}, ``Status Report on the Third Round of the NIST Post-Quantum Cryptography Standardization Process,'' NIST IR 8413, 2022, doi: 10.6028/NIST.IR.8413. [Online]. Available: \url{https://doi.org/10.6028/NIST.IR.8413}
+\bibitem{b8} N. Bindel, J. Brendel, M. Fischlin, B. Goncalves, and D. Stebila, ``Hybrid key encapsulation mechanisms and authenticated key exchange,'' in \textit{PQCrypto 2019}, LNCS 11505, pp. 206~to~226, doi: 10.1007/978-3-030-25510-7\_12. [Online]. Available: \url{https://doi.org/10.1007/978-3-030-25510-7_12}
+\bibitem{b9} G. Alagic \textit{et al.}, ``Recommendations for Key-Encapsulation Mechanisms,'' NIST SP 800-227, 2025, doi: 10.6028/NIST.SP.800-227. [Online]. Available: \url{https://doi.org/10.6028/NIST.SP.800-227}
+\bibitem{b41} M. Barbosa, D. Connolly, J. D. Duarte, A. Kaiser, P. Schwabe, K. Varner, and B. Westerbaan, ``X-Wing: The Hybrid KEM You've Been Looking For,'' IACR Cryptology ePrint Archive, Paper 2024/039, revised Mar. 2025, doi: 10.62056/a3qj89n4e. [Online]. Available: \url{https://eprint.iacr.org/2024/039}
+\bibitem{b11} K. B{\"u}rstinghaus-Steinbach, C. Krau{\ss}, R. Niederhagen, and M. Schneider, ``Post-quantum TLS on embedded systems: Integrating and evaluating Kyber and SPHINCS+ with mbed TLS,'' in \textit{Proc. ACM ASIACCS}, 2020, pp. 841~to~852, doi: 10.1145/3320269.3384725. [Online]. Available: \url{https://doi.org/10.1145/3320269.3384725}
+\bibitem{b42} J. Blanco-Romero, Y. M. Garcia-Nino, F. Almenares Mendoza, D. Diaz-Sanchez, C. Garcia-Rubio, and C. Campo, ``Post-Quantum Entropy as a Service for Embedded Systems,'' arXiv preprint arXiv:2603.10274v1, Mar. 2026, doi: 10.48550/arXiv.2603.10274. [Online]. Available: \url{https://arxiv.org/abs/2603.10274v1}
+\bibitem{b6} L. Botros, M. J. Kannwischer, and P. Schwabe, ``Memory-efficient high-speed implementation of Kyber on Cortex-M4,'' in \textit{AFRICACRYPT 2019}, LNCS 11627, pp. 209~to~228, doi: 10.1007/978-3-030-23696-0\_11. [Online]. Available: \url{https://doi.org/10.1007/978-3-030-23696-0_11}
+\bibitem{b12} A. Abdulrahman, V. Hwang, M. J. Kannwischer, and A. Sprenkels, ``Faster Kyber and Dilithium on the Cortex-M4,'' in \textit{ACNS 2022}, LNCS 13269, pp. 853~to~871, doi: 10.1007/978-3-031-09234-3\_42. [Online]. Available: \url{https://doi.org/10.1007/978-3-031-09234-3_42}
+\bibitem{b14} P. Schwabe, D. Stebila, and T. Wiggers, ``Post-quantum TLS without handshake signatures,'' in \textit{Proc. ACM CCS}, 2020, pp. 1461~to~1480, doi: 10.1145/3372297.3423350. [Online]. Available: \url{https://doi.org/10.1145/3372297.3423350}
+\bibitem{b3} O. Regev, ``On lattices, learning with errors, random linear codes, and cryptography,'' \textit{J. ACM}, vol. 56, no. 6, pp. 1~to~40, 2009, doi: 10.1145/1568318.1568324. [Online]. Available: \url{https://doi.org/10.1145/1568318.1568324}
+\bibitem{b13} J. Huang \textit{et al.}, ``Yet another improvement of Plantard arithmetic for faster Kyber on low-end 32-bit IoT devices,'' \textit{IEEE Trans. Inf. Forensics Security}, vol. 19, pp. 3800~to~3813, 2024, doi: 10.1109/TIFS.2024.3371369. [Online]. Available: \url{https://doi.org/10.1109/TIFS.2024.3371369}
+\bibitem{b26} V. Lyubashevsky, C. Peikert, and O. Regev, ``On ideal lattices and learning with errors over rings,'' in \textit{EUROCRYPT 2010}, LNCS 6110, pp. 1~to~23, doi: 10.1007/978-3-642-13190-5\_1. [Online]. Available: \url{https://doi.org/10.1007/978-3-642-13190-5_1}
+\bibitem{b28} R. Avanzi \textit{et al.}, ``CRYSTALS-Kyber algorithm specifications and supporting documentation (version 3.02),'' NIST PQC Round 3, 2021. [Online]. Available: \url{https://pq-crystals.org/kyber/data/kyber-specification-round3-20210804.pdf}
+\bibitem{b31} F. Driscoll, M. Parsons, and B. Hale, ``Terminology for Post-Quantum Traditional Hybrid Schemes,'' RFC 9794, Jun. 2025, doi: 10.17487/RFC9794. [Online]. Available: \url{https://www.rfc-editor.org/rfc/rfc9794}
+\bibitem{b32} R. Barnes, K. Bhargavan, B. Lipp, and C. Wood, ``Hybrid Public Key Encryption,'' RFC 9180, Feb. 2022, doi: 10.17487/RFC9180. [Online]. Available: \url{https://www.rfc-editor.org/rfc/rfc9180}
+\bibitem{b16} K. Kwiatkowski, P. Kampanakis, B. E. Westerbaan, and D. Stebila, ``Post-Quantum Traditional (PQ/T) Hybrid Key Agreement Mechanisms for TLS 1.3,'' RFC 10024, Aug. 2026, doi: 10.17487/RFC10024. [Online]. Available: \url{https://www.rfc-editor.org/rfc/rfc10024}
+\bibitem{b17} D. Stebila, S. Fluhrer, and S. Gueron, ``Hybrid Key Exchange in TLS 1.3,'' RFC 9954, Jul. 2026, doi: 10.17487/RFC9954. [Online]. Available: \url{https://www.rfc-editor.org/rfc/rfc9954}
+\bibitem{b21} E. Rescorla, ``The Transport Layer Security (TLS) Protocol Version 1.3,'' RFC 8446, Aug. 2018, doi: 10.17487/RFC8446. [Online]. Available: \url{https://www.rfc-editor.org/rfc/rfc8446}
+\bibitem{b34} C. Paquin, D. Stebila, and G. Tamvada, ``Benchmarking post-quantum cryptography in TLS,'' in \textit{PQCrypto 2020}, LNCS 12100, pp. 72~to~91, doi: 10.1007/978-3-030-44223-1\_5. [Online]. Available: \url{https://doi.org/10.1007/978-3-030-44223-1_5}
+\bibitem{b38} D. Sikeridis, P. Kampanakis, and M. Devetsikiotis, ``Post-Quantum Authentication in TLS 1.3: A Performance Study,'' in \textit{Proc. NDSS}, 2020, doi: 10.14722/ndss.2020.24203. [Online]. Available: \url{https://doi.org/10.14722/ndss.2020.24203}
+\bibitem{b7} M. J. Kannwischer, J. Rijneveld, P. Schwabe, and K. Stoffelen, ``pqm4: Testing and Benchmarking NIST PQC on ARM Cortex-M4,'' IACR ePrint 2019/844. [Online]. Available: \url{https://eprint.iacr.org/2019/844}
+\bibitem{b4} J. Bos \textit{et al.}, ``CRYSTALS-Kyber: A CCA-secure module-lattice-based KEM,'' in \textit{Proc. IEEE EuroS\&P}, 2018, pp. 353~to~367, doi: 10.1109/EuroSP.2018.00032. [Online]. Available: \url{https://doi.org/10.1109/EuroSP.2018.00032}
+\bibitem{b23} E. Fujisaki and T. Okamoto, ``Secure integration of asymmetric and symmetric encryption schemes,'' in \textit{CRYPTO '99}, LNCS 1666, pp. 537~to~554, doi: 10.1007/3-540-48405-1\_34. [Online]. Available: \url{https://doi.org/10.1007/3-540-48405-1_34}
+\bibitem{b20} H. Krawczyk and P. Eronen, ``HMAC-based Extract-and-Expand Key Derivation Function (HKDF),'' RFC 5869, May 2010, doi: 10.17487/RFC5869. [Online]. Available: \url{https://www.rfc-editor.org/rfc/rfc5869}
+\bibitem{b33} E. Barker, L. Chen, and R. Davis, ``Recommendation for Key-Derivation Methods in Key-Establishment Schemes,'' NIST SP 800-56C Rev. 2, 2020, doi: 10.6028/NIST.SP.800-56Cr2. [Online]. Available: \url{https://doi.org/10.6028/NIST.SP.800-56Cr2}
+\bibitem{b36} NIST, ``FIPS 180-4: Secure Hash Standard (SHS),'' 2015, doi: 10.6028/NIST.FIPS.180-4. [Online]. Available: \url{https://doi.org/10.6028/NIST.FIPS.180-4}
+\bibitem{b22} M. Dworkin, ``Recommendation for Block Cipher Modes of Operation: Galois/Counter Mode (GCM) and GMAC,'' NIST SP 800-38D, 2007, doi: 10.6028/NIST.SP.800-38D. [Online]. Available: \url{https://doi.org/10.6028/NIST.SP.800-38D}
+\bibitem{b29} D. McGrew and J. Viega, ``The security and performance of the Galois/Counter Mode (GCM) of operation,'' in \textit{INDOCRYPT 2004}, LNCS 3348, pp. 343~to~355, doi: 10.1007/978-3-540-30556-9\_27. [Online]. Available: \url{https://doi.org/10.1007/978-3-540-30556-9_27}
+\bibitem{b35} D. McGrew, ``An Interface and Algorithms for Authenticated Encryption,'' RFC 5116, Jan. 2008, doi: 10.17487/RFC5116. [Online]. Available: \url{https://www.rfc-editor.org/rfc/rfc5116}
+\bibitem{b30} NIST, ``FIPS 197: Advanced Encryption Standard (AES),'' Nov. 2001, doi: 10.6028/NIST.FIPS.197. [Online]. Available: \url{https://doi.org/10.6028/NIST.FIPS.197}
+\bibitem{b43} Espressif Systems, ``Random Number Generation,'' ESP-IDF Programming Guide v5.5, accessed Oct. 5, 2026. [Online]. Available: \url{https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/api-reference/system/random.html}
+\bibitem{b25} B. Blanchet, ``An efficient cryptographic protocol verifier based on Prolog rules,'' in \textit{Proc. 14th IEEE CSFW}, 2001, pp. 82~to~96, doi: 10.1109/CSFW.2001.930138. [Online]. Available: \url{https://doi.org/10.1109/CSFW.2001.930138}
+\bibitem{b24} H. Krawczyk, M. Bellare, and R. Canetti, ``HMAC: Keyed-Hashing for Message Authentication,'' RFC 2104, Feb. 1997, doi: 10.17487/RFC2104. [Online]. Available: \url{https://www.rfc-editor.org/rfc/rfc2104}
+\bibitem{b37} NIST, ``FIPS 198-1: The Keyed-Hash Message Authentication Code (HMAC),'' 2008, doi: 10.6028/NIST.FIPS.198-1. [Online]. Available: \url{https://doi.org/10.6028/NIST.FIPS.198-1}
+\bibitem{b18} P. Ravi, S. Sinha Roy, A. Chattopadhyay, and S. Bhasin, ``Generic side-channel attacks on CCA-secure lattice-based PKE and KEMs,'' \textit{IACR TCHES}, vol. 2020, no. 3, pp. 307~to~335, 2020, doi: 10.13154/tches.v2020.i3.307-335. [Online]. Available: \url{https://doi.org/10.13154/tches.v2020.i3.307-335}
+\bibitem{b40} D. J. Bernstein \textit{et al.}, ``KyberSlash: Exploiting secret-dependent division timings in Kyber implementations,'' \textit{IACR TCHES}, vol. 2025, no. 2, pp. 209~to~234, doi: 10.46586/tches.v2025.i2.209-234. [Online]. Available: \url{https://doi.org/10.46586/tches.v2025.i2.209-234}
+\bibitem{b44} Espressif Systems, ``Secure Boot v2,'' ESP-IDF Programming Guide v5.5, accessed Oct. 5, 2026. [Online]. Available: \url{https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/security/secure-boot-v2.html}
+\end{thebibliography}
+
+\end{document}

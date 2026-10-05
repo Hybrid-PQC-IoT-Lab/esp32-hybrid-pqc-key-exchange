@@ -191,8 +191,22 @@ The overall system architecture is illustrated in Fig. \ref{fig1}, detailing the
 \end{figure}
 
 \begin{figure}[htbp]
-\centerline{\includegraphics[width=0.65\columnwidth]{handshake_sequence.png}}
-\caption{Authenticated hybrid X25519/ML-KEM-768 handshake over TCP, showing public-parameter authentication, server encapsulation, HKDF binding, and AES-GCM telemetry activation.}
+\centering
+\small
+\begin{tabularx}{\columnwidth}{@{}X@{}}
+\toprule
+\textbf{ESP32 client and Python server}\\
+\midrule
+Client: generate ephemeral X25519 and ML-KEM-768 keypairs.\\[3pt]
+Client $\longrightarrow$ Server: POST /handshake with the 1,249-byte ClientHello and its PSK HMAC.\\[3pt]
+Server: verify the client HMAC, generate an ephemeral X25519 keypair and Session ID, encapsulate ML-KEM-768, and derive the session key with HKDF-SHA256.\\[3pt]
+Server $\longrightarrow$ Client: HTTP 200 with the 1,168-byte ServerHello and transcript HMAC.\\[3pt]
+Client: verify the transcript HMAC, derive the X25519 and ML-KEM shared secrets, and apply HKDF-SHA256.\\[3pt]
+Client $\longrightarrow$ Server: POST /api/telemetry with the Session ID, IV, AES-GCM ciphertext and tag.\\[3pt]
+Server $\longrightarrow$ Client: authenticated AES-GCM acknowledgement.\\
+\bottomrule
+\end{tabularx}
+\caption{Implemented hybrid handshake and subsequent telemetry exchange. There is no separate ClientFinished message; valid telemetry provides the server with evidence of the client's derived key.}
 \label{fig2}
 \end{figure}
 

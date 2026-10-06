@@ -1,6 +1,6 @@
 {
   "source": "power_energy_calculations.csv",
-  "sha256": "43d87945d5315c602ef10fcb89ee82df4edf574a95618ec79e61286e1554a30e",
+  "sha256": "d0632525dfd7610de105fa006f0dd4f36df8db6cf4e5f54dbdddd54dc1c71b0d",
   "estimates": [
     {
       "mode": "Classical TLS 1.3",

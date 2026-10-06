@@ -43,6 +43,13 @@ def main():
     check=subprocess.run([os.sys.executable,str(source/'tools/analyze_submission.py'),'--check'],stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
     (validation/'historical_statistics_check.txt').write_bytes(check.stdout)
     if check.returncode:raise RuntimeError('Historical statistics check failed')
+    for script,input_name,result_name in [('tools/summarize_endurance_csv.py','endurance_summary.csv','endurance_recount.json'),('benchmarks/energy_calculation.py','power_energy_calculations.csv','electrical_window_estimates.json')]:
+        generated=json.loads(subprocess.check_output([os.sys.executable,str(source/script),'--input',str(source/'docs/evidence'/input_name)]))
+        stored=json.loads((source/'docs/evidence'/result_name).read_text())
+        if generated!=stored:raise ValueError('Generated evidence result mismatch: '+result_name)
+    host=subprocess.run([os.sys.executable,'-m','unittest','tests.test_evidence_analysis','tests.test_submission_fixes','tests.crypto_correctness_tests.test_crypto.TestX25519RFC7748Rejection'],cwd=source,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+    (validation/'focused_host_checks.txt').write_bytes(host.stdout)
+    if host.returncode:raise RuntimeError('Focused host checks failed')
     compiler_record=None
     if args.compiler_evidence:
         compiler_record=json.loads((source/'docs/evidence/CORRECTED_BUILD_PROVENANCE.json').read_text())

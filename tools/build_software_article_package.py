@@ -18,6 +18,7 @@ def main():
     ap.add_argument('--output',type=Path,required=True)
     ap.add_argument('--repository',required=True)
     ap.add_argument('--tag',required=True)
+    ap.add_argument('--compiler-evidence',type=Path)
     args=ap.parse_args()
     commit=git('rev-parse',args.commit+'^{commit}').decode().strip()
     out=args.output.resolve()
@@ -42,6 +43,20 @@ def main():
     check=subprocess.run([os.sys.executable,str(source/'tools/analyze_submission.py'),'--check'],stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
     (validation/'historical_statistics_check.txt').write_bytes(check.stdout)
     if check.returncode:raise RuntimeError('Historical statistics check failed')
+    compiler_record=None
+    if args.compiler_evidence:
+        compiler_record=json.loads((source/'docs/evidence/CORRECTED_BUILD_PROVENANCE.json').read_text())
+        data=args.compiler_evidence.read_bytes()
+        if sha(data)!=compiler_record['archive_sha256']:raise ValueError('Compiler archive digest mismatch')
+        compiled_commit=compiler_record['source_commit']
+        for subtree in ('firmware','server'):
+            if git('rev-parse',commit+':'+subtree)!=git('rev-parse',compiled_commit+':'+subtree):raise ValueError('Compiler source tree mismatch: '+subtree)
+        with zipfile.ZipFile(io.BytesIO(data)) as z:
+            for rec in compiler_record['verified_artifacts']:
+                names=[n for n in z.namelist() if n.endswith('/'+rec['path'])]
+                if len(names)!=1 or sha(z.read(names[0]))!=rec['sha256']:raise ValueError('Compiler artifact mismatch')
+        (validation/'esp32-idf55-compiler-artifacts.zip').write_bytes(data)
+        (validation/'compiler-verification.json').write_text(json.dumps(compiler_record,indent=2)+'\n')
     pdf=out/'pdf';pdf.mkdir()
     env=os.environ.copy();env['SOURCE_DATE_EPOCH']=git('show','-s','--format=%ct',commit).decode().strip()
     for tex,cwd,name in [('research_paper.tex',source/'docs','01_Manuscript.pdf'),('extended_technical_analysis.tex',source/'docs/submission','S1_Extended_Technical_Analysis.pdf')]:
@@ -49,7 +64,7 @@ def main():
         (validation/(Path(tex).stem+'_build.log')).write_bytes(build.stdout)
         if build.returncode:raise RuntimeError('Compile failed: '+tex)
         (pdf/name).write_bytes((pdf/(Path(tex).stem+'.pdf')).read_bytes())
-    provenance={'source_commit':commit,'measurement_source_commit':BASE,'repository':args.repository,'candidate_release_tag':args.tag,'status':'consistency revision; earlier submitted snapshot preserved; no replacement uploaded','hardware_execution':'no new execution during revision preparation; archived physical observations retained','preserved_historical_files':preserved,'generated_files':['source/docs/artifact_identity.tex','pdf/','validation/','BUILD_PROVENANCE.json','MANIFEST_SHA256.json'],'source_export':'git archive; generated artifact_identity.tex identifies the exact frozen source, not the historical flashed binary'}
+    provenance={'source_commit':commit,'measurement_source_commit':BASE,'repository':args.repository,'candidate_release_tag':args.tag,'status':'consistency revision; earlier submitted snapshot preserved; no replacement uploaded','hardware_execution':'no new execution during revision preparation; archived physical observations retained','preserved_historical_files':preserved,'generated_files':['source/docs/artifact_identity.tex','pdf/','validation/','BUILD_PROVENANCE.json','MANIFEST_SHA256.json'],'corrected_compiler_evidence':compiler_record,'source_export':'git archive; generated artifact_identity.tex identifies the exact frozen source, not the historical flashed binary'}
     (out/'BUILD_PROVENANCE.json').write_text(json.dumps(provenance,indent=2)+'\n',encoding='utf8')
     (out/'README.md').write_text('# Supplementary Material S2\n\nFrozen source, historical evidence and reproduction scripts for the ESP32 software article.\nStart with source/docs/reproduction_steps.md and docs/submission/COMNET_READINESS.md.\nNo new hardware data were created. Historical raw evidence bytes were checked against their source commit.\nThe exact source commit and file hashes are recorded in BUILD_PROVENANCE.json and MANIFEST_SHA256.json.\n',encoding='utf8')
     records=[{'path':p.relative_to(out).as_posix(),'bytes':p.stat().st_size,'sha256':sha(p.read_bytes())} for p in sorted(out.rglob('*')) if p.is_file()]

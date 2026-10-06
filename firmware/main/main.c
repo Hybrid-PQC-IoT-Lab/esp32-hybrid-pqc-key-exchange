@@ -15,7 +15,6 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/event_groups.h"
-#include "esp_task_wdt.h"
 
 #include "esp_system.h"
 #include "esp_random.h"
@@ -281,11 +280,15 @@ static void pqc_task(void *pvParameters) {
 
     /* Run the formal End-to-End Hybrid Handshake Campaign (n=100) */
     benchmark_stats_t hybrid_stats;
-    benchmark_run_campaign(MODE_HYBRID, 100, server_ip, SERVER_PORT, &hybrid_stats);
+    if (benchmark_run_campaign(MODE_HYBRID, 100, server_ip, SERVER_PORT, &hybrid_stats) != 0) {
+        ESP_LOGW(TAG, "Campaign incomplete: inspect per-attempt failures before using its results");
+    }
+    ESP_LOGI(TAG, "pqc_task configured stack: 32768 bytes; minimum free stack: %u bytes",
+             (unsigned int)uxTaskGetStackHighWaterMark(NULL));
 
-    /* Now run continuous hybrid telemetry (15s interval) */
+    /* Now run continuous hybrid telemetry (5s interval) */
     ESP_LOGI(TAG, "");
-    ESP_LOGI(TAG, "=== Starting continuous hybrid telemetry (15s interval) ===");
+    ESP_LOGI(TAG, "=== Starting continuous hybrid telemetry (5s interval) ===");
 
     int ret;
     while (1) {
@@ -293,7 +296,7 @@ static void pqc_task(void *pvParameters) {
         /* Initialize context based on mode */
         hybrid_init(&ctx, MODE_HYBRID);
 
-        esp_task_wdt_reset(); /* Feed TWDT without yielding context */
+        /* This task is not subscribed to TWDT; outer-loop delays allow idle tasks to run. */
         /* Keygen */
         ret = hybrid_keygen(&ctx);
         if (ret != 0) {

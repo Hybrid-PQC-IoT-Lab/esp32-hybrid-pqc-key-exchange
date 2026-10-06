@@ -1,9 +1,9 @@
 # Memory Footprint and Allocation Analysis
 
-This document provides empirical evidence and breakdown of static flash, SRAM data/BSS, RTOS stack, and dynamic heap consumption for the ML-KEM-768 + X25519 hybrid PQC implementation on the ESP32-D0WD-V3 @ 160 MHz.
+This historical note reports a breakdown of static flash, SRAM data/BSS, RTOS stack, and dynamic heap consumption for the ML-KEM-768 + X25519 hybrid PQC implementation on the ESP32-D0WD-V3 @ 160 MHz.
 
 ## 1. Static Binary Footprint (Xtensa ELF Analysis)
-Extracted via `xtensa-esp32-elf-size -A firmware/build/esp32_hybrid_pqc.elf`:
+**Provenance limit:** The original ELF, map and complete size-tool output are absent; the following values are preserved as reported and are not verified sizes of the corrected firmware. Reported extraction command: `xtensa-esp32-elf-size -A firmware/build/esp32_hybrid_pqc.elf`:
 
 | Memory Region / Section | Section Name | Size (Bytes) | Size (KB) | Description |
 |---|---|---|---|---|
@@ -32,19 +32,21 @@ Extracted via `xtensa-esp32-elf-size -A firmware/build/esp32_hybrid_pqc.elf`:
 | **Total `libmlkem768`** | **13,017 B (~12.7 KB)** | **0 B** | **0 B** | **Zero static RAM footprint** |
 
 ## 2. Stack Allocation
-- Dedicated RTOS Task Stack (`pqc_task`): **32 KB (32,768 bytes)** (configured in `main.c` line 462 via `xTaskCreatePinnedToCore(..., 32768, ...)`).
-- High water mark observed during nested NTT and Keccak operations: ~9.2 KB peak, leaving >22.8 KB safety margin against stack overflow.
+- Dedicated RTOS Task Stack (`pqc_task`): **32 KiB (32,768 bytes)** (configured in `firmware/main/main.c` via `xTaskCreatePinnedToCore(..., 32768, ...)`).
+- Measured stack high-water mark: unavailable in the supplied logs. The earlier 9.2 KB usage / 22.8 KB headroom claim is not independently supported. The corrected firmware logs the FreeRTOS stack high-water mark for a future physical rerun.
 
 ## 3. Dynamic Heap Footprint
-Measured on real hardware via FreeRTOS `esp_get_free_heap_size()`:
+**Separate reported profile, not the n=100 campaign.** The source note reports snapshots via `esp_get_free_heap_size()`. The UART excerpt `data/raw_logs/custom_pqc_usb_serial.txt` contains only `heap after 196736`; the full baseline/peak/recovery trace is absent. These values do not independently establish a transient peak:
 
 | Stage | Free Heap (Bytes) | Delta (Heap Allocated) |
 |---|---|---|
 | Baseline (Wi-Fi connected, idle) | 210,536 B | 0 KB |
-| Peak Handshake Allocation | 196,736 B | **13.8 KB (13,800 B)** |
-| Post-Handshake Cleanup (`hybrid_cleanup`) | 210,536 B | 0 KB (100% recovered) |
+| Reported Handshake Allocation | 196,736 B | **13.8 KB (13,800 B)** |
+| Post-Handshake Cleanup (`hybrid_cleanup`) | 210,536 B | 0 KB (reported; recovery trace absent) |
 
-### Breakdown of Peak Heap:
+### Historical allocation estimate (not measured per object)
+
+The local `hybrid_ctx_t` and message arrays are stack objects, so the following old itemization must not be summed as a verified heap allocation. It is retained for traceability only:
 1. `hybrid_ctx_t` context: 3,760 B
    - ML-KEM-768 secret key: 2,400 B
    - ML-KEM-768 public key: 1,184 B
@@ -53,9 +55,13 @@ Measured on real hardware via FreeRTOS `esp_get_free_heap_size()`:
 2. Network Send & Receive Buffers: ~5,120 B (1,249 B HTTP request + 1,168 B HTTP response + framing)
 3. Transcript Authentication Buffer: ~2,500 B (HMAC-SHA256 transcript verification)
 4. FreeRTOS & HTTP Client Overhead: ~2,420 B
-- **Total Peak Heap**: **13.8 KB**
+- **Separately reported heap allocation**: **13.8 KB**
 
-### Comparison with Baselines:
+### Separately reported profiles
+
+Sampling windows are not matched; ratios are arithmetic comparisons of reported values, not demonstrated peak-memory savings.
 - **Our Hybrid Protocol (X25519 + ML-KEM-768)**: **13.8 KB**
 - **Standard mbedTLS (TLS 1.3 with X.509 ECDHE-ECDSA)**: **49.0 KB** ($3.55\times$ higher)
 - **Hybrid TLS 1.3 (wolfSSL with X25519MLKEM768)**: **38.5 KB** ($2.79\times$ higher)
+
+The n=100 CSV field `peak_heap_bytes` is a legacy name for a sparse snapshot delta (mean 22.24 B; maximum 440 B). It is not a transient peak. KB here means decimal 1,000 bytes; the 32 KiB task allocation is 32,768 bytes and is additional to heap/static memory.

@@ -25,7 +25,7 @@ firmware/
 ## Build Instructions
 
 ### Prerequisites
-- ESP-IDF v5.2.1 installed and sourced (`source ~/esp/esp-idf/export.sh`)
+- ESP-IDF v5.5 (recorded n=100 campaign version) installed and sourced (`source ~/esp/esp-idf/export.sh`)
 - ESP32 connected via USB
 
 ### Build, Flash, and Monitor
@@ -52,5 +52,5 @@ Or edit `sdkconfig.defaults` directly before building.
 - **Task priority:** Set to `tskIDLE_PRIORITY + 5` to ensure the handshake runs without preemption by lower-priority tasks.
 - **Stack size:** 32,768 bytes allocated for the handshake task to accommodate ML-KEM polynomial buffers.
 - **Compiler flags:** Built with `-O2` optimization for performance benchmarking.
-- **TRNG:** All random bytes sourced from the ESP32 hardware TRNG via `esp_fill_random()`.
+- **TRNG:** Client random bytes use `esp_fill_random()` with Wi-Fi active. Server Session IDs and response-IV suffixes use the server OS CSPRNG.
 - **Zeroization:** Ephemeral private keys and intermediate shared secrets are `memset` to zero immediately after session key derivation.

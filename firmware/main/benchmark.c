@@ -14,11 +14,11 @@
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "esp_task_wdt.h"
 
 #include <string.h>
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 static const char *TAG = "BENCHMARK";
 
@@ -132,33 +132,16 @@ int benchmark_run_single(handshake_mode_t mode, benchmark_result_t *result,
 
     ret = do_network_handshake(&ctx, server_host, server_port, response_buf, &response_len);
     if (ret != 0) {
-        ESP_LOGW(TAG, "Network handshake failed, running local-only benchmark");
-        /* For local benchmarking without server: measure crypto operations only */
-        result->handshake_cycles = 0;
-        result->handshake_ms = 0;
-        
-        if (mode == MODE_PQC || mode == MODE_HYBRID) {
-            uint8_t ct[KYBER_CIPHERTEXTBYTES]; // kyber_ciphertextbytes is 768
-            uint8_t ss[32];
-            
-            // Encap
-            uint32_t enc_start_c = benchmark_get_cycles();
-            int64_t enc_start_u = esp_timer_get_time();
-            mlkem768_encaps(ct, ss, ctx.mlkem_pk);
-            uint32_t enc_end_c = benchmark_get_cycles();
-            int64_t enc_end_u = esp_timer_get_time();
-            ESP_LOGI(TAG, "BENCHMARK [ML-KEM-768 Encap]: %lld us, %lu cycles", (long long)(enc_end_u - enc_start_u), (unsigned long)(enc_end_c - enc_start_c));
-            
-            // Decap
-            uint32_t dec_start_c = benchmark_get_cycles();
-            int64_t dec_start_u = esp_timer_get_time();
-            mlkem768_decaps(ss, ct, ctx.mlkem_sk);
-            uint32_t dec_end_c = benchmark_get_cycles();
-            int64_t dec_end_u = esp_timer_get_time();
-            ESP_LOGI(TAG, "BENCHMARK [ML-KEM-768 Decap]: %lld us, %lu cycles", (long long)(dec_end_u - dec_start_u), (unsigned long)(dec_end_c - dec_start_c));
-        }
+        ESP_LOGW(TAG, "Network handshake failed; excluding this attempt from successful samples");
+        hybrid_cleanup(&ctx);
+        return -1;
     } else {
         ret = hybrid_process_server_response(&ctx, response_buf, response_len);
+        if (ret != 0) {
+            ESP_LOGW(TAG, "Response authentication/key derivation failed");
+            hybrid_cleanup(&ctx);
+            return -1;
+        }
         uint32_t hs_end_cycles = benchmark_get_cycles();
         int64_t hs_end_us = esp_timer_get_time();
 
@@ -166,7 +149,7 @@ int benchmark_run_single(handshake_mode_t mode, benchmark_result_t *result,
         result->handshake_ms = (float)(hs_end_us - hs_start_us) / 1000.0f;
     }
 
-    /* Track final heap */
+    /* Sparse free-heap snapshots: this does not measure transient peak allocation. */
     size_t heap_after = heap_caps_get_free_size(MALLOC_CAP_DEFAULT);
     if (heap_after < min_heap) min_heap = heap_after;
     result->peak_heap_bytes = (uint32_t)(heap_before - min_heap);
@@ -174,6 +157,7 @@ int benchmark_run_single(handshake_mode_t mode, benchmark_result_t *result,
     /* Total */
     uint32_t end_cycles = benchmark_get_cycles();
     result->total_cycles = end_cycles - start_cycles;
+    /* Preserve the historical two-interval definition. CCOUNT spans a wider region. */
     result->total_ms = result->keygen_ms + result->handshake_ms;
 
     /* Add server response payload to total */
@@ -191,81 +175,15 @@ int benchmark_run_single(handshake_mode_t mode, benchmark_result_t *result,
 int benchmark_run_suite(int iterations, const char *server_host, int server_port,
                         benchmark_stats_t stats[3]) {
     handshake_mode_t modes[3] = { MODE_CLASSICAL, MODE_PQC, MODE_HYBRID };
-    int num_modes = 3;
-    benchmark_result_t result;
-
-    for (int m = 0; m < num_modes; m++) {
-        memset(&stats[m], 0, sizeof(benchmark_stats_t));
-        stats[m].mode = modes[m];
-        stats[m].iterations = iterations;
-
-
-
-        uint32_t *latencies = calloc(iterations, sizeof(uint32_t));
-        if (!latencies) {
-            ESP_LOGE(TAG, "Out of memory for latencies array");
-            return -1;
-        }
-
-        float total_ms_sum = 0;
-        float keygen_ms_sum = 0;
-        float hs_ms_sum = 0;
-        uint64_t heap_sum = 0;
-        uint64_t cycles_sum = 0;
-
-        ESP_LOGI(TAG, "=== Benchmarking %s (%d iterations) ===",
-                 hybrid_mode_name(modes[m]), iterations);
-
-        for (int i = 0; i < iterations; i++) {
-            result.iteration = i + 1;
-            int ret = benchmark_run_single(modes[m], &result, server_host, server_port);
-            if (ret != 0) {
-                ESP_LOGW(TAG, "Iteration %d failed, skipping", i + 1);
-                vTaskDelay(pdMS_TO_TICKS(100)); // Delay to allow network recovery
-                continue;
-            }
-
-            latencies[i] = (uint32_t)result.total_ms;
-            total_ms_sum += result.total_ms;
-            keygen_ms_sum += result.keygen_ms;
-            hs_ms_sum += result.handshake_ms;
-            heap_sum += result.peak_heap_bytes;
-            cycles_sum += result.total_cycles;
-            stats[m].payload_bytes = result.payload_bytes;
-
-            if ((i + 1) % 10 == 0) {
-                ESP_LOGI(TAG, "  Progress: %d/%d (last: %.2f ms)",
-                         i + 1, iterations, result.total_ms);
-            }
-            vTaskDelay(pdMS_TO_TICKS(1)); /* Yield context to prevent IDLE task starvation */
-            esp_task_wdt_reset(); /* Feed Task Watchdog */
-        }
-
-        stats[m].mean_total_ms = total_ms_sum / iterations;
-        stats[m].mean_keygen_ms = keygen_ms_sum / iterations;
-        stats[m].mean_handshake_ms = hs_ms_sum / iterations;
-        stats[m].mean_peak_heap = (uint32_t)(heap_sum / iterations);
-        stats[m].mean_total_cycles = (uint32_t)(cycles_sum / iterations);
-
-        /* Calculate stddev */
-        float variance = 0;
-        for (int i = 0; i < iterations; i++) {
-            float diff = (float)latencies[i] - stats[m].mean_total_ms;
-            variance += diff * diff;
-        }
-        stats[m].stddev_total_ms = sqrtf(variance / iterations);
-
-        free(latencies);
-        ESP_LOGI(TAG, "  Completed: mean=%.2f ms, stddev=%.3f ms",
-                 stats[m].mean_total_ms, stats[m].stddev_total_ms);
-    }
-
+    int status = 0;
     for (int m = 0; m < 3; m++) {
-        g_suite_stats[m] = stats[m];
+        if (benchmark_run_campaign(modes[m], iterations, server_host, server_port, &stats[m]) != 0) {
+            status = -1;
+        }
     }
-    g_suite_stats_valid = true;
-
-    return 0;
+    memcpy(g_suite_stats, stats, sizeof(g_suite_stats));
+    g_suite_stats_valid = (status == 0);
+    return status;
 }
 
 /*
@@ -277,7 +195,11 @@ int benchmark_run_campaign(handshake_mode_t mode, int iterations, const char *se
     stats->mode = mode;
     stats->iterations = iterations;
 
-    uint32_t *latencies = calloc(iterations, sizeof(uint32_t));
+    if (iterations <= 0) {
+        ESP_LOGE(TAG, "Campaign requires at least one attempt");
+        return -1;
+    }
+    float *latencies = calloc((size_t)iterations, sizeof(float));
     if (!latencies) {
         ESP_LOGE(TAG, "Out of memory for latencies array");
         return -1;
@@ -305,17 +227,16 @@ int benchmark_run_campaign(handshake_mode_t mode, int iterations, const char *se
     int successful_runs = 0;
 
     for (int i = 0; i < iterations; i++) {
-        result.iteration = i + 1;
         int ret = benchmark_run_single(mode, &result, server_host, server_port);
+        /* benchmark_run_single clears the result structure. Assign the ID afterwards. */
+        result.iteration = (uint32_t)i + 1;
         if (ret != 0) {
-            ESP_LOGW(TAG, "Iteration %d failed, retrying in 200ms...", i + 1);
+            ESP_LOGW(TAG, "Iteration %d failed; retaining failed attempt in the denominator", i + 1);
             vTaskDelay(pdMS_TO_TICKS(200));
-            i--;
             continue;
         }
 
-        successful_runs++;
-        latencies[i] = (uint32_t)result.total_ms;
+        latencies[successful_runs++] = result.total_ms;
         total_ms_sum += result.total_ms;
         keygen_ms_sum += result.keygen_ms;
         hs_ms_sum += result.handshake_ms;
@@ -337,40 +258,49 @@ int benchmark_run_campaign(handshake_mode_t mode, int iterations, const char *se
                  result.peak_heap_bytes / 1024.0f, (unsigned int)result.payload_bytes);
 
         vTaskDelay(pdMS_TO_TICKS(50)); /* Allow TCP socket to close cleanly */
-        esp_task_wdt_reset(); /* Feed Task Watchdog */
+        /* pqc_task is not subscribed to TWDT. The delay lets idle tasks run. */
     }
 
-    stats->mean_total_ms = total_ms_sum / iterations;
-    stats->mean_keygen_ms = keygen_ms_sum / iterations;
-    stats->mean_handshake_ms = hs_ms_sum / iterations;
-    stats->mean_peak_heap = (uint32_t)(heap_sum / iterations);
-    stats->mean_total_cycles = (uint32_t)(cycles_sum / iterations);
+    stats->successful_runs = (uint32_t)successful_runs;
+    stats->failed_runs = (uint32_t)(iterations - successful_runs);
+    if (successful_runs == 0) {
+        free(latencies);
+        ESP_LOGE(TAG, "Campaign: 0/%d successful; no sample statistics available", iterations);
+        return -1;
+    }
+    stats->mean_total_ms = total_ms_sum / successful_runs;
+    stats->mean_keygen_ms = keygen_ms_sum / successful_runs;
+    stats->mean_handshake_ms = hs_ms_sum / successful_runs;
+    stats->mean_peak_heap = (uint32_t)(heap_sum / successful_runs);
+    stats->mean_total_cycles = (uint32_t)(cycles_sum / successful_runs);
 
-    /* Standard deviation */
     float variance = 0;
-    for (int i = 0; i < iterations; i++) {
-        float diff = (float)latencies[i] - stats->mean_total_ms;
+    for (int i = 0; i < successful_runs; i++) {
+        float diff = latencies[i] - stats->mean_total_ms;
         variance += diff * diff;
     }
-    stats->stddev_total_ms = sqrtf(variance / iterations);
+    /* Sample SD; undefined for a single successful observation. */
+    stats->stddev_total_ms = successful_runs > 1 ? sqrtf(variance / (successful_runs - 1)) : NAN;
     free(latencies);
 
     ESP_LOGI(TAG, "");
     ESP_LOGI(TAG, "=== CAMPAIGN STATISTICAL SUMMARY (n=%d, %s) ===", iterations, hybrid_mode_name(mode));
     ESP_LOGI(TAG, "  Latency:     Mean = %.2f ms, StdDev = %.2f ms, Min = %.2f ms, Max = %.2f ms",
              stats->mean_total_ms, stats->stddev_total_ms, min_ms, max_ms);
-    ESP_LOGI(TAG, "  CPU Cycles:  Mean = %u (%.2fM), Min = %u (%.2fM), Max = %u (%.2fM)",
+    ESP_LOGI(TAG, "  Elapsed CCOUNT:  Mean = %u (%.2fM), Min = %u (%.2fM), Max = %u (%.2fM)",
              (unsigned int)stats->mean_total_cycles, stats->mean_total_cycles / 1000000.0f,
              (unsigned int)min_cycles, min_cycles / 1000000.0f,
              (unsigned int)max_cycles, max_cycles / 1000000.0f);
-    ESP_LOGI(TAG, "  SRAM Heap:   Mean = %u B (%.1f KB), Min = %u B (%.1f KB), Max = %u B (%.1f KB)",
+    ESP_LOGI(TAG, "  Heap snapshot delta:   Mean = %u B (%.1f KB), Min = %u B (%.1f KB), Max = %u B (%.1f KB)",
              (unsigned int)stats->mean_peak_heap, stats->mean_peak_heap / 1024.0f,
              (unsigned int)min_heap, min_heap / 1024.0f,
              (unsigned int)max_heap, max_heap / 1024.0f);
-    ESP_LOGI(TAG, "  Failure Rate: 0%% (%d/%d successful)", successful_runs, iterations);
+    ESP_LOGI(TAG, "  Failure Rate: %.2f%% (%d/%d successful, %u failed)",
+             100.0f * stats->failed_runs / iterations, successful_runs, iterations,
+             (unsigned int)stats->failed_runs);
     ESP_LOGI(TAG, "=========================================================");
 
-    return 0;
+    return stats->failed_runs == 0 ? 0 : -1;
 }
 
 /*
@@ -476,129 +406,4 @@ void benchmark_run_mbedtls_baseline(void) {
     ESP_LOGW(TAG, "This function is a local crypto stub, NOT a full TLS 1.3 handshake");
     return;
 }
-
-#if 0 /* NEUTRALIZED: Synthetic benchmark stub previously used synthetic scaling (*3, +48KB) */
-void benchmark_run_mbedtls_baseline_disabled(void) {
-    ESP_LOGI(TAG, "=== Running Standard mbedTLS (TLS 1.3) Baseline Benchmark ===");
-
-    size_t heap_before = heap_caps_get_free_size(MALLOC_CAP_DEFAULT);
-
-    mbedtls_ssl_context ssl;
-    mbedtls_ssl_config conf;
-    mbedtls_ctr_drbg_context ctr_drbg;
-    mbedtls_entropy_context entropy;
-    mbedtls_x509_crt cacert;
-
-    mbedtls_ssl_init(&ssl);
-    mbedtls_ssl_config_init(&conf);
-    mbedtls_ctr_drbg_init(&ctr_drbg);
-    mbedtls_entropy_init(&entropy);
-    mbedtls_x509_crt_init(&cacert);
-
-    int ret = mbedtls_ctr_drbg_seed(&ctr_drbg, mbedtls_entropy_func, &entropy,
-                                    (const unsigned char *)"ESP32_TLS13_Benchmark", 21);
-    if (ret != 0) {
-        ESP_LOGE(TAG, "mbedtls_ctr_drbg_seed failed: %d", ret);
-        return;
-    }
-
-    ret = mbedtls_ssl_config_defaults(&conf,
-                                      MBEDTLS_SSL_IS_CLIENT,
-                                      MBEDTLS_SSL_TRANSPORT_STREAM,
-                                      MBEDTLS_SSL_PRESET_DEFAULT);
-    if (ret != 0) {
-        ESP_LOGE(TAG, "mbedtls_ssl_config_defaults failed: %d", ret);
-        return;
-    }
-
-    mbedtls_ssl_conf_rng(&conf, mbedtls_ctr_drbg_random, &ctr_drbg);
-    mbedtls_ssl_conf_authmode(&conf, MBEDTLS_SSL_VERIFY_NONE); /* Benchmarking state machine */
-    
-    ret = mbedtls_ssl_setup(&ssl, &conf);
-    if (ret != 0) {
-        ESP_LOGE(TAG, "mbedtls_ssl_setup failed: %d", ret);
-        return;
-    }
-
-    /* Simulate dynamic buffer allocation for X.509 certificate parsing and TLS state machine */
-    size_t heap_after_init = heap_caps_get_free_size(MALLOC_CAP_DEFAULT);
-    size_t dynamic_mbedtls_ram = heap_before - heap_after_init;
-    
-    /* Add standard mbedTLS X.509 cert parse dynamic buffer overhead (~48 KB additional heap used during actual handshake) */
-    size_t total_mbedtls_ram_kb = (dynamic_mbedtls_ram / 1024) + 48; 
-
-    /* Measure simulated TLS 1.3 handshake computation cycles and latency */
-    uint32_t start_cycles = benchmark_get_cycles();
-    int64_t start_us = esp_timer_get_time();
-
-    /* Perform heavy ECDH curve multiplications and state verifications to emulate mbedTLS 1.3 client handshake */
-    for (int i = 0; i < 5; i++) {
-        mbedtls_ecp_group grp;
-        mbedtls_ecp_point Q;
-        mbedtls_mpi d;
-        mbedtls_ecp_group_init(&grp);
-        mbedtls_ecp_point_init(&Q);
-        mbedtls_mpi_init(&d);
-        mbedtls_ecp_group_load(&grp, MBEDTLS_ECP_DP_SECP256R1);
-        mbedtls_mpi_lset(&d, 123456789 + i);
-        mbedtls_ecp_mul(&grp, &Q, &d, &grp.G, mbedtls_ctr_drbg_random, &ctr_drbg);
-        mbedtls_ecp_group_free(&grp);
-        mbedtls_ecp_point_free(&Q);
-        mbedtls_mpi_free(&d);
-        esp_task_wdt_reset(); /* Feed TWDT without yielding context */
-    }
-
-    uint32_t end_cycles = benchmark_get_cycles();
-    int64_t end_us = esp_timer_get_time();
-
-    float latency_ms = (float)(end_us - start_us) / 1000.0f;
-    /* Scale benchmark to match exact mbedTLS full handshake network round-trip + X.509 verification baseline */
-    if (latency_ms < 74.2f) {
-        latency_ms = 74.2f;
-    }
-    uint32_t total_cycles = (end_cycles - start_cycles) * 3; /* Accounts for full key exchange + cert validation */
-    if (total_cycles < 17800000) {
-        total_cycles = 17800000;
-    }
-
-    /* Derived Energy calculation: P_active (462 mW) * latency (s) */
-    float energy_mj = 462.0f * (latency_ms / 1000.0f);
-
-    float hybrid_ram = 13.8f;
-    float hybrid_latency = 635.88f;
-    float hybrid_energy = 122.34f;
-    uint32_t hybrid_cycles = 103380000;
-
-    if (g_suite_stats_valid) {
-        for (int m = 0; m < 3; m++) {
-            if (g_suite_stats[m].mode == MODE_HYBRID) {
-                hybrid_ram = (float)g_suite_stats[m].mean_peak_heap / 1024.0f;
-                hybrid_latency = g_suite_stats[m].mean_total_ms;
-                hybrid_cycles = g_suite_stats[m].mean_total_cycles;
-                /* Calculate energy dynamically using 200.0 mW active power (40 mA * 5.0 V) */
-                hybrid_energy = 200.0f * (hybrid_latency / 1000.0f);
-            }
-        }
-    }
-
-    ESP_LOGI(TAG, "");
-    ESP_LOGI(TAG, "╔═════════════════════════════════════════════════════════════════════════════════════════════════╗");
-    ESP_LOGI(TAG, "║                  STANDARD mbedTLS (TLS 1.3) vs HYBRID PQC BASELINE COMPARISON                   ║");
-    ESP_LOGI(TAG, "╠═════════════════════════════════╤══════════╤══════════════╤═════════════╤═════════════════════╣");
-    ESP_LOGI(TAG, "║ Protocol                        │ RAM (KB) │ Latency (ms) │ Energy (mJ) │ Total Cycles        ║");
-    ESP_LOGI(TAG, "╠═════════════════════════════════╪══════════╪══════════════╪═════════════╪═════════════════════╣");
-    ESP_LOGI(TAG, "║ Standard mbedTLS (TLS 1.3)      │ %8.1f │ %12.1f │ %11.2f │ %19lu ║",
-             (float)total_mbedtls_ram_kb, latency_ms, energy_mj, (unsigned long)total_cycles);
-    ESP_LOGI(TAG, "║ This Work (ML-KEM-768 + X25519) │ %8.1f │ %12.1f │ %11.2f │ %19lu ║",
-             hybrid_ram, hybrid_latency, hybrid_energy, (unsigned long)hybrid_cycles);
-    ESP_LOGI(TAG, "╚═════════════════════════════════╧══════════╧══════════════╧═════════════╧═════════════════════╝");
-    ESP_LOGI(TAG, "");
-
-    mbedtls_ssl_free(&ssl);
-    mbedtls_ssl_config_free(&conf);
-    mbedtls_ctr_drbg_free(&ctr_drbg);
-    mbedtls_entropy_free(&entropy);
-    mbedtls_x509_crt_free(&cacert);
-}
-#endif
 

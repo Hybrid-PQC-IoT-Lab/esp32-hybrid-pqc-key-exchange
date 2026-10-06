@@ -4,13 +4,13 @@
 [![CI](https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/actions/workflows/ci.yml/badge.svg)](https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/actions/workflows/ci.yml)
 [![Release: v2.1-mlkem768](https://img.shields.io/badge/Release-v2.1--mlkem768--final-blue.svg)](https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/releases/tag/v2.1-mlkem768-final)
 [![FIPS 203: ML-KEM-768](https://img.shields.io/badge/FIPS%20203-ML--KEM--768-success.svg)](https://csrc.nist.gov/pubs/fips/203/final)
-[![ProVerif: Verified](https://img.shields.io/badge/ProVerif%202.05-Formally%20Verified-brightgreen.svg)](docs/evidence/proverif_verification_output.txt)
+[![ProVerif: Model scope](https://img.shields.io/badge/ProVerif%202.05-bounded%20model-blue.svg)](docs/evidence/proverif_verification_output.txt)
 
 This repository hosts the complete, sanitized experimental reproducibility package for the research paper:
 
-> **"A Secure Hybrid Post-Quantum Cryptographic Key Exchange for ESP32 IoT Devices"**
+> **"An Open-Source ESP32 Testbed for PSK-Authenticated X25519 and ML-KEM-768 Key Exchange"**
 
-The implementation provides a native, hardware-validated **Hybrid Key Agreement and Authenticated Bidirectional Telemetry Protocol** running on the resource-constrained Espressif ESP32 microcontroller, combining **ML-KEM-768 (NIST FIPS 203)** with **X25519 (RFC 7748)**.
+The repository provides an inspectable ESP32 research testbed combining X25519 and ML-KEM-768 with PSK-authenticated transcripts. Archived hardware measurements are historical; later harness corrections have not been physically validated by those logs. Telemetry uses one traffic key across directions and has a documented reflection/replay limitation. This is not a production-security claim or NIST-certified implementation.
 
 ---
 
@@ -19,7 +19,7 @@ In strict accordance with peer-review research integrity standards and privacy b
 - **Zero Active Private Credentials**: All production Wi-Fi passwords, private keys, and operational secrets have been eliminated.
 - **Template Configuration**: Hardware Wi-Fi credentials are provided as template macros in [`firmware/main/wifi_config.h`](firmware/main/wifi_config.h). Local lab overrides can be placed in `wifi_config.local.h` (strictly ignored by `.gitignore`).
 - **Standardized Evaluation PSK**: Mutual transcript authentication uses the documented public testbed evaluation constant (`SecurIoT-Quantum-PQC-Hybrid-PSK!`).
-- **Authentic Raw Datasets**: All experimental measurements (17,502 raw SYNs, 14,157 parser-accepted endurance sessions, CPU cycle counts, power supply current readings, and packet captures) are authentic measurements captured directly from physical hardware testbeds.
+- **Evidence provenance**: UART logs and processed CSVs are preserved as supplied. PCAPs in `data/sanitized_pcaps/` are synthetic Scapy illustrations. The endurance CSV contains 14,157 accepted sessions; its original master wire-capture log is not included. Energy entries are fixed-window calculations from manual current notes.
 
 ---
 
@@ -32,17 +32,17 @@ In strict accordance with peer-review research integrity standards and privacy b
 ├── data/
 │   ├── processed_results/   # Extracted cycle and latency CSVs
 │   ├── raw_logs/            # Unprocessed hardware UART serial dumps
-│   └── sanitized_pcaps/     # Verifiable packet captures (.pcap)
+│   └── sanitized_pcaps/     # Synthetic packet illustrations (.pcap)
 ├── docs/
 │   ├── evidence/            # Master formal proofs, KAT logs, and raw measurements
-│   │   ├── cpu_frequency_cycle_consistency.md  # Formal 160 MHz clock proof
+│   │   ├── cpu_frequency_cycle_consistency.md  # 160 MHz boot evidence and primitive cycle/time ratios
 │   │   ├── endurance_summary.csv               # 14,157 physical handshake records (19.0h)
 │   │   ├── endurance_test_report.md            # Statistical breakdown of endurance sessions
 │   │   ├── hybrid_handshake_100_runs.csv       # 100-run physical benchmark data
 │   │   ├── hybrid_handshake_100_runs_raw.log   # 100-run raw UART serial dump
 │   │   ├── hybrid_pqc_fixed.pv                 # ProVerif 2.05 formal security model
 │   │   ├── memory_footprint_analysis.md        # Xtensa ELF Flash, Stack, and Heap breakdown
-│   │   ├── mlkem768_kat_verification.log       # 100/100 NIST Known Answer Tests output
+│   │   ├── mlkem768_kat_verification.log       # Archived self-consistency output (historical KAT label)
 │   │   ├── power_energy_calculations.csv       # UNI-T benchtop PSU and DMM calculations
 │   │   ├── proverif_verification_output.txt    # ProVerif solver transcript
 │   │   ├── telemetry_50_packets_key_rotation_proof.log # 50-packet re-keying validation
@@ -50,31 +50,31 @@ In strict accordance with peer-review research integrity standards and privacy b
 │   ├── hardware_setup.md    # Testbed wiring, benchtop PSU, and DMM instrumentation
 │   ├── protocol_specification.md # Packet formats, HKDF derivation, and transcript HMAC
 │   ├── reproduction_steps.md# One-command step-by-step reproduction instructions
-│   ├── research_paper.pdf   # Full compiled 12-page manuscript
+│   ├── research_paper.tex   # Editable manuscript; PDF generated by packaging tool
 │   └── threat_model.md      # Dolev-Yao & HNDL security proofs and assumptions
 ├── figures/                 # High-resolution architectural and experimental diagrams
 ├── firmware/
 │   ├── components/
-│   │   └── mlkem768/        # Pure FIPS 203 ML-KEM-768 C implementation + Makefile
+│   │   └── mlkem768/        # ML-KEM-768 C implementation + Makefile; no NIST certification
 │   └── main/                # ESP32 FreeRTOS application, crypto engine, and benchmarks
 ├── server/                  # Asynchronous Python backend with transcript HMAC verification
 ├── tests/                   # Crypto correctness and integration test harness
 ├── tls_benchmark/           # Standard TLS 1.3 baseline comparison harness
 └── tools/
     ├── analyze_endurance_log.py # Statistical parser for the 14,157-session endurance dataset
-    └── test_mlkem768_kat.py     # Deterministic NIST KAT test runner
+    └── test_mlkem768_kat.py     # Fixed-seed and randomized self-consistency test runner
 ```
 
 ---
 
 ## 🚀 Quick Start & Verification
 
-### 1. Run NIST ML-KEM-768 Known Answer Tests (KAT)
+### 1. Run ML-KEM-768 self-consistency tests
 ```bash
 # Compile native C shared library
 make -C firmware/components/mlkem768
 
-# Execute 100/100 KAT tests and IND-CCA2 implicit rejection check
+# Execute two fixed-seed cases, ciphertext-modification check and 100 randomized round trips
 python3 tools/test_mlkem768_kat.py
 ```
 
@@ -82,7 +82,7 @@ python3 tools/test_mlkem768_kat.py
 ```bash
 proverif docs/evidence/hybrid_pqc_fixed.pv
 ```
-All queries (`k_session` secrecy, mutual handshake injection, and forward secrecy) evaluate to **`true`**.
+The archived solver transcript reports secrecy of `secret_client_data` and `secret_server_data`, plus `inj-event(client_key_derived(k)) ==> inj-event(server_key_derived(k))`. The model assumes a private uncompromised PSK. It does not query PSK compromise, reverse authentication, concrete GCM nonce security or physical memory disclosure.
 
 ### 3. Analyze 19-Hour Hardware Endurance Dataset
 ```bash
@@ -118,11 +118,11 @@ idf.py -p /dev/ttyUSB0 flash monitor
 ## 📊 Experimental Benchmark Results
 
 ### 1. End-to-End Hybrid Handshake Campaign ($n = 100$)
-Measured across 100 consecutive Wi-Fi handshakes between physical ESP32-D0WD-V3 @ 160 MHz and native `liboqs` server (source: [`docs/evidence/hybrid_handshake_100_runs_raw.log`](docs/evidence/hybrid_handshake_100_runs_raw.log), structured data: [`docs/evidence/hybrid_handshake_100_runs.csv`](docs/evidence/hybrid_handshake_100_runs.csv)):
+Measured across 100 consecutive Wi-Fi handshakes between physical ESP32-D0WD-V3 @ 160 MHz and native ML-KEM server (source: [`docs/evidence/hybrid_handshake_100_runs_raw.log`](docs/evidence/hybrid_handshake_100_runs_raw.log), structured data: [`docs/evidence/hybrid_handshake_100_runs.csv`](docs/evidence/hybrid_handshake_100_runs.csv)):
 
-| Protocol Mode | Sample Count ($n$) | Mean Handshake Latency | Mean CPU Cycles | Wire Bytes (Req / Resp) | Success Rate | Peak Heap |
+| Protocol Mode | Sample Count ($n$) | Mean Handshake Latency | Mean elapsed CCOUNT | Wire Bytes (Req / Resp) | Observed completions | Campaign heap peak |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Hybrid (ML-KEM-768 + X25519)** | **$n = 100$** | **616.75 ms** ($635.88\ \text{ms}$ in paper Table II) | **100.33M cycles** ($103.38\text{M}$ in paper Table II) | 1,249 B / 1,168 B | **100/100 (100%)** | 13.8 KB |
+| **Hybrid (ML-KEM-768 + X25519)** | **$n = 100$** | **616.75 ms** (sample SD 244.13 ms) | **100.33M cycles** | 1,249 B / 1,168 B | **100/100** | Not captured |
 
 ### 2. Cryptographic Primitive Micro-Benchmarks ($n = 50 / 49$)
 Isolated micro-benchmarks of individual cryptographic operations measured on physical ESP32-D0WD-V3 @ 160 MHz (source: [`data/raw_logs/energy_esp32_mlkem768_usb_proof.txt`](data/raw_logs/energy_esp32_mlkem768_usb_proof.txt), parsed via [`data/processed_results/parsed_cycles.csv`](data/processed_results/parsed_cycles.csv), paper Table IV):
@@ -140,3 +140,40 @@ Isolated micro-benchmarks of individual cryptographic operations measured on phy
 
 ## 📜 License & Citation
 This project is licensed under the MIT License - see the [`LICENSE`](LICENSE) file for details.
+
+## Corrected campaign and submission status
+
+This is an open-source-software article candidate for Computer Networks, not a claim of new hardware validation. The main article is `docs/research_paper.tex`; Supplementary Material S1 is `docs/submission/extended_technical_analysis.tex`. A journal submission has not been completed for this version.
+See [the readiness audit](docs/submission/GO_NO_GO.md) and
+[required hardware work](docs/submission/HARDWARE_RERUN.md).
+
+| Archived n=100 statistic | Recomputed value |
+|---|---:|
+| Mean instrumented latency | 616.75 ms |
+| Sample SD | 244.13 ms |
+| Student t 95% CI of mean | 568.31–665.19 ms |
+| Minimum / maximum | 525.66 / 1989.39 ms |
+| Mean elapsed CCOUNT | 100.33 million cycles |
+| Observed completed handshakes | 100/100 |
+| Watchdog-reset API errors | 100 |
+| Handshake-body bytes, both directions | 2,417 |
+
+The latency and CCOUNT timing windows differ; CCOUNT is not isolated CPU work.
+Heap snapshots average 22.24 bytes and miss transient allocations. The independent
+13.8 KB profile is separately reported and is not an n=100 statistic. A 32 KiB
+task stack is configured in `firmware/main/main.c`; its measured high-water mark
+was not archived. The recorded campaign uses ESP-IDF v5.5 at 160 MHz.
+
+Recompute and verify without changing raw observations:
+
+```bash
+python tools/analyze_submission.py --check
+```
+
+The corrected harness counts failed attempts, preserves run IDs and sample SD,
+propagates response failures and retains inter-iteration delays without calling
+TWDT reset from an unsubscribed task. The server now fails PQC requests if its
+native library is missing. New hardware evidence is needed for execution claims
+about these corrections. Historical logs remain byte-for-byte unchanged.
+
+The former root manuscript PDF is preserved as `docs/archive/research_paper_v2_1.pdf`. The current compiled PDF is generated into the release package; it is not a stale checked-in binary.

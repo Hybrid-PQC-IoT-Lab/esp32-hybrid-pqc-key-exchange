@@ -1,11 +1,18 @@
-# NIST ML-KEM-768 Known Answer Test (KAT) Vectors
+# ML-KEM-768 self-consistency cases
 
-Deterministic test vectors for ML-KEM-768 (NIST FIPS 203) are verified using the automated test suite located at [`tools/test_mlkem768_kat.py`](../../tools/test_mlkem768_kat.py).
+`tools/test_mlkem768_kat.py` retains its historical filename. It checks two
+fixed-seed round trips, altered-ciphertext behavior and 100 randomized round trips.
+It prints digests but does not compare them with independently sourced expected
+answers. No NIST CAVP/ACVP validation or timing-leakage proof is claimed.
 
-## Executing the Test Suite
+From the repository root:
+
 ```bash
-make -C ../../firmware/components/mlkem768
-python3 ../../tools/test_mlkem768_kat.py
+make -C firmware/components/mlkem768
+python3 tools/test_mlkem768_kat.py
 ```
 
-The precomputed 100/100 test results, SHA-256 digests, and IND-CCA2 implicit rejection proofs are documented in [`docs/evidence/mlkem768_kat_verification.log`](../../docs/evidence/mlkem768_kat_verification.log).
+`docs/evidence/mlkem768_kat_verification.log` is preserved historical output.
+Its original KAT and no-timing-oracle labels are narrower than the evidence and
+are superseded by the scope statement above. New host outputs belong in the
+generated validation directory, separately from hardware evidence.

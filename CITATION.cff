@@ -1,11 +1,16 @@
 cff-version: 1.2.0
 message: "If you use this software, datasets, or experimental evidence, please cite it as below."
 authors:
+- family-names: "Elahi"
+  given-names: "Hafiz Ali Mansoor"
+  orcid: "https://orcid.org/0009-0006-4378-6391"
+  affiliation: "Promaker Institute"
 - family-names: "Muqtada"
   given-names: "Muhammad Sohaim"
-title: "A Secure Hybrid Post-Quantum Cryptographic Key Exchange for ESP32 IoT Devices"
-version: 2.1.0
-date-released: 2026-09-30
+  affiliation: "University of Management and Technology"
+title: "An Open-Source ESP32 Testbed for PSK-Authenticated X25519 and ML-KEM-768 Key Exchange"
+version: 2.3.0-comnet-software-rc1
+date-released: 2026-10-05
 url: "https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange"
 repository-code: "https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange"
 keywords:

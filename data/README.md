@@ -1,6 +1,6 @@
 # Experimental Benchmark Datasets & Packet Captures
 
-This directory contains raw serial logs, processed cycle/latency datasets, and packet captures collected from the physical ESP32 testbed.
+This directory contains raw serial logs, processed cycle/latency datasets, and synthetic packet illustrations, with provenance distinguished below.
 
 ## Subdirectories
 
@@ -11,7 +11,7 @@ This directory contains raw serial logs, processed cycle/latency datasets, and p
    - `esp_bench_full_real.log`, `esp_bench_long.log`: Continuous benchmark execution traces.
    - `classical_server.log`, `hybrid_server.log`, `pqc_server.log`: Server-side handshake transcripts.
 3. **`sanitized_pcaps/`**:
-   - Verifiable packet captures (`.pcap`) demonstrating full protocol handshakes and encrypted telemetry flows with anonymized MAC addresses and private subnets.
+   - Synthetic Scapy packet illustrations (`.pcap`), not captured physical traffic or endurance inputs.
 4. **Primary Evidence Archive**:
    - For the full 19.00-hour endurance dataset (**14,157 sessions**), see [`docs/evidence/endurance_summary.csv`](../docs/evidence/endurance_summary.csv).
    - For electrical power supply and multimeter measurements, see [`docs/evidence/power_energy_calculations.csv`](../docs/evidence/power_energy_calculations.csv).

@@ -50,3 +50,7 @@ CONFIG_PARTITION_TABLE_SINGLE_APP=y
 
 # Optimization
 CONFIG_COMPILER_OPTIMIZATION_PERF=y
+
+# Match the recorded n=100 campaign clock (fixed-frequency configuration).
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_160=y
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ=160

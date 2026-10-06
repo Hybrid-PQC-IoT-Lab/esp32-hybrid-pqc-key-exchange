@@ -1,0 +1,3 @@
+# Preserve canonical Git bytes for sources whose hashes are checked by analysis.
+docs/evidence/hybrid_handshake_100_runs.csv -text
+docs/evidence/hybrid_handshake_100_runs_raw.log -text

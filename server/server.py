@@ -12,7 +12,7 @@ Supports three benchmark modes:
   2 = Hybrid (X25519 + ML-KEM-768)
 
 Usage:
-  pip install oqs cryptography
+  pip install -r requirements.txt
   python3 server.py [--port 8443] [--host 0.0.0.0]
 """
 
@@ -34,14 +34,8 @@ from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
-# Post-Quantum imports
-try:
-    import oqs
-    HAS_OQS = True
-except ImportError:
-    HAS_OQS = False
-    print("WARNING: oqs-python not installed. PQC and Hybrid modes will use simulation.")
-    print("Install with: pip install oqs")
+# ML-KEM operations use the repository's native library loaded below.
+# A missing library must fail the operation, never produce simulated key material.
 
 # Configure logging
 logging.basicConfig(
@@ -99,13 +93,8 @@ class HybridPQCServer:
         self.sessions = {}
         self.session_counters = {}
 
-        # Initialize ML-KEM-768 KEM if available
-        if HAS_OQS:
-            self.kem = oqs.KeyEncapsulation('Kyber768')
-            logger.info("Kyber768 (liboqs) initialized")
-        else:
-            self.kem = None
-            logger.warning("ML-KEM-768 not available — using simulation mode")
+        if libmlkem is None:
+            logger.warning("Native ML-KEM library unavailable; PQC and hybrid requests will fail")
 
     def _perform_x25519(self, client_pubkey_bytes: bytes):
         """Perform X25519 key agreement."""
@@ -129,7 +118,8 @@ class HybridPQCServer:
             ct = (ctypes.c_uint8 * KYBER_CT_SIZE)()
             ss = (ctypes.c_uint8 * KYBER_SS_SIZE)()
             pk = (ctypes.c_uint8 * KYBER_PK_SIZE).from_buffer_copy(client_pk_bytes)
-            libmlkem.mlkem768_encaps(ct, ss, pk)
+            if libmlkem.mlkem768_encaps(ct, ss, pk) != 0:
+                raise RuntimeError("Native ML-KEM encapsulation failed")
             ciphertext = bytes(ct)
             shared_secret = bytes(ss)
             logger.info(f"  [DEBUG] PK recv: {client_pk_bytes[:8].hex()}...{client_pk_bytes[-8:].hex()}")
@@ -137,8 +127,7 @@ class HybridPQCServer:
             return ciphertext, shared_secret
         else:
             logger.error("  ML-KEM-768 native library not found!")
-            import secrets
-            return secrets.token_bytes(KYBER_CT_SIZE), secrets.token_bytes(KYBER_SS_SIZE)
+            raise RuntimeError("Build the native ML-KEM library before running PQC/hybrid experiments")
 
     def _derive_session_key(self, *shared_secrets):
         combined = b''.join(shared_secrets)

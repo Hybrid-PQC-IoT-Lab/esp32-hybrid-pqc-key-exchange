@@ -1,0 +1,77 @@
+{
+  "n": 100,
+  "observed_completed_handshakes": 100,
+  "observed_handshake_failures": 0,
+  "watchdog_reset_api_errors": 100,
+  "raw_run_identifiers": [
+    "0"
+  ],
+  "run_identifier_note": "CSV run is acquisition order 1..100; original firmware logged 0 for every row.",
+  "timing_definition": "total_ms = keygen_ms + handshake_ms; excludes intervening packing, logging and heap sampling.",
+  "cycle_definition": "Elapsed CCOUNT interval spans a broader instrumented region including waits/logging; not isolated CPU work.",
+  "heap_definition": "Three snapshots of free heap; not transient peak allocation; bytes, not KB.",
+  "ci_method": "Student t, two-sided 95%, df=99, sample SD (ddof=1), no outlier removal.",
+  "sources": {
+    "docs/evidence/hybrid_handshake_100_runs.csv": "a3744338b3ffa847bd9f79a84a4f912b7e20967b21c5442d47818bf66a4e3af3",
+    "docs/evidence/hybrid_handshake_100_runs_raw.log": "41cb43703cd7f7e0dcef6d009d9087666176bd0fcd63dbc96358ea44e82e5025"
+  },
+  "total_ms": {
+    "mean": 616.7478,
+    "sample_sd": 244.12824053647367,
+    "ci95_mean": [
+      568.307460678554,
+      665.188139321446
+    ],
+    "min": 525.66,
+    "max": 1989.39,
+    "median": 534.815
+  },
+  "total_cycles": {
+    "mean": 100330347.16,
+    "sample_sd": 39060893.562583685,
+    "ci95_mean": [
+      92579818.4452045,
+      108080875.8747955
+    ],
+    "min": 85756999.0,
+    "max": 319954713.0,
+    "median": 87222098.0
+  },
+  "keygen_ms": {
+    "mean": 302.1786,
+    "sample_sd": 0.9972629411230375,
+    "ci95_mean": [
+      301.98072139671126,
+      302.3764786032888
+    ],
+    "min": 298.83,
+    "max": 304.2,
+    "median": 302.25
+  },
+  "handshake_ms": {
+    "mean": 314.5692,
+    "sample_sd": 244.10009684172888,
+    "ci95_mean": [
+      266.1344449981731,
+      363.00395500182697
+    ],
+    "min": 222.85,
+    "max": 1687.31,
+    "median": 232.515
+  },
+  "peak_heap_bytes": {
+    "mean": 22.24,
+    "sample_sd": 80.20442568206506,
+    "ci95_mean": [
+      6.325701897562816,
+      38.15429810243718
+    ],
+    "min": 0.0,
+    "max": 440.0,
+    "median": 0.0
+  },
+  "payload_bytes": [
+    2417
+  ],
+  "latency_runs_over_1000_ms": 6
+}

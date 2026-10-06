@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="402.12pt" height="427.32pt" viewBox="0 0 402.12 427.32" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-06T13:42:04.194912</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 427.32
+L 402.12 427.32
+L 402.12 0
+L 0 0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="line2d_1">
+    <path d="M 83.88 392.454
+L 83.88 39.024
+" clip-path="url(#p5301d7d563)" style="fill: none; stroke-dasharray: 2.96,1.28; stroke-dashoffset: 0; stroke: #777777; stroke-width: 0.8"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 318.24 392.454
+L 318.24 39.024
+" clip-path="url(#p5301d7d563)" style="fill: none; stroke-dasharray: 2.96,1.28; stroke-dashoffset: 0; stroke: #777777; stroke-width: 0.8"/>
+   </g>
+   <g id="text_1">
+    <g id="patch_2">
+     <path d="M 55.950469 33.021352
+L 111.809531 33.021352
+Q 115.859531 33.021352 115.859531 28.971352
+L 115.859531 19.970648
+Q 115.859531 15.920648 111.809531 15.920648
+L 55.950469 15.920648
+Q 51.900469 15.920648 51.900469 19.970648
+L 51.900469 28.971352
+Q 51.900469 33.021352 55.950469 33.021352
+z
+" style="fill: #f3f5f7; stroke: #34495e; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle" x="83.88" y="26.809242" transform="rotate(-0 83.88 26.809242)">ESP32 client</text>
+   </g>
+   <g id="text_2">
+    <g id="patch_3">
+     <path d="M 286.966406 33.021352
+L 349.513594 33.021352
+Q 353.563594 33.021352 353.563594 28.971352
+L 353.563594 19.970648
+Q 353.563594 15.920648 349.513594 15.920648
+L 286.966406 15.920648
+Q 282.916406 15.920648 282.916406 19.970648
+L 282.916406 28.971352
+Q 282.916406 33.021352 286.966406 33.021352
+z
+" style="fill: #f3f5f7; stroke: #34495e; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle" x="318.24" y="26.809242" transform="rotate(-0 318.24 26.809242)">Python server</text>
+   </g>
+   <g id="text_3">
+    <g id="patch_4">
+     <path d="M 25.629375 81.975281
+L 142.130625 81.975281
+Q 145.730625 81.975281 145.730625 78.375281
+L 145.730625 49.568719
+Q 145.730625 45.968719 142.130625 45.968719
+L 25.629375 45.968719
+Q 22.029375 45.968719 22.029375 49.568719
+L 22.029375 78.375281
+Q 22.029375 81.975281 25.629375 81.975281
+z
+" style="fill: #f3f5f7; stroke: #34495e; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'" transform="translate(25.629375 56.44825)">Generate ephemeral X25519</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'" transform="translate(39.9925 66.050437)">and ML-KEM-768 keys</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'" transform="translate(28.038125 75.652625)">HMAC the unsigned request</text>
+   </g>
+   <g id="patch_5">
+    <path d="M 85.879012 101.394
+Q 201.057889 101.394 314.895125 101.394
+" style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 310.895125 99.394
+L 314.895125 101.394
+L 310.895125 103.394
+" style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'; text-anchor: middle" x="201.06" y="94.482525" transform="rotate(-0 201.06 94.482525)">POST /handshake: 1,249-byte ClientHello</text>
+   </g>
+   <g id="text_5">
+    <g id="patch_6">
+     <path d="M 246.17125 161.620062
+L 390.30875 161.620062
+Q 393.90875 161.620062 393.90875 158.020062
+L 393.90875 119.611937
+Q 393.90875 116.011937 390.30875 116.011937
+L 246.17125 116.011937
+Q 242.57125 116.011937 242.57125 119.611937
+L 242.57125 158.020062
+Q 242.57125 161.620062 246.17125 161.620062
+z
+" style="fill: #f3f5f7; stroke: #34495e; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'" transform="translate(277.225625 126.491469)">Verify request HMAC</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'" transform="translate(251.925 136.093656)">X25519 + ML-KEM encapsulation</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'" transform="translate(278.416875 145.695219)">HKDF; generate SID</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'" transform="translate(246.17125 155.297406)">HMAC request + unsigned response</text>
+   </g>
+   <g id="patch_7">
+    <path d="M 316.240988 180.396
+Q 201.062111 180.396 87.224875 180.396
+" style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 91.224875 182.396
+L 87.224875 180.396
+L 91.224875 178.396
+" style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'; text-anchor: middle" x="201.06" y="173.484525" transform="rotate(-0 201.06 173.484525)">HTTP response: 1,168-byte ServerHello</text>
+   </g>
+   <g id="text_7">
+    <g id="patch_8">
+     <path d="M 24.885 235.821281
+L 142.875 235.821281
+Q 146.475 235.821281 146.475 232.221281
+L 146.475 203.414719
+Q 146.475 199.814719 142.875 199.814719
+L 24.885 199.814719
+Q 21.285 199.814719 21.285 203.414719
+L 21.285 232.221281
+Q 21.285 235.821281 24.885 235.821281
+z
+" style="fill: #f3f5f7; stroke: #34495e; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'" transform="translate(38.725625 210.29425)">Verify transcript HMAC</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'" transform="translate(24.885 219.896437)">X25519; reject all-zero secret</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'" transform="translate(25.289375 229.498625)">ML-KEM decapsulation; HKDF</text>
+   </g>
+   <g id="patch_9">
+    <path d="M 85.879012 269.793
+Q 201.057889 269.793 314.895125 269.793
+" style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 310.895125 267.793
+L 314.895125 269.793
+L 310.895125 271.793
+" style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'; text-anchor: middle" x="201.06" y="262.881525" transform="rotate(-0 201.06 262.881525)">POST /api/telemetry: SID + IV + ciphertext + tag</text>
+   </g>
+   <g id="text_9">
+    <g id="patch_10">
+     <path d="M 242.676875 323.139281
+L 393.803125 323.139281
+Q 397.403125 323.139281 397.403125 319.539281
+L 397.403125 290.732719
+Q 397.403125 287.132719 393.803125 287.132719
+L 242.676875 287.132719
+Q 239.076875 287.132719 239.076875 290.732719
+L 239.076875 319.539281
+Q 239.076875 323.139281 242.676875 323.139281
+z
+" style="fill: #f3f5f7; stroke: #34495e; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'" transform="translate(244.5425 297.61225)">Check counter; authenticate/decrypt</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'" transform="translate(242.676875 307.214438)">Update counter after valid processing</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'" transform="translate(267.255 316.816625)">Encrypt acknowledgment</text>
+   </g>
+   <g id="patch_11">
+    <path d="M 316.240988 348.795
+Q 201.062111 348.795 87.224875 348.795
+" style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 91.224875 350.795
+L 87.224875 348.795
+L 91.224875 346.795
+" style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'; text-anchor: middle" x="201.06" y="341.883525" transform="rotate(-0 201.06 341.883525)">Encrypted acknowledgment</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'" transform="translate(57.369375 387.00925)">One application key-exchange request/response; TCP setup is separate.</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'" transform="translate(41.159375 396.611437)">No Finished flight; telemetry shares one key across directions and uses no AAD.</text>
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'" transform="translate(32.536875 406.213625)">Rotate after 50 successful responses; three consecutive errors also end the session.</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p5301d7d563">
+   <rect x="5.76" y="5.76" width="390.6" height="415.8"/>
+  </clipPath>
+ </defs>
+</svg>

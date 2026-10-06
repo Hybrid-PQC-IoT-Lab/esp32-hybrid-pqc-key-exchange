@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![CI](https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/actions/workflows/ci.yml/badge.svg)](https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/actions/workflows/ci.yml)
-[![Release: v2.1-mlkem768](https://img.shields.io/badge/Release-v2.1--mlkem768--final-blue.svg)](https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/releases/tag/v2.1-mlkem768-final)
+[![Historical release: v2.1-mlkem768](https://img.shields.io/badge/Release-v2.1--mlkem768--final-blue.svg)](https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/releases/tag/v2.1-mlkem768-final)
 [![FIPS 203: ML-KEM-768](https://img.shields.io/badge/FIPS%20203-ML--KEM--768-success.svg)](https://csrc.nist.gov/pubs/fips/203/final)
 [![ProVerif: Model scope](https://img.shields.io/badge/ProVerif%202.05-bounded%20model-blue.svg)](docs/evidence/proverif_verification_output.txt)
 
@@ -13,6 +13,10 @@ This repository hosts the complete, sanitized experimental reproducibility packa
 The repository provides an inspectable ESP32 research testbed combining X25519 and ML-KEM-768 with PSK-authenticated transcripts. Archived hardware measurements are historical; later harness corrections have not been physically validated by those logs. Telemetry uses one traffic key across directions and has a documented reflection/replay limitation. This is not a production-security claim or NIST-certified implementation.
 
 ---
+
+## Evidence status
+
+Read [EVIDENCE_STATUS.md](docs/evidence/EVIDENCE_STATUS.md) before using historical reports. This branch prepares a consistency revision; the submitted v2.3.0 snapshot remains preserved.
 
 ## 🔒 Security & Sanitization Notice
 In strict accordance with peer-review research integrity standards and privacy best practices:
@@ -84,18 +88,17 @@ proverif docs/evidence/hybrid_pqc_fixed.pv
 ```
 The archived solver transcript reports secrecy of `secret_client_data` and `secret_server_data`, plus `inj-event(client_key_derived(k)) ==> inj-event(server_key_derived(k))`. The model assumes a private uncompromised PSK. It does not query PSK compromise, reverse authentication, concrete GCM nonce security or physical memory disclosure.
 
-### 3. Analyze 19-Hour Hardware Endurance Dataset
+### 3. Recount preserved endurance records
 ```bash
-python3 tools/analyze_endurance_log.py
+python3 tools/summarize_endurance_csv.py
 ```
-Parses [`docs/evidence/endurance_summary.csv`](docs/evidence/endurance_summary.csv) across physical testbed sessions:
-- **17,502 raw TCP SYNs** captured on the wire across all operational sessions (7,234 on port 4443 and 10,268 on port 8443).
-- **14,157 parser-accepted completed sessions** validated by payload size and TCP FIN (10,235 Custom Hybrid PQC and 3,922 Hybrid TLS 1.3).
-- **19.00 h active execution** (68,381 s) across **4 operational sittings**.
-- **8.10 h longest continuous window** during uninterrupted overnight testing.
-- **Three operational pauses** (two daytime power/network interruptions, one 5.0 h overnight bench pause).
-- **8,640** was the nominal 15 s schedule target, not completed session count.
-- **Port 4443 = Hybrid TLS 1.3 X25519MLKEM768** (wolfSSL), not classical baseline.
+The CSV has14,157 parser-accepted rows:10,235 Hybrid-PQC and3,922 Classical-TLS
+labels. Historical narrative identifies port4443 as hybridTLS; original negotiation
+evidence is unavailable. These are not verified all-attempt success counts.
+17,502 is the reported SYN count;8,640 is nominal schedule arithmetic. The original
+`tools/analyze_endurance_log.py` needs the absent master tcpdump. Continuous
+duration, failures, watchdog and memory stability cannot be regenerated from the
+accepted-row CSV alone. See the evidence status note.
 
 ### 4. Build and Run Backend Server
 ```bash

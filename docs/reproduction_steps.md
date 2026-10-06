@@ -69,6 +69,8 @@ processed CSV. That raw input is not included, so end-to-end regeneration is
 unavailable. Preserve the existing CSV and historical report; do not run a parser
 on synthetic PCAPs and call the output a new physical campaign.
 
+Accepted CSV rows can be regenerated separately with `python3 tools/summarize_endurance_csv.py`; this does not reconstruct missing attempts. Electrical worksheet arithmetic is regenerated with `python3 benchmarks/energy_calculation.py`. Consult `docs/evidence/EVIDENCE_STATUS.md`.
+
 ## 6. Package one frozen commit
 
 Use `tools/build_submission_package.py` after committing source corrections.

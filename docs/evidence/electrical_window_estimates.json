@@ -1,0 +1,42 @@
+{
+  "source": "power_energy_calculations.csv",
+  "sha256": "d0632525dfd7610de105fa006f0dd4f36df8db6cf4e5f54dbdddd54dc1c71b0d",
+  "estimates": [
+    {
+      "mode": "Classical TLS 1.3",
+      "voltage_v": 5.0,
+      "assumed_current_a": 0.12,
+      "window_s": 1.0,
+      "calculated_window_energy_j": 0.6
+    },
+    {
+      "mode": "TLS Hybrid (X25519MLKEM768)",
+      "voltage_v": 5.0,
+      "assumed_current_a": 0.101,
+      "window_s": 1.1,
+      "calculated_window_energy_j": 0.5555000000000001
+    },
+    {
+      "mode": "TLS Hybrid Peak Spike",
+      "voltage_v": 5.0,
+      "assumed_current_a": 0.142,
+      "window_s": 1.1,
+      "calculated_window_energy_j": 0.781
+    },
+    {
+      "mode": "Custom HTTP Hybrid PQC",
+      "voltage_v": 5.0,
+      "assumed_current_a": 0.15,
+      "window_s": 1.0,
+      "calculated_window_energy_j": 0.75
+    },
+    {
+      "mode": "PSU Baseline Floor (Idle)",
+      "voltage_v": 5.0,
+      "assumed_current_a": 0.032,
+      "window_s": 1.0,
+      "calculated_window_energy_j": 0.16
+    }
+  ],
+  "interpretation": "V x assumed I x fixed window. Not measured per-handshake energy, certified transient maximum or campaign-wide upper bound. No energy mean, SD or CI is generated."
+}

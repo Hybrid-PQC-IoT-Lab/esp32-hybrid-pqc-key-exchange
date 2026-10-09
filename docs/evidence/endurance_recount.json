@@ -1,0 +1,18 @@
+{
+  "source": "endurance_summary.csv",
+  "sha256": "1b2be16ec261001911dffa59c6328f60e5b757d3ecf93a27331aebd2d1c5f59c",
+  "accepted_rows": 14157,
+  "protocol_labels_as_recorded": {
+    "Hybrid-PQC": 10235,
+    "Classical-TLS": 3922
+  },
+  "sitting_labels_as_recorded": {
+    "1": 661,
+    "2": 924,
+    "3": 9846,
+    "4": 2726
+  },
+  "all_attempts": null,
+  "failure_rate": null,
+  "interpretation": "Parser-accepted rows only. Protocol labels require negotiation evidence. TCP SYN count, uninterrupted duration, cryptographic success and memory stability cannot be established by this CSV alone."
+}

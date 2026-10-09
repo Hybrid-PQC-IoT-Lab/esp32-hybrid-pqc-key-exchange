@@ -1,0 +1,27 @@
+{
+  "source_commit": "db93361b46043ea50a2080d3b095de9baa9f756a",
+  "ci_run": "https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/actions/runs/37242957194",
+  "archive_sha256": "7df16a0fd18df8e2c00a891b850671b498ecadab72d8a08314b6a89982e8f750",
+  "idf": "v5.5",
+  "compiler": "xtensa-esp-elf-gcc 14.2.0",
+  "verified_artifacts": [
+    {
+      "path": "build/esp32_hybrid_pqc.elf",
+      "sha256": "58596cdc7031f45edbb1ac807c604e649178d492998eec205329e355f212a456"
+    },
+    {
+      "path": "build/esp32_hybrid_pqc.bin",
+      "sha256": "956c773b72a50ab894cf8279b9269cd637da7b44a8cab8b669f55db73f18bd7c"
+    },
+    {
+      "path": "build/esp32_hybrid_pqc.map",
+      "sha256": "f6799421b39baabb1c19afc2d19e6a5d8a5c8d9c8bff71bec3f14dca44d8c368"
+    },
+    {
+      "path": "sdkconfig",
+      "sha256": "e3c0efc1e33b55365e536cd37e8e5bfabed511cbfefb6f7733bfc628b67e48de"
+    }
+  ],
+  "physical_execution": false,
+  "scope": "Corrected-source compiler evidence. Not the firmware binary used by the historical timing campaign."
+}

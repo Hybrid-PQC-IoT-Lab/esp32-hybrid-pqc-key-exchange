@@ -1,0 +1,22 @@
+Dear Editor,
+
+Please consider the corrected manuscript, "An Open-Source ESP32 Testbed for PSK-Authenticated X25519 and ML-KEM-768 Key Exchange," as a Research Paper in Computer Networks under the subscription publication route. This correction belongs to existing manuscript COMNET-D-26-07693.
+
+The study documents an application-layer hybrid exchange on ESP32 and examines what its archived observations support. It describes transcript authentication, message encoding, telemetry behavior and measurement boundaries, and provides source and analysis scripts for reproducing the reported statistics. Reanalysis of all 100 archived handshake records gives a mean instrumented latency of 616.75 ms and sample standard deviation of 244.13 ms. The study distinguishes this campaign from separate allocation reports, electrical calculations, symbolic verification and host checks.
+
+The contribution is an inspectable embedded networking implementation and descriptive empirical analysis. We do not claim a new cryptographic primitive, a controlled performance advantage over TLS, independent KEM certification, or production readiness. Historical firmware provenance, traffic-direction separation and the absence of synchronized peak-memory and power measurements constrain the conclusions. Supplementary Material S1 supplies the extended technical analysis; S2 supplies the frozen source, historical evidence and reproduction material.
+
+An earlier version was rejected by Journal of Systems Architecture (JSA-D-26-02162) for insufficient novelty; that submission is closed. Following the journal manager's clarification about article-type charges, we have changed the current Computer Networks draft from Open-Source Software Article to Research Paper. The manuscript now states its research questions and descriptive study design explicitly. This editorial revision does not add hardware measurements or resolve the scientific limitations by changing the article category.
+
+The manuscript is not under consideration elsewhere. The authors have declared no specific external funding grant. Hafiz Ali Mansoor Elahi's affiliation and relationship as co-founder of Promaker Institute are disclosed. Author contributions and the use of AI-assisted tools are stated in the manuscript.
+
+We request subscription publication with no author publishing charge. We do not request paid open access or a companion publication. Please contact the corresponding author before any change that would incur an author charge.
+
+Thank you for considering this study.
+
+Sincerely,
+Hafiz Ali Mansoor Elahi
+First and corresponding author
+Promaker Institute, Lahore, Pakistan
+hafiz.ali@PromakerInstitute.com
+ORCID: 0009-0006-4378-6391

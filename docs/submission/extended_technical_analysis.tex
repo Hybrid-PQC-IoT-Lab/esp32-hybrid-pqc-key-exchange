@@ -192,7 +192,7 @@ The payload consists of a 16-byte Session ID, a 12-byte GCM IV, a variable-lengt
 The overall system architecture is illustrated in Fig. \ref{fig1}, detailing the dual-core pinning and network stack isolation. The hybrid handshake message exchange sequence is shown in Fig. \ref{fig2}.
 
 \begin{figure}[htbp]
-\centerline{\includegraphics[width=0.5\textwidth]{architecture_diagram.png}}
+\centerline{\includegraphics[width=0.5\textwidth]{architecture_diagram.pdf}}
 \caption{System Architecture Diagram}
 \label{fig1}
 \end{figure}
@@ -317,14 +317,16 @@ Ephemeral key generation obtains bytes from the ESP32 hardware RNG. ESP-IDF docu
     \IF{$\mathit{ret} \neq 0$}
         \STATE $\text{vTaskDelay}(5000\text{ ms})$ \textbf{continue}
     \ENDIF
-    \STATE Secure Channel Established (AES-256-GCM)
-    \STATE $k_s \leftarrow \texttt{ctx.session\_key}$
-    \FOR{$i \leftarrow 1$ \TO $50$}
-        \STATE Gather sensor data (Temp / Humidity)
-        \STATE $C \leftarrow \text{AES\_GCM\_Encrypt}(\text{Data}, k_s)$
-        \STATE $\text{HTTP\_POST}(\text{"/api/telemetry"}, C)$
-        \STATE $\text{vTaskDelay}(5000\text{ ms})$
-    \ENDFOR
+    \STATE $k_s \leftarrow \texttt{ctx.session\_key}$; $n \leftarrow 0$; $e \leftarrow 0$
+    \WHILE{$n < 50 \land e < 3$}
+        \STATE $\text{vTaskDelay}(5000\text{ ms})$; gather telemetry
+        \STATE Encrypt, POST, then authenticate/decrypt the response
+        \IF{any operation fails}
+            \STATE $e \leftarrow e+1$; \textbf{continue}
+        \ENDIF
+        \STATE $n \leftarrow n+1$; $e \leftarrow 0$
+    \ENDWHILE
+    \STATE Cleanup context; wait 15 seconds; start a fresh handshake
 \ENDWHILE
 \end{algorithmic}
 \end{algorithm}
@@ -510,7 +512,7 @@ To rigorously profile and resolve this, power was injected directly into the \te
 
 \begin{figure}[htbp]
 \centerline{\includegraphics[width=0.65\columnwidth]{power_lifecycle.png}}
-\caption{Power Consumption Lifecycle of the ESP32}
+\caption{Conceptual power lifecycle illustration; this figure is not a sampled current or voltage waveform.}
 \label{fig3}
 \end{figure}
 Fig. \ref{fig3} illustrates the resulting power consumption lifecycle of the ESP32 across the full boot-to-idle sequence. The physically isolated electrical tests revealed a 110 mA peak current spike during the initial Wi-Fi radio calibration boot phase and X25519/ML-KEM-768 key generation. Following successful connection to the WLAN and completion of the handshake, the device entered its telemetry loop. During standard TLS 1.3 telemetry (AES-GCM encryption), the hardware AES accelerator maintains a flat 30 mA. However, during the separately profiled repeated-hybrid-handshake workload, the reported current fluctuated between 30 mA and 70 mA. NTT operations belong to key exchange, not ordinary AES-GCM telemetry.
@@ -577,12 +579,12 @@ To eliminate this vulnerability, the protocol was updated to enforce strict tran
 \begin{equation}
 MAC_{srv} = \text{HMAC-SHA256}(PSK, C_{hello}^{-} \parallel S_{hello})
 \end{equation}
-Re-evaluating the updated protocol in ProVerif confirmed the modeled security properties under active Dolev-Yao adversaries. The verification engine proved both \texttt{not attacker(secret\_client\_data[]) is true} and \texttt{not attacker(secret\_server\_data[]) is true}, establishing confidentiality of those modeled payload constants under idealized cryptographic operations and an uncompromised private PSK. A separate session-key secrecy query is not encoded. The model does not include concrete GCM nonces, directional replay, memory exposure or post-compromise PSK disclosure. Furthermore, the engine proved \texttt{inj-event(client\_key\_derived(k)) ==> inj-event(server\_key\_derived(k)) is true}, formally confirming injective key agreement and eliminating responder replay attacks via transcript binding.
+Re-evaluating the updated protocol in ProVerif confirmed the modeled security properties under active Dolev-Yao adversaries. The verification engine proved both \texttt{not attacker(secret\_client\_data[]) is true} and \texttt{not attacker(secret\_server\_data[]) is true}, establishing confidentiality of those modeled payload constants under idealized cryptographic operations and an uncompromised private PSK. A separate session-key secrecy query is not encoded. The model does not include concrete GCM nonces, directional replay, memory exposure or post-compromise PSK disclosure. Furthermore, the engine proved \texttt{inj-event(client\_key\_derived(k)) ==> inj-event(server\_key\_derived(k)) is true}, confirming the encoded client-to-server injective correspondence. This result does not establish every concrete replay, nonce or state-machine property.
 
 
 
 \subsection{Formal Security Reductions and IND-CCA2 Security}
-The security of the ML-KEM encapsulation mechanism is formally proven in the Quantum Random Oracle Model (QROM). The construction achieves IND-CCA2 security through a variant of the Fujisaki-Okamoto (FO) transform~\cite{b4,b23}. The implicit rejection mechanism ensures that any modification to the ML-KEM ciphertext $c$ results in the decapsulation function returning a pseudorandom secret, preventing reaction attacks~\cite{b4}.
+ML-KEM uses implicit rejection in a Fujisaki-Okamoto-style construction. Security arguments for the primitive depend on the relevant assumptions and model; they do not certify this repository implementation or its custom combiner. The underlying construction is discussed through the Fujisaki-Okamoto (FO) transform~\cite{b4,b23}. The implicit rejection mechanism ensures that any modification to the ML-KEM ciphertext $c$ results in the decapsulation function returning a pseudorandom secret, preventing reaction attacks~\cite{b4}.
 
 \subsection{Active MitM Protection via HMAC-SHA256 PSK}
 Without authentication, ephemeral Diffie-Hellman and KEM exchanges are vulnerable to active MitM parameter manipulation. By introducing a 32-byte pre-shared key (PSK) and signing all handshake request/response messages with HMAC-SHA256~\cite{b24,b37}, both parties mutually verify the integrity of the public parameters. Any tampering immediately halts key derivation.
@@ -682,6 +684,8 @@ The original measurement artifacts are preserved at source commit \nolinkurl{467
 The tests use fixed-seed and randomized self-consistency checks, not an externally certified NIST KAT suite. Files in \texttt{data/sanitized\_pcaps/} are synthetic Scapy illustrations. The endurance CSV is available, but the original master wire-capture log referenced by its parser is absent from the supplied release.
 
 
+A separate corrected-source ESP-IDF v5.5 compiler archive contains ELF, map, binary and configuration artifacts. Its original commit and verified hashes are recorded in S2; it does not identify the historical measurement binary or prove a new board execution.
+
 \section*{Author Contributions}
 Hafiz Ali Mansoor Elahi: Conceptualization, Methodology, Supervision, Validation.
 Muhammad Sohaim Muqtada: Software, Investigation, Data curation.
@@ -708,7 +712,7 @@ During preparation of this manuscript, the authors used OpenAI Codex to assist w
 \bibitem{b15} G. Alagic \textit{et al.}, ``Status Report on the Third Round of the NIST Post-Quantum Cryptography Standardization Process,'' NIST IR 8413, 2022, doi: 10.6028/NIST.IR.8413. [Online]. Available: \url{https://doi.org/10.6028/NIST.IR.8413}
 \bibitem{b8} N. Bindel, J. Brendel, M. Fischlin, B. Goncalves, and D. Stebila, ``Hybrid key encapsulation mechanisms and authenticated key exchange,'' in \textit{PQCrypto 2019}, LNCS 11505, pp. 206~to~226, doi: 10.1007/978-3-030-25510-7\_12. [Online]. Available: \url{https://doi.org/10.1007/978-3-030-25510-7_12}
 \bibitem{b9} G. Alagic \textit{et al.}, ``Recommendations for Key-Encapsulation Mechanisms,'' NIST SP 800-227, 2025, doi: 10.6028/NIST.SP.800-227. [Online]. Available: \url{https://doi.org/10.6028/NIST.SP.800-227}
-\bibitem{b41} M. Barbosa, D. Connolly, J. D. Duarte, A. Kaiser, P. Schwabe, K. Varner, and B. Westerbaan, ``X-Wing: The Hybrid KEM You've Been Looking For,'' IACR Cryptology ePrint Archive, Paper 2024/039, revised Mar. 2025, doi: 10.62056/a3qj89n4e. [Online]. Available: \url{https://eprint.iacr.org/2024/039}
+\bibitem{b41} M. Barbosa, D. Connolly, J. D. Duarte, A. Kaiser, P. Schwabe, K. Varner, and B. Westerbaan, ``X-Wing: The Hybrid KEM You've Been Looking For,'' \textit{IACR Communications in Cryptology}, vol. 1, no. 1, Apr. 2024, doi: 10.62056/a3qj89n4e. [Online]. Available: \url{https://eprint.iacr.org/2024/039}
 \bibitem{b11} K. B{\"u}rstinghaus-Steinbach, C. Krau{\ss}, R. Niederhagen, and M. Schneider, ``Post-quantum TLS on embedded systems: Integrating and evaluating Kyber and SPHINCS+ with mbed TLS,'' in \textit{Proc. ACM ASIACCS}, 2020, pp. 841~to~852, doi: 10.1145/3320269.3384725. [Online]. Available: \url{https://doi.org/10.1145/3320269.3384725}
 \bibitem{b42} J. Blanco-Romero, Y. M. Garcia-Nino, F. Almenares Mendoza, D. Diaz-Sanchez, C. Garcia-Rubio, and C. Campo, ``Post-Quantum Entropy as a Service for Embedded Systems,'' arXiv preprint arXiv:2603.10274v1, Mar. 2026, doi: 10.48550/arXiv.2603.10274. [Online]. Available: \url{https://arxiv.org/abs/2603.10274v1}
 \bibitem{b6} L. Botros, M. J. Kannwischer, and P. Schwabe, ``Memory-efficient high-speed implementation of Kyber on Cortex-M4,'' in \textit{AFRICACRYPT 2019}, LNCS 11627, pp. 209~to~228, doi: 10.1007/978-3-030-23696-0\_11. [Online]. Available: \url{https://doi.org/10.1007/978-3-030-23696-0_11}

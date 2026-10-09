@@ -66,7 +66,11 @@ Upon successful decapsulation and ECDH computation:
 * **Additional Authenticated Data (AAD)**: None (`NULL, 0`). Sequence counter integrity and packet ordering are enforced directly through the GCM IV Galois counter computation and the 16-byte authentication tag.
 * **Anti-Replay**: The server strictly enforces that the incoming sequence counter exceeds the highest sequence counter recorded for that session ($C_{\text{recv}} > C_{\text{last}}$). Replayed or out-of-order packets are dropped immediately.
 
-## 5. Scope limitations
+## 5. Formal abstraction
+
+The archived ProVerif model captures the two ephemeral components and response binding to the client parameters. It omits the concrete SID, mode byte, HKDF salt/info encodings, nonce/counter state and later PSK compromise. Its three queries do not prove complete byte-level or telemetry conformance.
+
+## 6. Scope limitations
 
 The hybrid handshake bodies total 1,249 + 1,168 = 2,417 bytes, excluding HTTP/TCP/IP framing. Both telemetry directions use the same key, without a direction label or separate traffic keys. Monotonic counters do not prevent directional reflection. The client checks the response counter against its request counter; this is not general cross-direction replay protection.
 

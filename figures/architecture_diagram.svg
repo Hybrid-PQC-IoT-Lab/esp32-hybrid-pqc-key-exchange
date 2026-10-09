@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="457.92pt" height="150.12pt" viewBox="0 0 457.92 150.12" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-06T13:42:04.375259</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 150.12
+L 457.92 150.12
+L 457.92 0
+L 0 0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="text_1">
+    <g id="patch_2">
+     <path d="M 9.843609 87.42334
+L 144.524391 87.42334
+Q 149.924391 87.42334 149.924391 82.02334
+L 149.924391 49.61666
+Q 149.924391 44.21666 144.524391 44.21666
+L 9.843609 44.21666
+Q 4.443609 44.21666 4.443609 49.61666
+L 4.443609 82.02334
+Q 4.443609 87.42334 9.843609 87.42334
+z
+" style="fill: #f3f5f7; stroke: #34495e; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(37.171969 57.35543)">ESP32 / FreeRTOS</text>
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(9.843609 68.157891)">X25519 + native ML-KEM-768</text>
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(33.697125 78.960352)">mbedTLS AES-GCM</text>
+   </g>
+   <g id="text_2">
+    <g id="patch_3">
+     <path d="M 164.538984 87.423691
+L 293.381016 87.423691
+Q 298.781016 87.423691 298.781016 82.023691
+L 298.781016 49.616309
+Q 298.781016 44.216309 293.381016 44.216309
+L 164.538984 44.216309
+Q 159.138984 44.216309 159.138984 49.616309
+L 159.138984 82.023691
+Q 159.138984 87.423691 164.538984 87.423691
+z
+" style="fill: #f3f5f7; stroke: #34495e; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(190.222031 57.355781)">Wi-Fi + HTTP/TCP</text>
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(164.538984 68.158242)">PSK-authenticated exchange</text>
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(182.618437 78.960703)">Encrypted telemetry</text>
+   </g>
+   <g id="text_3">
+    <g id="patch_4">
+     <path d="M 310.808109 87.423691
+L 450.663891 87.423691
+Q 456.063891 87.423691 456.063891 82.023691
+L 456.063891 49.616309
+Q 456.063891 44.216309 450.663891 44.216309
+L 310.808109 44.216309
+Q 305.408109 44.216309 305.408109 49.616309
+L 305.408109 82.023691
+Q 305.408109 87.423691 310.808109 87.423691
+z
+" style="fill: #f3f5f7; stroke: #34495e; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(344.763422 57.355781)">Python / aiohttp</text>
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(310.808109 68.158242)">cryptography + native ML-KEM</text>
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'" transform="translate(325.214437 78.960703)">In-memory session state</text>
+   </g>
+   <g id="patch_5">
+    <path d="M 147.598397 65.82
+Q 153.071859 65.82 158.545321 65.82
+" style="fill: none; stroke: #000000; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 151.598397 67.82
+L 147.598397 65.82
+L 151.598397 63.82
+" style="fill: none; stroke: #000000; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 154.545321 63.82
+L 158.545321 65.82
+L 154.545321 67.82
+" style="fill: none; stroke: #000000; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 299.374397 65.82
+Q 304.847859 65.82 310.321321 65.82
+" style="fill: none; stroke: #000000; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 303.374397 67.82
+L 299.374397 65.82
+L 303.374397 63.82
+" style="fill: none; stroke: #000000; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 306.321321 63.82
+L 310.321321 65.82
+L 306.321321 67.82
+" style="fill: none; stroke: #000000; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 8px; font-family: 'DejaVu Sans'; text-anchor: middle" x="228.96" y="128.19" transform="rotate(-0 228.96 128.19)">Research testbed: public evaluation PSK, shared directional traffic key, no telemetry AAD.</text>
+   </g>
+  </g>
+ </g>
+</svg>

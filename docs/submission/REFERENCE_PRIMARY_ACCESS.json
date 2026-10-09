@@ -1,0 +1,439 @@
+{
+  "scope": "Primary URL access, not full claim-to-source verification",
+  "entries": [
+    {
+      "key": "b5",
+      "citation": " D. J. Bernstein, ``Curve25519: New Diffie-Hellman speed records,'' in \\textit{PKC 2006}, LNCS 3958, pp. 207~to~228, doi: 10.1007/11745853\\_14. [Online]. Available: \\url{https://doi.org/10.1007/11745853_14}",
+      "primary_url": "https://doi.org/10.1007/11745853_14",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://link.springer.com/chapter/10.1007/11745853_14?error=cookies_not_supported&code=2549d247-6747-4050-bdca-9f4de7d85f2c",
+      "status": 200,
+      "page_title": "Curve25519: New Diffie-Hellman Speed Records | Springer Nature Link"
+    },
+    {
+      "key": "b19",
+      "citation": " A. Langley, M. Hamburg, and S. Turner, ``Elliptic Curves for Security,'' RFC 7748, Jan. 2016, doi: 10.17487/RFC7748. [Online]. Available: \\url{https://www.rfc-editor.org/rfc/rfc7748}",
+      "primary_url": "https://www.rfc-editor.org/rfc/rfc7748",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://www.rfc-editor.org/info/rfc7748/",
+      "status": 200,
+      "page_title": "RFC 7748: Elliptic Curves for Security | RFC Editor"
+    },
+    {
+      "key": "b1",
+      "citation": " P. W. Shor, ``Algorithms for quantum computation: discrete logarithms and factoring,'' in \\textit{Proc. 35th FOCS}, 1994, pp. 124~to~134, doi: 10.1109/SFCS.1994.365700. [Online]. Available: \\url{https://doi.org/10.1109/SFCS.1994.365700}",
+      "primary_url": "https://doi.org/10.1109/SFCS.1994.365700",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://ieeexplore.ieee.org/document/365700/",
+      "status": 202,
+      "page_title": null
+    },
+    {
+      "key": "b27",
+      "citation": " L. Chen \\textit{et al.}, ``Report on Post-Quantum Cryptography,'' NIST IR 8105, 2016, doi: 10.6028/NIST.IR.8105. [Online]. Available: \\url{https://doi.org/10.6028/NIST.IR.8105}",
+      "primary_url": "https://doi.org/10.6028/NIST.IR.8105",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://nvlpubs.nist.gov/nistpubs/ir/2016/NIST.IR.8105.pdf",
+      "status": 200,
+      "page_title": null
+    },
+    {
+      "key": "b10",
+      "citation": " M. Mosca, ``Cybersecurity in an era with quantum computers: Will we be ready?,'' \\textit{IEEE Security \\& Privacy}, vol. 16, no. 5, pp. 38~to~41, 2018, doi: 10.1109/MSP.2018.3761723. [Online]. Available: \\url{https://doi.org/10.1109/MSP.2018.3761723}",
+      "primary_url": "https://doi.org/10.1109/MSP.2018.3761723",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://ieeexplore.ieee.org/document/8490169/",
+      "status": 202,
+      "page_title": null
+    },
+    {
+      "key": "b39",
+      "citation": " D. Moody \\textit{et al.}, ``Transition to Post-Quantum Cryptography Standards,'' NIST IR 8547 (Initial Public Draft), Nov. 2024, doi: 10.6028/NIST.IR.8547.ipd. [Online]. Available: \\url{https://doi.org/10.6028/NIST.IR.8547.ipd}",
+      "primary_url": "https://doi.org/10.6028/NIST.IR.8547.ipd",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://nvlpubs.nist.gov/nistpubs/ir/2024/NIST.IR.8547.ipd.pdf",
+      "status": 200,
+      "page_title": null
+    },
+    {
+      "key": "b2",
+      "citation": " NIST, ``FIPS 203: Module-Lattice-Based Key-Encapsulation Mechanism Standard,'' Aug. 2024, doi: 10.6028/NIST.FIPS.203. [Online]. Available: \\url{https://doi.org/10.6028/NIST.FIPS.203}",
+      "primary_url": "https://doi.org/10.6028/NIST.FIPS.203",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.203.pdf",
+      "status": 200,
+      "page_title": null
+    },
+    {
+      "key": "b15",
+      "citation": " G. Alagic \\textit{et al.}, ``Status Report on the Third Round of the NIST Post-Quantum Cryptography Standardization Process,'' NIST IR 8413, 2022, doi: 10.6028/NIST.IR.8413. [Online]. Available: \\url{https://doi.org/10.6028/NIST.IR.8413}",
+      "primary_url": "https://doi.org/10.6028/NIST.IR.8413",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://nvlpubs.nist.gov/nistpubs/ir/2022/NIST.IR.8413.pdf",
+      "status": 200,
+      "page_title": null
+    },
+    {
+      "key": "b8",
+      "citation": " N. Bindel, J. Brendel, M. Fischlin, B. Goncalves, and D. Stebila, ``Hybrid key encapsulation mechanisms and authenticated key exchange,'' in \\textit{PQCrypto 2019}, LNCS 11505, pp. 206~to~226, doi: 10.1007/978-3-030-25510-7\\_12. [Online]. Available: \\url{https://doi.org/10.1007/978-3-030-25510-7_12}",
+      "primary_url": "https://doi.org/10.1007/978-3-030-25510-7_12",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://link.springer.com/chapter/10.1007/978-3-030-25510-7_12?error=cookies_not_supported&code=f9cb95b4-b618-4929-946e-a6b5d897b119",
+      "status": 200,
+      "page_title": "Hybrid Key Encapsulation Mechanisms and Authenticated Key Exchange | Springer Nature Link"
+    },
+    {
+      "key": "b9",
+      "citation": " G. Alagic \\textit{et al.}, ``Recommendations for Key-Encapsulation Mechanisms,'' NIST SP 800-227, 2025, doi: 10.6028/NIST.SP.800-227. [Online]. Available: \\url{https://doi.org/10.6028/NIST.SP.800-227}",
+      "primary_url": "https://doi.org/10.6028/NIST.SP.800-227",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-227.pdf",
+      "status": 200,
+      "page_title": null
+    },
+    {
+      "key": "b41",
+      "citation": " M. Barbosa, D. Connolly, J. D. Duarte, A. Kaiser, P. Schwabe, K. Varner, and B. Westerbaan, ``X-Wing: The Hybrid KEM You've Been Looking For,'' \\textit{IACR Communications in Cryptology}, vol. 1, no. 1, Apr. 2024, doi: 10.62056/a3qj89n4e. [Online]. Available: \\url{https://eprint.iacr.org/2024/039}",
+      "primary_url": "https://eprint.iacr.org/2024/039",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://eprint.iacr.org/2024/039",
+      "status": 200,
+      "page_title": "X-Wing: The Hybrid KEM You\u2019ve Been Looking For"
+    },
+    {
+      "key": "b11",
+      "citation": " K. B{\\\"u}rstinghaus-Steinbach, C. Krau{\\ss}, R. Niederhagen, and M. Schneider, ``Post-quantum TLS on embedded systems: Integrating and evaluating Kyber and SPHINCS+ with mbed TLS,'' in \\textit{Proc. ACM ASIACCS}, 2020, pp. 841~to~852, doi: 10.1145/3320269.3384725. [Online]. Available: \\url{https://doi.org/10.1145/3320269.3384725}",
+      "primary_url": "https://doi.org/10.1145/3320269.3384725",
+      "claim_support_verified": false,
+      "access": "unverified",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "key": "b42",
+      "citation": " J. Blanco-Romero, Y. M. Garcia-Nino, F. Almenares Mendoza, D. Diaz-Sanchez, C. Garcia-Rubio, and C. Campo, ``Post-Quantum Entropy as a Service for Embedded Systems,'' arXiv preprint arXiv:2603.10274v1, Mar. 2026, doi: 10.48550/arXiv.2603.10274. [Online]. Available: \\url{https://arxiv.org/abs/2603.10274v1}",
+      "primary_url": "https://arxiv.org/abs/2603.10274v1",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://arxiv.org/abs/2603.10274v1",
+      "status": 200,
+      "page_title": "[2603.10274v1] Post-Quantum Entropy as a Service for Embedded Systems"
+    },
+    {
+      "key": "b6",
+      "citation": " L. Botros, M. J. Kannwischer, and P. Schwabe, ``Memory-efficient high-speed implementation of Kyber on Cortex-M4,'' in \\textit{AFRICACRYPT 2019}, LNCS 11627, pp. 209~to~228, doi: 10.1007/978-3-030-23696-0\\_11. [Online]. Available: \\url{https://doi.org/10.1007/978-3-030-23696-0_11}",
+      "primary_url": "https://doi.org/10.1007/978-3-030-23696-0_11",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://link.springer.com/chapter/10.1007/978-3-030-23696-0_11?error=cookies_not_supported&code=617ac448-67e8-4877-abba-5851d682f783",
+      "status": 200,
+      "page_title": "Memory-Efficient High-Speed Implementation of Kyber on Cortex-M4 | Springer Nature Link"
+    },
+    {
+      "key": "b12",
+      "citation": " A. Abdulrahman, V. Hwang, M. J. Kannwischer, and A. Sprenkels, ``Faster Kyber and Dilithium on the Cortex-M4,'' in \\textit{ACNS 2022}, LNCS 13269, pp. 853~to~871, doi: 10.1007/978-3-031-09234-3\\_42. [Online]. Available: \\url{https://doi.org/10.1007/978-3-031-09234-3_42}",
+      "primary_url": "https://doi.org/10.1007/978-3-031-09234-3_42",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://link.springer.com/chapter/10.1007/978-3-031-09234-3_42?error=cookies_not_supported&code=864e5cf7-16b8-4736-a50e-122299adf782",
+      "status": 200,
+      "page_title": "Faster Kyber and Dilithium on the Cortex-M4 | Springer Nature Link"
+    },
+    {
+      "key": "b14",
+      "citation": " P. Schwabe, D. Stebila, and T. Wiggers, ``Post-quantum TLS without handshake signatures,'' in \\textit{Proc. ACM CCS}, 2020, pp. 1461~to~1480, doi: 10.1145/3372297.3423350. [Online]. Available: \\url{https://doi.org/10.1145/3372297.3423350}",
+      "primary_url": "https://doi.org/10.1145/3372297.3423350",
+      "claim_support_verified": false,
+      "access": "unverified",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "key": "b3",
+      "citation": " O. Regev, ``On lattices, learning with errors, random linear codes, and cryptography,'' \\textit{J. ACM}, vol. 56, no. 6, pp. 1~to~40, 2009, doi: 10.1145/1568318.1568324. [Online]. Available: \\url{https://doi.org/10.1145/1568318.1568324}",
+      "primary_url": "https://doi.org/10.1145/1568318.1568324",
+      "claim_support_verified": false,
+      "access": "unverified",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "key": "b13",
+      "citation": " J. Huang \\textit{et al.}, ``Yet another improvement of Plantard arithmetic for faster Kyber on low-end 32-bit IoT devices,'' \\textit{IEEE Trans. Inf. Forensics Security}, vol. 19, pp. 3800~to~3813, 2024, doi: 10.1109/TIFS.2024.3371369. [Online]. Available: \\url{https://doi.org/10.1109/TIFS.2024.3371369}",
+      "primary_url": "https://doi.org/10.1109/TIFS.2024.3371369",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://ieeexplore.ieee.org/document/10453274/",
+      "status": 202,
+      "page_title": null
+    },
+    {
+      "key": "b26",
+      "citation": " V. Lyubashevsky, C. Peikert, and O. Regev, ``On ideal lattices and learning with errors over rings,'' in \\textit{EUROCRYPT 2010}, LNCS 6110, pp. 1~to~23, doi: 10.1007/978-3-642-13190-5\\_1. [Online]. Available: \\url{https://doi.org/10.1007/978-3-642-13190-5_1}",
+      "primary_url": "https://doi.org/10.1007/978-3-642-13190-5_1",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://link.springer.com/chapter/10.1007/978-3-642-13190-5_1?error=cookies_not_supported&code=73d669e9-713b-4ad2-bd08-a0a2ddfee5fb",
+      "status": 200,
+      "page_title": "On Ideal Lattices and Learning with Errors over Rings | Springer Nature Link"
+    },
+    {
+      "key": "b28",
+      "citation": " R. Avanzi \\textit{et al.}, ``CRYSTALS-Kyber algorithm specifications and supporting documentation (version 3.02),'' NIST PQC Round 3, 2021. [Online]. Available: \\url{https://pq-crystals.org/kyber/data/kyber-specification-round3-20210804.pdf}",
+      "primary_url": "https://pq-crystals.org/kyber/data/kyber-specification-round3-20210804.pdf",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://pq-crystals.org/kyber/data/kyber-specification-round3-20210804.pdf",
+      "status": 200,
+      "page_title": null
+    },
+    {
+      "key": "b31",
+      "citation": " F. Driscoll, M. Parsons, and B. Hale, ``Terminology for Post-Quantum Traditional Hybrid Schemes,'' RFC 9794, Jun. 2025, doi: 10.17487/RFC9794. [Online]. Available: \\url{https://www.rfc-editor.org/rfc/rfc9794}",
+      "primary_url": "https://www.rfc-editor.org/rfc/rfc9794",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://www.rfc-editor.org/info/rfc9794/",
+      "status": 200,
+      "page_title": "RFC 9794: Terminology for Post-Quantum Traditional Hybrid Schemes | RFC Editor"
+    },
+    {
+      "key": "b32",
+      "citation": " R. Barnes, K. Bhargavan, B. Lipp, and C. Wood, ``Hybrid Public Key Encryption,'' RFC 9180, Feb. 2022, doi: 10.17487/RFC9180. [Online]. Available: \\url{https://www.rfc-editor.org/rfc/rfc9180}",
+      "primary_url": "https://www.rfc-editor.org/rfc/rfc9180",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://www.rfc-editor.org/info/rfc9180/",
+      "status": 200,
+      "page_title": "RFC 9180: Hybrid Public Key Encryption | RFC Editor"
+    },
+    {
+      "key": "b16",
+      "citation": " K. Kwiatkowski, P. Kampanakis, B. E. Westerbaan, and D. Stebila, ``Post-Quantum Traditional (PQ/T) Hybrid Key Agreement Mechanisms for TLS 1.3,'' RFC 10024, Aug. 2026, doi: 10.17487/RFC10024. [Online]. Available: \\url{https://www.rfc-editor.org/rfc/rfc10024}",
+      "primary_url": "https://www.rfc-editor.org/rfc/rfc10024",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://www.rfc-editor.org/info/rfc10024/",
+      "status": 200,
+      "page_title": "RFC 10024: Post-Quantum Traditional (PQ&#x2F;T) Hybrid Key Agreement Mechanisms for TLS 1.3 | RFC Editor"
+    },
+    {
+      "key": "b17",
+      "citation": " D. Stebila, S. Fluhrer, and S. Gueron, ``Hybrid Key Exchange in TLS 1.3,'' RFC 9954, Jul. 2026, doi: 10.17487/RFC9954. [Online]. Available: \\url{https://www.rfc-editor.org/rfc/rfc9954}",
+      "primary_url": "https://www.rfc-editor.org/rfc/rfc9954",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://www.rfc-editor.org/info/rfc9954/",
+      "status": 200,
+      "page_title": "RFC 9954: Hybrid Key Exchange in TLS 1.3 | RFC Editor"
+    },
+    {
+      "key": "b21",
+      "citation": " E. Rescorla, ``The Transport Layer Security (TLS) Protocol Version 1.3,'' RFC 8446, Aug. 2018, doi: 10.17487/RFC8446. [Online]. Available: \\url{https://www.rfc-editor.org/rfc/rfc8446}",
+      "primary_url": "https://www.rfc-editor.org/rfc/rfc8446",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://www.rfc-editor.org/info/rfc8446/",
+      "status": 200,
+      "page_title": "RFC 8446: The Transport Layer Security (TLS) Protocol Version 1.3 | RFC Editor"
+    },
+    {
+      "key": "b34",
+      "citation": " C. Paquin, D. Stebila, and G. Tamvada, ``Benchmarking post-quantum cryptography in TLS,'' in \\textit{PQCrypto 2020}, LNCS 12100, pp. 72~to~91, doi: 10.1007/978-3-030-44223-1\\_5. [Online]. Available: \\url{https://doi.org/10.1007/978-3-030-44223-1_5}",
+      "primary_url": "https://doi.org/10.1007/978-3-030-44223-1_5",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://link.springer.com/chapter/10.1007/978-3-030-44223-1_5?error=cookies_not_supported&code=1d8dc8f2-2eac-4da5-afc5-621de9ab9f0b",
+      "status": 200,
+      "page_title": "Benchmarking Post-quantum Cryptography in TLS | Springer Nature Link"
+    },
+    {
+      "key": "b38",
+      "citation": " D. Sikeridis, P. Kampanakis, and M. Devetsikiotis, ``Post-Quantum Authentication in TLS 1.3: A Performance Study,'' in \\textit{Proc. NDSS}, 2020, doi: 10.14722/ndss.2020.24203. [Online]. Available: \\url{https://doi.org/10.14722/ndss.2020.24203}",
+      "primary_url": "https://doi.org/10.14722/ndss.2020.24203",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://www.ndss-symposium.org/wp-content/uploads/2020/02/24203.pdf",
+      "status": 200,
+      "page_title": null
+    },
+    {
+      "key": "b7",
+      "citation": " M. J. Kannwischer, J. Rijneveld, P. Schwabe, and K. Stoffelen, ``pqm4: Testing and Benchmarking NIST PQC on ARM Cortex-M4,'' IACR ePrint 2019/844. [Online]. Available: \\url{https://eprint.iacr.org/2019/844}",
+      "primary_url": "https://eprint.iacr.org/2019/844",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://eprint.iacr.org/2019/844",
+      "status": 200,
+      "page_title": "pqm4: Testing and Benchmarking NIST PQC on ARM Cortex-M4"
+    },
+    {
+      "key": "b4",
+      "citation": " J. Bos \\textit{et al.}, ``CRYSTALS-Kyber: A CCA-secure module-lattice-based KEM,'' in \\textit{Proc. IEEE EuroS\\&P}, 2018, pp. 353~to~367, doi: 10.1109/EuroSP.2018.00032. [Online]. Available: \\url{https://doi.org/10.1109/EuroSP.2018.00032}",
+      "primary_url": "https://doi.org/10.1109/EuroSP.2018.00032",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://ieeexplore.ieee.org/document/8406610/",
+      "status": 202,
+      "page_title": null
+    },
+    {
+      "key": "b23",
+      "citation": " E. Fujisaki and T. Okamoto, ``Secure integration of asymmetric and symmetric encryption schemes,'' in \\textit{CRYPTO '99}, LNCS 1666, pp. 537~to~554, doi: 10.1007/3-540-48405-1\\_34. [Online]. Available: \\url{https://doi.org/10.1007/3-540-48405-1_34}",
+      "primary_url": "https://doi.org/10.1007/3-540-48405-1_34",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://link.springer.com/chapter/10.1007/3-540-48405-1_34?error=cookies_not_supported&code=8ae25654-916b-455b-966c-5ef8cdddcb19",
+      "status": 200,
+      "page_title": "Secure Integration of Asymmetric and Symmetric Encryption Schemes | Springer Nature Link"
+    },
+    {
+      "key": "b20",
+      "citation": " H. Krawczyk and P. Eronen, ``HMAC-based Extract-and-Expand Key Derivation Function (HKDF),'' RFC 5869, May 2010, doi: 10.17487/RFC5869. [Online]. Available: \\url{https://www.rfc-editor.org/rfc/rfc5869}",
+      "primary_url": "https://www.rfc-editor.org/rfc/rfc5869",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://www.rfc-editor.org/info/rfc5869/",
+      "status": 200,
+      "page_title": "RFC 5869: HMAC-based Extract-and-Expand Key Derivation Function (HKDF) | RFC Editor"
+    },
+    {
+      "key": "b33",
+      "citation": " E. Barker, L. Chen, and R. Davis, ``Recommendation for Key-Derivation Methods in Key-Establishment Schemes,'' NIST SP 800-56C Rev. 2, 2020, doi: 10.6028/NIST.SP.800-56Cr2. [Online]. Available: \\url{https://doi.org/10.6028/NIST.SP.800-56Cr2}",
+      "primary_url": "https://doi.org/10.6028/NIST.SP.800-56Cr2",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Cr2.pdf",
+      "status": 200,
+      "page_title": null
+    },
+    {
+      "key": "b36",
+      "citation": " NIST, ``FIPS 180-4: Secure Hash Standard (SHS),'' 2015, doi: 10.6028/NIST.FIPS.180-4. [Online]. Available: \\url{https://doi.org/10.6028/NIST.FIPS.180-4}",
+      "primary_url": "https://doi.org/10.6028/NIST.FIPS.180-4",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf",
+      "status": 200,
+      "page_title": null
+    },
+    {
+      "key": "b22",
+      "citation": " M. Dworkin, ``Recommendation for Block Cipher Modes of Operation: Galois/Counter Mode (GCM) and GMAC,'' NIST SP 800-38D, 2007, doi: 10.6028/NIST.SP.800-38D. [Online]. Available: \\url{https://doi.org/10.6028/NIST.SP.800-38D}",
+      "primary_url": "https://doi.org/10.6028/NIST.SP.800-38D",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38d.pdf",
+      "status": 200,
+      "page_title": null
+    },
+    {
+      "key": "b29",
+      "citation": " D. McGrew and J. Viega, ``The security and performance of the Galois/Counter Mode (GCM) of operation,'' in \\textit{INDOCRYPT 2004}, LNCS 3348, pp. 343~to~355, doi: 10.1007/978-3-540-30556-9\\_27. [Online]. Available: \\url{https://doi.org/10.1007/978-3-540-30556-9_27}",
+      "primary_url": "https://doi.org/10.1007/978-3-540-30556-9_27",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://link.springer.com/chapter/10.1007/978-3-540-30556-9_27?error=cookies_not_supported&code=962f6daf-fbd9-4f07-be58-17420e472ea7",
+      "status": 200,
+      "page_title": "The Security and Performance of the Galois/Counter Mode (GCM) of Operation | Springer Nature Link"
+    },
+    {
+      "key": "b35",
+      "citation": " D. McGrew, ``An Interface and Algorithms for Authenticated Encryption,'' RFC 5116, Jan. 2008, doi: 10.17487/RFC5116. [Online]. Available: \\url{https://www.rfc-editor.org/rfc/rfc5116}",
+      "primary_url": "https://www.rfc-editor.org/rfc/rfc5116",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://www.rfc-editor.org/info/rfc5116/",
+      "status": 200,
+      "page_title": "RFC 5116: An Interface and Algorithms for Authenticated Encryption | RFC Editor"
+    },
+    {
+      "key": "b30",
+      "citation": " NIST, ``FIPS 197: Advanced Encryption Standard (AES),'' Nov. 2001, doi: 10.6028/NIST.FIPS.197. [Online]. Available: \\url{https://doi.org/10.6028/NIST.FIPS.197}",
+      "primary_url": "https://doi.org/10.6028/NIST.FIPS.197",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf",
+      "status": 200,
+      "page_title": null
+    },
+    {
+      "key": "b43",
+      "citation": " Espressif Systems, ``Random Number Generation,'' ESP-IDF Programming Guide v5.5, accessed Oct. 5, 2026. [Online]. Available: \\url{https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/api-reference/system/random.html}",
+      "primary_url": "https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/api-reference/system/random.html",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/api-reference/system/random.html",
+      "status": 200,
+      "page_title": "Random Number Generation - ESP32 - &mdash; ESP-IDF Programming Guide v5.5 documentation"
+    },
+    {
+      "key": "b25",
+      "citation": " B. Blanchet, ``An efficient cryptographic protocol verifier based on Prolog rules,'' in \\textit{Proc. 14th IEEE CSFW}, 2001, pp. 82~to~96, doi: 10.1109/CSFW.2001.930138. [Online]. Available: \\url{https://doi.org/10.1109/CSFW.2001.930138}",
+      "primary_url": "https://doi.org/10.1109/CSFW.2001.930138",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://ieeexplore.ieee.org/document/930138/",
+      "status": 202,
+      "page_title": null
+    },
+    {
+      "key": "b24",
+      "citation": " H. Krawczyk, M. Bellare, and R. Canetti, ``HMAC: Keyed-Hashing for Message Authentication,'' RFC 2104, Feb. 1997, doi: 10.17487/RFC2104. [Online]. Available: \\url{https://www.rfc-editor.org/rfc/rfc2104}",
+      "primary_url": "https://www.rfc-editor.org/rfc/rfc2104",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://www.rfc-editor.org/info/rfc2104/",
+      "status": 200,
+      "page_title": "RFC 2104: HMAC: Keyed-Hashing for Message Authentication | RFC Editor"
+    },
+    {
+      "key": "b37",
+      "citation": " NIST, ``FIPS 198-1: The Keyed-Hash Message Authentication Code (HMAC),'' 2008, doi: 10.6028/NIST.FIPS.198-1. [Online]. Available: \\url{https://doi.org/10.6028/NIST.FIPS.198-1}",
+      "primary_url": "https://doi.org/10.6028/NIST.FIPS.198-1",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.198-1.pdf",
+      "status": 200,
+      "page_title": null
+    },
+    {
+      "key": "b18",
+      "citation": " P. Ravi, S. Sinha Roy, A. Chattopadhyay, and S. Bhasin, ``Generic side-channel attacks on CCA-secure lattice-based PKE and KEMs,'' \\textit{IACR TCHES}, vol. 2020, no. 3, pp. 307~to~335, 2020, doi: 10.13154/tches.v2020.i3.307-335. [Online]. Available: \\url{https://doi.org/10.13154/tches.v2020.i3.307-335}",
+      "primary_url": "https://doi.org/10.13154/tches.v2020.i3.307-335",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://tches.iacr.org/index.php/TCHES/article/view/8592",
+      "status": 200,
+      "page_title": "Generic Side-channel attacks on CCA-secure lattice-based PKE and KEMs | IACR Transactions on Cryptographic Hardware and Embedded Systems"
+    },
+    {
+      "key": "b40",
+      "citation": " D. J. Bernstein \\textit{et al.}, ``KyberSlash: Exploiting secret-dependent division timings in Kyber implementations,'' \\textit{IACR TCHES}, vol. 2025, no. 2, pp. 209~to~234, doi: 10.46586/tches.v2025.i2.209-234. [Online]. Available: \\url{https://doi.org/10.46586/tches.v2025.i2.209-234}",
+      "primary_url": "https://doi.org/10.46586/tches.v2025.i2.209-234",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://tches.iacr.org/index.php/TCHES/article/view/12046",
+      "status": 200,
+      "page_title": "KyberSlash: Exploiting secret-dependent division timings in Kyber implementations | IACR Transactions on Cryptographic Hardware and Embedded Systems"
+    },
+    {
+      "key": "b44",
+      "citation": " Espressif Systems, ``Secure Boot v2,'' ESP-IDF Programming Guide v5.5, accessed Oct. 5, 2026. [Online]. Available: \\url{https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/security/secure-boot-v2.html}",
+      "primary_url": "https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/security/secure-boot-v2.html",
+      "claim_support_verified": false,
+      "access": "retrieved",
+      "resolved_url": "https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/security/secure-boot-v2.html",
+      "status": 200,
+      "page_title": "Secure Boot v2 - ESP32 - &mdash; ESP-IDF Programming Guide v5.5 documentation"
+    }
+  ]
+}

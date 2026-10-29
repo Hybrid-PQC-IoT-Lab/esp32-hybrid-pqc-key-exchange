@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """
-Analyze Dual Endurance Test Log for ESP32 Hybrid PQC vs Classical TLS
-Parses raw tcpdump capture log (/home/kali/dual_bench_final_complete.log),
-extracts session boundaries, calculates per-handshake latencies and packet statistics,
-and generates summary CSVs and a comprehensive markdown verification report.
+DEPRECATED historical parser. Its port-to-protocol labels are not verified by
+the tcpdump text and its accepted-flow records are not cryptographic handshakes.
+Use audit_endurance_capture.py for neutral packet-level reproduction.
 """
 
 import sys
@@ -169,6 +168,10 @@ def calculate_stats(latencies):
     }
 
 def main():
+    raise SystemExit(
+        "Deprecated: protocol labels and handshake-success claims are unsupported. "
+        "Run tools/audit_endurance_capture.py for the reproducible packet audit."
+    )
     base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
     default_log = os.path.join(base_dir, 'data', 'raw_logs', 'dual_bench_final_complete.log')
     default_csv = os.path.join(base_dir, 'docs', 'evidence', 'endurance_summary.csv')

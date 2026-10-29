@@ -435,7 +435,8 @@ class HybridPQCServer:
         logger.info(f"║  Listening:  {self.host}:{self.port}                         ║")
         logger.info(f"║  Dashboard:  http://localhost:{self.port}/                   ║")
         logger.info(f"║  API:        http://localhost:{self.port}/api/benchmarks      ║")
-        logger.info(f"║  ML-KEM-768: {'liboqs ✓' if HAS_OQS else 'SIMULATED ⚠'}                              ║")
+        logger.info("║  ML-KEM-768 native backend: %s                         ║",
+                    "loaded" if libmlkem is not None else "unavailable; PQC requests fail")
         logger.info("╚══════════════════════════════════════════════════════════════╝")
         logger.info("")
 

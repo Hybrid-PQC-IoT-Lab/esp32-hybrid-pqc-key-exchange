@@ -13,7 +13,7 @@ of that commit.
 
 | Artifact | Supported interpretation |
 |---|---|
-| `hybrid_handshake_100_runs_raw.log` | ESP-IDF v5.5, 160 MHz, 100 logged handshakes and 100 watchdog-reset API errors. Boot version identifies a pre-freeze working build, not the exact final source. |
+| `hybrid_handshake_100_runs_raw.log` | ESP-IDF v5.5, 160 MHz, 100 logged handshakes and 100 watchdog API ``task not found`` errors. These log messages do not prove hardware resets. Boot version identifies a pre-freeze working build, not the exact final source. |
 | `hybrid_handshake_100_runs.csv` | Numeric observations match UART rows. Run numbers 1–100 represent acquisition order; original raw IDs are all zero. |
 | `campaign_reanalysis.json` | Generated sample statistics, source hashes and measurement boundaries. |
 | `hybrid_handshake_100_runs_server.log` | Preserved server-side context, separate from the UART timeline. |
@@ -22,8 +22,10 @@ of that commit.
 | `mlkem768_kat_verification.log` | Historical self-consistency output. Its KAT/IND-CCA2 wording is not external-vector validation or a timing proof. Raw output is preserved. |
 | `memory_footprint_analysis.md` | Separately reported 13.8 KB profile, 32 KiB configured stack and explicit trace limitations. |
 | `power_energy_calculations.csv` | Preserved manual current worksheet and fixed-duration calculations; not integrated energy measurements. |
-| `endurance_summary.csv` | 14,157 processed accepted sessions. The master tcpdump source used by the parser is not supplied. |
-| `endurance_test_report.md` | Historical endurance summary; raw capture, all attempts and four sitting boundaries cannot all be reconstructed from the accepted-row CSV. |
+| `../../data/raw_logs/dual_bench_8h.log` | Recovered original tcpdump text; SHA-256 verified against the supplied master archive manifest. Packet-level source only. |
+| `endurance_summary.csv` | 14,157 historical parser-accepted TCP-flow records; labels are not protocol-verified handshake counts. |
+| `endurance_test_report.md` | Historical report, with an appended audit note describing which claims are not confirmed by the raw capture. |
+| `endurance_packet_audit/` | Neutral packet-level audit report and regenerated port-labelled CSV. Input capture SHA-256 is recorded in the report. |
 | `../../data/sanitized_pcaps/` | Synthetic Scapy illustrations only. |
 
 The formerly linked `energy_bench_2026-09-04.md` and

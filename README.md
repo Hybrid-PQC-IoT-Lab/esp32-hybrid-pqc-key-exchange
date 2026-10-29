@@ -35,12 +35,12 @@ In strict accordance with peer-review research integrity standards and privacy b
 ├── dashboard/               # Real-time WebSocket evaluation dashboard
 ├── data/
 │   ├── processed_results/   # Extracted cycle and latency CSVs
-│   ├── raw_logs/            # Unprocessed hardware UART serial dumps
+│   ├── raw_logs/            # Archived ESP32 UART records and recovered tcpdump capture
 │   └── sanitized_pcaps/     # Synthetic packet illustrations (.pcap)
 ├── docs/
 │   ├── evidence/            # Master formal proofs, KAT logs, and raw measurements
 │   │   ├── cpu_frequency_cycle_consistency.md  # 160 MHz boot evidence and primitive cycle/time ratios
-│   │   ├── endurance_summary.csv               # 14,157 physical handshake records (19.0h)
+│   │   ├── endurance_summary.csv               # 14,157 parser-accepted TCP-flow records, not handshake counts
 │   │   ├── endurance_test_report.md            # Statistical breakdown of endurance sessions
 │   │   ├── hybrid_handshake_100_runs.csv       # 100-run physical benchmark data
 │   │   ├── hybrid_handshake_100_runs_raw.log   # 100-run raw UART serial dump
@@ -65,7 +65,7 @@ In strict accordance with peer-review research integrity standards and privacy b
 ├── tests/                   # Crypto correctness and integration test harness
 ├── tls_benchmark/           # Standard TLS 1.3 baseline comparison harness
 └── tools/
-    ├── analyze_endurance_log.py # Statistical parser for the 14,157-session endurance dataset
+    ├── audit_endurance_capture.py # Reproducible packet-level audit with neutral port labels
     └── test_mlkem768_kat.py     # Fixed-seed and randomized self-consistency test runner
 ```
 
@@ -88,17 +88,14 @@ proverif docs/evidence/hybrid_pqc_fixed.pv
 ```
 The archived solver transcript reports secrecy of `secret_client_data` and `secret_server_data`, plus `inj-event(client_key_derived(k)) ==> inj-event(server_key_derived(k))`. The model assumes a private uncompromised PSK. It does not query PSK compromise, reverse authentication, concrete GCM nonce security or physical memory disclosure.
 
-### 3. Recount preserved endurance records
+### 3. Reproduce the endurance packet audit
+
+The raw tcpdump capture is preserved at `data/raw_logs/dual_bench_8h.log`. Run:
 ```bash
-python3 tools/summarize_endurance_csv.py
+python3 tools/audit_endurance_capture.py
 ```
-The CSV has14,157 parser-accepted rows:10,235 Hybrid-PQC and3,922 Classical-TLS
-labels. Historical narrative identifies port4443 as hybridTLS; original negotiation
-evidence is unavailable. These are not verified all-attempt success counts.
-17,502 is the reported SYN count;8,640 is nominal schedule arithmetic. The original
-`tools/analyze_endurance_log.py` needs the absent master tcpdump. Continuous
-duration, failures, watchdog and memory stability cannot be regenerated from the
-accepted-row CSV alone. See the evidence status note.
+
+The audit records the input hash, packet/SYN counts, port-based parser-accepted rows and window boundaries. These are TCP-level observations, not verified cryptographic handshake counts or a failure rate. The capture does not resolve whether port 4443 carried classical or hybrid TLS, nor independently establish board identity, watchdog status or heap stability. See `docs/evidence/endurance_packet_audit/audit_report.md`.
 
 ### 4. Build and Run Backend Server
 ```bash
@@ -121,9 +118,9 @@ idf.py -p /dev/ttyUSB0 flash monitor
 ## 📊 Experimental Benchmark Results
 
 ### 1. End-to-End Hybrid Handshake Campaign ($n = 100$)
-Measured across 100 consecutive Wi-Fi handshakes between physical ESP32-D0WD-V3 @ 160 MHz and native ML-KEM server (source: [`docs/evidence/hybrid_handshake_100_runs_raw.log`](docs/evidence/hybrid_handshake_100_runs_raw.log), structured data: [`docs/evidence/hybrid_handshake_100_runs.csv`](docs/evidence/hybrid_handshake_100_runs.csv)):
+The archived campaign contains 100 HMAC-verified completion records from a physical ESP32-D0WD-V3 at 160 MHz and the native ML-KEM server. The all-attempt denominator was not preserved (source: [`docs/evidence/hybrid_handshake_100_runs_raw.log`](docs/evidence/hybrid_handshake_100_runs_raw.log), structured data: [`docs/evidence/hybrid_handshake_100_runs.csv`](docs/evidence/hybrid_handshake_100_runs.csv)):
 
-| Protocol Mode | Sample Count ($n$) | Mean Handshake Latency | Mean elapsed CCOUNT | Wire Bytes (Req / Resp) | Observed completions | Campaign heap peak |
+| Protocol Mode | Sample Count ($n$) | Mean Handshake Latency | Mean elapsed CCOUNT | Wire Bytes (Req / Resp) | Logged completions (not all-attempt rate) | Campaign heap peak |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Hybrid (ML-KEM-768 + X25519)** | **$n = 100$** | **616.75 ms** (sample SD 244.13 ms) | **100.33M cycles** | 1,249 B / 1,168 B | **100/100** | Not captured |
 
@@ -157,8 +154,8 @@ See [the readiness audit](docs/submission/GO_NO_GO.md) and
 | Student t 95% CI of mean | 568.31–665.19 ms |
 | Minimum / maximum | 525.66 / 1989.39 ms |
 | Mean elapsed CCOUNT | 100.33 million cycles |
-| Observed completed handshakes | 100/100 |
-| Watchdog-reset API errors | 100 |
+| Logged HMAC-verified completions (all-attempt denominator unknown) | 100 |
+| Watchdog API ``task not found`` errors (not evidence of hardware resets) | 100 |
 | Handshake-body bytes, both directions | 2,417 |
 
 The latency and CCOUNT timing windows differ; CCOUNT is not isolated CPU work.

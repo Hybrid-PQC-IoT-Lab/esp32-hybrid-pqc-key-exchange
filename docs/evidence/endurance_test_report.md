@@ -45,3 +45,9 @@ comparing the custom **Hybrid PQC (X25519 + ML-KEM-768)** implementation against
    $$\text{ClientHello} = 1\text{B (mode)} + 32\text{B (X25519 PK)} + 1,184\text{B (ML-KEM-768 PK)} + 32\text{B (HMAC)} = 1,249\text{ bytes}$$
 2. **Zero Failures**: 100% completion rate achieved across both endpoints without a single handshake abort, memory allocation fault, or cryptographic verification mismatch.
 3. **Heap Stability**: No monotonic degradation of FreeRTOS heap memory over 19 hours of active operation.
+
+---
+
+## Audit note (2026-10-30)
+
+The original tcpdump text has been recovered from the supplied project backup and is now preserved at data/raw_logs/dual_bench_8h.log (SHA-256 958cf70de291297887b70c49e2e6cb8c90e44fc6f5b48036c4da7758867c4494). The independent audit is in docs/evidence/endurance_packet_audit/. It reproduces 14,157 port-based, parser-accepted TCP-flow records and counts 17,502 client-origin SYN events. The capture does not identify the protocol negotiated on port 4443, the physical device/firmware, cryptographic handshake success, all attempts, watchdog resets, or heap stability. Therefore historical protocol labels, completion/failure claims, and device attribution in this report are not independently verified by the recovered packet capture. The supplied original CSV and raw text are preserved unchanged; use the neutral audit outputs for packet-level statements.

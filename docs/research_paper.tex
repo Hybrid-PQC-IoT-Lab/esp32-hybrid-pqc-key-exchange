@@ -1,14 +1,7 @@
-\documentclass[journal, 10pt]{IEEEtran}
-\usepackage{cite}
+\documentclass[pdflatex,sn-mathphys-num]{sn-jnl}
 \usepackage{amsmath,amssymb,amsfonts}
-\usepackage{algorithmic}
-\usepackage{algorithm}
 \usepackage{graphicx}
-\graphicspath{{../figures/}}
-\usepackage{textcomp}
-\usepackage{xcolor}
 \usepackage{booktabs}
-\usepackage{multirow}
 \usepackage{tabularx}
 \input{benchmark_values.tex}
 % The packaging tool creates this file from the exact frozen source commit.
@@ -17,53 +10,29 @@
   \newcommand{\ArtifactRepository}{https://github.com/muhammadsohaimmuqtada/esp32-hybrid-pqc-key-exchange}%
   \newcommand{\ArtifactRelease}{UNPUBLISHED-CANDIDATE}%
 }
-\usepackage{url}
-\usepackage[hidelinks]{hyperref}
-% Use colons for the journal template's abstract and keyword separators.
-\makeatletter
-\def\abstract{\normalfont\@IEEEabskeysecsize\bfseries\textit{\abstractname}:\ \relax\@IEEEgobbleleadPARNLSP}
-\def\IEEEkeywords{\normalfont\@IEEEabskeysecsize\bfseries\textit{\IEEEkeywordsname}:\ \relax\@IEEEgobbleleadPARNLSP}
-\makeatother
-
-\usepackage{placeins}
-\setlength{\textfloatsep}{11pt plus 2pt minus 2pt}
-\setlength{\dbltextfloatsep}{11pt plus 2pt minus 2pt}
-\setlength{\intextsep}{11pt plus 2pt minus 2pt}
-\setlength{\floatsep}{11pt plus 2pt minus 2pt}
-\setlength{\dblfloatsep}{11pt plus 2pt minus 2pt}
-\def\IEEEbibitemsep{0pt}
-
-\renewcommand{\thesection}{\arabic{section}}
-\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\hypersetup{hidelinks}
 \begin{document}
 
-\title{Design and Experimental Characterization of a PSK-Authenticated Hybrid Key Exchange on ESP32}
+\title[Design and Experimental Characterization of a PSK-Authenticated Hybrid Key Exchange on ESP32]{Design and Experimental Characterization of a PSK-Authenticated Hybrid Key Exchange on ESP32}
 
-\author{
-    Hafiz Ali Mansoor Elahi$^{a,*}$, Muhammad Sohaim Muqtada$^{b}$\\
-    $^{a}$Co-founder, Promaker Institute, 18-C Block, Civic Center,\\
-    Faisal Town, Lahore, Pakistan\\
-    $^{b}$Department of Cybersecurity, University of Management and Technology,\\
-    C-II, Johar Town, Lahore, Pakistan\\
-    $^{*}$Corresponding author: \href{mailto:hafiz.ali@PromakerInstitute.com}{hafiz.ali@PromakerInstitute.com}\\
-    ORCID: \url{https://orcid.org/0009-0006-4378-6391}\\
-    Muhammad Sohaim Muqtada: f2024408084@umt.edu.pk
+\author*[1]{\fnm{Hafiz Ali Mansoor} \sur{Elahi}\thanks{ORCID: \url{https://orcid.org/0009-0006-4378-6391}}}\email{hafiz.ali@promakerinstitute.com}
+\author[2]{\fnm{Muhammad Sohaim} \sur{Muqtada}}\email{f2024408084@umt.edu.pk}
+
+\affil*[1]{\orgname{Promaker Institute}, \orgaddress{\street{18-C Block, Civic Center, Faisal Town}, \city{Lahore}, \country{Pakistan}}}
+\affil[2]{\orgdiv{Department of Cybersecurity}, \orgname{University of Management and Technology}, \orgaddress{\street{C-II, Johar Town}, \city{Lahore}, \country{Pakistan}}}
+
+\abstract{
+\textbf{Purpose:} To characterize the implementation cost of a certificate-free, pre-shared-key-authenticated hybrid X25519 and ML-KEM-768 exchange for pre-provisioned ESP32 nodes.
+\textbf{Methods:} A FreeRTOS client, Python HTTP server and native C key-encapsulation component implement the exchange and encrypted telemetry. We reanalyse all 100 archived handshakes on an ESP32-D0WD-V3 at 160~MHz and separately parse a primitive-operation trace. Source, serial records, analysis scripts, self-consistency tests and a bounded symbolic model are supplied.
+\textbf{Results:} Mean instrumented latency is \BenchmarkMeanMs~ms, with sample standard deviation \BenchmarkSdMs~ms and 95\% confidence interval \BenchmarkLowMs~to~\BenchmarkHighMs~ms. The broader elapsed-cycle interval averages \BenchmarkCyclesM~million cycles. In the separate trace, X25519 key generation and shared-secret operations average 392.27 and 200.53~ms; client-side ML-KEM-768 key generation and decapsulation average 13.89 and 18.58~ms. A separate profile reports a 13.8~KB peak dynamic allocation; it is not an $n=100$ campaign result, and the underlying transient trace is incomplete.
+\textbf{Conclusion:} The selected X25519 implementation is the principal local optimization target. Unlike recent TLS and MQTT studies, this work documents a pre-provisioned-PSK HTTP exchange and its encrypted telemetry lifecycle. Its contribution is an inspectable implementation and evidence-bounded characterization, not a new cryptographic primitive. The prototype supports embedded research, while shared traffic keys across directions, incomplete historical build provenance and unevaluated side channels constrain security and performance conclusions. Historical measurements do not validate later harness corrections or establish a controlled advantage over TLS.
 }
-
-\maketitle
-
-
-\begin{abstract}
-This study investigates the implementation cost of a certificate-free, pre-shared-key-authenticated hybrid X25519 and ML-KEM-768 exchange for pre-provisioned ESP32 nodes. The package combines a FreeRTOS client, a Python HTTP server, a native C key-encapsulation component, and scripts for inspecting archived measurements. It exposes transcript encoding, key derivation, telemetry framing and measurement boundaries for reuse in embedded networking research. Reanalysis of 100 archived handshakes on an ESP32-D0WD-V3 at 160~MHz gives a mean instrumented latency of \BenchmarkMeanMs~ms, sample standard deviation of \BenchmarkSdMs~ms and 95\% confidence interval of \BenchmarkLowMs~to~\BenchmarkHighMs~ms. All recorded observations are retained. The broader elapsed-cycle interval averages \BenchmarkCyclesM~million cycles. A historical 13.8~KB allocation estimate is distinguished from campaign snapshots, which do not establish a transient heap peak. A separate primitive trace identifies X25519 as the dominant local computational cost in this implementation: its key generation and shared-secret operations average 392.27 and 200.53~ms, compared with 13.89 and 18.58~ms for client-side ML-KEM-768 key generation and decapsulation. The archive includes source, serial records, statistical analysis, self-consistency tests and a bounded symbolic model. Historical measurements do not validate later harness corrections. Shared traffic keys across telemetry directions, incomplete historical build provenance and unevaluated side-channel behavior constrain security and performance conclusions. The software provides an inspectable research prototype for studying this integration; it does not introduce a new cryptographic primitive or establish production readiness.
-\end{abstract}
-\begin{IEEEkeywords}
-ESP32, ML-KEM, X25519, FreeRTOS, Reproducibility, Telemetry.
-\end{IEEEkeywords}
+\keywords{ESP32, ML-KEM, X25519, FreeRTOS, Reproducibility, Telemetry}
 
 \section{Introduction and research scope}
 Embedded post-quantum experiments need more than primitive timing: readers must be able to inspect the network messages, authentication assumptions, task configuration and boundaries of the measurements. The released software~\cite{software} exposes those elements for an application-layer exchange on an ESP32-D0WD-V3 at 160~MHz. It integrates X25519~\cite{b19} and ML-KEM-768~\cite{b2} with a FreeRTOS client and an asynchronous Python HTTP server. Its contribution is the reusable implementation and associated evidence, rather than a new KEM or a claim that PQC first became feasible on ESP32.
 
-X-Wing already combines X25519 and ML-KEM-768 with its own combiner and security analysis~\cite{b41}. Embedded TLS implementations~\cite{b11} and a 2026 ESP32 DTLS/CoAP preprint~\cite{b42} also establish relevant prior feasibility. The latter uses a different clock, RTOS, parameter set and authentication configuration. These differences prevent a direct performance ranking. Our testbed exposes a PSK-authenticated HTTP exchange for inspection and modification under controlled laboratory conditions. Neither X-Wing's proof nor TLS security properties transfer automatically to this construction.
+X-Wing already combines X25519 and ML-KEM-768 with its own combiner and security analysis~\cite{b41}. Recent 2026 work demonstrates that ESP32 hybrid-PQC evaluation is already established: one study compares classical, full-PQC and hybrid TLS on ESP32~\cite{b44}; another evaluates hybrid post-quantum protection for MQTT-based IoT networks~\cite{b45}; and a further study examines TLS-based IoT telemetry and industrial OPC UA communications~\cite{b46}. These works establish close prior feasibility, but address TLS or MQTT deployments rather than this paper's certificate-free, pre-provisioned-PSK application-layer exchange and encrypted telemetry lifecycle. Our contribution is therefore the inspectable implementation and evidence-bounded characterization of that specific configuration, not a new primitive, the first ESP32 deployment, or a general performance advantage. Neither X-Wing's proof nor TLS security properties transfer automatically to this construction.
 
 The package is useful for examining binary transcript framing, measurement placement and the distinction between historical hardware observations and current host checks. Supplementary Material S1 retains the extended technical analysis and historical comparisons. Supplementary Material S2 contains the source, evidence and reproduction instructions from the frozen software version cited in Section~\ref{sec:availability}. Separate data acquisitions remain explicitly identified.
 
@@ -73,7 +42,7 @@ The study asks three questions: which client operations dominate the cost of the
 \subsection{Engineering objective and contributions}
 The intended deployment consists of pre-provisioned nodes whose peers already share authentication credentials. The engineering objective is to characterize a certificate-free hybrid exchange integrated with Wi-Fi, an RTOS task and encrypted telemetry. Omitting certificate processing changes the authentication and provisioning model; a lower observed cost cannot automatically be attributed to a better cryptographic implementation.
 
-The contributions are an inspectable integration of hybrid exchange, transcript authentication and periodic telemetry key renewal; an operation-level characterization identifying the dominant local implementation cost; and an archived application-level campaign with explicit measurement boundaries. These contributions address implementation and experimental characterization. Their distinction from prior embedded PQC integrations lies in the particular architecture and reported observations, rather than a new hybrid primitive or a demonstrated general performance advantage.
+The contributions are an inspectable integration of hybrid exchange, transcript authentication and periodic telemetry key renewal; an operation-level characterization identifying the dominant local implementation cost; and an archived application-level campaign with explicit measurement boundaries. In the separate primitive trace, the two measured X25519 operation means sum to 592.80~ms, about 18.3 times the 32.47~ms sum of the two measured client-side ML-KEM-768 operations. This is a trace-specific optimization observation, not a matched end-to-end comparison or evidence that X25519 is inherently slower. The distinctive contribution is the particular PSK-authenticated application architecture and its bounded characterization, rather than a new hybrid primitive or first-of-kind claim.
 
 \section{Implementation and protocol}
 Table~\ref{tab:components} identifies the principal components. The firmware uses ESP-IDF and mbedTLS interfaces, with a repository-native C implementation for ML-KEM-768. The server uses Python's \texttt{cryptography} package and loads the native shared library. An unavailable native backend causes PQC operations to fail; no simulated key material is substituted.
@@ -120,6 +89,8 @@ HMAC-SHA256~\cite{b24} authenticates the request's first 1,217 bytes. The respon
 
 The shared input is the 32-byte X25519 secret followed by the 32-byte KEM secret. HKDF-SHA256~\cite{b20} produces 32 bytes using salt \texttt{HybridPQC-ESP32-Session-v1} and info \texttt{session-key}. The PSK authenticates the transcript and is not input entropy to HKDF. The published evaluation PSK is public and offers no private-credential authentication to someone who can read the repository. A security experiment must provision private credentials separately.
 
+Before concatenating the secrets, the firmware scans the X25519 output and rejects an all-zero value as required by RFC~7748~\cite{b19}. The host test suite checks the accumulator logic and server-side rejection of an all-zero input point. These checks are not a hardware integration test of the corrected firmware; the archived campaign predates the later harness corrections.
+
 The server creates the 16-byte Session ID using Python's \texttt{secrets.token\_bytes(16)} and the operating-system CSPRNG. The client uses ESP-IDF randomness for its local operations; true-random output depends on the documented entropy-source conditions~\cite{b43}. A Session ID is an identifier, not a substitute for transcript authentication.
 
 \subsection{Telemetry and task lifecycle}
@@ -157,7 +128,7 @@ Sample standard deviation & \BenchmarkSdMs~ms\\
 95\% CI of the mean & \BenchmarkLowMs~to~\BenchmarkHighMs~ms\\
 Minimum / maximum & \BenchmarkMinMs~/~\BenchmarkMaxMs~ms\\
 Mean elapsed CCOUNT & \BenchmarkCyclesM~million\\
-Logged completions & 100/100\\
+Logged HMAC-verified completions & 100/100; all-attempt denominator not preserved\\
 Campaign transient heap peak & Not established\\
 \bottomrule
 \end{tabular}
@@ -182,37 +153,41 @@ ML-KEM-768 decapsulation & 18.58 & 49\\
 \end{tabular}
 \end{table}
 
-The sums of the two X25519 and two client-side ML-KEM operation means are 592.80 and 32.47~ms, respectively. This identifies the selected X25519 implementation as the principal local optimization target. The sums exclude server encapsulation and are not measured fractions of an individual complete handshake. They must not be subtracted from the separately acquired campaign mean to estimate network overhead.
+The sums of the two X25519 and two client-side ML-KEM operation means are 592.80 and 32.47~ms, respectively, a ratio of approximately 18.3:1 in this primitive trace. This identifies the selected X25519 implementation as the principal local optimization target. The sums use unequal sample counts, exclude server encapsulation and are not measured fractions of an individual complete handshake. They must not be subtracted from the separately acquired campaign mean to estimate network overhead or presented as an algorithmic comparison.
 
-The archive also contains real TLS observations. Two successful wolfSSL TLS~1.3 exchanges explicitly negotiate \texttt{X25519MLKEM768}, with observed durations 1092.763 and 1101.846~ms (mean 1097.30~ms, $n=2$). Four classical TLS observations span 798.797 to 2350.741~ms. A separate custom-protocol excerpt records 849.604~ms. These small, separate acquisitions provide exploratory context. Their authentication, instrumentation and build records do not establish a controlled percentage speedup or peak-memory saving over TLS. Before/after free-heap snapshots do not measure transient peak allocation.
+The archive also contains real, but small and separate, TLS observations. Two wolfSSL TLS~1.3 exchanges explicitly negotiate \texttt{X25519MLKEM768}, with observed durations 1092.763 and 1101.846~ms (mean 1097.30~ms, $n=2$). Four classical TLS observations span 798.797 to 2350.741~ms. A separate custom-protocol excerpt records 849.604~ms. These runs document that the experiments were performed; they are exploratory context only because sample counts, authentication, acquisition conditions and build records are not matched. They do not establish a controlled percentage speedup or peak-memory saving over TLS. Before/after free-heap snapshots do not measure transient peak allocation.
 
-The confidence interval uses Student's $t$ distribution with 99 degrees of freedom and sample SD. It assumes independent observations within this campaign and does not quantify variability across devices or environments. The 100 completed records describe the archived acquisition window; they do not establish the later harness's all-attempt success rate. The archive contains 100 watchdog API ``task not found'' errors, disclosed separately from handshake completion.
+The confidence interval uses Student's $t$ distribution with 99 degrees of freedom and sample SD. It assumes independent observations within this campaign and does not quantify variability across devices or environments. The 100 completed records describe the archived acquisition window; they do not establish the later harness's all-attempt success rate. The archive contains 100 watchdog API ``task not found'' errors, disclosed separately from handshake completion. These log messages do not prove hardware watchdog resets.
 
-A separate historical note reports a 13.8~KB before/after allocation estimate, excluding the configured task stack and static storage; the complete profiling trace is unavailable. Campaign snapshots average 22.24 bytes and reach 440 bytes, but miss transient allocations; neither figure should be called a measured handshake peak. Primitive timings, manual electrical notes and TLS traces were collected separately. They do not form a controlled, authentication-equivalent efficiency comparison. Energy values derived from fixed windows are not synchronized power integrals.
+A separate heap profile reports a peak dynamic allocation of 13.8~KB, excluding the configured task stack and static storage; the underlying transient trace is incomplete. This profile is independent of the $n=100$ campaign. Campaign snapshots average 22.24 bytes and reach 440 bytes, but miss transient allocations and are not a campaign peak. Primitive timings, manual electrical notes and TLS traces were collected separately. They do not form a controlled, authentication-equivalent efficiency comparison. Energy values derived from fixed windows are not synchronized power integrals.
 
 Archived ProVerif output~\cite{b25} establishes encoded client/server payload confidentiality and client-to-server injective agreement under idealized operations and an uncompromised private PSK. It does not query later PSK disclosure, reverse authentication, concrete GCM nonces or physical memory exposure. Selected client-buffer zeroization is not evidence of complete server-side erasure or resistance to a live memory dump. Empirical side-channel resistance remains unevaluated.
 
-The recorded firmware version is \texttt{v2.0-mlkem768-final-6-g45d5f57-}; its ELF digest is truncated. An exact historical binary-to-source mapping is unavailable. Synthetic PCAP illustrations cannot repair that provenance gap or replace missing wire captures. The processed endurance CSV is supplied, but its parser's original master input is absent. A separate accepted-row summary and evidence correction note are provided; they do not establish the original attempt denominator or uninterrupted stability. S1 and S2 preserve these distinctions instead of presenting separate acquisitions as one experiment.
+The recorded firmware version is \texttt{v2.0-mlkem768-final-6-g45d5f57-}; its ELF digest is truncated, so an exact historical binary-to-source mapping is unavailable. Synthetic PCAP illustrations remain illustrative and are not wire captures. The recovered master tcpdump text is now included in the audit materials (SHA-256: \texttt{958cf70de291297887b70c49e2e6cb8c90e44fc6f5b48036c4da7758867c4494}); an independent parser reproduces the supplied count and port totals of 14,157 endpoint-flow records (10,235 on port 8443 and 3,922 on port 4443). The raw file records 17,502 client SYN events, but SYN events and parser-accepted TCP flows are not cryptographic attempts or successful handshakes. Port numbers alone do not identify TLS mode, device, or firmware, and the capture does not independently establish uninterrupted operation or a success rate. S1 preserves these limits and the separate acquisition boundaries.
 
 \section{Discussion and conclusions}
 The testbed provides source-level access to the PSK-authenticated exchange, its telemetry lifecycle and its historical measurement analysis. Researchers can reuse its encodings and analysis interfaces to study implementation changes while preserving acquisition provenance. A new experiment should identify its own build, failures and raw observations, and use matched authentication and instrumentation when comparing protocol costs.
 
-The primitive acquisition identifies the selected X25519 implementation, rather than client-side ML-KEM, as the dominant local cost. This provides a concrete optimization priority for this software configuration, although a matched before-and-after experiment is required to demonstrate an improvement. The historical campaign yields a mean instrumented latency of \BenchmarkMeanMs~ms and mean elapsed CCOUNT of \BenchmarkCyclesM~million cycles on the stated ESP32 setup. These observations support inspection of one prototype. Direction-separated traffic keys, stronger implementation correctness checks and controlled memory/energy measurements are necessary for stronger security or efficiency claims. No production-readiness, first-implementation or new-primitive claim is made.
+The primitive acquisition identifies the selected X25519 implementation, rather than client-side ML-KEM, as the dominant local cost in that trace (592.80~ms against 32.47~ms for the two measured ML-KEM operations). This provides a concrete optimization priority for this software configuration, although a matched before-and-after experiment is required to demonstrate an improvement. The historical campaign yields a mean instrumented latency of \BenchmarkMeanMs~ms and mean elapsed CCOUNT of \BenchmarkCyclesM~million cycles on the stated ESP32 setup. Together these records characterize one certificate-free, PSK-authenticated application-layer prototype; they do not show superiority to TLS. Direction-separated traffic keys, stronger implementation correctness checks and controlled memory/energy measurements are necessary for stronger security or efficiency claims. No production-readiness, first-implementation or new-primitive claim is made.
 
 \section{Data and code availability}\label{sec:availability}
-The software and evidence version is identified by source commit \nolinkurl{\ArtifactCommit} at \url{\ArtifactRepository}; the associated archive is \url{\ArtifactRelease}. The source, generated analyses, S1, S2 and SHA-256 manifest are linked from that version. The historical measurements are preserved from commit \nolinkurl{467bbe7a3c5a718d4eec7c882bc00f042487304d}. A separate corrected-source ESP-IDF v5.5 compiler archive is supplied with its original commit and hashes; it does not identify the historical measurement binary. This software version does not imply a new board execution. Original source copyright and license notices are retained.
+The software and evidence version is identified by source commit \nolinkurl{\ArtifactCommit} at \url{\ArtifactRepository}; the associated archive is \url{\ArtifactRelease}. The source, generated analyses, S1, S2 and SHA-256 manifest are linked from that version. The historical measurements are preserved from commit \nolinkurl{467bbe7a3c5a718d4eec7c882bc00f042487304d}. The recovered endurance tcpdump text and neutral packet-level audit are included in the accompanying evidence materials; the raw capture SHA-256 is \texttt{958cf70de291297887b70c49e2e6cb8c90e44fc6f5b48036c4da7758867c4494}. A separate corrected-source ESP-IDF v5.5 compiler archive is supplied with its original commit and hashes; it does not identify the historical measurement binary. This software version does not imply a new board execution. Original source copyright and license notices are retained.
 
-\section*{Author contributions}
+\section*{Statements and Declarations}
+\subsection*{Author contributions}
 Hafiz Ali Mansoor Elahi: Conceptualization, Methodology, Supervision, Validation. Muhammad Sohaim Muqtada: Software, Investigation, Data curation.
 
-\section*{Funding}
+\subsection*{Funding}
 This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.
 
-\section*{Declaration of competing interests}
+\subsection*{Declaration of competing interests}
 Hafiz Ali Mansoor Elahi is a co-founder of Promaker Institute, his stated institutional affiliation. The authors declare no competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
 
-\section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
+\subsection*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
 During preparation of this manuscript, the authors used OpenAI Codex to assist with evidence consistency checks, reproducible statistical analysis, code and documentation corrections, and manuscript editing. After using this tool, the authors reviewed and edited the content as needed and take full responsibility for the content of the published article. No hardware measurements were generated by AI.
+
+\subsection*{Ethics approval}
+This study reports software and hardware experiments and did not involve human participants, personal participant data or animals. Ethics approval and participant consent are not applicable.
 
 \begin{thebibliography}{99}
 \bibitem{software}H. A. M. Elahi and M. S. Muqtada, ``ESP32 hybrid key-exchange testbed,'' frozen source edition [software], GitHub, 2026. Source commit \nolinkurl{\ArtifactCommit}. Available: \url{\ArtifactRepository}.
@@ -224,6 +199,9 @@ During preparation of this manuscript, the authors used OpenAI Codex to assist w
 \bibitem{b24} H. Krawczyk, M. Bellare, and R. Canetti, ``HMAC: Keyed-Hashing for Message Authentication,'' RFC 2104, Feb. 1997, doi: 10.17487/RFC2104. [Online]. Available: \url{https://www.rfc-editor.org/rfc/rfc2104}
 \bibitem{b20} H. Krawczyk and P. Eronen, ``HMAC-based Extract-and-Expand Key Derivation Function (HKDF),'' RFC 5869, May 2010, doi: 10.17487/RFC5869. [Online]. Available: \url{https://www.rfc-editor.org/rfc/rfc5869}
 \bibitem{b43} Espressif Systems, ``Random Number Generation,'' ESP-IDF Programming Guide v5.5, accessed Oct. 5, 2026. [Online]. Available: \url{https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/api-reference/system/random.html}
+\bibitem{b44} S. Krusniauskas, S. Grigaliunas, and R. Bruzgiene, ``Authentication Overhead in Post-Quantum IoT for Classical, Full-PQC and Hybrid TLS,'' in \textit{Proc. 2026 IEEE 13th Workshop on Advances in Information, Electronic and Electrical Engineering}, 2026, doi: 10.1109/AIEEE71113.2026.11577039. [Online]. Available: \url{https://doi.org/10.1109/AIEEE71113.2026.11577039}
+\bibitem{b45} S. Saleem, S. M. Umran, Z. A. Abduljabbar, P. Perazzo, and U. Saleem, ``PQ-MQTT: A Hybrid Post-Quantum Secure Communication Protocol for MQTT-Based IoT Networks,'' in \textit{Proc. 2026 IEEE 2nd International Conference on Secure IoT, Assured and Trusted Computing (SATC)}, 2026, doi: 10.1109/SATC69565.2026.11542264. [Online]. Available: \url{https://doi.org/10.1109/SATC69565.2026.11542264}
+\bibitem{b46} M. Iqbal, A. L. B. Pereda, A. Pellegata, D. Gemici, S. Sailada, and I. B. Gorotxategi, ``Evaluating Post-Quantum Cryptography in TLS-Based IoT Telemetry and OPC UA Industrial Communications,'' in \textit{Proc. 2026 26th International Conference on Transparent Optical Networks}, 2026, doi: 10.1109/ICTON71309.2026.11705248. [Online]. Available: \url{https://doi.org/10.1109/ICTON71309.2026.11705248}
 \bibitem{b22} M. Dworkin, ``Recommendation for Block Cipher Modes of Operation: Galois/Counter Mode (GCM) and GMAC,'' NIST SP 800-38D, 2007, doi: 10.6028/NIST.SP.800-38D. [Online]. Available: \url{https://doi.org/10.6028/NIST.SP.800-38D}
 \bibitem{dataset}M. S. Muqtada and H. A. M. Elahi, ``Archived ESP32 hybrid handshake observations,'' [dataset], GitHub, 2026, source version 467bbe7a3c5a718d4eec7c882bc00f042487304d. Available: \url{https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/tree/467bbe7a3c5a718d4eec7c882bc00f042487304d/docs/evidence}.
 \bibitem{b25} B. Blanchet, ``An efficient cryptographic protocol verifier based on Prolog rules,'' in \textit{Proc. 14th IEEE CSFW}, 2001, pp. 82~to~96, doi: 10.1109/CSFW.2001.930138. [Online]. Available: \url{https://doi.org/10.1109/CSFW.2001.930138}

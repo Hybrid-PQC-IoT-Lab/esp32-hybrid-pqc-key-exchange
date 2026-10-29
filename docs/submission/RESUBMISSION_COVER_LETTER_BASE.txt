@@ -1,0 +1,22 @@
+Dear Editor,
+
+Please consider our manuscript, "Design and Experimental Characterization of a PSK-Authenticated Hybrid Key Exchange on ESP32," for publication as a research article.
+
+The study examines the implementation cost of a certificate-free hybrid X25519 and ML-KEM-768 exchange for pre-provisioned ESP32 nodes. It documents transcript authentication, key derivation, telemetry and key renewal, and provides an auditable archive of source and hardware observations. Reanalysis of 100 handshake records gives a mean instrumented latency of 616.75 ms with sample standard deviation 244.13 ms. A separate operation trace identifies the selected X25519 implementation as the dominant local computational cost, providing a concrete target for subsequent optimization.
+
+The contribution is an integrated embedded implementation and experimental characterization. We distinguish the historical campaign from exploratory TLS acquisitions, allocation estimates, electrical calculations and symbolic verification. The manuscript states the limits of the historical build provenance and telemetry design. It does not claim a new primitive, a controlled percentage speedup over TLS or production readiness.
+
+The work is not under consideration elsewhere. Earlier versions were declined by Journal of Systems Architecture and Computer Networks for insufficient novelty. The revised manuscript foregrounds the deployment assumptions, engineering contribution and implementation-specific findings; it does not add new hardware measurements. Both authors' approval must be reconfirmed for the final journal-specific version before this letter is sent.
+
+The authors report no specific external funding grant. The corresponding author's relationship as co-founder of Promaker Institute is disclosed, together with author contributions and AI-assisted preparation. We request the subscription publication route with no author publishing charge and do not authorize a paid open-access option.
+
+Thank you for considering our work.
+
+Sincerely,
+Hafiz Ali Mansoor Elahi
+First and corresponding author
+Promaker Institute, Lahore, Pakistan
+hafiz.ali@promakerinstitute.com
+ORCID: 0009-0006-4378-6391
+
+Preparation note: tailor the journal-fit paragraph and approval statement after journal selection; this base letter is not a sent submission.

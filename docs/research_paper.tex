@@ -37,7 +37,7 @@
 \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
 \begin{document}
 
-\title{An Open-Source ESP32 Testbed for PSK-Authenticated X25519 and ML-KEM-768 Key Exchange}
+\title{Design and Experimental Characterization of a PSK-Authenticated Hybrid Key Exchange on ESP32}
 
 \author{
     Hafiz Ali Mansoor Elahi$^{a,*}$, Muhammad Sohaim Muqtada$^{b}$\\
@@ -54,7 +54,7 @@
 
 
 \begin{abstract}
-This study examines an open-source testbed for a pre-shared-key-authenticated hybrid X25519 and ML-KEM-768 exchange on ESP32. The package combines a FreeRTOS client, a Python HTTP server, a native C key-encapsulation component, and scripts for inspecting archived measurements. It exposes transcript encoding, key derivation, telemetry framing and measurement boundaries for reuse in embedded networking research. Reanalysis of 100 archived handshakes on an ESP32-D0WD-V3 at 160~MHz gives a mean instrumented latency of \BenchmarkMeanMs~ms, sample standard deviation of \BenchmarkSdMs~ms and 95\% confidence interval of \BenchmarkLowMs~to~\BenchmarkHighMs~ms. All recorded observations are retained. The broader elapsed-cycle interval averages \BenchmarkCyclesM~million cycles. An independent 13.8~KB allocation report is distinguished from campaign snapshots, which do not establish a transient heap peak. The archive includes source, serial records, statistical analysis, self-consistency tests and a bounded symbolic model. Historical measurements do not validate later harness corrections. Shared traffic keys across telemetry directions, incomplete historical build provenance and unevaluated side-channel behavior constrain security and performance conclusions. The software provides an inspectable research prototype for studying this integration; it does not introduce a new cryptographic primitive or establish production readiness.
+This study investigates the implementation cost of a certificate-free, pre-shared-key-authenticated hybrid X25519 and ML-KEM-768 exchange for pre-provisioned ESP32 nodes. The package combines a FreeRTOS client, a Python HTTP server, a native C key-encapsulation component, and scripts for inspecting archived measurements. It exposes transcript encoding, key derivation, telemetry framing and measurement boundaries for reuse in embedded networking research. Reanalysis of 100 archived handshakes on an ESP32-D0WD-V3 at 160~MHz gives a mean instrumented latency of \BenchmarkMeanMs~ms, sample standard deviation of \BenchmarkSdMs~ms and 95\% confidence interval of \BenchmarkLowMs~to~\BenchmarkHighMs~ms. All recorded observations are retained. The broader elapsed-cycle interval averages \BenchmarkCyclesM~million cycles. A historical 13.8~KB allocation estimate is distinguished from campaign snapshots, which do not establish a transient heap peak. A separate primitive trace identifies X25519 as the dominant local computational cost in this implementation: its key generation and shared-secret operations average 392.27 and 200.53~ms, compared with 13.89 and 18.58~ms for client-side ML-KEM-768 key generation and decapsulation. The archive includes source, serial records, statistical analysis, self-consistency tests and a bounded symbolic model. Historical measurements do not validate later harness corrections. Shared traffic keys across telemetry directions, incomplete historical build provenance and unevaluated side-channel behavior constrain security and performance conclusions. The software provides an inspectable research prototype for studying this integration; it does not introduce a new cryptographic primitive or establish production readiness.
 \end{abstract}
 \begin{IEEEkeywords}
 ESP32, ML-KEM, X25519, FreeRTOS, Reproducibility, Telemetry.
@@ -68,7 +68,12 @@ X-Wing already combines X25519 and ML-KEM-768 with its own combiner and security
 The package is useful for examining binary transcript framing, measurement placement and the distinction between historical hardware observations and current host checks. Supplementary Material S1 retains the extended technical analysis and historical comparisons. Supplementary Material S2 contains the source, evidence and reproduction instructions from the frozen software version cited in Section~\ref{sec:availability}. Separate data acquisitions remain explicitly identified.
 
 \subsection{Research questions and study design}
-The study addresses two questions: what instrumented latency and elapsed-cycle behavior are supported by the archived hybrid campaign, and which protocol and measurement properties can be reproduced from the released implementation and evidence? We examine one ESP32 platform and one archived campaign. The analysis retains every recorded observation, identifies the measurement intervals in the source, and distinguishes observations from symbolic and host-level checks. It is a descriptive implementation study; it does not test a causal performance advantage over TLS or establish a new cryptographic construction.
+The study asks three questions: which client operations dominate the cost of the selected hybrid implementation; what latency distribution and elapsed-cycle behavior occur in the archived application campaign; and how the authentication, framing and measurement choices constrain interpretation of these results? We examine one ESP32 platform and one archived campaign. The analysis retains every recorded observation, identifies the measurement intervals in the source, and distinguishes observations from symbolic and host-level checks. It is a descriptive implementation study; it does not test a causal performance advantage over TLS or establish a new cryptographic construction.
+
+\subsection{Engineering objective and contributions}
+The intended deployment consists of pre-provisioned nodes whose peers already share authentication credentials. The engineering objective is to characterize a certificate-free hybrid exchange integrated with Wi-Fi, an RTOS task and encrypted telemetry. Omitting certificate processing changes the authentication and provisioning model; a lower observed cost cannot automatically be attributed to a better cryptographic implementation.
+
+The contributions are an inspectable integration of hybrid exchange, transcript authentication and periodic telemetry key renewal; an operation-level characterization identifying the dominant local implementation cost; and an archived application-level campaign with explicit measurement boundaries. These contributions address implementation and experimental characterization. Their distinction from prior embedded PQC integrations lies in the particular architecture and reported observations, rather than a new hybrid primitive or a demonstrated general performance advantage.
 
 \section{Implementation and protocol}
 Table~\ref{tab:components} identifies the principal components. The firmware uses ESP-IDF and mbedTLS interfaces, with a repository-native C implementation for ML-KEM-768. The server uses Python's \texttt{cryptography} package and loads the native shared library. An unavailable native backend causes PQC operations to fail; no simulated key material is substituted.
@@ -158,9 +163,32 @@ Campaign transient heap peak & Not established\\
 \end{tabular}
 \end{table}
 
+\subsection{Primitive cost and exploratory TLS observations}
+A separate UART acquisition, \texttt{energy\_esp32\_mlkem768\_usb\_proof.txt}, contains repeated primitive timer and cycle observations. Direct parsing gives the means in Table~\ref{tab:primitiveprofile}. Sample counts differ by operation; this trace is separate from the 100-handshake campaign.
+
+\begin{table}[htbp]
+\caption{Client primitive measurements from a separate acquisition.}
+\label{tab:primitiveprofile}
+\centering\small
+\begin{tabular}{lrr}
+\toprule
+Operation & Mean (ms) & $n$\\
+\midrule
+X25519 key generation & 392.27 & 50\\
+X25519 shared secret & 200.53 & 49\\
+ML-KEM-768 key generation & 13.89 & 50\\
+ML-KEM-768 decapsulation & 18.58 & 49\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The sums of the two X25519 and two client-side ML-KEM operation means are 592.80 and 32.47~ms, respectively. This identifies the selected X25519 implementation as the principal local optimization target. The sums exclude server encapsulation and are not measured fractions of an individual complete handshake. They must not be subtracted from the separately acquired campaign mean to estimate network overhead.
+
+The archive also contains real TLS observations. Two successful wolfSSL TLS~1.3 exchanges explicitly negotiate \texttt{X25519MLKEM768}, with observed durations 1092.763 and 1101.846~ms (mean 1097.30~ms, $n=2$). Four classical TLS observations span 798.797 to 2350.741~ms. A separate custom-protocol excerpt records 849.604~ms. These small, separate acquisitions provide exploratory context. Their authentication, instrumentation and build records do not establish a controlled percentage speedup or peak-memory saving over TLS. Before/after free-heap snapshots do not measure transient peak allocation.
+
 The confidence interval uses Student's $t$ distribution with 99 degrees of freedom and sample SD. It assumes independent observations within this campaign and does not quantify variability across devices or environments. The 100 completed records describe the archived acquisition window; they do not establish the later harness's all-attempt success rate. The archive contains 100 watchdog API ``task not found'' errors, disclosed separately from handshake completion.
 
-Independent heap profiling reported a 13.8~KB allocation, excluding the configured task stack and static storage. Campaign snapshots average 22.24 bytes and reach 440 bytes, but miss transient allocations; neither figure should be called a measured handshake peak. Primitive timings, manual electrical notes and TLS traces were collected separately. They do not form a controlled, authentication-equivalent efficiency comparison. Energy values derived from fixed windows are not synchronized power integrals.
+A separate historical note reports a 13.8~KB before/after allocation estimate, excluding the configured task stack and static storage; the complete profiling trace is unavailable. Campaign snapshots average 22.24 bytes and reach 440 bytes, but miss transient allocations; neither figure should be called a measured handshake peak. Primitive timings, manual electrical notes and TLS traces were collected separately. They do not form a controlled, authentication-equivalent efficiency comparison. Energy values derived from fixed windows are not synchronized power integrals.
 
 Archived ProVerif output~\cite{b25} establishes encoded client/server payload confidentiality and client-to-server injective agreement under idealized operations and an uncompromised private PSK. It does not query later PSK disclosure, reverse authentication, concrete GCM nonces or physical memory exposure. Selected client-buffer zeroization is not evidence of complete server-side erasure or resistance to a live memory dump. Empirical side-channel resistance remains unevaluated.
 
@@ -169,7 +197,7 @@ The recorded firmware version is \texttt{v2.0-mlkem768-final-6-g45d5f57-}; its E
 \section{Discussion and conclusions}
 The testbed provides source-level access to the PSK-authenticated exchange, its telemetry lifecycle and its historical measurement analysis. Researchers can reuse its encodings and analysis interfaces to study implementation changes while preserving acquisition provenance. A new experiment should identify its own build, failures and raw observations, and use matched authentication and instrumentation when comparing protocol costs.
 
-The historical campaign yields a mean instrumented latency of \BenchmarkMeanMs~ms and mean elapsed CCOUNT of \BenchmarkCyclesM~million cycles on the stated ESP32 setup. These observations support inspection of one prototype. Direction-separated traffic keys, stronger implementation correctness checks and controlled memory/energy measurements are necessary for stronger security or efficiency claims. No production-readiness, first-implementation or new-primitive claim is made.
+The primitive acquisition identifies the selected X25519 implementation, rather than client-side ML-KEM, as the dominant local cost. This provides a concrete optimization priority for this software configuration, although a matched before-and-after experiment is required to demonstrate an improvement. The historical campaign yields a mean instrumented latency of \BenchmarkMeanMs~ms and mean elapsed CCOUNT of \BenchmarkCyclesM~million cycles on the stated ESP32 setup. These observations support inspection of one prototype. Direction-separated traffic keys, stronger implementation correctness checks and controlled memory/energy measurements are necessary for stronger security or efficiency claims. No production-readiness, first-implementation or new-primitive claim is made.
 
 \section{Data and code availability}\label{sec:availability}
 The software and evidence version is identified by source commit \nolinkurl{\ArtifactCommit} at \url{\ArtifactRepository}; the associated archive is \url{\ArtifactRelease}. The source, generated analyses, S1, S2 and SHA-256 manifest are linked from that version. The historical measurements are preserved from commit \nolinkurl{467bbe7a3c5a718d4eec7c882bc00f042487304d}. A separate corrected-source ESP-IDF v5.5 compiler archive is supplied with its original commit and hashes; it does not identify the historical measurement binary. This software version does not imply a new board execution. Original source copyright and license notices are retained.
@@ -187,7 +215,7 @@ Hafiz Ali Mansoor Elahi is a co-founder of Promaker Institute, his stated instit
 During preparation of this manuscript, the authors used OpenAI Codex to assist with evidence consistency checks, reproducible statistical analysis, code and documentation corrections, and manuscript editing. After using this tool, the authors reviewed and edited the content as needed and take full responsibility for the content of the published article. No hardware measurements were generated by AI.
 
 \begin{thebibliography}{99}
-\bibitem{software}H. A. M. Elahi and M. S. Muqtada, ``ESP32 hybrid key-exchange testbed,'' version 2.3.2-research-rc1 [software], GitHub, 2026. Source commit \nolinkurl{\ArtifactCommit}. Available: \url{\ArtifactRepository}.
+\bibitem{software}H. A. M. Elahi and M. S. Muqtada, ``ESP32 hybrid key-exchange testbed,'' frozen source edition [software], GitHub, 2026. Source commit \nolinkurl{\ArtifactCommit}. Available: \url{\ArtifactRepository}.
 \bibitem{b19} A. Langley, M. Hamburg, and S. Turner, ``Elliptic Curves for Security,'' RFC 7748, Jan. 2016, doi: 10.17487/RFC7748. [Online]. Available: \url{https://www.rfc-editor.org/rfc/rfc7748}
 \bibitem{b2} NIST, ``FIPS 203: Module-Lattice-Based Key-Encapsulation Mechanism Standard,'' Aug. 2024, doi: 10.6028/NIST.FIPS.203. [Online]. Available: \url{https://doi.org/10.6028/NIST.FIPS.203}
 \bibitem{b41} M. Barbosa, D. Connolly, J. D. Duarte, A. Kaiser, P. Schwabe, K. Varner, and B. Westerbaan, ``X-Wing: The Hybrid KEM You've Been Looking For,'' \textit{IACR Communications in Cryptology}, vol. 1, no. 1, Apr. 2024, doi: 10.62056/a3qj89n4e. [Online]. Available: \url{https://eprint.iacr.org/2024/039}

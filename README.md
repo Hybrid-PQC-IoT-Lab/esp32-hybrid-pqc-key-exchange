@@ -8,7 +8,7 @@
 
 This repository hosts the complete, sanitized experimental reproducibility package for the research paper:
 
-> **"An Open-Source ESP32 Testbed for PSK-Authenticated X25519 and ML-KEM-768 Key Exchange"**
+> **"Design and Experimental Characterization of a PSK-Authenticated Hybrid Key Exchange on ESP32"**
 
 The repository provides an inspectable ESP32 research testbed combining X25519 and ML-KEM-768 with PSK-authenticated transcripts. Archived hardware measurements are historical; later harness corrections have not been physically validated by those logs. Telemetry uses one traffic key across directions and has a documented reflection/replay limitation. This is not a production-security claim or NIST-certified implementation.
 
@@ -16,7 +16,7 @@ The repository provides an inspectable ESP32 research testbed combining X25519 a
 
 ## Evidence status
 
-Read [EVIDENCE_STATUS.md](docs/evidence/EVIDENCE_STATUS.md) before using historical reports. This branch prepares a consistency revision; the submitted v2.3.0 snapshot remains preserved.
+Read [EVIDENCE_STATUS.md](docs/evidence/EVIDENCE_STATUS.md) before using historical reports. The 29 October research edition foregrounds the certificate-free deployment rationale and the separately measured primitive-cost bottleneck. See [resubmission readiness](docs/submission/RESUBMISSION_READINESS_2026-10-29.md). Historical submissions and measurements remain separately identified.
 
 ## 🔒 Security & Sanitization Notice
 In strict accordance with peer-review research integrity standards and privacy best practices:
@@ -180,3 +180,9 @@ native library is missing. New hardware evidence is needed for execution claims
 about these corrections. Historical logs remain byte-for-byte unchanged.
 
 The former root manuscript PDF is preserved as `docs/archive/research_paper_v2_1.pdf`. The current compiled PDF is generated into the release package; it is not a stale checked-in binary.
+
+Recompute the separate primitive acquisition with:
+
+    python3 tools/analyze_primitive_trace.py
+
+Its operation means are not a decomposition of the separately acquired n=100 campaign.

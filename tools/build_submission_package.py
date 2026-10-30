@@ -131,7 +131,7 @@ def main():
     for record in records:
         if digest(out/record['path'])!=record['sha256']:
             raise RuntimeError('Post-build digest mismatch')
-    zip_path=out.with_suffix('.zip')
+    zip_path=Path(str(out)+'.zip')
     with zipfile.ZipFile(zip_path,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
         for p in sorted(out.rglob('*')):
             if p.is_file():

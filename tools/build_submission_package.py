@@ -14,6 +14,7 @@ from pathlib import Path
 import subprocess
 import sys
 import zipfile
+import shutil
 from datetime import datetime, timezone
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -78,8 +79,7 @@ def main():
     if args.pdflatex:
         outputs=[]
         for pass_number in (1,2):
-            command=[args.pdflatex,'-interaction=nonstopmode','-halt-on-error',
-                     '-output-directory='+str(pdf_dir),'research_paper.tex']
+            command=[args.pdflatex,'-interaction=nonstopmode','-halt-on-error','research_paper.tex']
             result=subprocess.run(command,cwd=source/'docs',env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
             outputs.append(('--- pdflatex pass '+str(pass_number)+' ---\n').encode()+result.stdout)
             if result.returncode:
@@ -92,6 +92,15 @@ def main():
     (validation/'latex-build.log').write_bytes(build_log)
     if result.returncode:
         raise RuntimeError('LaTeX build failed; see validation/latex-build.log')
+    if args.pdflatex:
+        source_pdf=source/'docs'/'research_paper.pdf'
+        if not source_pdf.exists():
+            raise RuntimeError('pdflatex returned without a source-directory PDF')
+        shutil.copy2(source_pdf,pdf_dir/'research_paper.pdf')
+        for suffix in ('.aux','.log','.out','.toc','.fls','.fdb_latexmk','.synctex.gz','.pdf'):
+            generated=source/'docs'/('research_paper'+suffix)
+            if generated.exists():
+                generated.unlink()
     if not (pdf_dir/'research_paper.pdf').exists():
         raise RuntimeError('Compiler returned without a PDF')
     if args.validation_dir:

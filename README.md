@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![CI](https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/actions/workflows/ci.yml/badge.svg)](https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/actions/workflows/ci.yml)
-[![Submission kit: v2.7.0](https://img.shields.io/badge/Release-v2.7.0--submission--kit-blue.svg)](https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/releases/tag/v2.7.0-journal-submission-kit)
+[![Submission kit: v2.7.0](https://img.shields.io/badge/Release-v2.7.1--submission--kit-blue.svg)](https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/releases/tag/v2.7.1-journal-submission-kit)
 [![FIPS 203: ML-KEM-768](https://img.shields.io/badge/FIPS%20203-ML--KEM--768-success.svg)](https://csrc.nist.gov/pubs/fips/203/final)
 [![ProVerif: Model scope](https://img.shields.io/badge/ProVerif%202.05-bounded%20model-blue.svg)](docs/evidence/proverif_verification_output.txt)
 
@@ -141,11 +141,11 @@ Isolated micro-benchmarks of individual cryptographic operations measured on phy
 ## 📜 License & Citation
 This project is licensed under the MIT License - see the [`LICENSE`](LICENSE) file for details.
 
-## Corrected campaign and submission status
+## Current journal candidate and evidence status
 
-This is an open-source-software article candidate for Computer Networks, not a claim of new hardware validation. The main article is `docs/research_paper.tex`; Supplementary Material S1 is `docs/submission/extended_technical_analysis.tex`. A journal submission has not been completed for this version.
-See [the readiness audit](docs/submission/GO_NO_GO.md) and
-[required hardware work](docs/submission/HARDWARE_RERUN.md).
+This revision is prepared for consideration as an Original Research article by **SN Computer Science**. No journal submission has been made from this version. The paper is an evidence-bounded implementation study, not a new cryptographic primitive, a TLS result, or a production-security certification. No new ESP32 measurements were collected for this manuscript revision.
+
+See [`docs/submission/GO_NO_GO.md`](docs/submission/GO_NO_GO.md) for the current readiness decision and [`docs/evidence/EVIDENCE_STATUS.md`](docs/evidence/EVIDENCE_STATUS.md) for the evidence limits. The source/evidence snapshot and release archive are identified in the manuscript's Data and Code Availability section. The subscription publication route is available if the paper is accepted; authors should recheck the portal before choosing a route.
 
 | Archived n=100 statistic | Recomputed value |
 |---|---:|
@@ -155,31 +155,5 @@ See [the readiness audit](docs/submission/GO_NO_GO.md) and
 | Minimum / maximum | 525.66 / 1989.39 ms |
 | Mean elapsed CCOUNT | 100.33 million cycles |
 | Logged HMAC-verified completions (all-attempt denominator unknown) | 100 |
-| Watchdog API ``task not found`` errors (not evidence of hardware resets) | 100 |
+| Watchdog API `task not found` errors (not evidence of hardware resets) | 100 |
 | Handshake-body bytes, both directions | 2,417 |
-
-The latency and CCOUNT timing windows differ; CCOUNT is not isolated CPU work.
-Heap snapshots average 22.24 bytes and miss transient allocations. The independent
-13.8 KB profile is separately reported and is not an n=100 statistic. A 32 KiB
-task stack is configured in `firmware/main/main.c`; its measured high-water mark
-was not archived. The recorded campaign uses ESP-IDF v5.5 at 160 MHz.
-
-Recompute and verify without changing raw observations:
-
-```bash
-python tools/analyze_submission.py --check
-```
-
-The corrected harness counts failed attempts, preserves run IDs and sample SD,
-propagates response failures and retains inter-iteration delays without calling
-TWDT reset from an unsubscribed task. The server now fails PQC requests if its
-native library is missing. New hardware evidence is needed for execution claims
-about these corrections. Historical logs remain byte-for-byte unchanged.
-
-The former root manuscript PDF is preserved as `docs/archive/research_paper_v2_1.pdf`. The journal-candidate release contains the editable manuscript source and supporting evidence; its source should be compiled using the target journal's current template before submission.
-
-Recompute the separate primitive acquisition with:
-
-    python3 tools/analyze_primitive_trace.py
-
-Its operation means are not a decomposition of the separately acquired n=100 campaign.

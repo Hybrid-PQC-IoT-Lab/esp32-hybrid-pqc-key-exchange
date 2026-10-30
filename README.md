@@ -2,13 +2,13 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![CI](https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/actions/workflows/ci.yml/badge.svg)](https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/actions/workflows/ci.yml)
-[![Historical release: v2.1-mlkem768](https://img.shields.io/badge/Release-v2.1--mlkem768--final-blue.svg)](https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/releases/tag/v2.1-mlkem768-final)
+[![Journal candidate: v2.6.0](https://img.shields.io/badge/Release-v2.6.0--journal--candidate-blue.svg)](https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/releases/tag/v2.6.0-journal-candidate)
 [![FIPS 203: ML-KEM-768](https://img.shields.io/badge/FIPS%20203-ML--KEM--768-success.svg)](https://csrc.nist.gov/pubs/fips/203/final)
 [![ProVerif: Model scope](https://img.shields.io/badge/ProVerif%202.05-bounded%20model-blue.svg)](docs/evidence/proverif_verification_output.txt)
 
 This repository hosts the complete, sanitized experimental reproducibility package for the research paper:
 
-> **"Design and Experimental Characterization of a PSK-Authenticated Hybrid Key Exchange on ESP32"**
+> **"An ESP32 Implementation Study of Pre-Provisioned Hybrid X25519 and ML-KEM-768 Key Exchange"**
 
 The repository provides an inspectable ESP32 research testbed combining X25519 and ML-KEM-768 with PSK-authenticated transcripts. Archived hardware measurements are historical; later harness corrections have not been physically validated by those logs. Telemetry uses one traffic key across directions and has a documented reflection/replay limitation. This is not a production-security claim or NIST-certified implementation.
 
@@ -16,14 +16,14 @@ The repository provides an inspectable ESP32 research testbed combining X25519 a
 
 ## Evidence status
 
-Read [EVIDENCE_STATUS.md](docs/evidence/EVIDENCE_STATUS.md) before using historical reports. The 29 October research edition foregrounds the certificate-free deployment rationale and the separately measured primitive-cost bottleneck. See [resubmission readiness](docs/submission/RESUBMISSION_READINESS_2026-10-29.md). Historical submissions and measurements remain separately identified.
+Read [EVIDENCE_STATUS.md](docs/evidence/EVIDENCE_STATUS.md) before using historical reports. The 30 October journal candidate foregrounds the pre-provisioned-PSK HTTP deployment, separates the measurement acquisitions, and compares its scope with recent TLS and MQTT studies without claiming a controlled performance advantage. See [resubmission readiness](docs/submission/RESUBMISSION_READINESS_2026-10-29.md). Historical submissions and measurements remain separately identified.
 
 ## 🔒 Security & Sanitization Notice
 In strict accordance with peer-review research integrity standards and privacy best practices:
 - **Zero Active Private Credentials**: All production Wi-Fi passwords, private keys, and operational secrets have been eliminated.
 - **Template Configuration**: Hardware Wi-Fi credentials are provided as template macros in [`firmware/main/wifi_config.h`](firmware/main/wifi_config.h). Local lab overrides can be placed in `wifi_config.local.h` (strictly ignored by `.gitignore`).
 - **Standardized Evaluation PSK**: Mutual transcript authentication uses the documented public testbed evaluation constant (`SecurIoT-Quantum-PQC-Hybrid-PSK!`).
-- **Evidence provenance**: UART logs and processed CSVs are preserved as supplied. PCAPs in `data/sanitized_pcaps/` are synthetic Scapy illustrations. The endurance CSV contains 14,157 accepted sessions; its original master wire-capture log is not included. Energy entries are fixed-window calculations from manual current notes.
+- **Evidence provenance**: UART logs and processed CSVs are preserved as supplied. PCAPs in `data/sanitized_pcaps/` are synthetic Scapy illustrations. The recovered endurance tcpdump text is included with its SHA-256 and a neutral packet-level audit. It records 17,502 client SYN events and supports 14,157 parser-accepted TCP-flow records; neither count is a verified cryptographic handshake or success rate. Energy entries are fixed-window calculations from manual current notes.
 
 ---
 
@@ -176,7 +176,7 @@ TWDT reset from an unsubscribed task. The server now fails PQC requests if its
 native library is missing. New hardware evidence is needed for execution claims
 about these corrections. Historical logs remain byte-for-byte unchanged.
 
-The former root manuscript PDF is preserved as `docs/archive/research_paper_v2_1.pdf`. The current compiled PDF is generated into the release package; it is not a stale checked-in binary.
+The former root manuscript PDF is preserved as `docs/archive/research_paper_v2_1.pdf`. The journal-candidate release contains the editable manuscript source and supporting evidence; its source should be compiled using the target journal's current template before submission.
 
 Recompute the separate primitive acquisition with:
 

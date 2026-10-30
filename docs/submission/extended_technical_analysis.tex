@@ -50,6 +50,9 @@
 
 \maketitle
 
+\noindent\textbf{Accompanying article:} ``An ESP32 Implementation Study of Pre-Provisioned Hybrid X25519 and ML-KEM-768 Key Exchange''\par
+\noindent\textbf{Journal:} SN Computer Science
+
 \begin{abstract}
 This paper presents a hybrid X25519 and ML-KEM-768 key exchange on an ESP32-D0WD-V3 at 160~MHz with FreeRTOS and Wi-Fi. HKDF-SHA256 combines the shared secrets, a pre-shared-key HMAC-SHA256 construction authenticates the handshake transcript, and AES-256-GCM encrypts telemetry. Reanalysis of an archived 100-handshake campaign gives a mean instrumented latency of \BenchmarkMeanMs~ms, sample standard deviation of \BenchmarkSdMs~ms, and 95\% confidence interval of \BenchmarkLowMs~to~\BenchmarkHighMs~ms. The broader processor-cycle interval averages \BenchmarkCyclesM~million cycles. All observations, including slow runs, are retained. A historical note reports a 13.8~KB allocation estimate; the complete profiling trace is unavailable, and sparse campaign snapshots do not establish a transient peak. Manual electrical observations support fixed-window calculations. Archived ProVerif results establish encoded payload confidentiality and client-to-server injective agreement under an uncompromised private pre-shared key. Post-compromise security and telemetry-direction separation are not established. Telemetry shares a key across directions, and empirical side-channel resistance remains unevaluated. Source code, raw observations, and analysis scripts support reproducible evaluation of this embedded research prototype. Historical measurements do not physically validate later benchmark-harness corrections.
 \end{abstract}

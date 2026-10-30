@@ -1,10 +1,9 @@
 \documentclass[pdflatex,sn-mathphys-num]{sn-jnl}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{graphicx}
+\usepackage{xcolor}
 \usepackage{booktabs}
 \usepackage{tabularx}
-\usepackage{tikz}
-\usetikzlibrary{arrows.meta,positioning}
 \input{benchmark_values.tex}
 % The packaging tool creates this file from the exact frozen source commit.
 \IfFileExists{artifact_identity.tex}{\input{artifact_identity.tex}}{%
@@ -12,12 +11,12 @@
   \newcommand{\ArtifactRepository}{https://github.com/muhammadsohaimmuqtada/esp32-hybrid-pqc-key-exchange}%
   \newcommand{\ArtifactRelease}{UNPUBLISHED-CANDIDATE}%
 }
-\hypersetup{hidelinks}
+\hypersetup{hidelinks,pdftitle={An ESP32 Implementation Study of Pre-Provisioned Hybrid X25519 and ML-KEM-768 Key Exchange},pdfauthor={Hafiz Ali Mansoor Elahi; Muhammad Sohaim Muqtada}}
 \begin{document}
 
 \title[ESP32 Hybrid Key Exchange Characterization]{An ESP32 Implementation Study of Pre-Provisioned Hybrid X25519 and ML-KEM-768 Key Exchange}
 
-\author*[1]{\fnm{Hafiz Ali Mansoor} \sur{Elahi}\thanks{ORCID: \url{https://orcid.org/0009-0006-4378-6391}}}\email{hafiz.ali@promakerinstitute.com}
+\author*[1]{\fnm{Hafiz Ali Mansoor} \sur{Elahi}}\email{\href{mailto:hafiz.ali@promakerinstitute.com}{hafiz.ali@promakerinstitute.com}; ORCID: \href{https://orcid.org/0009-0006-4378-6391}{0009-0006-4378-6391}}
 \author[2]{\fnm{Muhammad Sohaim} \sur{Muqtada}}\email{f2024408084@umt.edu.pk}
 
 \affil*[1]{\orgname{Promaker Institute}, \orgaddress{\street{18-C Block, Civic Center, Faisal Town}, \city{Lahore}, \country{Pakistan}}}
@@ -30,33 +29,12 @@
 \textbf{Conclusion:} The contribution is an inspectable implementation and evidence-bounded characterization of this PSK-authenticated HTTP deployment, including its telemetry lifecycle. It is not a new cryptographic primitive, a claim of first ESP32 deployment, or evidence of superiority to TLS. Shared traffic keys across directions, incomplete historical binary provenance and unevaluated side channels limit broader security conclusions.
 }
 \keywords{ESP32, ML-KEM, X25519, FreeRTOS, Reproducibility, Telemetry}
+\maketitle
 
 \begin{figure}[htbp]
 \centering
-\resizebox{\textwidth}{!}{%
-\begin{tikzpicture}[
-  font=\small,
-  proto/.style={draw,rounded corners,align=center,text width=3.45cm,minimum height=1.35cm,inner sep=5pt},
-  evidence/.style={draw,dashed,rounded corners,align=left,text width=4.25cm,minimum height=1.4cm,inner sep=6pt},
-  flow/.style={-{Latex[length=2.2mm]},thick},
-  note/.style={-{Latex[length=1.8mm]},dotted,thick}
-]
-\node[proto] (client) {\textbf{ESP32 client}\\FreeRTOS; provisioned PSK\\X25519 + ML-KEM-768};
-\node[proto,right=0.55cm of client] (exchange) {\textbf{HTTP exchange}\\HMAC-authenticated request and response\\HKDF-SHA256 over both shared secrets};
-\node[proto,right=0.55cm of exchange] (server) {\textbf{Python server}\\Native ML-KEM-768 backend\\Session key and telemetry endpoint};
-\draw[flow] (client) -- node[above,align=center,font=\scriptsize]{key shares\\and transcript HMAC} (exchange);
-\draw[flow] (exchange) -- node[above,align=center,font=\scriptsize]{response\\and key derivation} (server);
-\node[proto,below=0.55cm of exchange,text width=5.0cm] (telemetry) {\textbf{Encrypted telemetry lifecycle}\\AES-256-GCM without AAD; a new exchange follows 50 processed responses};
-\draw[flow] (server.south) |- (telemetry.east);
-\node[evidence,below=0.8cm of client] (campaign) {\textbf{Archived application campaign}\\100 records marked HMAC-verified; latency and elapsed CCOUNT. The all-attempt denominator is unavailable.};
-\node[evidence,right=0.5cm of campaign] (primitive) {\textbf{Separate primitive trace}\\X25519 and ML-KEM-768 operation timings; operation sample counts differ.};
-\node[evidence,right=0.5cm of primitive] (context) {\textbf{Separate exploratory evidence}\\TLS observations, heap profile and electrical notes; not a matched comparison.};
-\draw[note] (client.south) -- (campaign.north);
-\draw[note] (telemetry.south west) |- (primitive.north);
-\draw[note] (server.south) |- (context.north);
-\end{tikzpicture}%
-}
-\caption{Study overview. The upper path summarizes the implemented application exchange and telemetry lifecycle. The lower boxes represent separate evidence acquisitions; they are not one matched campaign and do not establish a performance advantage over TLS.}
+\includegraphics[width=\textwidth]{../figures/Fig1_study_overview.pdf}
+\caption{Study overview. The upper path summarizes the implemented application exchange and telemetry lifecycle. The lower boxes represent separate evidence acquisitions; they are not one matched campaign and do not establish a performance advantage over TLS. Here, pk denotes public key, ct denotes ciphertext, and HMAC denotes transcript authentication.}
 \label{fig:overview}
 \end{figure}
 
@@ -81,7 +59,7 @@ This study & PSK-authenticated HTTP exchange and AES-GCM telemetry on ESP32-D0WD
 \end{tabularx}
 \end{table}
 
-The package is useful for examining binary transcript framing, measurement placement and the distinction between historical hardware observations and current host checks. Supplementary Material S1 retains the extended technical analysis and historical comparisons. Supplementary Material S2 contains the source, evidence and reproduction instructions from the frozen software version cited in Section~\ref{sec:availability}. Separate data acquisitions remain explicitly identified.
+The package is useful for examining binary transcript framing, measurement placement and the distinction between historical hardware observations and current host checks. The extended technical analysis and historical comparisons are provided in Online Resource~1. Source code, raw evidence, analysis scripts and reproduction instructions are provided in Online Resource~2. Separate data acquisitions remain explicitly identified.
 
 \subsection{Research questions and study design}
 The study asks three questions: which client operations dominate the cost of the selected hybrid implementation; what latency distribution and elapsed-cycle behavior occur in the archived application campaign; and how the authentication, framing and measurement choices constrain interpretation of these results? We examine one ESP32 platform and one archived campaign. The analysis retains every recorded observation, identifies the measurement intervals in the source, and distinguishes observations from symbolic and host-level checks. It is a descriptive implementation study; it does not test a causal performance advantage over TLS or establish a new cryptographic construction.
@@ -218,7 +196,12 @@ The testbed provides source-level access to the PSK-authenticated exchange, its 
 The primitive acquisition identifies the selected X25519 implementation, rather than client-side ML-KEM, as the dominant local cost in that trace (592.80~ms against 32.47~ms for the two measured ML-KEM operations). This provides a concrete optimization priority for this software configuration, although a matched before-and-after experiment is required to demonstrate an improvement. The historical campaign yields a mean instrumented latency of \BenchmarkMeanMs~ms and mean elapsed CCOUNT of \BenchmarkCyclesM~million cycles on the stated ESP32 setup. Together these records characterize one certificate-free, PSK-authenticated application-layer prototype; they do not show superiority to TLS. Direction-separated traffic keys, stronger implementation correctness checks and controlled memory/energy measurements are necessary for stronger security or efficiency claims. No production-readiness, first-implementation or new-primitive claim is made.
 
 \section{Data and code availability}\label{sec:availability}
-The software and evidence version is identified by source commit \nolinkurl{\ArtifactCommit} at \url{\ArtifactRepository}; the associated archive is \url{\ArtifactRelease}. The source, generated analyses, S1, S2 and SHA-256 manifest are linked from that version. The historical measurements are preserved from commit \nolinkurl{467bbe7a3c5a718d4eec7c882bc00f042487304d}. The recovered endurance tcpdump text and neutral packet-level audit are included in the accompanying evidence materials; the raw capture SHA-256 is \texttt{958cf70de291297887b70c49e2e6cb8c90e44fc6f5b48036c4da7758867c4494}. A separate corrected-source ESP-IDF v5.5 compiler archive is supplied with its original commit and hashes; it does not identify the historical measurement binary. This software version does not imply a new board execution. Original source copyright and license notices are retained.
+The software and evidence version is identified by source commit \nolinkurl{\ArtifactCommit} at \url{\ArtifactRepository}; the associated archive is \url{\ArtifactRelease}. Online Resources~1 and~2, generated analyses and the SHA-256 manifest are linked from that version. The historical measurements are preserved from commit \nolinkurl{467bbe7a3c5a718d4eec7c882bc00f042487304d}. The recovered endurance tcpdump text and neutral packet-level audit are included in the accompanying evidence materials; the raw capture SHA-256 is \texttt{958cf70de291297887b70c49e2e6cb8c90e44fc6f5b48036c4da7758867c4494}. A separate corrected-source ESP-IDF v5.5 compiler archive is supplied with its original commit and hashes; it does not identify the historical measurement binary. This software version does not imply a new board execution. Original source copyright and license notices are retained.
+
+\section*{Supplementary information}
+Online Resource~1: Extended technical analysis, including protocol details and limitations of the separate historical TLS, endurance, heap and electrical acquisitions.
+
+Online Resource~2: Source code, raw records, analysis scripts, verification output, reproduction instructions and checksums associated with the cited source release.
 
 \section*{Statements and Declarations}
 \subsection*{Author contributions}
@@ -231,7 +214,7 @@ This research did not receive any specific grant from funding agencies in the pu
 Hafiz Ali Mansoor Elahi is a co-founder of Promaker Institute, his stated institutional affiliation. The authors declare no competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
 
 \subsection*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
-During preparation of this manuscript, the authors used OpenAI Codex to assist with evidence consistency checks, reproducible statistical analysis, code and documentation corrections, and manuscript editing. After using this tool, the authors reviewed and edited the content as needed and take full responsibility for the content of the published article. No hardware measurements were generated by AI.
+During preparation of this manuscript, the authors used OpenAI Codex to assist with evidence consistency checks, reproducible statistical analysis, code and documentation corrections, manuscript editing, and preparation of the schematic overview figure from the documented protocol and evidence descriptions. After using this tool, the authors reviewed and edited the content as needed and take full responsibility for the content of the published article. No hardware measurements were generated by AI.
 
 \subsection*{Ethics approval}
 This study reports software and hardware experiments and did not involve human participants, personal participant data or animals. Ethics approval and participant consent are not applicable.

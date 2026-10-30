@@ -35,10 +35,13 @@ def main():
     ap.add_argument('--output',type=Path,required=True)
     ap.add_argument('--repository',required=True)
     ap.add_argument('--tag',required=True)
+    ap.add_argument('--artifact-commit',help='Exact software/evidence revision cited in the manuscript; defaults to --commit.')
     ap.add_argument('--tectonic',default=os.environ.get('CODEX_TECTONIC_PATH','tectonic'))
+    ap.add_argument('--pdflatex',help='Use pdflatex twice instead of Tectonic to build the archived manuscript.')
     ap.add_argument('--validation-dir',type=Path)
     args=ap.parse_args()
     commit=git('rev-parse',args.commit+'^{commit}').decode().strip()
+    artifact_commit=git('rev-parse',(args.artifact_commit or commit)+'^{commit}').decode().strip()
     out=args.output.resolve()
     if out.exists():
         raise SystemExit('Output already exists; choose a new directory to preserve earlier artifacts.')
@@ -63,8 +66,8 @@ def main():
             preserved.append(entry)
     identity=source/'docs/artifact_identity.tex'
     identity.write_text('% Generated from immutable Git metadata.\n'
-        +'\\newcommand{\\ArtifactCommit}{'+commit+'}\n'
-        +'\\newcommand{\\ArtifactRepository}{'+args.repository+'/tree/'+commit+'}\n'
+        +'\\newcommand{\\ArtifactCommit}{'+artifact_commit+'}\n'
+        +'\\newcommand{\\ArtifactRepository}{'+args.repository+'/tree/'+artifact_commit+'}\n'
         +'\\newcommand{\\ArtifactRelease}{'+args.repository+'/releases/tag/'+args.tag+'}\n',encoding='utf-8')
     pdf_dir=out/'manuscript'
     pdf_dir.mkdir()
@@ -72,9 +75,21 @@ def main():
     validation.mkdir()
     env=os.environ.copy()
     env['SOURCE_DATE_EPOCH']=git('show','-s','--format=%ct',commit).decode().strip()
-    command=[args.tectonic,'-X','compile','--untrusted','--keep-logs','--outdir',str(pdf_dir),'research_paper.tex']
-    result=subprocess.run(command,cwd=source/'docs',env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
-    (validation/'latex-build.log').write_bytes(result.stdout)
+    if args.pdflatex:
+        outputs=[]
+        for pass_number in (1,2):
+            command=[args.pdflatex,'-interaction=nonstopmode','-halt-on-error',
+                     '-output-directory='+str(pdf_dir),'research_paper.tex']
+            result=subprocess.run(command,cwd=source/'docs',env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+            outputs.append(('--- pdflatex pass '+str(pass_number)+' ---\n').encode()+result.stdout)
+            if result.returncode:
+                break
+        build_log=b'\n'.join(outputs)
+    else:
+        command=[args.tectonic,'-X','compile','--untrusted','--keep-logs','--outdir',str(pdf_dir),'research_paper.tex']
+        result=subprocess.run(command,cwd=source/'docs',env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+        build_log=result.stdout
+    (validation/'latex-build.log').write_bytes(build_log)
     if result.returncode:
         raise RuntimeError('LaTeX build failed; see validation/latex-build.log')
     if not (pdf_dir/'research_paper.pdf').exists():
@@ -84,12 +99,13 @@ def main():
             if p.is_file() and p.name!='latex.log':
                 (validation/p.name).write_bytes(p.read_bytes())
     provenance={
-        'source_commit':commit,'measurement_source_commit':BASE,
+        'source_commit':commit,'artifact_identity_commit':artifact_commit,'measurement_source_commit':BASE,
         'repository':args.repository,'candidate_release_tag':args.tag,
         'release_url':args.repository+'/releases/tag/'+args.tag,
         'status':'NO-GO for journal submission until documented blockers are resolved',
         'build_epoch':env['SOURCE_DATE_EPOCH'],
         'preserved_evidence_files':preserved,
+        'pdf_compiler':args.pdflatex or args.tectonic,
         'source_export':'git archive of source_commit; generated artifact_identity.tex is the only added source-directory file',
         'derived_outputs':['source/docs/artifact_identity.tex','manuscript/research_paper.pdf','validation/','BUILD_PROVENANCE.json','MANIFEST_SHA256.json'],
         'original_release_pdf_sha256':'3a95ae9c4feca696084fd67a78eee4cf13c287bd2dd8212e9b1381f5bb104b58',
@@ -104,7 +120,7 @@ def main():
         +'The corrected manuscript is `manuscript/research_paper.pdf`.\n'
         +'Editable source and figures are under `source/docs` and `source/figures`.\n'
         +'Historical PDF is clearly marked under `source/docs/archive/`.\n'
-        +'No new ESP32 measurements were created. Author placeholders and hardware-evidence gaps remain.\n'
+        +'No new ESP32 measurements were created. Author metadata is populated; remaining historical-evidence limitations are listed in the readiness audit.\n'
         +'`BUILD_PROVENANCE.json` gives the exact source commit and preserved evidence list.\n',encoding='utf-8')
     records=[]
     for p in sorted(out.rglob('*')):

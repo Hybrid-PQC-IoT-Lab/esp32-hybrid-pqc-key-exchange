@@ -1,0 +1,19 @@
+\begin{tikzpicture}[
+  font=\sffamily\small,
+  device/.style={draw,rounded corners,align=center,text width=3.7cm,minimum height=1.65cm,inner sep=6pt,execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000}},
+  derive/.style={draw,rounded corners,align=center,text width=7.6cm,minimum height=0.85cm,inner sep=5pt,execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000}},
+  telemetry/.style={draw,rounded corners,align=center,text width=8.7cm,minimum height=0.8cm,inner sep=5pt,execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000}},
+  evidence/.style={draw,dashed,rounded corners,align=left,text width=4.15cm,minimum height=1.3cm,inner sep=6pt,execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000}},
+  flow/.style={-{Latex[length=2.2mm]},thick}
+]
+\node[device] (client) at (0,0) {\textbf{ESP32-D0WD-V3 client}\\Provisioned PSK; FreeRTOS\\\mbox{X25519} + \mbox{ML-KEM-768}};
+\node[device] (server) at (12,0) {\textbf{Python HTTP server}\\Native C \mbox{ML-KEM-768}\\HMAC transcript check};
+\draw[flow] ([yshift=0.32cm]client.east) -- node[midway,above,align=center,text width=6.4cm,font=\footnotesize]{HTTP request: \\X25519 pk + ML-KEM-768 pk + PSK HMAC} ([yshift=0.32cm]server.west);
+\draw[flow] ([yshift=-0.32cm]server.west) -- node[midway,below,align=center,text width=7.4cm,font=\footnotesize]{HTTP response: \\X25519 pk + KEM ct + transcript HMAC} ([yshift=-0.32cm]client.east);
+\node[derive] (derive) at (6,-2.05) {\textbf{Hybrid session-key derivation}\\HKDF-SHA256 combines \mbox{X25519} and \mbox{ML-KEM-768} shared secrets};
+\node[telemetry] (telemetry) at (6,-3.65) {\textbf{Encrypted telemetry lifecycle}\\\mbox{AES-256-GCM}; no AAD. Renew after 50 processed telemetry responses};
+\node[font=\sffamily\footnotesize\bfseries,align=center] at (6,-5.05) {Separate evidence acquisitions; no matched comparison};
+\node[evidence] (campaign) at (0,-6.85) {\textbf{Archived campaign}\\100 HMAC-verified\\completion records\\Latency, CCOUNT; total attempts unknown};
+\node[evidence] (primitive) at (6,-6.85) {\textbf{Primitive trace}\\X25519 and ML-KEM-768 timings\\Sample count differs by operation};
+\node[evidence] (context) at (12,-6.85) {\textbf{Exploratory traces}\\TLS, heap profile and manual electrical notes\\Exploratory only};
+\end{tikzpicture}

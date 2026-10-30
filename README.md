@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![CI](https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/actions/workflows/ci.yml/badge.svg)](https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/actions/workflows/ci.yml)
-[![Journal candidate: v2.6.0](https://img.shields.io/badge/Release-v2.6.0--journal--candidate-blue.svg)](https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/releases/tag/v2.6.0-journal-candidate)
+[![Submission kit: v2.7.0](https://img.shields.io/badge/Release-v2.7.0--submission--kit-blue.svg)](https://github.com/Hybrid-PQC-IoT-Lab/esp32-hybrid-pqc-key-exchange/releases/tag/v2.7.0-journal-submission-kit)
 [![FIPS 203: ML-KEM-768](https://img.shields.io/badge/FIPS%20203-ML--KEM--768-success.svg)](https://csrc.nist.gov/pubs/fips/203/final)
 [![ProVerif: Model scope](https://img.shields.io/badge/ProVerif%202.05-bounded%20model-blue.svg)](docs/evidence/proverif_verification_output.txt)
 
@@ -16,7 +16,7 @@ The repository provides an inspectable ESP32 research testbed combining X25519 a
 
 ## Evidence status
 
-Read [EVIDENCE_STATUS.md](docs/evidence/EVIDENCE_STATUS.md) before using historical reports. The 30 October journal candidate foregrounds the pre-provisioned-PSK HTTP deployment, separates the measurement acquisitions, and compares its scope with recent TLS and MQTT studies without claiming a controlled performance advantage. See [resubmission readiness](docs/submission/RESUBMISSION_READINESS_2026-10-29.md). Historical submissions and measurements remain separately identified.
+Read [EVIDENCE_STATUS.md](docs/evidence/EVIDENCE_STATUS.md) before using historical reports. The 30 October submission kit foregrounds the pre-provisioned-PSK HTTP deployment, separates the measurement acquisitions, and compares its scope with recent TLS and MQTT studies without claiming a controlled performance advantage. It includes the journal-ready vector overview figure and submission checklist. See [resubmission readiness](docs/submission/RESUBMISSION_READINESS_2026-10-29.md). Historical submissions and measurements remain separately identified.
 
 ## 🔒 Security & Sanitization Notice
 In strict accordance with peer-review research integrity standards and privacy best practices:

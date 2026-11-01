@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180mm" height="108mm" viewBox="0 0 1800 1080" role="img" aria-labelledby="title desc">
+<title id="title">ESP32 hybrid key-exchange testbed and evidence overview</title>
+<desc id="desc">Two-panel vector diagram. Panel A shows an ESP32 client exchanging X25519 and ML-KEM-768 material with a PSK-authenticated HTTP server, deriving a session key, and protecting telemetry. Panel B distinguishes the archived 100-run campaign from a separate primitive timing trace. The measurements identify an optimization target but do not prove an efficiency improvement.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f5f9ff"/><stop offset="1" stop-color="#f8fbfa"/></linearGradient>
+  <linearGradient id="blue" x1="0" x2="1"><stop stop-color="#dceeff"/><stop offset="1" stop-color="#edf6ff"/></linearGradient>
+  <linearGradient id="teal" x1="0" x2="1"><stop stop-color="#ddf7f2"/><stop offset="1" stop-color="#effbf8"/></linearGradient>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#17324d" flood-opacity=".10"/></filter>
+  <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2563eb"/></marker>
+  <marker id="arrowTeal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f9b8e"/></marker>
+  <style>
+    text{font-family:Arial,Helvetica,sans-serif;fill:#18324b}.title{font-size:34px;font-weight:700}.section{font-size:23px;font-weight:700;letter-spacing:.3px}.head{font-size:22px;font-weight:700}.body{font-size:18px}.small{font-size:15px}.metric{font-size:28px;font-weight:700}.muted{fill:#536a80}.white{fill:#fff}.card{fill:#fff;stroke:#d8e3ee;stroke-width:2}.pill{font-size:14px;font-weight:700;letter-spacing:.6px}
+  </style>
+</defs>
+<rect width="1800" height="1080" rx="30" fill="url(#bg)"/>
+<text x="58" y="66" class="title">ESP32 hybrid key-exchange testbed and evidence</text>
+<text x="58" y="101" class="body muted">One implementation path, with separately acquired measurements and their limits made visible</text>
+
+<!-- Panel A: system and protocol -->
+<rect x="48" y="132" width="1085" height="585" rx="24" class="card" filter="url(#shadow)"/>
+<circle cx="82" cy="174" r="19" fill="#2563eb"/><text x="82" y="181" text-anchor="middle" class="body white" font-weight="700">A</text>
+<text x="114" y="182" class="section">IMPLEMENTED EXCHANGE</text>
+<text x="81" y="219" class="small muted">Pre-provisioned PSK authentication · application-layer HTTP · ESP-IDF / FreeRTOS</text>
+
+<!-- ESP32 device card -->
+<rect x="82" y="255" width="300" height="210" rx="20" fill="url(#blue)" stroke="#9bc7f3" stroke-width="2"/>
+<rect x="104" y="284" width="76" height="90" rx="10" fill="#174a7e"/>
+<rect x="114" y="294" width="56" height="70" rx="5" fill="#eaf5ff"/>
+<path d="M121 304h42M121 314h42M121 344h42M121 354h42M96 300h8m-8 14h8m-8 14h8m-8 14h8m76-42h9m-9 14h9m-9 14h9m-9 14h9M119 275v9m14-9v9m14-9v9m14-9v9M119 374v9m14-9v9m14-9v9m14-9v9" stroke="#174a7e" stroke-width="4" stroke-linecap="round"/>
+<text x="198" y="302" class="head">ESP32-D0WD-V3</text>
+<text x="198" y="334" class="body">Client device</text>
+<text x="198" y="366" class="small">X25519 + ML-KEM-768</text>
+<text x="198" y="391" class="small">Pre-shared key (PSK)</text>
+<text x="198" y="416" class="small">160 MHz · FreeRTOS</text>
+
+<!-- HTTP messages -->
+<path d="M404 319H758" stroke="#2563eb" stroke-width="5" marker-end="url(#arrowBlue)"/>
+<rect x="485" y="277" width="205" height="34" rx="17" fill="#2563eb"/><text x="587" y="300" text-anchor="middle" class="pill white">HTTP REQUEST</text>
+<text x="581" y="347" text-anchor="middle" class="small">X25519 public key · KEM public key</text>
+<text x="581" y="370" text-anchor="middle" class="small">PSK transcript authenticator</text>
+<path d="M758 402H404" stroke="#0f9b8e" stroke-width="5" marker-end="url(#arrowTeal)"/>
+<rect x="485" y="412" width="205" height="34" rx="17" fill="#0f9b8e"/><text x="587" y="435" text-anchor="middle" class="pill white">HTTP RESPONSE</text>
+<text x="581" y="474" text-anchor="middle" class="small">X25519 public key · KEM ciphertext</text>
+<text x="581" y="497" text-anchor="middle" class="small">Session ID · transcript authenticator</text>
+
+<!-- server icon/card -->
+<rect x="782" y="255" width="309" height="210" rx="20" fill="url(#teal)" stroke="#91d9cc" stroke-width="2"/>
+<rect x="807" y="283" width="69" height="98" rx="9" fill="#126e69"/>
+<rect x="817" y="294" width="49" height="22" rx="4" fill="#e8fbf7"/><rect x="817" y="323" width="49" height="22" rx="4" fill="#e8fbf7"/><rect x="817" y="352" width="49" height="18" rx="4" fill="#e8fbf7"/>
+<circle cx="827" cy="305" r="3" fill="#0f9b8e"/><circle cx="827" cy="334" r="3" fill="#0f9b8e"/><circle cx="827" cy="361" r="3" fill="#0f9b8e"/>
+<text x="894" y="302" class="head">HTTP server</text>
+<text x="894" y="334" class="body">Python service</text>
+<text x="894" y="366" class="small">Native C ML-KEM-768</text>
+<text x="894" y="391" class="small">Transcript HMAC check</text>
+<text x="894" y="416" class="small">No simulated KEM fallback</text>
+
+<!-- derivation and telemetry -->
+<path d="M232 465v37h360M936 465v37H592" fill="none" stroke="#7a8da0" stroke-width="2.5" stroke-dasharray="7 7"/>
+<rect x="207" y="510" width="770" height="70" rx="18" fill="#eef4ff" stroke="#a9c7f1" stroke-width="2"/>
+<circle cx="252" cy="545" r="19" fill="#4c6fff"/><path d="M243 545h18m-9-9v18" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+<text x="286" y="540" class="head">Hybrid session key</text>
+<text x="286" y="565" class="small">HKDF-SHA256 combines X25519 and ML-KEM-768 shared secrets</text>
+<path d="M592 582v25" stroke="#4c6fff" stroke-width="4" marker-end="url(#arrowBlue)"/>
+<rect x="207" y="616" width="770" height="70" rx="18" fill="#fff5df" stroke="#f0cf83" stroke-width="2"/>
+<circle cx="252" cy="651" r="19" fill="#e8a72a"/><path d="M252 638l12 5v9c0 8-7 13-12 15-5-2-12-7-12-15v-9z" fill="none" stroke="#fff" stroke-width="2.5"/>
+<text x="286" y="646" class="head">Encrypted telemetry lifecycle</text>
+<text x="286" y="671" class="small">AES-256-GCM · fresh exchange after 50 processed telemetry responses</text>
+
+<!-- Panel B: evidence -->
+<rect x="1154" y="132" width="598" height="585" rx="24" class="card" filter="url(#shadow)"/>
+<circle cx="1188" cy="174" r="19" fill="#8254c8"/><text x="1188" y="181" text-anchor="middle" class="body white" font-weight="700">B</text>
+<text x="1220" y="182" class="section">WHAT THE RECORDS SHOW</text>
+<text x="1185" y="219" class="small muted">Two distinct acquisitions, not a before/after comparison</text>
+<rect x="1183" y="246" width="540" height="173" rx="18" fill="#f3f0ff" stroke="#c7b5ef" stroke-width="2"/>
+<rect x="1203" y="264" width="176" height="29" rx="14" fill="#8254c8"/><text x="1291" y="284" text-anchor="middle" class="pill white">ARCHIVED CAMPAIGN</text>
+<text x="1204" y="331" class="metric">n = 100</text>
+<text x="1204" y="361" class="body">Mean instrumented latency</text>
+<text x="1204" y="393" class="head">616.75 ms</text>
+<text x="1460" y="331" class="body">SD 244.13 ms</text>
+<text x="1460" y="361" class="body">95% CI</text>
+<text x="1460" y="393" class="head">568.31–665.19 ms</text>
+<text x="1185" y="457" class="head">Separate primitive timing trace</text>
+<text x="1185" y="481" class="small muted">Reported operation means; unequal sample counts</text>
+<!-- horizontal bar comparison -->
+<text x="1185" y="525" class="body">X25519 operations</text>
+<rect x="1390" y="506" width="263" height="29" rx="14" fill="#f3c56f"/>
+<text x="1666" y="528" class="body" font-weight="700">592.80 ms</text>
+<text x="1185" y="573" class="body">Client ML-KEM ops</text>
+<rect x="1390" y="554" width="15" height="29" rx="7" fill="#69c9bb"/>
+<text x="1418" y="576" class="body" font-weight="700">32.47 ms</text>
+<rect x="1183" y="611" width="540" height="74" rx="15" fill="#fff0ef" stroke="#efb2aa" stroke-width="2"/>
+<path d="M1207 632l12 22h-24z" fill="#d9544d"/><text x="1207" y="649" text-anchor="middle" class="small white" font-weight="700">!</text>
+<text x="1233" y="638" class="body" font-weight="700">Identifies a local optimization target.</text>
+<text x="1233" y="663" class="small">Does not prove speedup, end-to-end advantage,</text>
+<text x="1233" y="681" class="small">or superiority over TLS.</text>
+
+<text x="58" y="768" class="section">INTERPRETATION</text>
+<rect x="48" y="790" width="1704" height="210" rx="24" fill="#eaf4f5" stroke="#b6d7d7" stroke-width="2"/>
+<circle cx="94" cy="846" r="24" fill="#177e89"/><path d="M84 846l7 7 14-16" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="139" y="842" class="head">Supported by current evidence</text>
+<text x="139" y="875" class="body">Working ESP32 hybrid exchange; archived 100-record latency characterization;</text>
+<text x="139" y="906" class="body">X25519 is the dominant measured cost in the separate primitive trace.</text>
+<line x1="900" y1="817" x2="900" y2="963" stroke="#b6d7d7" stroke-width="2"/>
+<circle cx="950" cy="846" r="24" fill="#cc6c42"/><path d="M950 831v18m0 9v1" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+<text x="995" y="842" class="head">Not established by current records</text>
+<text x="995" y="875" class="body">Causal algorithmic speedup or efficiency gain versus prior work. That needs a</text>
+<text x="995" y="906" class="body">controlled before/after campaign on the same board, build conditions and workload.</text>
+<text x="58" y="1041" class="small muted">All figures are vector artwork. Timing summaries retain the acquisition boundaries and should not be read as a matched benchmark.</text>
+</svg>
